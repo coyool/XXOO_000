@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<userOverrides>
+  <override>
+    <path>E:\Git_repository\ST_UD01\BSP\BUZZ.C</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\ST_UD01\BSP\Drv_WD.c</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\ST_UD01\BSP\Drv_WD.h</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\ST_UD01\BSP\LED.c</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\ST_UD01\BSP\MX25L3206E.c</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\ST_UD01\BSP\UART_Drv.c</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\ST_UD01\BSP\UART_Drv.h</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\ST_UD01\BSP\button.c</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\ST_UD01\NOTE\CodeTemplates_V1.0.ENU.txt</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\ST_UD01\boot\IAP.c</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\ST_UD01\boot\IEC_21.c</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\ST_UD01\boot\Ymodem.c</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\ST_UD01\user\main.c</path>
+    <encoding>UTF-8</encoding>
+  </override>
+</userOverrides>
+
+

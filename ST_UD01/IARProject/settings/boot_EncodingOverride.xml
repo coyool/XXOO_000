@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<userOverrides>
+  <override>
+    <path>E:\Git_repository\ST_UD01\BSP\UART_Drv.c</path>
+    <encoding>System</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\ST_UD01\temp\Ymodem_x.c</path>
+    <encoding>System</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\ST_UD01\user\main.c</path>
+    <encoding>System</encoding>
+  </override>
+</userOverrides>
+
+

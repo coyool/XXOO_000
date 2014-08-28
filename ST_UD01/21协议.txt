@@ -1,0 +1,60 @@
+﻿SUDT ACCESSPORT LOG FILE - Monitor mode
+
+Monitor: COM3
+Create Time: 2014-08-25, 14:05:11
+Computer Name: STAR-WZG
+System version: Microsoft Windows XP Professional Service Pack 3 (Build 2600)
+
+#       Time        Function                        Data ( String )	
+
+1       [00000000]  IRP_MJ_CREATE                   Port Opened - StarMeter.exe
+2       [00000000]  IOCTL_SERIAL_SET_BAUD_RATE      Baud Rate: 300
+3       [00000001]  IOCTL_SERIAL_SET_LINE_CONTROL   StopBits: 1, Parity: Even, DataBits: 7
+4       [00000798]  IRP_MJ_CLOSE                    Port Closed
+5       [00000000]  IRP_MJ_CREATE                   Port Opened - IAP_20140417.exe
+6       [00000001]  IOCTL_SERIAL_SET_BAUD_RATE      Baud Rate: 9600
+7       [00000002]  IOCTL_SERIAL_SET_LINE_CONTROL   StopBits: 1, Parity: Even, DataBits: 8
+8       [00000003]  IOCTL_SERIAL_SET_BAUD_RATE      Baud Rate: 9600
+9       [00000004]  IOCTL_SERIAL_SET_LINE_CONTROL   StopBits: 1, Parity: Even, DataBits: 8
+10      [00000005]  IOCTL_SERIAL_SET_BAUD_RATE      Baud Rate: 9600
+11      [00000006]  IOCTL_SERIAL_SET_LINE_CONTROL   StopBits: 1, Parity: Even, DataBits: 8
+12      [00000355]  IRP_MJ_CLOSE                    Port Closed
+13      [00000000]  IRP_MJ_CREATE                   Port Opened - IAP_20140417.exe
+14      [00000001]  IOCTL_SERIAL_SET_BAUD_RATE      Baud Rate: 300
+15      [00000002]  IOCTL_SERIAL_SET_LINE_CONTROL   StopBits: 1, Parity: Even, DataBits: 7
+16      [00000002]  IOCTL_SERIAL_SET_BAUD_RATE      Baud Rate: 300
+17      [00000004]  IOCTL_SERIAL_SET_LINE_CONTROL   StopBits: 1, Parity: Even, DataBits: 7
+18      [00000005]  IOCTL_SERIAL_SET_BAUD_RATE      Baud Rate: 2400
+19      [00000006]  IOCTL_SERIAL_SET_LINE_CONTROL   StopBits: 1, Parity: Even, DataBits: 7
+20      [00000011]  IRP_MJ_WRITE                    Length: 0005, Data: B0q
+21      [00000203]  IOCTL_SERIAL_SET_BAUD_RATE      Baud Rate: 300
+22      [00000205]  IOCTL_SERIAL_SET_LINE_CONTROL   StopBits: 1, Parity: Even, DataBits: 7
+23      [00000205]  IRP_MJ_WRITE                    Length: 0005, Data: /?!
+
+24      [00000223]  IRP_MJ_READ                     Length: 0001, Data: /
+25      [00000242]  IRP_MJ_READ                     Length: 0009, Data: STR4Tip:C
+26      [00000262]  IRP_MJ_READ                     Length: 0009, Data: M131D014A
+27      [00000281]  IRP_MJ_READ                     Length: 0002, Data: 
+
+28      [00000302]  IRP_MJ_WRITE                    Length: 0006, Data: 041
+
+29      [00000315]  IOCTL_SERIAL_SET_BAUD_RATE      Baud Rate: 4800
+30      [00000316]  IOCTL_SERIAL_SET_LINE_CONTROL   StopBits: 1, Parity: Even, DataBits: 7
+31      [00000324]  IRP_MJ_READ                     Length: 0001, Data: 
+32      [00000343]  IRP_MJ_READ                     Length: 0015, Data: P0(75410231)g
+33      [00000365]  IRP_MJ_WRITE                    Length: 0056, Data: P4(iAjv0q972f91agKd902083A75738E4D336FF53C3072BBF50)
+34      [00000378]  IRP_MJ_READ                     Length: 0001, Data: 
+35      [00000398]  IRP_MJ_WRITE                    Length: 0014, Data: E244.0.0()w
+36      [00000914]  IRP_MJ_READ                     Length: 0001, Data: .
+37      [00000933]  IRP_MJ_READ                     Length: 0002, Data: ?k
+38      [00000952]  IRP_MJ_WRITE                    Length: 0014, Data: E244.0.0()w
+39      [00001178]  IRP_MJ_READ                     Length: 0001, Data: 
+40      [00001197]  IRP_MJ_WRITE                    Length: 0014, Data: E244.0.0()w
+41      [00001419]  IRP_MJ_READ                     Length: 0001, Data: 
+42      [00001438]  IRP_MJ_WRITE                    Length: 0014, Data: E244.0.0()w
+43      [00001659]  IRP_MJ_READ                     Length: 0001, Data: 
+44      [00001900]  IRP_MJ_READ                     Length: 0001, Data: 
+45      [00002164]  IRP_MJ_READ                     Length: 0001, Data: 
+46      [00002427]  IRP_MJ_READ                     Length: 0001, Data: 
+47      [00002691]  IRP_MJ_READ                     Length: 0001, Data: 
+48      [00002863]  IRP_MJ_CLOSE                    Port Closed

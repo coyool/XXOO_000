@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<flash_board>
+  <pass>
+    <loader>$PROJ_DIR$\config\mb9bf12x\flashloader\FlashMB9B520.flash</loader>
+    <range>CODE 0x00000000 0x0003FFFF</range>
+  </pass>
+  <pass>
+    <loader>$PROJ_DIR$\config\mb9bf12x\flashloader\WFlashMB9B520.flash</loader>
+    <range>CODE 0x00200000 0x00207FFF</range>
+  </pass>
+</flash_board>
+
+
