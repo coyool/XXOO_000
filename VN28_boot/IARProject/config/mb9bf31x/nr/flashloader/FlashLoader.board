@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<flash_board>
+  <pass>
+    <loader>$PROJ_DIR$\config\mb9bf31x\nr\flashloader\FlashMB9B510.flash</loader>
+  </pass>
+</flash_board>
+
+

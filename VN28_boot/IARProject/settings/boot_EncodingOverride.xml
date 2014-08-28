@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<userOverrides>
+  <override>
+    <path>E:\Git_repository\VN28_boot\BSP\LED.c</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\VN28_boot\BSP\UART_Drv.c</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\VN28_boot\BSP\UART_Drv.h</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\VN28_boot\BSP\flash.c</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\VN28_boot\boot\Ymodem.c</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\VN28_boot\boot\Ymodem.h</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\VN28_boot\boot\Ymodem_CRC16.c</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\VN28_boot\user\main.c</path>
+    <encoding>UTF-8</encoding>
+  </override>
+</userOverrides>
+
+
