@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<flash_board>
+  <pass>
+    <loader>$PROJ_DIR$\config\mb9af31x\lmn\flashloader\FlashMB9AF316.flash</loader>
+  </pass>
+</flash_board>
