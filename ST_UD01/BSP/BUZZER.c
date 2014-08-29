@@ -45,7 +45,7 @@ void oneSound(uint8_t cnt,uint16_t Voicedelay)
 {
   uint8_t i,j;
   
-  for(j =0;j<cnt;j++)
+  for(j=0;j<cnt;j++)
   {
       for(i=0; i<50; i++)
       {

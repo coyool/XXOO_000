@@ -20,9 +20,9 @@
 /******************************************************************************/
 /**                          以下是内部函数定义                              **/
 /******************************************************************************/
-int fputc(int Ch, FILE * p)
+int fputc(int Ch, FILE *p)
 {
-	Put_char(Ch);
+	Put_char(UartUSBCh, Ch);
 	return Ch;
 }
 
@@ -291,20 +291,21 @@ void UARTPollTX_string(uint8_t *data)
     if(data != NULL)
     {
         /* Enable the  TX*/
-        MFS_UARTEnableTX(InUseCh);
+        //MFS_UARTEnableTX(UartUSBCh);
         while(*data != '\0')
         {
-            if(MFS_UARTGetTXRegEmptyStatus(InUseCh) && MFS_UARTGetTXBusIdleStatus(InUseCh))
+            if(MFS_UARTGetTXRegEmptyStatus(UartUSBCh) && MFS_UARTGetTXBusIdleStatus(UartUSBCh))
             {
                 /* TX one byte */
-                MFS_UARTTXOneData(InUseCh, *data++);
+                MFS_UARTTXOneData(UartUSBCh, *data++);
             }
         }
         /* TX Finished? */
-        while(!MFS_UARTGetTXBusIdleStatus(InUseCh));  //等待发送完成
+        while(!MFS_UARTGetTXBusIdleStatus(UartUSBCh));  //等待发送完成
         /* Disable the  TX after TX all bytes*/
-        MFS_UARTDisableTX(InUseCh);
+        //MFS_UARTDisableTX(UartUSBCh);
     }
+    
     return;
 }
 
@@ -358,34 +359,34 @@ void UARTPollTX_string(uint8_t *data)
 ** 修改日期:
 ** 修改内容:
 *******************************************************************************/
-uint32_t Get_One_char(uint8_t *key)
+uint32_t Get_One_char(uint8_t Ch,uint8_t *dat)
 {
-    if(MFS_UARTGetRXRegFullStatus(InUseCh))
+    if(MFS_UARTGetRXRegFullStatus(Ch))
     {
-        *key = MFS_UARTRXOneData(InUseCh);
-        return 1;                                  //接收成功返回1
+        *dat = MFS_UARTRXOneData(Ch);
+        return 1u;                                  //接收成功返回1
     }
     else
     {
-        return 0;                                  //没有接收到 字符返回0
+        return 0u;                                  //没有接收到 字符返回0
     }
 }
 
 //接收一个字符  第二个参数为超时参数
-int8_t Receive_Byte(uint8_t *c, uint32_t timeout)    //相比上面的函数,只是加了一个超时参数,就是在一定时间内只要收到一个数据就退出
+int8_t Receive_Byte(uint8_t Ch , uint8_t *c, uint32_t timeout)    //相比上面的函数,只是加了一个超时参数,就是在一定时间内只要收到一个数据就退出
 { 
    uint32_t i;
     
-    for ( ; timeout; timeout--)     // 1.25 ms one time
+    for ( ; timeout; timeout--)     // 10 ms one time
     {
-        for (i=SystemCoreClock/3200u; i; i--)  
+        for (i=SystemCoreClock/50000u; i; i--)  
         {
-            if (Get_One_char(c) == 1)
+            if (Get_One_char(Ch, c) == 1u)
             {
                 bFM3_GPIO_PDOR0_PC = ~bFM3_GPIO_PDIR0_PC;  /* LED 202 */
-                return 0;        //接收到一个字符后就返回0
+                return 0u;        //接收到一个字符后就返回0
             }
-        }    
+        }
     } 
     
     return -1;
@@ -403,14 +404,14 @@ int8_t Receive_Byte(uint8_t *c, uint32_t timeout)    //相比上面的函数,只
 ** 修改日期:
 ** 修改内容:
 *******************************************************************************/
-void Put_char(uint8_t data)
+void Put_char(uint8_t Ch, uint8_t data)
 {
 //	MFS_UARTEnableTX(InUseCh);                   //使能TXE：将数据送入移位寄存器
-	if(MFS_UARTGetTXRegEmptyStatus(InUseCh) && MFS_UARTGetTXBusIdleStatus(InUseCh))
+	if(MFS_UARTGetTXRegEmptyStatus(Ch) && MFS_UARTGetTXBusIdleStatus(Ch))
 	{
-		MFS_UARTTXOneData(InUseCh, data);
+		MFS_UARTTXOneData(Ch, data);
 	}
-	while(!MFS_UARTGetTXBusIdleStatus(InUseCh));//等待发送完成
+	while(!MFS_UARTGetTXBusIdleStatus(Ch));//等待发送完成
 //	MFS_UARTDisableTX(InUseCh);                  //关闭发送功能
     //bFM3_GPIO_PDOR0_PD = ~bFM3_GPIO_PDIR0_PD; /* LED201 */
 	return;

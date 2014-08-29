@@ -34,8 +34,8 @@ typedef  void (*pFunction)(void);
 
 
 /*** extern variable declarations ***/
-extern pFunction Jump_To_Application;
-extern __IO uint32_t JumpAddress;
+//extern pFunction Jump_To_Application;
+//extern __IO uint32_t JumpAddress;
 
 extern uint8_t file_name[FILE_NAME_LENGTH];
 

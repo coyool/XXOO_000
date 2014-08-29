@@ -12,6 +12,7 @@
 
 /*** extern function prototype declarations ***/
 extern void delay_ms(uint32_t Cnt);
+extern void delay_us(uint32_t Cnt);
 extern void PublicDelayMs(uint32_t ms);
 extern void PublicDelayUs(uint16_t us);
 

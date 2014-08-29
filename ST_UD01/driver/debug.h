@@ -36,7 +36,7 @@
 /*---------------------------------------------------------------------------*/
 /* Uncomment the line below to expanse the "ASSERT" macro in the 
    Standard Peripheral Library drivers code */
-//#define  DEBUG_MODE
+#define  DEBUG_MODE
 
 #ifdef DEBUG_MODE
     #define ASSERT(expr) \

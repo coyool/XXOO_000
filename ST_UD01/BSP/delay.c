@@ -25,8 +25,8 @@
 
 
 /*** extern variable declarations ***/
-
-
+static uint32_t DELAY_5000 = 5000u;
+static uint32_t DELAY_5M = 5000000u;
 
 
 /*******************************************************************************
@@ -34,7 +34,7 @@
 * 输入参数: cnt  
 * 输出参数: 
 * --返回值: 
-* 函数功能: -- 
+* 函数功能: 1S = 1.003S   
 *******************************************************************************/
 void delay_ms(uint32_t Cnt)
 {
@@ -42,9 +42,28 @@ void delay_ms(uint32_t Cnt)
     
     for (; Cnt ; Cnt--)
     {    
-        for (i=SystemCoreClock/3200; i; i--);
+        for (i=SystemCoreClock/DELAY_5000; i; i--);
     }    
 }
+
+/*******************************************************************************
+* 函数名称: delay_us
+* 输入参数: 
+* 输出参数: 
+* --返回值: 
+* 函数功能: 不准
+*******************************************************************************/
+void delay_us(uint32_t Cnt)
+{
+    uint32_t i;
+    
+    for (; Cnt ; Cnt--)
+    {    
+        for (i=SystemCoreClock/DELAY_5M; i; i--);
+    }  
+}
+
+
 
 
 static void PublicCtlDelay(unsigned long ulCount)

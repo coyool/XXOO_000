@@ -32,22 +32,22 @@
 /******************************************************************************/
 /**                          以下是定义IO口             	     	      	 **/
 /******************************************************************************/
-#define InUseCh    MFS_Ch5
-#define UartUSBCh   MFS_Ch0
+#define UART52_Ch   MFS_Ch5     // UART J202
+#define UartUSBCh   MFS_Ch0    // USB UART 
 
 
-/*! \brief IO MFS channel */
-#define   IO_MFS_CH             (InUseCh)
-/*! \brief IO MFS port */
-#define   IO_MFS_PORT           (IO_PORT3)
-/*! \brief IO MFS SOT pin */
-#define   IO_MFS_SOT_PIN        (IO_PINx7)
-/*! \brief IO MFS SIN pin */
-#define   IO_MFS_SIN_PIN        (IO_PINx6)
-/*! \brief IO MFS SOT pin location */
-#define   IO_MFS_SOT_PIN_LOC    (IO_MFS_SOTx_SOTx_2)
-/*! \brief IO MFS SIN pin location */
-#define   IO_MFS_SIN_PIN_LOC    (IO_MFS_SINx_SINx_2)
+///*! \brief IO MFS channel */
+//#define   IO_MFS_CH             (Ch)
+///*! \brief IO MFS port */
+//#define   IO_MFS_PORT           (IO_PORT3)
+///*! \brief IO MFS SOT pin */
+//#define   IO_MFS_SOT_PIN        (IO_PINx7)
+///*! \brief IO MFS SIN pin */
+//#define   IO_MFS_SIN_PIN        (IO_PINx6)
+///*! \brief IO MFS SOT pin location */
+//#define   IO_MFS_SOT_PIN_LOC    (IO_MFS_SOTx_SOTx_2)
+///*! \brief IO MFS SIN pin location */
+//#define   IO_MFS_SIN_PIN_LOC    (IO_MFS_SINx_SINx_2)
 
 /******************************************************************************/
 /**                          以下是内部函数申明                              **/
@@ -57,11 +57,11 @@ void UARTConfigMode(uint8_t Ch,MFS_UARTModeConfigT *pModeConfig);
 void UARTPollRX(uint8_t *data, uint16_t size);		//轮询接收size个字符
 void UARTPollTX(uint8_t Ch, uint8_t *data, uint16_t size);		//轮询发送size个字符
 void UARTPollTX_string(uint8_t *data);				//轮询发送一个字符串
-uint32_t Get_One_char(uint8_t *key);
+uint32_t Get_One_char(uint8_t Ch, uint8_t *dat);
 uint8_t RX_char(uint8_t *key);
 void Get_char_C(uint32_t timeout, uint8_t *key);
-void Put_char(uint8_t data);                 	  //查询方式发送一个字符
-int8_t Receive_Byte(uint8_t *c, uint32_t timeout);
+void Put_char(uint8_t Ch, uint8_t data);                 	  //查询方式发送一个字符
+int8_t Receive_Byte(uint8_t Ch, uint8_t *c, uint32_t timeout);
 
 void Int2Str(uint8_t* str, int32_t intnum);
 uint32_t Str2Int(uint8_t *inputstr, int32_t *intnum);

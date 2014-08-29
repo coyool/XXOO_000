@@ -91,7 +91,7 @@ void SendPacket(uint8_t *data, uint16_t length)
     
     while (i < length)
     {
-        UartSend_Byte(data[i]);
+        UartSend_Byte(UART52_Ch, data[i]);
         i++;
     }
     bFM3_GPIO_PDOR0_PD = ~bFM3_GPIO_PDIR0_PD; /* LED201 */
@@ -137,60 +137,72 @@ uint8_t Max3(uint8_t *t1,uint8_t *t2,uint8_t len)
 uint8_t  ReadVersion(void)
 {
     uint16_t i;
-    uint8_t packet_data[128],ackReceived;
-    uint32_t errors;
+    uint8_t packet_data[128] = {0};
+    volatile uint8_t ackReceived = 0u;
+    uint32_t errors = 0u;
+    volatile uint8_t return_val = 0u;
         
-     UARTConfigMode(InUseCh,&tUART4800ModeConfigT);      // 第一步, 初始化波特率,让表回到 300波特率
-	 delay_ms(5);    
-     SendPacket((uint8_t *)&CommadSendB0,sizeof(CommadSendB0));
-     delay_ms(1000);  
-     UARTConfigMode(InUseCh,&tUART300ModeConfigT);        //更改一下 波特率 300 
-     delay_ms(5);     
-     SendPacket((uint8_t *)&Commadrequest,sizeof(Commadrequest)); //第二步, 发送请求命令   
-     delay_ms(1000);   
-     SendPacket((uint8_t *)&CommadChangeBraud,sizeof(CommadChangeBraud)); //第三步, 发送表的更改波特率命令
-     delay_ms(500);     
-     Get_One_char(packet_data);    
-     UARTConfigMode(InUseCh,&tUART4800ModeConfigT);      //更改一下 波特率 4800
-	 delay_ms(5);   
-     do                                                  //读版本号      
-     {  
+    UARTConfigMode(UART52_Ch,&tUART4800ModeConfigT);      // 第一步, 初始化波特率,让表回到 300波特率
+    delay_ms(5);    
+    SendPacket((uint8_t *)&CommadSendB0,sizeof(CommadSendB0));
+    delay_ms(1000);  
+    UARTConfigMode(UART52_Ch,&tUART300ModeConfigT);        //更改一下 波特率 300 
+    delay_ms(5);     
+    SendPacket((uint8_t *)&Commadrequest,sizeof(Commadrequest)); //第二步, 发送请求命令   
+    delay_ms(1000);   
+    SendPacket((uint8_t *)&CommadChangeBraud,sizeof(CommadChangeBraud)); //第三步, 发送表的更改波特率命令
+    delay_ms(500);     
+    Get_One_char(UART52_Ch, packet_data);    
+    UARTConfigMode(UART52_Ch,&tUART4800ModeConfigT);      //更改一下 波特率 4800
+    delay_ms(5);   
+    
+    do                                                  //读版本号      
+    {   
+        ackReceived = 0u;
         SendPacket((uint8_t *)&CommadReadProgamVersion,sizeof(CommadReadProgamVersion));
         memset(packet_data,0,sizeof(packet_data));
         for(i=0;i<50;i++)
         {  
-            if (Receive_Byte(packet_data + i, 1000) != 0u)
+            if (Receive_Byte(UART52_Ch, packet_data + i, 1000) != 0u)
             {
-               break;
+               errors++;   // ACC error
+               break;    
             }
+            else
+            {
+                _NOP();
+            }    
         }
+        ackReceived = 1u;
+        
         if(memcmp(packet_data+7, &sSoftWare_Versions_ASCLL, sizeof(sSoftWare_Versions_ASCLL)) != 0) // 比对版本号
-	    {  
+        {  
             if(memcmp(packet_data+7, &sSoftWare_Versions_ASCLL, 12) != 0) // 型号
              {
-                  return VERSION_TYPE_ERR;  
+                  return_val = VERSION_TYPE_ERR;  
              }
              else
              {
                  if(Max3(packet_data+19,(uint8_t *)&sSoftWare_Versions_ASCLL+12,11)) //下载的版本小于读出的版本 ==1
                  {
-                    return VERSION_HIGH;  
+                    return_val = VERSION_HIGH;  
                  }
                  else
                  {
-                    return VERSION_LOW;  
-                 
+                    return_val = VERSION_LOW;   
                  }                           
              }                        
         } 
         else
         {          
-            return VERSION_EQU;           //名称版本 完成相同
+            return_val = VERSION_EQU;           //名称版本 完成相同
         } 
-       delay_ms(500);
-       ackReceived = 1;    
-       
-     }while (!ackReceived && (errors < 0x0A));  
+        
+        delay_ms(500);  //loop interval
+        
+    }while (!ackReceived && (errors < 3u));  
+    
+    return return_val;
 }
 /*******************************************************************************
 * 函数名称: 
@@ -201,59 +213,24 @@ uint8_t  ReadVersion(void)
 *******************************************************************************/
 void Enter21Upgrade(void)
 {     
-     UARTConfigMode(InUseCh,&tUART4800ModeConfigT);      // 第一步, 初始化波特率,让表回到 300波特率
+     UARTConfigMode(UART52_Ch,&tUART4800ModeConfigT);      // 第一步, 初始化波特率,让表回到 300波特率
 	 delay_ms(5);    
      SendPacket((uint8_t *)&CommadSendB0,sizeof(CommadSendB0));
      delay_ms(1000);  
-     UARTConfigMode(InUseCh,&tUART300ModeConfigT);        //更改一下 波特率 300 
+     UARTConfigMode(UART52_Ch,&tUART300ModeConfigT);        //更改一下 波特率 300 
      delay_ms(5);     
      SendPacket((uint8_t *)&Commadrequest,sizeof(Commadrequest)); //第二步, 发送请求命令   
      delay_ms(1000);   
      SendPacket((uint8_t *)&CommadChangeBraud,sizeof(CommadChangeBraud)); //第三步, 发送表的更改波特率命令
      delay_ms(500);       
-     UARTConfigMode(InUseCh,&tUART4800ModeConfigT);      //更改一下 波特率 4800
+     UARTConfigMode(UART52_Ch,&tUART4800ModeConfigT);      //更改一下 波特率 4800
 	 delay_ms(5);    
      SendPacket((uint8_t *)&CommadConfirmPass,sizeof(CommadConfirmPass));//第四步, 验证密码
      delay_ms(200);
      SendPacket((uint8_t *)&CommadEnterUpgrade,sizeof(CommadEnterUpgrade));//第五步, 发送进入升级命令
      delay_ms(200);     
 }
-/*******************************************************************************
-* 函数名称: 
-* 输入参数: 
-* 输出参数: 
-* --返回值: 
-* 函数功能: -- 
-*******************************************************************************/
-void oneSound(uint8_t cnt,uint16_t Voicedelay)
-{
-  uint8_t i,j;
-  
-  for(j =0;j<cnt;j++)
-  {
-      for(i=0; i<50; i++)
-      {
-          IO_WriteGPIOPin(IO_PORT3,IO_PINxA,IO_BIT_CLR);
-          PublicDelayUs(200);
-          IO_WriteGPIOPin(IO_PORT3,IO_PINxA,IO_BIT_SET);
-          PublicDelayUs(200);
-      } 
-      delay_ms(Voicedelay);
-  }  
 
-}
-
-void BuzzSound(uint8_t mode)
-{
-    if(mode ==VERSION_LOW)
-    {
-        oneSound(1,0); 
-    }
-    else if(mode ==VERSION_EQU)
-    {
-       oneSound(5,100); 
-    }  
-}
 /*******************************************************************************
 * 函数名称:   升级第一步, 进入BOOT 区域, 比对版本号
 * 输入参数: 
@@ -263,24 +240,23 @@ void BuzzSound(uint8_t mode)
 *******************************************************************************/
 void IEC62056_21_Process(void)
 {   
-    uint16_t i;
     uint8_t verstate;
 	
-    EnterBootOK = 0; 
+    //EnterBootOK = 0;
     verstate =ReadVersion();
     
     switch(verstate)
     {
         case VERSION_TYPE_ERR:  
-        case VERSION_HIGH:
+        case VERSION_LOW:
         case VERSION_EQU:      
             BuzzSound(VERSION_EQU);
           break;     
           
-        case VERSION_LOW:
+        case VERSION_HIGH:
             BuzzSound(VERSION_LOW);
             Enter21Upgrade();
-			EnterBootOK =1;
+			//EnterBootOK =1;
         break;       
     }
     

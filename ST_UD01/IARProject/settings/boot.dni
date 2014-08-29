@@ -9,7 +9,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=1563347210
+Checksum=443983149
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -136,8 +136,7 @@ Exclusions=
 [Disassemble mode]
 mode=0
 [Breakpoints2]
-Bp0=_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\BSP\UART_Drv.h}.72.1" 0 0 1 "" 0 "" 0
-Count=1
+Count=0
 [Aliases]
 A0=_ "E:\Lierda\2013\Project\7.思达电表远程升级\远程升级-Ymodem-2014-02-20\boot-2014-01-23\IARProject\startup_mb9xfxxx.s" ""
 A1=_ "E:\Lierda\2013\Project\7.思达电表远程升级\远程升级-Ymodem-2014-02-26\boot-2014-01-23\IARProject\startup_mb9xfxxx.s" ""

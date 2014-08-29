@@ -26,7 +26,7 @@
 #define ABORT1                  (0x41)  /* 'A' == 0x41, abort by user */
 #define ABORT2                  (0x61)  /* 'a' == 0x61, abort by user */
 
-#define NAK_TIMEOUT             (0x10000)
+#define NAK_TIMEOUT             (3000u) /* about 3S */ 
 #define MAX_ERRORS              (5u)
 
 
@@ -40,7 +40,8 @@ extern volatile const uint32_t  Rev_timeout;
 extern int32_t Ymodem_Receive (uint8_t *buf);
 extern uint8_t Ymodem_Transmit (uint8_t *buf, const uint8_t* sendFileName, uint32_t sizeFile);
 
-extern  uint32_t UartSend_Byte (uint8_t c); 
+extern uint32_t UartSend_Byte (uint8_t Ch, uint8_t c); 
+extern void SerialPutString(uint8_t *dat);
 
 #endif   /* end __Ymodem_H_ */
 

@@ -19,7 +19,7 @@
 
 /*** static function prototype declarations ***/
 //static  int32_t Receive_Byte (uint8_t *c, uint32_t timeout);
-uint32_t UartSend_Byte (uint8_t c);
+uint32_t UartSend_Byte (uint8_t Ch, uint8_t c);
 static int32_t Receive_Packet (uint8_t *data, int32_t *length, uint32_t timeout);
 static void Ymodem_PrepareIntialPacket(uint8_t *data, const uint8_t* fileName, uint32_t *length);
 static void Ymodem_PreparePacket(uint8_t *SourceBuf, uint8_t *data, uint8_t pktNo, uint32_t sizeBlk);
@@ -41,11 +41,29 @@ __IO uint32_t RamSource;
 /*** extern variable declarations ***/
 //uint8_t tab_1024[1024u];
 
-volatile const uint32_t  Rev_timeout = 10000;
+volatile const uint32_t  Rev_timeout = 12000u; /* about 10S */ 
 
 
 
 
+
+
+/*******************************************************************************
+* 函数名称: SerialPutString
+* 输入参数: 
+* 输出参数: 
+* --返回值: 
+* 函数功能: --
+*******************************************************************************/
+void SerialPutString(uint8_t *dat)
+{
+    ASSERT(NULL != dat);
+    
+    if (NULL != dat)
+    {
+        UARTPollTX_string(dat);
+    }    
+}
 
 ///*******************************************************************************
 //* 函数名称:  Receive byte from sender
@@ -76,11 +94,15 @@ volatile const uint32_t  Rev_timeout = 10000;
 * --返回值: 0: Byte sent
 * 函数功能: --
 *******************************************************************************/
-uint32_t UartSend_Byte (uint8_t c)
+uint32_t UartSend_Byte (uint8_t Ch, uint8_t c)
 {
     //SerialPutChar(c);
-    Put_char(c);
-    
+    Put_char(Ch, c);
+    if (UartUSBCh == Ch)
+    {
+        bFM3_GPIO_PDOR0_PD = ~bFM3_GPIO_PDIR0_PD; /* LED201 */
+    }
+        
     return 0u;
 }
 
@@ -106,7 +128,7 @@ static int32_t Receive_Packet (uint8_t *data, int32_t *length, uint32_t timeout)
     
     *length = 0u;
     
-    if (Receive_Byte(&c, timeout) != 0u)
+    if (Receive_Byte(UartUSBCh, &c, timeout) != 0u)
     {
         return -1;
     }
@@ -125,7 +147,7 @@ static int32_t Receive_Packet (uint8_t *data, int32_t *length, uint32_t timeout)
             return 0u;
             
         case CAN:    /* force abort with two of CAN */  
-            if ((0 == Receive_Byte(&c, timeout)) && (CAN == c))
+            if ((0 == Receive_Byte(UartUSBCh, &c, timeout)) && (CAN == c))
             {
                 *length = -1;
                 return 0u;
@@ -146,7 +168,7 @@ static int32_t Receive_Packet (uint8_t *data, int32_t *length, uint32_t timeout)
     *data = c;
     for (i=1u; i<(packet_size + PACKET_OVERHEAD); i++)
     {
-        if (Receive_Byte(data + i, timeout) != 0u)
+        if (Receive_Byte(UartUSBCh, data + i, timeout) != 0u)
         {
             return -1;
         }
@@ -197,11 +219,11 @@ int32_t Ymodem_Receive (uint8_t *buf)
                     {
                         /* Abort by sender */
                         case - 1:
-                            UartSend_Byte(ACK);
+                            UartSend_Byte(UartUSBCh, ACK);
                             return 0;
                         /* End of transmission */
                         case 0:
-                            UartSend_Byte(ACK);
+                            UartSend_Byte(UartUSBCh, ACK);
                             file_done = 1;
                             /* session_done = 1;   Note (1) !!! */   
                             break;
@@ -209,7 +231,7 @@ int32_t Ymodem_Receive (uint8_t *buf)
                         default:
                             if ((packet_data[PACKET_SEQNO_INDEX] & 0xff) != (packets_received & 0xff))
                             {
-                                UartSend_Byte(NAK);
+                                UartSend_Byte(UartUSBCh, NAK);
                             }
                             else
                             {
@@ -238,23 +260,23 @@ int32_t Ymodem_Receive (uint8_t *buf)
                                         if (size > FLASH_IMAGE_SIZE)  //!!!
                                         {
                                           /* End session */
-                                          UartSend_Byte(CAN);
-                                          UartSend_Byte(CAN);
+                                          UartSend_Byte(UartUSBCh, CAN);
+                                          UartSend_Byte(UartUSBCh, CAN);
                                           return -1;
                                         }
 
                                         /* Erase the FLASH block */
-                                        __disable_irq();
-                                        MFlash_SectorErase ((uint16_t*)0x00001000);//擦除第2扇区
-                                        MFlash_SectorErase ((uint16_t*)0x00010000); //擦除第3扇区
+                                        //__disable_irq();
+                                        //MFlash_SectorErase ((uint16_t*)0x00001000);//擦除第2扇区
+                                        //MFlash_SectorErase ((uint16_t*)0x00010000); //擦除第3扇区
                                         
-                                        UartSend_Byte(ACK);
-                                        UartSend_Byte(CRC16);
+                                        UartSend_Byte(UartUSBCh, ACK);
+                                        UartSend_Byte(UartUSBCh, CRC16);
                                     }
                                     /* Filename packet is empty, end session */
                                     else
                                     {
-                                        UartSend_Byte(ACK);
+                                        UartSend_Byte(UartUSBCh, ACK);
                                         file_done = 1;
                                         session_done = 1;
                                         break;
@@ -266,23 +288,23 @@ int32_t Ymodem_Receive (uint8_t *buf)
                                     memcpy(buf_ptr, packet_data + PACKET_HEADER, packet_length);
                                     RamSource = (uint32_t)buf;
                                     
-                                    for (j = 0;(j < packet_length) && (FlashDestination <  ApplicationAddress + size); j += 4)
-                                    {
-                                        /* write Program into Flash Fujitsu */
-                                        MFlash_Write((uint16_t*)(FlashDestination), *(uint32_t *)RamSource);  //return 0 normal
-
-                                        if (*(uint32_t*)FlashDestination != *(uint32_t*)RamSource)
-                                        {
-                                            /* End session */
-                                            UartSend_Byte(CAN);
-                                            UartSend_Byte(CAN);
-                                            return -2;
-                                        }
-                                        FlashDestination += 4;
-                                        RamSource += 4;
-                                    }
+//                                    for (j = 0;(j < packet_length) && (FlashDestination <  ApplicationAddress + size); j += 4)
+//                                    {
+//                                        /* write Program into Flash Fujitsu */
+//                                        MFlash_Write((uint16_t*)(FlashDestination), *(uint32_t *)RamSource);  //return 0 normal
+//
+//                                        if (*(uint32_t*)FlashDestination != *(uint32_t*)RamSource)
+//                                        {
+//                                            /* End session */
+//                                            UartSend_Byte(UartUSBCh, CAN);
+//                                            UartSend_Byte(UartUSBCh, CAN);
+//                                            return -2;
+//                                        }
+//                                        FlashDestination += 4;
+//                                        RamSource += 4;
+//                                    }
                                     
-                                    UartSend_Byte(ACK);
+                                    UartSend_Byte(UartUSBCh, ACK);
                                 }/* if (packets_received == 0) */
                             
                             packets_received ++;
@@ -293,8 +315,8 @@ int32_t Ymodem_Receive (uint8_t *buf)
                         break;
                                
                 case 1:     /* abort by user */
-                    UartSend_Byte(CAN);
-                    UartSend_Byte(CAN);
+                    UartSend_Byte(UartUSBCh, CAN);
+                    UartSend_Byte(UartUSBCh, CAN);
                     return -3;
                     
                 default:
@@ -304,16 +326,16 @@ int32_t Ymodem_Receive (uint8_t *buf)
                     }
                     if (errors > MAX_ERRORS)
                     {
-                        UartSend_Byte(CAN);
-                        UartSend_Byte(CAN);
+                        UartSend_Byte(UartUSBCh, CAN);
+                        UartSend_Byte(UartUSBCh, CAN);
                         return 0;
                     }
           
                     /* Initialize FlashDestination variable */
                     FlashDestination = ApplicationAddress;      /* Note 2 !!! */
 
-                    delay_ms(2000);
-                    UartSend_Byte(CRC16);   /* send "C" until secureCRT download  */
+                    //delay_ms(2000);   /* Rev_byte for for, so don't use it */
+                    UartSend_Byte(UartUSBCh, CRC16);   /* send "C" until secureCRT download  */
                     break;
             }/* switch (Receive_Packet(packet_data, &packet_length, NAK_TIMEOUT)) */ 
             
@@ -494,7 +516,7 @@ void Ymodem_SendPacket(uint8_t *data, uint16_t length)
     
     while (i < length)
     {
-        UartSend_Byte(data[i]);
+        UartSend_Byte(UART52_Ch, data[i]);
         i++;
     }
     bFM3_GPIO_PDOR0_PD = ~bFM3_GPIO_PDIR0_PD; /* LED201 */
@@ -538,16 +560,16 @@ uint8_t Ymodem_Transmit (uint8_t *buf, const uint8_t* sendFileName, uint32_t siz
         Ymodem_SendPacket(packet_data, PACKET_SIZE + PACKET_HEADER);
         /* Send CRC */
         tempCRC = Cal_CRC16(&packet_data[3], PACKET_SIZE);
-        UartSend_Byte(tempCRC >> 8);
-        UartSend_Byte(tempCRC & 0xFF);
+        UartSend_Byte(UART52_Ch, tempCRC >> 8);
+        UartSend_Byte(UART52_Ch, tempCRC & 0xFF);
         
         //delay_ms(1500); /* erase Flash time 2S */
         /* Wait for Ack and 'C' */
-        if (0 == Receive_Byte(&receivedC[0], Rev_timeout))  
+        if (0 == Receive_Byte(UART52_Ch, &receivedC[0], Rev_timeout))  
         {
             if (receivedC[0] == ACK)  /* ACK */
             { 
-                if (0 == Receive_Byte(&receivedC[1], Rev_timeout)
+                if (0 == Receive_Byte(UART52_Ch, &receivedC[1], Rev_timeout)
                      && (CRC16 == receivedC[1]))
                 {
                     /* Packet transfered correctly */
@@ -601,12 +623,12 @@ uint8_t Ymodem_Transmit (uint8_t *buf, const uint8_t* sendFileName, uint32_t siz
             /* Send CRC or Check Sum based on CRC16_F */
             /* Send CRC or Check Sum based on CRC16_F */
             tempCRC = Cal_CRC16(&packet_data[3], pktSize);
-            UartSend_Byte(tempCRC >> 8);
-            UartSend_Byte(tempCRC & 0xFF);
+            UartSend_Byte(UART52_Ch, tempCRC >> 8);
+            UartSend_Byte(UART52_Ch, tempCRC & 0xFF);
                
            // delay_ms(15);
             /* Wait for Ack */
-            if ((Receive_Byte(&receivedC[0], Rev_timeout) == 0)  && (receivedC[0] == ACK))
+            if ((Receive_Byte(UART52_Ch, &receivedC[0], Rev_timeout) == 0)  && (receivedC[0] == ACK))
             {
                 ackReceived = 1;  
                 if (size > pktSize)
@@ -646,10 +668,10 @@ uint8_t Ymodem_Transmit (uint8_t *buf, const uint8_t* sendFileName, uint32_t siz
     errors = 0;
     do 
     {
-        UartSend_Byte(EOT);
+        UartSend_Byte(UART52_Ch, EOT);
         /* Send (EOT); */
         /* Wait for Ack */
-        if ((Receive_Byte(&receivedC[0], Rev_timeout) == 0)  && receivedC[0] == ACK)
+        if ((Receive_Byte(UART52_Ch, &receivedC[0], Rev_timeout) == 0)  && receivedC[0] == ACK)
         {
             ackReceived = 1;  
         }
@@ -684,11 +706,11 @@ uint8_t Ymodem_Transmit (uint8_t *buf, const uint8_t* sendFileName, uint32_t siz
         Ymodem_SendPacket(packet_data, PACKET_SIZE + PACKET_HEADER);
         /* Send CRC or Check Sum based on CRC16_F */
         tempCRC = Cal_CRC16(&packet_data[3], PACKET_SIZE);
-        UartSend_Byte(tempCRC >> 8);
-        UartSend_Byte(tempCRC & 0xFF);
+        UartSend_Byte(UART52_Ch, tempCRC >> 8);
+        UartSend_Byte(UART52_Ch, tempCRC & 0xFF);
 
         /* Wait for Ack and 'C' */
-        if (Receive_Byte(&receivedC[0], Rev_timeout) == 0)  
+        if (Receive_Byte(UART52_Ch, &receivedC[0], Rev_timeout) == 0)  
         {
             if (receivedC[0] == ACK)
             { 

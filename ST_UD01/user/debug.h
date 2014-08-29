@@ -39,16 +39,16 @@
 //#define  DEBUG_MODE
 
 #ifdef DEBUG_MODE
-//    #define ASSERT(expr) \
-//            {do \
-//            { \
-//                if (!(expr)) \
-//                { \
-////					printf("FILE: %s\n", __FILE__); \
-////					printf("FUNC: %s\n", __FUNCTION__); \
-////					printf("LINE: %u\n\n", __LINE__); \
-//                } \
-//            }while(0);}
+    #define ASSERT(expr) \
+            {do \
+            { \
+                if (!(expr)) \
+                { \
+					printf("FILE: %s\n", __FILE__); \
+					printf("FUNC: %s\n", __FUNCTION__); \
+					printf("LINE: %u\n\n", __LINE__); \
+                } \
+            }while(0);}
 #else
     #define ASSERT(expr)
 #endif

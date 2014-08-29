@@ -62,16 +62,16 @@ static MFS_UARTModeConfigT tUARTModeConfigT =
 * 函数功能: --
 *******************************************************************************/
 static void BSP(void)
-{
+{   
     uint8_t i;
-    
+
     BUTTON_KEY_setup();
     LED_setup();
     BUZZ_setup();
     //UART_setup();
-    UART_Port_init();                        /* UART IO init */             
-    UARTConfigMode(InUseCh,&tUARTModeConfigT);       /* UART setup */  
-    UARTConfigMode(UartUSBCh,&tUARTModeConfigT);
+    UART_Port_init();                                /* UART IO init */             
+    UARTConfigMode(UART52_Ch, &tUARTModeConfigT);       /* UART setup */  
+    UARTConfigMode(UartUSBCh, &tUARTModeConfigT);
 
    // UARTConfigMode(&tUART300ModeConfigT);  
     
@@ -87,27 +87,33 @@ static void BSP(void)
     } 
     
     /* power on BUZZER buzz */
-    oneSound(1,0); 
-    delay_ms(1000);
-    oneSound(5,100); 
+    oneSound(10,100); 
   
-#define  TEST_1    
-#ifdef   TEST_1    
-    MFS_UARTEnableRX(InUseCh);
-    MFS_UARTEnableTX(InUseCh);
-    Put_char('Z');
-    //delay_ms(1000); //1.252S
-    Receive_Byte(&i, Rev_timeout); 
-    Put_char('Z');
-    _NOP();
+//#define  TEST_1    
+#ifdef   TEST_1 
+    MFS_UARTEnableRX(UART52_Ch);
+    MFS_UARTEnableTX(UART52_Ch);
+    Put_char(UART52_Ch , 'Z');
+    delay_ms(1000); //1S = 1.003S, 10ms = 10.061ms
+    Put_char(UART52_Ch, 'Z');
+    Receive_Byte(UART52_Ch, &i, Rev_timeout); 
+    Put_char(UART52_Ch, 'Z');
+    MFS_UARTDisableRX(UART52_Ch);
+    MFS_UARTDisableTX(UART52_Ch);
 #endif    
          
     /* enable peripheral fuction */
-    //  null
-    
+    MFS_UARTEnableTX(UartUSBCh);
+    //MFS_UARTEnableRX(UartUSBCh);
     
     /* printf versions informations */     
     // ...
+    printf("fuck!!!\r\n");
+    printf("fuck!!!\r\n");
+    printf("fuck!!!\r\n");
+    printf("fuck!!!\r\n");
+
+    
 }
 
 
