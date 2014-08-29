@@ -19,6 +19,6 @@ typedef enum
     VERSION_TYPE_ERR,
 }VERSION_TYPEDEF;
 
-void IEC62056_21_Process(void);
+extern void IEC62056_21_Process(void);
 
 #endif

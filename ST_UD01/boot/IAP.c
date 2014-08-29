@@ -18,7 +18,7 @@
 
 /*** static function prototype declarations ***/
 void refresh_flash(void);
-static void download_flash_to_meter(void);
+static void download_program_to_meter(void);
 static void NVIC_SetVectorTable(uint32_t NVIC_VectTab, uint32_t Offset);
 static void Jump_To_app(void);
 
@@ -82,7 +82,7 @@ void Jump_To_app(void)
 *******************************************************************************/
 void refresh_flash(void)
 {
-    uint8_t Number[10] = "          ";
+    //uint8_t Number[10] = "          ";
     int32_t Size = 0;
 
     //SerialPutString("Waiting for the file to be sent ...\n\r");
@@ -91,7 +91,7 @@ void refresh_flash(void)
     {
         //SerialPutString("\n\n\r Programming Completed Successfully!\n\r--------------------------------\r\n Name: ");
         //SerialPutString(file_name);
-    //    Int2Str(Number, Size);
+        //Int2Str(Number, Size);
         //SerialPutString("\n\r Size: ");
         //SerialPutString(Number);
         //SerialPutString(" Bytes\r\n");
@@ -120,13 +120,13 @@ void refresh_flash(void)
 }
 
 /*******************************************************************************
-* 函数名称: download_flash_to_meter
+* 函数名称: download_program_to_meter
 * 输入参数: 
 * 输出参数: 
 * --返回值: 
 * 函数功能: --
 *******************************************************************************/
-static void download_flash_to_meter(void)
+static void download_program_to_meter(void)
 {
     uint32_t status = 0u; 
     uint8_t tick = 0u;
@@ -176,11 +176,11 @@ static void download_flash_to_meter(void)
 * 输入参数: 
 * 输出参数: 
 * --返回值: 
-* 函数功能: --
+* 函数功能: click button -- download program
+*           push  button -- refresh  flash
 *******************************************************************************/
 void IAP(void)
 {
- 
     while (1u)
     {
         if (0u == button_key)
@@ -193,7 +193,7 @@ void IAP(void)
                 {
                     button_key = CLICK;
                     bFM3_GPIO_PDOR0_PD = ~bFM3_GPIO_PDIR0_PD; /* LED201 */
-                    download_flash_to_meter();
+                    download_program_to_meter();
                 }
                 else
                 {

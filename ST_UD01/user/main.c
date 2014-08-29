@@ -46,32 +46,13 @@ static MFS_UARTModeConfigT tUARTModeConfigT =
     UART_PARITY_NONE,       
     UART_BITORDER_LSB,
     UART_NRZ,               /* level inversion */  
-    
 };
 
 
 /*** extern variable declarations ***/
-uint8_t temp = 0;
-uint8_t Rev_C = 0;
 
 
 
-/*******************************************************************************
-* 函数名称: delay 
-* 输入参数: 
-* 输出参数: 
-* --返回值: 
-* 函数功能: --
-*******************************************************************************/
-void delay_ms(uint32_t Cnt)
-{
-    uint32_t i;
-    
-    for (; Cnt ; Cnt--)
-    {    
-        for (i=SystemCoreClock/3200; i; i--);
-    }    
-}
 
 /*******************************************************************************
 * 函数名称: BSP
@@ -89,136 +70,59 @@ static void BSP(void)
     BUZZ_setup();
     //UART_setup();
     UART_Port_init();                        /* UART IO init */             
-   UARTConfigMode(InUseCh,&tUARTModeConfigT);       /* UART setup */  
-   
-   UARTConfigMode(UartUSBCh,&tUARTModeConfigT);
+    UARTConfigMode(InUseCh,&tUARTModeConfigT);       /* UART setup */  
+    UARTConfigMode(UartUSBCh,&tUARTModeConfigT);
 
-
-   MFS_UARTEnableRX(InUseCh);
-   MFS_UARTEnableTX(InUseCh);
-   
-   MFS_UARTEnableRX(UartUSBCh);
-   MFS_UARTEnableTX(UartUSBCh);
-
-	
    // UARTConfigMode(&tUART300ModeConfigT);  
     
-//    for (i=0; i<10; i++)
-//    {
-//        bFM3_GPIO_PDOR0_PC = 0;     /* LED202 on */   
-//        bFM3_GPIO_PDOR0_PD = 0;     /* LED201 on */      
-//        delay_ms(100);
-//        bFM3_GPIO_PDOR0_PC = 1;     /* LED202 off */
-//        bFM3_GPIO_PDOR0_PD = 1;     /* LED201 off */        
-//        delay_ms(100);
-//    }    
+    /* power on LED201 LED202 Blink */
+    for (i=0u; i<10u; i++)
+    {
+        bFM3_GPIO_PDOR0_PC = 0u;     /* LED202 on */   
+        bFM3_GPIO_PDOR0_PD = 0u;     /* LED201 on */      
+        delay_ms(100u);
+        bFM3_GPIO_PDOR0_PC = 1u;     /* LED202 off */
+        bFM3_GPIO_PDOR0_PD = 1u;     /* LED201 off */        
+        delay_ms(100u);
+    } 
+    
+    /* power on BUZZER buzz */
+    oneSound(1,0); 
+    delay_ms(1000);
+    oneSound(5,100); 
+  
+#define  TEST_1    
+#ifdef   TEST_1    
+    MFS_UARTEnableRX(InUseCh);
+    MFS_UARTEnableTX(InUseCh);
+    Put_char('Z');
+    //delay_ms(1000); //1.252S
+    Receive_Byte(&i, Rev_timeout); 
+    Put_char('Z');
+    _NOP();
+#endif    
+         
     /* enable peripheral fuction */
-    //MFS_UARTEnableRX(InUseCh);
-//    MFS_UARTEnableTX(InUseCh);
-//    Put_char('Z');
-//    //delay_ms(1000); //1.252S
-//    Receive_Byte(&i, Rev_timeout); 
-//    Put_char('Z');
-//    _NOP();
-            
+    //  null
+    
+    
     /* printf versions informations */     
     // ...
 }
-void PublicCtlDelay(unsigned long ulCount)
-{
-
-  
-    __asm("    subs    r0, #1\n"
-          "    bne.n   PublicCtlDelay\n"
-          "    bx      lr");
-}
-
-/*********************************************************** 
-函数功能：延时函数 Xms
-入口参数：ms
-出口参数：
-备注说明:
-***********************************************************/
-void PublicDelayMs(uint32_t ms)
-{
-  PublicCtlDelay((ms * (SystemCoreClock/3000)));
-}
-
-/*********************************************************** 
-函数功能：延时函数 Xus
-入口参数：us
-出口参数：
-备注说明:实际delay=(2.6+x)us
-***********************************************************/
-void PublicDelayUs(uint16_t us)
-{
-	uint32_t n;
-
-	//n=T/t=(xus/1000000)/((1/SystemCoreClock)*XX)	//XX为循环周期指令数
-	n=(uint32_t)us*((SystemCoreClock/5000000UL)+1);	//5000000UL针对每个单片机需要调试
-	for(;n>0;n--)
-	{
-		//DRV_WD_FeedDog();
-	}
-}
 
 
-uint8_t FlashHaveProgram;
-uint8_t EnterBootOK;
-
+/*******************************************************************************
+* 函数名称: main
+* 输入参数: 
+* 输出参数: 
+* --返回值: 0
+* 函数功能: --
+*******************************************************************************/
 int main(void)
 {
-    uint8_t i;
-    
     BSP();
-	
-    //IAP();    
-    FlashHaveProgram =0; //上电从FLASH 读取电表信息
-	EnterBootOK =0;
-	
-	 while(1)
-	 {     
-	   if(FlashHaveProgram)
-	   {    
-	       if (0u == button_key)
-	       {   
-	           delay_ms(50);
-			   if (0u == button_key)
-	           {  
-	        		IEC62056_21_Process();  
-			   }
-	       }		   									
-		   if(EnterBootOK)					//进入IAP后启动 Y-MODE升级 处理
-		   {
-	       	    download_flash_to_meter();
-				EnterBootOK =0;
-		   }
-	   }
-	   else
-	   {   
-	        //1: 报警     
-	        for (i=0; i<2; i++)
-	        {
-	            bFM3_GPIO_PDOR0_PC = 0;     /* LED202 on */   
-	            bFM3_GPIO_PDOR0_PD = 0;     /* LED201 on */      
-	            delay_ms(100);
-	            bFM3_GPIO_PDOR0_PC = 1;     /* LED202 off */
-	            bFM3_GPIO_PDOR0_PD = 1;     /* LED201 off */        
-	            delay_ms(100);
-	        }           
-	         //2: 等待按键,从串口烧录程序 
-	        if (0u == button_key)
-	        {   
-	           delay_ms(50);
-			   if (0u == button_key)
-	           {  
-	            	refresh_flash(); 
-					FlashHaveProgram=0;
-			   }
-	                 
-	        }             
-	   }  
-   } 
+    IAP();    
+
    return 0u;
 }
 

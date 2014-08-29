@@ -32,20 +32,16 @@ static void Ymodem_SendPacket(uint8_t *data, uint16_t length);
 uint8_t file_name[FILE_NAME_LENGTH];
 uint32_t FlashDestination = ApplicationAddress; /* Flash user program offset */
 //uint16_t PageSize = PAGE_SIZE;
-uint32_t EraseCounter = 0x0;
-uint32_t NbrOfPage = 0u;
+//uint32_t EraseCounter = 0x0;
+//uint32_t NbrOfPage = 0u;
 //FLASH_Status FLASHStatus = FLASH_COMPLETE;
-uint32_t RamSource;
+__IO uint32_t RamSource;
 
 
 /*** extern variable declarations ***/
 //uint8_t tab_1024[1024u];
 
-uint32_t  Rev_timeout = 10000;
-
-
-
-
+volatile const uint32_t  Rev_timeout = 10000;
 
 
 
@@ -248,9 +244,9 @@ int32_t Ymodem_Receive (uint8_t *buf)
                                         }
 
                                         /* Erase the FLASH block */
-                                       // __disable_irq();
-                                      //  MFlash_SectorErase ((uint16_t*)0x00001000);//擦除第2扇区
-                                      //  MFlash_SectorErase ((uint16_t*)0x00010000); //擦除第3扇区
+                                        __disable_irq();
+                                        MFlash_SectorErase ((uint16_t*)0x00001000);//擦除第2扇区
+                                        MFlash_SectorErase ((uint16_t*)0x00010000); //擦除第3扇区
                                         
                                         UartSend_Byte(ACK);
                                         UartSend_Byte(CRC16);
@@ -273,15 +269,15 @@ int32_t Ymodem_Receive (uint8_t *buf)
                                     for (j = 0;(j < packet_length) && (FlashDestination <  ApplicationAddress + size); j += 4)
                                     {
                                         /* write Program into Flash Fujitsu */
-                                       // MFlash_Write((uint16_t*)(FlashDestination), *(uint32_t *)RamSource);  //return 0 normal
+                                        MFlash_Write((uint16_t*)(FlashDestination), *(uint32_t *)RamSource);  //return 0 normal
 
-//                                        if (*(uint32_t*)FlashDestination != *(uint32_t*)RamSource)
-//                                        {
-//                                            /* End session */
-//                                            UartSend_Byte(CAN);
-//                                            UartSend_Byte(CAN);
-//                                            return -2;
-//                                        }
+                                        if (*(uint32_t*)FlashDestination != *(uint32_t*)RamSource)
+                                        {
+                                            /* End session */
+                                            UartSend_Byte(CAN);
+                                            UartSend_Byte(CAN);
+                                            return -2;
+                                        }
                                         FlashDestination += 4;
                                         RamSource += 4;
                                     }

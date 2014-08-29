@@ -50,6 +50,14 @@
     <encoding>UTF-8</encoding>
   </override>
   <override>
+    <path>E:\Git_repository\ST_UD01\user\all_header_file.h</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
+    <path>E:\Git_repository\ST_UD01\user\def_and_type.h</path>
+    <encoding>UTF-8</encoding>
+  </override>
+  <override>
     <path>E:\Git_repository\ST_UD01\user\main.c</path>
     <encoding>UTF-8</encoding>
   </override>

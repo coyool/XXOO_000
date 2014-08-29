@@ -56,10 +56,10 @@ void UART_Port_init()
     //若有模拟输入复用功能引脚，则要禁用模拟输入功能
 	/* Enable SOT and SIN */
     bFM3_GPIO_PFR3_P6 = 1;           //外设功能
-    bFM3_GPIO_PFR3_P7 = 1;           //
-    bFM3_GPIO_EPFR08_SIN5S1 = 1;
+    bFM3_GPIO_PFR3_P7 = 1;           
+    bFM3_GPIO_EPFR08_SIN5S1 = 1;     //UART RX
     bFM3_GPIO_EPFR08_SIN5S0 = 1;
-    bFM3_GPIO_EPFR08_SOT5B1 = 1;
+    bFM3_GPIO_EPFR08_SOT5B1 = 1;     
     bFM3_GPIO_EPFR08_SOT5B0 = 1;
     
     
@@ -373,16 +373,7 @@ uint32_t Get_One_char(uint8_t *key)
 
 //接收一个字符  第二个参数为超时参数
 int8_t Receive_Byte(uint8_t *c, uint32_t timeout)    //相比上面的函数,只是加了一个超时参数,就是在一定时间内只要收到一个数据就退出
-{
-//    while (timeout-- > 0)
-//    {
-//        if (Get_One_char(c) == 1)
-//        {
-//            return 0;        //接收到一个字符后就返回0
-//        }
-//    }
-//    return -1;   //规定时间内  没有接收到字符  就返回-1
-//    
+{ 
    uint32_t i;
     
     for ( ; timeout; timeout--)     // 1.25 ms one time

@@ -91,7 +91,7 @@ typedef struct
 }BITS;
 */
 
-//typedef void (*pFunction)(void);        /* 定义函数指针 */  //what the fuck!!! ybz  why ?
+//typedef void (*pFunction)(void);        /* 瀹氫箟鍑芥暟鎸囬拡 */  //what the fuck!!! ybz  why ?
 
 
 #endif

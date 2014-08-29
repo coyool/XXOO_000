@@ -758,7 +758,7 @@
         </option>
         <option>
           <name>DoFill</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>FillerByte</name>
@@ -1868,7 +1868,16 @@
       <name>$PROJ_DIR$\..\BSP\button.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\BSP\BUZZ.C</name>
+      <name>$PROJ_DIR$\..\BSP\BUZZER.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\BSP\BUZZER.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\BSP\delay.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\BSP\delay.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\BSP\Drv_WD.c</name>
