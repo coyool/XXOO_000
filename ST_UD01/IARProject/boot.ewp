@@ -1895,6 +1895,9 @@
       <name>$PROJ_DIR$\..\BSP\MX25L3206E.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\BSP\MX25L3206E.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\BSP\UART_Drv.c</name>
     </file>
     <file>

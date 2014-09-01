@@ -1,28 +1,4 @@
-/*!
- ******************************************************************************
- **
- ** \file uart_fm3.h
- **
- ** \brief UART drivers head file
- **
- ** \author 
- **
- ** \version V0.10
- **
- ** \date 2013-10-09
- **
- ** \attention THIS SAMPLE CODE IS PROVIDED AS IS. FUJITSU SEMICONDUCTOR
- **            ACCEPTS NO RESPONSIBILITY OR LIABILITY FOR ANY ERRORS OR
- **            OMMISSIONS.
- **
- ** (C) Copyright 200x-201x by Fujitsu Semiconductor(Shanghai) Co.,Ltd.
- **
- ******************************************************************************
- **
- ** \note Other information.
- **
- ******************************************************************************
- */ 
+
 
 #ifndef _DR_MX25L3206E_H
 #define _DR_MX25L3206E_H
@@ -38,23 +14,23 @@
 #define FAIL                    0
 
 /****************************************************************************/
-typedef	unsigned long	                        U32;
-typedef	unsigned int	                        U16;
-typedef	unsigned char	                        U08;
+typedef	unsigned long	            U32;
+typedef	unsigned int	            U16;
+typedef	unsigned char	            U08;
 
-typedef        signed long				s32;
-typedef        signed short			        s16;
-typedef        signed char				s8;
+typedef    signed long				s32;
+typedef    signed short			    s16;
+typedef    signed char				s8;
 
-typedef        unsigned long				u32;
-typedef        unsigned short		        u16;
-typedef        unsigned char				u8;
+typedef    unsigned long				u32;
+typedef    unsigned short		    u16;
+typedef    unsigned char				u8;
 
 
-#define  Atsout         IO_ReadGPIOPin(IO_PORT4,IO_PINx3)                                                //SO口输入状态
-#define  Atsin_data     IO_ReadGPIOPin(IO_PORT4,IO_PINx4)                                              //SI口输入状态
+#define  Atsout         IO_ReadGPIOPin(IO_PORT4,IO_PINx3)                                          //SO口输入状态
+#define  Atsin_data     IO_ReadGPIOPin(IO_PORT4,IO_PINx4)                                          //SI口输入状态
 
-#define  Atsin_in	IO_ConfigGPIOPin(IO_PORT4,IO_PINx4,IO_DIR_INPUT,IO_PULLUP_ON)              //需要打开上拉吗？
+#define  Atsin_in	    IO_ConfigGPIOPin(IO_PORT4,IO_PINx4,IO_DIR_INPUT,IO_PULLUP_ON)              //需要打开上拉吗？
 #define  Atsin_Out      IO_ConfigGPIOPin(IO_PORT4,IO_PINx4,IO_DIR_OUTPUT,IO_PULLUP_ON)
 
 

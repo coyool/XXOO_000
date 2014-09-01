@@ -51,7 +51,7 @@ void delay_ms(uint32_t Cnt)
 * 输入参数: 
 * 输出参数: 
 * --返回值: 
-* 函数功能: 不准
+* 函数功能: 不准  未调试
 *******************************************************************************/
 void delay_us(uint32_t Cnt)
 {
@@ -64,12 +64,8 @@ void delay_us(uint32_t Cnt)
 }
 
 
-
-
 static void PublicCtlDelay(unsigned long ulCount)
 {
-
-  
     __asm("    subs    r0, #1\n"
           "    bne.n   PublicCtlDelay\n"
           "    bx      lr");
@@ -83,7 +79,7 @@ static void PublicCtlDelay(unsigned long ulCount)
 ***********************************************************/
 void PublicDelayMs(uint32_t ms)
 {
-  PublicCtlDelay((ms * (SystemCoreClock/3000)));
+    PublicCtlDelay((ms * (SystemCoreClock/3000)));
 }
 
 /*********************************************************** 

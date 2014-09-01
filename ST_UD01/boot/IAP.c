@@ -102,6 +102,22 @@ static void refresh_flash(void)
         SerialPutString(" Bytes\r\n");
         SerialPutString("--------------------------------\r\n");
         
+        /* read extern Flash(MX25L4006) verify image */
+#define  TEST_IMAGE
+#ifdef   TEST_IMAGE     
+        uint32_t i = 0;
+        uint32_t j = ApplicationAddress; 
+        memset(&tab_1024[0], 0, PACKET_SIZE);
+        for (i=0u; i<1024; i++)
+        {
+            //MX25L3206_Read((uint8_t *)tab_1024, (uint32_t)FlashDestination, PACKET_SIZE);
+            MX25L3206_Read((uint8_t *)tab_1024, j, PACKET_SIZE);
+            j += 128u;
+            UARTPollRX((uint8_t *)tab_1024, PACKET_SIZE);
+        }          
+#endif        
+        /* check CRC32 */
+        //...
         /* updata image complete, jump application routine */
         //Jump_To_app();  
         //while (1);  

@@ -139,9 +139,9 @@ static int32_t Receive_Packet (uint8_t *data, int32_t *length, uint32_t timeout)
             packet_size = PACKET_SIZE;
             break;
             
-        case STX:    /* 1024 byte*/
-            packet_size = PACKET_1K_SIZE;
-            break;
+//        case STX:    /* 1024 byte*/
+//            packet_size = PACKET_1K_SIZE;
+//            break;
             
         case EOT:    /* session apply for end */
             return 0u;
@@ -197,13 +197,16 @@ static int32_t Receive_Packet (uint8_t *data, int32_t *length, uint32_t timeout)
 * 输入参数: buf: Address of the first byte
 * 输出参数: 
 * --返回值: The size of the file
-* 函数功能: --
+* 函数功能: only support 128 byte with Ymodem protocol
 *******************************************************************************/
 int32_t Ymodem_Receive (uint8_t *buf)
 {
     uint8_t packet_data[PACKET_1K_SIZE + PACKET_OVERHEAD], file_size[FILE_SIZE_LENGTH], *file_ptr, *buf_ptr;
     int32_t i, j, packet_length, session_done, file_done, packets_received, errors, session_begin, size = 0;
-
+    uint8_t write_flash_check_flag = 0u;
+    uint8_t  read_flash_check_flag = 0u; 
+    uint8_t       flash_check_flag = 0u;
+    
     /* Initialize FlashDestination variable */
     FlashDestination = ApplicationAddress;
 
@@ -244,13 +247,13 @@ int32_t Ymodem_Receive (uint8_t *buf)
                                         /* Filename packet has valid data */
                                         for (i = 0u, file_ptr = packet_data + PACKET_HEADER; (*file_ptr != 0) && (i < FILE_NAME_LENGTH); )
                                         {
-                                          file_name[i++] = *file_ptr++;
+                                            file_name[i++] = *file_ptr++;
                                         }
                                         file_name[i++] = '\0';
                                         
                                         for (i = 0u, file_ptr ++; (*file_ptr != ' ') && (i < FILE_SIZE_LENGTH);)
                                         {
-                                          file_size[i++] = *file_ptr++;
+                                            file_size[i++] = *file_ptr++;
                                         }
                                         file_size[i++] = '\0';
                                         Str2Int(file_size, &size);
@@ -259,16 +262,27 @@ int32_t Ymodem_Receive (uint8_t *buf)
                                         /* Image size is greater than Flash size */
                                         if (size > FLASH_IMAGE_SIZE)  //!!!
                                         {
-                                          /* End session */
-                                          UartSend_Byte(UartUSBCh, CAN);
-                                          UartSend_Byte(UartUSBCh, CAN);
-                                          return -1;
+                                            /* End session */
+                                            UartSend_Byte(UartUSBCh, CAN);
+                                            UartSend_Byte(UartUSBCh, CAN);
+                                            return -1;
                                         }
 
                                         /* Erase the FLASH block */
                                         //__disable_irq();
                                         //MFlash_SectorErase ((uint16_t*)0x00001000);//擦除第2扇区
                                         //MFlash_SectorErase ((uint16_t*)0x00010000); //擦除第3扇区
+                                        
+                                        /* Erase extern Flash(MX25L4006) sector 0-31(128K byte) */
+                                        flash_check_flag = 0u;
+                                        flash_check_flag = MX25L3206_Erase(0u, 31u);
+                                        if (OK != flash_check_flag)
+                                        {
+                                            /* End session */
+                                            UartSend_Byte(UartUSBCh, CAN);
+                                            UartSend_Byte(UartUSBCh, CAN);
+                                            return -2;
+                                        } 
                                         
                                         UartSend_Byte(UartUSBCh, ACK);
                                         UartSend_Byte(UartUSBCh, CRC16);
@@ -286,7 +300,7 @@ int32_t Ymodem_Receive (uint8_t *buf)
                                 else
                                 {
                                     memcpy(buf_ptr, packet_data + PACKET_HEADER, packet_length);
-                                    RamSource = (uint32_t)buf;
+                                    //RamSource = (uint32_t)buf;  /* converter point 32 bit data */
                                     
 //                                    for (j = 0;(j < packet_length) && (FlashDestination <  ApplicationAddress + size); j += 4)
 //                                    {
@@ -304,6 +318,33 @@ int32_t Ymodem_Receive (uint8_t *buf)
 //                                        RamSource += 4;
 //                                    }
                                     
+                                    /* write extern Flash(MX25L4006) 128K byte */
+                                    uint8_t tab_01[256] = {0};
+                                    
+                                    write_flash_check_flag = 0u;
+                                    write_flash_check_flag = MX25L3206_Write((uint32_t)FlashDestination, buf, PACKET_SIZE);
+                                    read_flash_check_flag = 0u;
+                                    memset(packet_data, 0, PACKET_SIZE + PACKET_HEADER);
+                                    read_flash_check_flag = MX25L3206_Read((uint8_t*)(packet_data), (uint32_t)FlashDestination, PACKET_SIZE);
+                                    flash_check_flag = 0u;
+                                    flash_check_flag = memcmp((uint8_t *)buf, (uint8_t *)packet_data, PACKET_SIZE);
+                                    memcpy(tab_01, buf, 128); 
+                                    
+                                    if ((OK == write_flash_check_flag)
+                                        && (OK == read_flash_check_flag) 
+                                        && (0 == flash_check_flag))
+                                    {
+                                        _NOP();
+                                    }
+                                    else
+                                    {
+                                        /* End session */
+                                        UartSend_Byte(UartUSBCh, CAN);
+                                        UartSend_Byte(UartUSBCh, CAN);
+                                        return -2;
+                                    }    
+                                    FlashDestination += PACKET_SIZE;
+                                        
                                     UartSend_Byte(UartUSBCh, ACK);
                                 }/* if (packets_received == 0) */
                             

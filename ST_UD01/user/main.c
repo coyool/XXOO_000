@@ -88,20 +88,7 @@ static void BSP(void)
     
     /* power on BUZZER buzz */
     oneSound(10,100); 
-  
-//#define  TEST_1    
-#ifdef   TEST_1 
-    MFS_UARTEnableRX(UART52_Ch);
-    MFS_UARTEnableTX(UART52_Ch);
-    Put_char(UART52_Ch , 'Z');
-    delay_ms(1000); //1S = 1.003S, 10ms = 10.061ms
-    Put_char(UART52_Ch, 'Z');
-    Receive_Byte(UART52_Ch, &i, Rev_timeout); 
-    Put_char(UART52_Ch, 'Z');
-    MFS_UARTDisableRX(UART52_Ch);
-    MFS_UARTDisableTX(UART52_Ch);
-#endif    
-         
+    
     /* enable peripheral fuction */
     MFS_UARTEnableTX(UartUSBCh);
     //MFS_UARTEnableRX(UartUSBCh);
@@ -113,7 +100,23 @@ static void BSP(void)
     printf("fuck!!!\r\n");
     printf("fuck!!!\r\n");
 
+//#define  TEST_1    
+#ifdef   TEST_1 
+    MFS_UARTEnableRX(UART52_Ch);
+    MFS_UARTEnableTX(UART52_Ch);
+    Put_char(UART52_Ch , 'Z');
+    delay_ms(1000); //1S = 1.003S, 10ms = 10.061ms
+    Put_char(UART52_Ch, 'Z');
+    Receive_Byte(UART52_Ch, &i, Rev_timeout); 
+    Put_char(UART52_Ch, 'Z');
+    MFS_UARTDisableRX(UART52_Ch);
+    MFS_UARTDisableTX(UART52_Ch);
     
+    test_flash();
+#endif        
+ 
+   // test_flash();
+    _NOP();
 }
 
 
