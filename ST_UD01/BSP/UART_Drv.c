@@ -245,33 +245,33 @@ void UARTConfigMode(uint8_t Ch, MFS_UARTModeConfigT *pModeConfig)
 ** 修改日期:
 ** 修改内容:
 *******************************************************************************/
-//void UARTPollTX(uint8_t Ch, uint8_t *data, uint16_t size)
-//{
-//    uint16_t count;
-//
-//    /* Check and send */
-//    if((data != NULL) && (size != 0))
-//    {
-//        /* Init the count */
-//        count = 0;
-//        /* Enable the  TX*/
-//        MFS_UARTEnableTX(Ch);
-//        while(count < size)
-//        {
-//            if(MFS_UARTGetTXRegEmptyStatus(Ch) && MFS_UARTGetTXBusIdleStatus(Ch))
-//            {
-//                /* TX one byte */
-//                MFS_UARTTXOneData(Ch, *data++);
-//                count++;
-//            }
-//        }
-//        /* TX Finished? */
-//        while(!MFS_UARTGetTXBusIdleStatus(Ch));
-//        /* Disable the  TX after TX all bytes*/
-//        MFS_UARTDisableTX(Ch);
-//    }
-//    return;
-//}
+void UARTPollTX(uint8_t Ch, uint8_t *data, uint16_t size)
+{
+    uint16_t count;
+
+    /* Check and send */
+    if((data != NULL) && (size != 0))
+    {
+        /* Init the count */
+        count = 0;
+        /* Enable the  TX*/
+        //MFS_UARTEnableTX(Ch);
+        while(count < size)
+        {
+            if(MFS_UARTGetTXRegEmptyStatus(Ch) && MFS_UARTGetTXBusIdleStatus(Ch))
+            {
+                /* TX one byte */
+                MFS_UARTTXOneData(Ch, *data++);
+                count++;
+            }
+        }
+        /* TX Finished? */
+        while(!MFS_UARTGetTXBusIdleStatus(Ch));
+        /* Disable the  TX after TX all bytes*/
+        //MFS_UARTDisableTX(Ch);
+    }
+    return;
+}
 
 /*******************************************************************************
 ** 函数名  : UARTPollTX_string

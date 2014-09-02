@@ -1,44 +1,391 @@
----- METER_MODULE Matches (43 in 15 files) ----
-Capconf.h (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\app_include\param):#ifdef METER_MODULE
-Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):#ifdef METER_MODULE	
-Gprs_dev.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):#ifdef METER_MODULE	
-Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):				#ifdef METER_MODULE
-Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):				#ifdef METER_MODULE
-Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):#ifdef METER_MODULE	
-Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):#ifdef METER_MODULE	
-Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):		#ifdef METER_MODULE	
-Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):#ifdef METER_MODULE	
-Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):#ifdef METER_MODULE	
-Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):	#ifdef METER_MODULE
-Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):	#ifdef METER_MODULE
-Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):#ifdef METER_MODULE	
-Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):#ifdef METER_MODULE	
-Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):#ifdef METER_MODULE	
-Hal_config.h (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal\hal_include):#ifdef METER_MODULE
-M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):#ifdef METER_MODULE	
-M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):#ifdef METER_MODULE	
-Meter.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\param):#ifdef METER_MODULE
-Meter.h (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\app_include\param):#ifdef METER_MODULE
-Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):#ifdef METER_MODULE
-Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):#ifdef METER_MODULE
-Stm32f10x_it.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\user):#ifdef METER_MODULE
-Stm32f10x_it.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\user):#ifdef METER_MODULE
-Switch.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal):	#ifdef METER_MODULE
-Switch.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal):#ifdef METER_MODULE
-Switch.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal):#ifdef METER_MODULE
-Switch.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal):#ifdef METER_MODULE
-Sys_config.h (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plat_include):#define METER_MODULE    //ybz
-Sys_config.h (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plat_include):#ifdef METER_MODULE
-Sys_config.h (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plat_include):#ifdef METER_MODULE
-Sys_config.h (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plat_include):#ifdef METER_MODULE
-Sys_config.h (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plat_include):#ifdef METER_MODULE
-Sys_config.h (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plat_include):#ifdef 	METER_MODULE 
-Usart.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal):#ifdef METER_MODULE
-Usart.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal):#ifdef METER_MODULE
-W25X64.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal):#ifdef METER_MODULE
-Ymodem.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):#ifdef METER_MODULE   
-Ymodem.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):#ifdef METER_MODULE 
-Ymodem.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):#ifdef METER_MODULE 
-Ymodem.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):#ifdef METER_MODULE 
-Ymodem.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):#ifdef METER_MODULE
-Ymodem.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):#ifdef METER_MODULE
+---- PrintLog Matches (390 in 48 files) ----
+Alarm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG,"writeflash alarm cur(%d) rt(%d)\n",cur,rt);
+Alarm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):		PrintLog(LOGTYPE_ALARM, "!alarm %d, r=%d(%s)\r\n", pbuf->erc, rank, AlarmName[pbuf->erc]);
+Alarm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	else PrintLog(LOGTYPE_ALARM, "!alarm %d, r=%d\r\n", pbuf->erc, rank);*/
+Amrplat.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):			PrintLog(LOGTYPE_DOWNLINK, "PLC(%d) probed: %c%c%c%c\n", pmodule->port, 
+Amrplat.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):		PrintLog(LOGTYPE_DOWNLINK, "Make report addr num(%d) is too long!\n", num);
+App.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\app):	   PrintLog(LOGTYPE_DEBUG,"1\n");
+App.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\app):	   PrintLog(LOGTYPE_DEBUG,"2\n");
+App.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\app):			PrintLog(LOGTYPE_DEBUG,"debug: %s\n",buf);
+Appmain.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application):	PrintLog(LOGTYPE_DEBUG,"Running Test Task!\r\n");
+Appmain.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application):	PrintLog(LOGTYPE_DEBUG,"Running Stack Check!\r\n");
+Appmain.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application):				PrintLog(LOGTYPE_DEBUG,"Stack pro:%d,	free:%d,	used:%d		name:%s\r\n",i,stk.OSFree,stk.OSUsed,name);		
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):	PrintLog(LOGTYPE_DEBUG,"485 Send:");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):	PrintLog(LOGTYPE_DEBUG,"\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):	PrintLog(LOGTYPE_DEBUG,"\r\n485 Recive:");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):			PrintLog(LOGTYPE_DEBUG,"DoRecharge rt:%d\r\n",rt);
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):		PrintLog(LOGTYPE_DEBUG,"CalibrationTime\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):				PrintLog(LOGTYPE_DEBUG,"CalibrationTime Error! Data Framw Error\r\n");				
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):				PrintLog(LOGTYPE_DEBUG,"Read ymdw %d %d %d %d\r\n",ymdw_buf[0],ymdw_buf[1],ymdw_buf[2],ymdw_buf[3]);
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):			PrintLog(LOGTYPE_DEBUG,"CalibrationTime Error! 232Error!\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):					PrintLog(LOGTYPE_DEBUG,"CalibrationTime Error! Data Framw Error\r\n");	
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):					PrintLog(LOGTYPE_DEBUG,"Read hms %d %d %d\r\n",hms_buf[0],hms_buf[1],hms_buf[2]);
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):				PrintLog(LOGTYPE_DEBUG,"CalibrationTime Error! 232Error!\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):	PrintLog(LOGTYPE_DEBUG,"CMD Worning Code\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):		PrintLog(LOGTYPE_DEBUG,"UpdataGprsParam");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):		PrintLog(LOGTYPE_DEBUG,"\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):			PrintLog(LOGTYPE_DEBUG,"UpdataGprsParam Magic Error(%x%x%x%x)\r\n",buf->Magic[0],buf->Magic[1],buf->Magic[2],buf->Magic[3]);
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):			PrintLog(LOGTYPE_DEBUG,"UpdataGprsParam crc Error(%x%x)(%x)\r\n",buf->Param.CRC[0],buf->Param.CRC[1],crc);
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):			PrintLog(LOGTYPE_DEBUG,"Read Worning Code\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):				PrintLog(LOGTYPE_DEBUG,"Test Worn\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):							PrintLog(LOGTYPE_DEBUG,"\r\nSend Worn MSG for mony\r\n",w.code,*(unsigned int*)w.data);
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):							PrintLog(LOGTYPE_DEBUG,"\033[1;31;40mWorn:%d,%X \033[0m\r\n",w.code,*(unsigned int*)w.data);
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):		PrintLog(LOGTYPE_DEBUG,"Leave Read Worning Code\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):			PrintLog(LOGTYPE_DEBUG,"CenMetForward Timeout.\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):	PrintLog(LOGTYPE_DEBUG,"Sendcrc:%X\r\n",send_crc);
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):	PrintLog(LOGTYPE_DEBUG,"R=> d:%02x step:%d\r\n",d,step);
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):	PrintLog(LOGTYPE_DEBUG,"A=> d:%02x step:%d crc:%d\r\n",d,step,crc);
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):						PrintLog(LOGTYPE_DEBUG,"TestParam:%s\r\n",dataBufList[i].data_buf);
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):				PrintLog(LOGTYPE_DEBUG,"Check Param\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):			//PrintLog(LOGTYPE_DEBUG,"Crc Ok\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):	PrintLog(LOGTYPE_DEBUG,"B=> d:%02x step:%d crc:%d\r\n",d,step,crc);
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):	PrintLog(LOGTYPE_DEBUG,"RunMode:%d\r\n",RunMode);
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet): 			PrintLog(LOGTYPE_DEBUG,"Data Flash 测试成功\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):			PrintLog(LOGTYPE_DEBUG,"Data Flash 测试失败\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):		PrintLog(LOGTYPE_DEBUG,"TestGprs 测试 ...\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):		PrintLog(LOGTYPE_DEBUG,"TestGprs 测试完成 rtn=%d\r\n",rtn);
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):		PrintLog(LOGTYPE_DEBUG,"\033[1;31;40m测试完成\033[0m\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):		PrintLog(LOGTYPE_DEBUG,"RunMode\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):	PrintLog(LOGTYPE_DEBUG,"CenMetTask start...\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):			PrintLog(LOGTYPE_DEBUG,"ProbeBps\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):// 	PrintLog(LOGTYPE_DEBUG,"\r\nAutoReadMeter cur_id = found_id %d\r\n",cur_id);
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):				PrintLog(LOGTYPE_DEBUG,"Worn:%d,%d\r\n",w.code,w.data);
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):    PrintLog(LOGTYPE_DEBUG,"\r\nCenMetTask start...\r\n");
+Cenmet_dlms.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet):			PrintLog(LOGTYPE_DEBUG,"\r\nRead Worning...\r\n");
+Curve.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet\mdb):	//PrintLog(0, "qry %02X%02X%02X%02X, timelen=%d, bactive=%d...\n", itemid[0], itemid[1], itemid[2], itemid[3], timemarklen, bactive);
+Cuvupdate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet\mdb):		PrintLog(LOGTYPE_DEBUG,"dayfrez metersn(%d) MetCuvItemsNum(%d) MetCuvItems(%x)\n",metersn,MetCuvItemsNum,MetCuvItems[0]);
+Cuvupdate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet\mdb):		//PrintLog(LOGTYPE_DEBUG,"mon frz metersn(%d)...\n",metersn);
+Datatask.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\param):	PrintLog(LOGTYPE_UPLINK, "ParaOperationF67 id:%d,cmd:%x\r\n",metpid,buf[0]);
+Datause.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\param):	//PrintLog(LOGTYPE_DEBUG,"usrcls(%d) metcls(%d) i(%d)\n",usrcls,metcls,i);
+Dbase.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet\mdb):	PrintLog(LOGTYPE_DEBUG,"dbase save frez(%d) metid(%d) len(%d) rt(%d)\n",frztype,metid,itemlen,rt);
+Dbase.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet\mdb):	PrintLog(LOGTYPE_DEBUG,"dbase read dbid(%d) frez(%d) dbtime:%d-%d-%d",dbid,frez,dbtime.s.year,dbtime.s.month,dbtime.s.day);
+Dbase.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet\mdb):	PrintLog(LOGTYPE_DEBUG,"metid(%d) frztype(%d) itemnum(%d) itemlen(%d)\n",metid,frztype,itemnum,itemlen);
+Debug.h (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plat_include)://#define PrintLog  print
+Debug.h (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plat_include):void PrintLog(int type, const char *format, ...);
+Debug.h (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plat_include):#define DebugPrint		PrintLog
+Ds3231.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal)://	PrintLog(LOGTYPE_DEBUG,"\r\ntime:%02x-%02x-%02x %02x:%02x:%02x\r\n",Year,Month,Day,Hour,Min,Sec);
+Ether.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):		PrintLog(LOGTYPE_SHORT, "connect to %d.%d.%d.%d, %d...\n",
+Ether.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):		PrintLog(LOGTYPE_SHORT, "connect to %d.%d.%d.%d, %d...\n",
+Ether.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):		PrintLog(LOGTYPE_SHORT,"ether_state(%d)\n",ether_state.lclient);
+Ether.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):			PrintLog(LOGTYPE_SHORT, "connect succeed.\r\n");
+Ether.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_SHORT, "connect failed.\n");
+Ether.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_DEBUG,"****EtherDisconnect \n");
+Ether.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_SHORT, "ether keep alive...\n");
+Ether.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_SHORT, "connection corrupted.\n");
+Ether.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):			PrintLog(LOGTYPE_SHORT,"ether server listen at tcp port %d...\n", ParaTerm.termip.portlisten);
+Ether.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_SHORT,"ether server listen at tcp port %d failed...\n", ParaTerm.termip.portlisten);
+Ether.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):				PrintLog(LOGTYPE_SHORT, "tcp svr timeout, disconnect...\n");
+Ether.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_SHORT, "tcp svr send err, disconnect...\n");
+GprsCtrl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):	PrintLog(LOGTYPE_DEBUG,"GPRS send: ");
+GprsCtrl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):	PrintLog(LOGTYPE_DEBUG,(char*)list->cmd);
+GprsCtrl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"GPRS receive: ");
+GprsCtrl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,(char*)buf);
+GprsCtrl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):			PrintLog(LOGTYPE_DEBUG,"\r\n");
+Gprs_dev.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):	PrintLog(LOGTYPE_SHORT, "signal quality = %d\n", GprsDevSigdBm);
+Gprs_dev.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):		PrintLog(LOGTYPE_DEBUG,"\033[1;32;40mGprs dail successed.\033[0m\n");
+Gprs_dev.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):			PrintLog(LOGTYPE_DEBUG,"GPRS dail fail times(%d)..,reboot\n", cnt_dailerr);
+Gprs_dev.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):		PrintLog(LOGTYPE_DEBUG,"Gprs dail failed.\n");
+Gprs_dev.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):		PrintLog(LOGTYPE_DEBUG,"IP:DNS\r\n");
+Gprs_dev.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):	PrintLog(LOGTYPE_DEBUG,"gprs dis connect...\n");
+Gprs_dev.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):		PrintLog(LOGTYPE_DEBUG,"Sms Head Error!\n");
+Gprs_dev.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):	//	PrintLog(LOGTYPE_DEBUG,field_name[step]);
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):				PrintLog(LOGTYPE_DEBUG,"Ip change by sms,new ip is:%d.%d.%d.%d:%d",
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):				PrintLog(LOGTYPE_DEBUG,"Ip change by sms,new ip is:%d.%d.%d.%d:%d",
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):					PrintLog(LOGTYPE_DEBUG,"Send Error Request\r\n");
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):				PrintLog(LOGTYPE_DEBUG,"Short Message Error!\r\n");
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):	PrintLog(LOGTYPE_DEBUG,"登录主站...");
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):		PrintLog(LOGTYPE_DEBUG,"登录主站失败");
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):	PrintLog(LOGTYPE_DEBUG,"登录主站成功");
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):	PrintLog(LOGTYPE_SHORT, "gprs keep alive...\n");
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):			PrintLog(LOGTYPE_SHORT, "断线了...\n");
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):	PrintLog(LOGTYPE_SHORT,"连接主站...");
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):	PrintLog(LOGTYPE_SHORT,"连接主站失败");
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):		PrintLog(LOGTYPE_ALARM, "logon fail so much times..,reboot\n");
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):			PrintLog(LOGTYPE_DEBUG,"gprs line state chk...\n");
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):			PrintLog(LOGTYPE_DEBUG,"SvrCommLineState(%d) GprsDevLineState(%d)\n",SvrCommLineState,GprsDevLineState);
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):		PrintLog(LOGTYPE_DEBUG,"复位后需要在线\r\n");
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):		PrintLog(LOGTYPE_DEBUG,"永久在线模式\r\n");
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):		PrintLog(LOGTYPE_DEBUG,"激活在线模式\r\n");
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):		PrintLog(LOGTYPE_DEBUG,"clientmode:%d\r\n",ParaTerm.uplink.clientmode);
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):		PrintLog(LOGTYPE_DEBUG,"timedown:%d\r\n",ParaTerm.uplink.timedown);
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):				PrintLog(LOGTYPE_DEBUG,"定时任务到了\r\n");
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):				PrintLog(LOGTYPE_DEBUG,"激活了...\r\n");
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):			PrintLog(LOGTYPE_DEBUG,"发送短息:%s,%s\r\n",PhoneNo,GetSmsMessage());
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):				PrintLog(LOGTYPE_DEBUG,"Stop Thread\r\n");
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):			PrintLog(LOGTYPE_DEBUG,"gprs line state chk...\n");
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):			PrintLog(LOGTYPE_DEBUG,"TIME:%s\r\n",UTimeFormat(UTimeReadCurrent()));
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):			PrintLog(LOGTYPE_DEBUG,"SvrCommLineState(%d) GprsDevLineState(%d)\r\n",SvrCommLineState,GprsDevLineState);
+Gprs_task.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink\gprs):	//PrintLog(LOGTYPE_DEBUG,"Module No = %d\n", dev);
+Log.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):void PrintLog(int type, const char *format, ...)
+Log.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):		PrintLog(type, "%c", str);
+Log.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):		PrintLog(type, "%c", str);
+Log.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):			PrintLog(type, "\r\n");
+Log.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):			PrintLog(type, "%c", ':');
+Log.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug): 	PrintLog(type, "\r\n");
+Log.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_ALARM, "\n!!error!! %s line %d:%s", file, line,Erbuffer);
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"初始化TE波特率失败\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"Apn:%s,Cmd:%s\r\n",_apn,(char*)_atsend_cache);
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"初始化TE波特率失败\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"APN:%s\r\n",_apn);
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"QIDEACT Timeout!\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"TEST_CSQ Timeout!\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):	PrintLog(LOGTYPE_DEBUG,"CSQ:%d\r\n",a);
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"SetApn Timeout!\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):			PrintLog(LOGTYPE_DEBUG,(char*)_atcmd_cache);
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):				PrintLog(LOGTYPE_DEBUG,"\r\nSMS SEND OK!\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,(char*)_atcmd_cache);
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"msg:%s,no:%s\n",msg,no);
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):			PrintLog(LOGTYPE_DEBUG,"Gprs Stat Timeout");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):					PrintLog(LOGTYPE_DEBUG,"QIDEACT Timeout!\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):				PrintLog(LOGTYPE_DEBUG,"QIDEACT Timeout!\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"Gprs Stat Error!\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):			PrintLog(LOGTYPE_DEBUG,"QIOPEN Timeout!\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):			PrintLog(LOGTYPE_DEBUG,"QIOPEN OK!\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):			PrintLog(LOGTYPE_DEBUG,"Already connect!try again.\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):			PrintLog(LOGTYPE_DEBUG,"connect failed!try again.\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"QICLOSE Timeout!\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):	PrintLog(LOGTYPE_DEBUG,"GPRS send data: \r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):	PrintLog(LOGTYPE_DEBUG,"GPRS send result: \r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,(char*)_atcmd_cache);
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"GPRS GetChar receive: ");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):				PrintLog(LOGTYPE_DEBUG,(char*)Cur);
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):					PrintLog(LOGTYPE_DEBUG,"\r\nGetChar Timeout!\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):							PrintLog(LOGTYPE_DEBUG,"\r\nGetChar try!\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):						PrintLog(LOGTYPE_DEBUG,"\r\nGetChar not found +QIRD!\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):						PrintLog(LOGTYPE_DEBUG,"\r\nGetChar all\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):						PrintLog(LOGTYPE_DEBUG,"\r\nGetChar full\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):					PrintLog(LOGTYPE_DEBUG,"\r\nGetChar step default\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs)://		PrintLog(LOGTYPE_DEBUG,"\r\nGetChar End\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):	PrintLog(LOGTYPE_DEBUG,"\r\n\033[1;31;40mGprs BPS : %d \033[0m\r\n",GPRS_BAUDRATE);
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"Baudrate test : %d\r\n",local_rate[i]);
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		 PrintLog(LOGTYPE_DEBUG,"%s\r\n",_atcmd_cache);
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):			PrintLog(LOGTYPE_DEBUG,"Gprs Stat Timeout");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):					PrintLog(LOGTYPE_DEBUG,"QIDEACT Timeout!\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):				PrintLog(LOGTYPE_DEBUG,"QIDEACT Timeout!\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"Gprs Stat Error!\r\n");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"GPRS send: ");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,(char*)_atsend_cache);
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):			PrintLog(LOGTYPE_DEBUG,"GPRS DNS receive: ");
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):			PrintLog(LOGTYPE_DEBUG,(char*)pbuf);
+M35gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):				PrintLog(LOGTYPE_DEBUG,"\r\n");
+Mc55gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"初始化TE波特率失败\r\n");
+Mc55gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"Baudrate test : %d\r\n",local_rate[i]);
+Mc55gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"TEST_CSQ Timeout!\r\n");
+Mc55gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):	PrintLog(LOGTYPE_DEBUG,"CSQ:%d\r\n",a);
+Mc55gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"Mc55Disconnect Time out!\r\n");
+Mc55gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"Mc55Disconnect Time out!\r\n");
+Mc55gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"GPRS send data: \r\n");
+Mc55gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"GPRS send result: \r\n");
+Mc55gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,(char*)_atcmd_cache);
+Mc55gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,(char*)_atcmd_cache);
+Mc55gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):		PrintLog(LOGTYPE_DEBUG,"msg:%s,no:%s\n",msg,no);
+Mdb.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet\mdb):	PrintLog(LOGTYPE_DEBUG,"readmdb rtn(%d)\n",rtn);
+Mdb.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet\mdb):	//PrintLog(LOGTYPE_DEBUG,"  mdb init...\n");
+Mdbcur.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet\mdb):	//PrintLog(LOGTYPE_DEBUG,"**MdbCurrentReInit user(%d)\n",id);
+Mdbcur.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet\mdb):	//PrintLog(LOGTYPE_DEBUG,"**MdbCurrentReInit2 user(%d)\n",id);
+Mdbfrez.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet\mdb):		PrintLog(LOGTYPE_DEBUG,"cuv hourfrez metersn(%d)\n",metersn);
+Mdbsave.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet\mdb):	PrintLog(LOGTYPE_DEBUG,"readflash mdbstic rt(%d)\n",rt);
+Mdbsave.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\cenmet\mdb):	PrintLog(LOGTYPE_DEBUG,"writeflash mdbstic rt(%d)\n",rt);
+Meter.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\param):	PrintLog(LOGTYPE_DEBUG,"测量点  : %d\r\n",id);
+Meter.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\param):	PrintLog(LOGTYPE_DEBUG,"测量点号  : %d\r\n",ParaMeter[id].metp_id);
+Meter.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\param):	PrintLog(LOGTYPE_DEBUG,"测量点地址: %02x%02x%02x-%02x%02x%02x\r\n",
+Meter.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\param):				PrintLog(LOGTYPE_DEBUG,"METER Update\r\n");
+Meter.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\param):				PrintLog(LOGTYPE_DEBUG,"\r\n");
+Meter.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\param):				PrintLog(LOGTYPE_DEBUG,"METER Reciive\r\n");
+Meter.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\param):				PrintLog(LOGTYPE_DEBUG,"\r\n");
+Mutex.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):	//PrintLog(LOGTYPE_DEBUG,"A%d %d %d\r\n",OSTCBCur->OSTCBPrio,sem_data.OSCnt,n);
+Mutex.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):	//PrintLog(LOGTYPE_DEBUG,"B%d %d %d\r\n",OSTCBCur->OSTCBPrio,sem_data.OSCnt,n);
+Mutex.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):	PrintLog(LOGTYPE_DEBUG,"互斥量%d锁无效,\n",n);
+Mutex.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):	PrintLog(LOGTYPE_DEBUG,"互斥量%d锁值是%d,超出范围,\n",n,sem_data.OSCnt);
+Mutex.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):	//PrintLog(LOGTYPE_DEBUG,"C%d %d %d\r\n",OSTCBCur->OSTCBPrio,sem_data.OSCnt,n);
+Mutex.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):	PrintLog(LOGTYPE_DEBUG,"互斥量%d解锁无效,\n",n);
+Mutex.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys)://	PrintLog(LOGTYPE_DEBUG,"C%d %d\r\n",OSTCBCur->OSTCBPrio,sem_data.OSCnt);
+Mutex.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):	PrintLog(LOGTYPE_DEBUG,"(%d)互斥量%d解锁值是%d,超出范围,\n",OSTCBCur->OSTCBPrio,n,sem_data.OSCnt);
+Param_init.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\param):	PrintLog(LOGTYPE_DEBUG,"load param ...\n\r");
+Plat_gprs.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\gprs):			PrintLog(LOGTYPE_DEBUG,"缓冲太小了\r\n");
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):			PrintLog(LOGTYPE_SHORT, "Add Meter %d..\n", metid+1);
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):						PrintLog(LOGTYPE_DOWNLINK, "read met%d %04X..\n", pltcreaditems.metid, itemid);
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):			PrintLog(LOGTYPE_DOWNLINK, "Get[%d] read met%d %04X..\n", port, CurrReadStat[curport].PlCurMetid, itemid);
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	PrintLog(LOGTYPE_DOWNLINK, "PlMetReportAddr Nums = %d...\n", reportnum);
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):		PrintLog(LOGTYPE_DOWNLINK, "PLC Protol=%d, addr:%02X%02X%02X%02X%02X%02X, ", updmeter.proto, 
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):		PrintLog(LOGTYPE_DOWNLINK, "owneraddr:%02X%02X%02X%02X%02X%02X\n", updmeter.owneraddr[5],
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):			PrintLog(LOGTYPE_DOWNLINK, "PLC Protol=%d, addr:%02X%02X%02X%02X%02X%02X, ", updmeter.proto, 
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):			PrintLog(LOGTYPE_DOWNLINK, "owneraddr:%02X%02X%02X%02X%02X%02X\n", updmeter.owneraddr[5],
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	PrintLog(LOGTYPE_DOWNLINK, "Report[%d] met%d proto=%d, ", port, metid, proto);
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):		PrintLog(LOGTYPE_DOWNLINK, "id=%04X, read=%04X,%08X\n", itemid, 
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):		PrintLog(LOGTYPE_DOWNLINK, "id=%08X, id97=%04X, read=%04X,%08X\n", idlong, itemid, 
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):		PrintLog(LOGTYPE_DOWNLINK, "error proto\n");
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	if(applen <= 0) PrintLog(LOGTYPE_DOWNLINK, "check error(%d)\n", applen);
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	else PrintLog(LOGTYPE_DOWNLINK, "check ok(%d)\n", applen);
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	//PrintLog(0, "check applen =%d\n", applen);
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):				PrintLog(LOGTYPE_DEBUG,"\r\n地址域只有一个字节,缺乏HDLC物理地址\r\n");
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):				PrintLog(LOGTYPE_DEBUG,"\r\nHDLC地址非法\r\n");
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):			PrintLog(LOGTYPE_DEBUG,"\r\nHDLC地址:%d\r\n",addr);
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):            PrintLog(LOGTYPE_DEBUG,"error: inHexString or outHex is null!\n");  
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):            PrintLog(LOGTYPE_DEBUG,"error: strlen(inHexString) <= 1!\n");  
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):                PrintLog(LOGTYPE_DEBUG,"error: %c or %c is not hex digit!\n", ch1, ch2);  
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):		PrintLog(LOGTYPE_DEBUG,"\r\n(++TX %04d Times++)#############Running Plc Test!#############\r\n",SendCount++);
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):			PrintLog(LOGTYPE_DEBUG,"\r\n(++RX %04d Times++)#############Plc recived#############\r\n",ReciveCount++);
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):		/*	PrintLog(LOGTYPE_DEBUG,"Plc recv:\r\n");
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):				PrintLog(LOGTYPE_DEBUG,"%02X",rb[i]);
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):					PrintLog(LOGTYPE_DEBUG,":");
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):			PrintLog(LOGTYPE_DEBUG,"\r\n");*/
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	PrintLog(LOGTYPE_DEBUG,"plc 命令: \r\n");
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	PrintLog(LOGTYPE_DEBUG,"plc start \r\n");
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	PrintLog(LOGTYPE_DEBUG,"plc stop\r\n");
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	PrintLog(LOGTYPE_DEBUG,"plc set Interval x\r\n");
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	PrintLog(LOGTYPE_DEBUG,"plc set Timeout  x\r\n");
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	PrintLog(LOGTYPE_DEBUG,"plc once\r\n");
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	PrintLog(LOGTYPE_DEBUG,"plc index\r\n");
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):		PrintLog(LOGTYPE_DEBUG,"PlcCommInit Init:NewAmrModule return NULL\r\n");
+Plcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	PrintLog(LOGTYPE_DEBUG,"  amr init..\n");
+Plc_3762.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	PrintLog(LOGTYPE_DOWNLINK, "PL3762(%d) send(%d): AFN=%02X, DT=%02X%02X\n", pmodule->port, wlen, pkt->afn, pkt->dt[0], pkt->dt[1]);
+Plc_3762.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):				PrintLog(LOGTYPE_DOWNLINK, "PLC(%d) recv %d:\n", pmodule->port, len);
+Plc_3762.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):					PrintLog(LOGTYPE_DOWNLINK, "PLC(%d) Check error(%d)\n", pmodule->port, rtn);
+Plc_3762.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):					PrintLog(LOGTYPE_DOWNLINK, "PLC(%d) Check OK: AFN=%02X, dt=%02X%02X, len=%d\n",
+Plc_3762.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	PrintLog(LOGTYPE_SHORT, "AMR(%d) %s...\n", pmodule->port, flagname[(int)cmd-1]);
+Plc_3762.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):					PrintLog(LOGTYPE_ALARM, "PLC module id=%02X%02X-%02X%02X-%02X%02X\n",
+Plc_3762.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):						PrintLog(LOGTYPE_DOWNLINK, "router info:");
+Plc_3762.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):				PrintLog(LOGTYPE_DOWNLINK, "PLC(%d) recv %d:\n", pmodule->port, pmodule->link_dl_recvlen);
+Plc_3762.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	PrintLog(LOGTYPE_DOWNLINK, "PLGDW Direct send(%d):\n", applen);
+Plc_rsc_std.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):		PrintLog(LOGTYPE_DOWNLINK, "PlRscStd AmrEvent_CtrlCmd Error(%d)!...\n", ctrlcmd);
+Plc_rsc_std.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	PrintLog(LOGTYPE_DOWNLINK, "PlRscStd AmrEvent_CtrlCmd : %s...\n", flagname[ctrlcmd-1]);
+Plc_rsc_std.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):		PrintLog(LOGTYPE_DOWNLINK, "PlRscStd AmrEvent Changemet...\n");
+Plc_rsc_std.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	PrintLog(LOGTYPE_DOWNLINK, "Reset PLC_Rsc module...\n");
+Plc_rsc_std.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\plc):	PrintLog(LOGTYPE_DOWNLINK, "PlRscStdTask running... \n");
+Reset.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\sys\syscall):	PrintLog(LOGTYPE_DEBUG,"sys reset!\n\r");
+Reset.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\sys\syscall):	PrintLog(LOGTYPE_DEBUG,"power down!\n\r");
+Rtc.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal):		PrintLog(LOGTYPE_DEBUG,"RX8025 read error!!!!\r\n");
+Rtc.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal):    //  PrintLog(LOGTYPE_DEBUG,"update time...\r\n");
+Rtc.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal):			PrintLog(LOGTYPE_DEBUG,"read two time error\r\n");
+Rtc.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal):			PrintLog(LOGTYPE_DEBUG,"hms_check error\r\n");
+Rtc.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal):			PrintLog(LOGTYPE_DEBUG,"ymd_check error\r\n");
+Rtc.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal):		PrintLog(LOGTYPE_DEBUG,"RX8025 read error!!!!\r\n");
+Rtc.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal)://	PrintLog(LOGTYPE_DEBUG,"rtc is time_t %d\n%2x年%2x月%2x日 星期%2x %2x:%2x:%2x\r\n",
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG,"readflash runstate rt(%d)\n",rt);
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG,"writeflash runstate rt(%d)\n",rt);
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG, "时钟电池: %s\n", RunState.battery?"低":"正常");
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG, "市电状态: %s\n", RunState.pwroff?"无":"有");
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG, "遥信状态: %02X\n", RunState.isig_stat);
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG, "遥信变位: %02X\n", RunState.isig_chg);
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG, "电池充电: %s\n", RunState.batcharge?"充电中":"停止");
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG, "电池连接: %s\n", RunState.batbad?"未连接":"正常");
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG, "终端剔除: %s\n\n", RunState.outgrp?"投入":"解除");
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG, "重要事件: head=%d, cur=%d, snd=%d\n", 
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG, "一般事件: head=%d, cur=%d, snd=%d\n", 
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG, "事件标志: ");
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG, "\n");
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG, "softchg=");
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG, "cnt_snderr= %d, %d\n", RunState.cnt_snderr[0], RunState.cnt_snderr[1]);
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG, "flag_acd= %d\n", RunState.flag_acd);
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG, "timepoweroff= ");
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG, "malmflag= ");
+Runstate.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\monitor):	PrintLog(LOGTYPE_DEBUG, "\n");
+Shell.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):		PrintLog(LOGTYPE_DEBUG,ERROR_PROMPT "command %s invalid\n", new_cmd->name);
+Shell.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):		PrintLog(LOGTYPE_DEBUG,ERROR_PROMPT "can not index command %s\n", new_cmd->name);
+Shell.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):		if(NULL != cmd_index[i]) PrintLog(LOGTYPE_DEBUG,"%s: \t%s\r\n", cmd_index[i]->name, cmd_index[i]->info);
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"当前时间: %s\n", pstr);
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):		PrintLog(LOGTYPE_DEBUG,"read ext clock fail\n");
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"当前时间: %s\n", pstr);
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):		PrintLog(LOGTYPE_DEBUG,"invalid year\n");
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):		PrintLog(LOGTYPE_DEBUG,"invalid month\n");
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):		PrintLog(LOGTYPE_DEBUG,"invalid day\n");
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):		PrintLog(LOGTYPE_DEBUG,"invalid hour\n");
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):		PrintLog(LOGTYPE_DEBUG,"invalid minute\n");
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):		PrintLog(LOGTYPE_DEBUG,"invalid second\n");
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"set sys clock to %s\n", SysClockFormat(&clock));
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"set ext clock to %s\n", SysClockFormat(&clock));
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"设置终端时间成功\n");
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"new main ip is:%d.%d.%d.%d\r\n",
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"new backup ip is:%d.%d.%d.%d\r\n",
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"main ip is:%d.%d.%d.%d\r\n",
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"main port is:%d\r\n",
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"backup ip is:%d.%d.%d.%d\r\n",
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"backup port is:%d\r\n",
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):		PrintLog(LOGTYPE_DEBUG,"Apn is:%s\r\n",
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"new web address:%s\r\n",ParaUni.web_addr);
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"new main port is:%d\r\n",
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"new backup port is:%d\r\n",
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"new Apn is:%s\r\n",
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"A1:%02X%02X  A2:%02X%02X\r\n",
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"A1:%02X%02X  A2:%02X%02X\r\n",
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"Send Sms:%s\r\n",debug_sms);
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"Send Sms Test.\r\n");
+Shellcmds.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"Ymodem_Receive return %d\r\n",rt);
+Store_iap.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\sys\storage):		//PrintLog(LOGTYPE_SHORT,"iap flash overflow\n");
+Store_iap.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\sys\storage):		//PrintLog(LOGTYPE_SHORT,"iap records overflow\n");
+Store_iap.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\sys\storage):	//PrintLog(LOGTYPE_SHORT,"save code frame:%d,size:%d",icount.records,icount.size);
+Store_iap.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\sys\storage):	//PrintLog(LOGTYPE_SHORT,"ipa save code start\n");
+Store_iap.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\sys\storage):	//PrintLog(LOGTYPE_SHORT,"iap save code end\n");
+Store_iap.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\sys\storage):		PrintLog(LOGTYPE_SHORT,"iap unlegal\n");
+Store_iap.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\sys\storage):			PrintLog(LOGTYPE_SHORT,"read iap record error\n");
+Store_iap.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\sys\storage):		PrintLog(LOGTYPE_SHORT,"read iap record %d ok\n",i);
+Store_iap.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\sys\storage):			PrintLog(LOGTYPE_SHORT,"read code error\n");//代码区校验出错
+Store_iap.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\sys\storage):		PrintLog(LOGTYPE_SHORT,"read iap code %d ok\n",i);
+Store_para.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\sys\storage):	PrintLog(LOGTYPE_SHORT,"save para type:%d,in sectore:%d and %d,use %d sectors\n",type,addr1,addr2,itf->ss);
+Store_para.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\sys\storage):	PrintLog(LOGTYPE_SHORT,"read para type:%d,in sectore:%d and %d,use %d sectors\n",type,addr1,addr2,itf->ss);
+Store_para.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\sys\storage):		PrintLog(LOGTYPE_SHORT,"erase para type:%d,in sectore:%d\n",type,addr);
+Store_para.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\sys\storage):		PrintLog(LOGTYPE_SHORT,"erase para type:%d,in sectore:%d\n",type,addr);
+Svrcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_SHORT, "start task class one %d ...\n", arg);
+Svrcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):		//PrintLog(LOGTYPE_UPLINK, "DataTaskCls1ReInit:%d Disable\r\n",tid);
+Svrcomm.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_UPLINK, "DataTaskCls1ReInit:%d Enable\r\n",tid);
+Switch.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal):		PrintLog(LOGTYPE_DEBUG,"\r\n ON LINE STATE not yet configured....");
+Syscall_init.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\sys\syscall):	PrintLog(LOGTYPE_DEBUG,"  SysCall init...\n");
+Syscall_init.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\sys\syscall):		 PrintLog(LOGTYPE_DEBUG," mutex_create(MUTEX_3) Error...\n");
+Term.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\param):	PrintLog(LOGTYPE_SHORT, "set local ipaddr: %d.%d.%d.%d...\n",
+Timer.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):	PrintLog(LOGTYPE_DEBUG,"call task systime task\n");
+Timer.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):				//PrintLog(LOGTYPE_ONLYSAVE, "\n***current time = %s***\n", SysClockFormat(&clock));
+Timer.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):			//PrintLog(LOGTYPE_DEBUG,"clock %02d-%02d-%02d %02d:%02d:%02d %d\n",clock.year,clock.month,
+Timer.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):	//PrintLog(LOGTYPE_DEBUG,"rcal timer: %s\n", ascii_utime(p->tstart));
+Timer.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):	PrintLog(LOGTYPE_UPLINK,"add rtimer: %d, %d\r\n", pconf->tdev, pconf->tmod);
+Timer.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):		PrintLog(LOGTYPE_DEBUG, "timerinfo r/c\n");
+Timer.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):			PrintLog(LOGTYPE_DEBUG, "ctimer %2d: ", ((unsigned int)p-(unsigned int)CTimerBuffer)/sizeof(ctman_t));
+Timer.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):			PrintLog(LOGTYPE_DEBUG, "dev=%ds, end=%d\n", p->dev, p->end);
+Timer.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):			PrintLog(LOGTYPE_DEBUG, "rtimer %2d: ", ((unsigned int)p-(unsigned int)RTimerBuffer)/sizeof(rtman_t));
+Timer.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):			PrintLog(LOGTYPE_DEBUG, "dev=%d, mod=%d, once=%d\n", p->dev, p->mod, p->bonce);
+Timer.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):			PrintLog(LOGTYPE_DEBUG, "  base=%s, ", UTimeFormat(p->basetime));
+Timer.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):			PrintLog(LOGTYPE_DEBUG, "start=%s\n", UTimeFormat(p->tstart));
+Timer.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):		PrintLog(LOGTYPE_DEBUG, "invalid arg\n");
+Timer.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\sys):	PrintLog(LOGTYPE_DEBUG, "end\n");
+Tranfile.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_ALARM, "down file timeout\n");
+Tranfile.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_SHORT, "start download work file(%d): len=%d, timeout=%d, snmax=%d\n", 
+Tranfile.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_SHORT, "start download raw file(%d:%s): len=%d, timeout=%d, snmax=%d\n", 
+Tranfile.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_SHORT, "down file end ok\n");
+Tranfile.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_ALARM, "up file timeout\n");
+Tranfile.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):			PrintLog(LOGTYPE_SHORT, "zip file %s fail\n", preq->filename);
+Tranfile.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_SHORT, "start upload file: len=%d, timeout=%d\n", len, timeout);
+Tranfile.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):			PrintLog(LOGTYPE_SHORT, "upload file end\n");
+Tranfile.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_SHORT, "start download work file: %s snmax=%d\n", 
+Tranfile.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_SHORT, "down file end ok\n");
+Ttyshell.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):	PrintLog(LOGTYPE_DEBUG,"tty shell start\n");
+Ttyshell.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):		PrintLog(LOGTYPE_DEBUG,"$:");
+Ttyshell.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\platform\debug):		PrintLog(LOGTYPE_DEBUG,command);
+Unique.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\param):		PrintLog(LOGTYPE_DEBUG,"F161:%s\r\n",ParaUni.web_addr);
+Unique.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\param):                PrintLog(LOGTYPE_DEBUG,"ParaUni.repair_portstate=%d\n",buf[0]);
+Unique.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\param):	PrintLog(LOGTYPE_ALARM,"debug close...\n");
+Up485.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_DEBUG,"task--up485 start...\r\n");
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_UPLINK, "%s: C=%02XH, AFN=%02X, len=%d\r\n", prompt, pkt->ctrl, pkt->afn, len);
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):					PrintLog(LOGTYPE_DEBUG,"recv chk err(%d)\n",rt);
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):				PrintLog(LOGTYPE_DEBUG,"recv chk err(%d)\n",rt);
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink)://	PrintLog(LOGTYPE_DEBUG,"DLMS itf(%d) r=%02X,s=%d\r\n",itf, uc, fsm->stat);
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):			//PrintLog(LOGTYPE_DEBUG,"DLMS itf(%d) fsm->maxlen=%d\r\n",itf, fsm->maxlen);
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):				PrintLog(LOGTYPE_DEBUG,"DLMS CRC ERROR\r\n");
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):				PrintLog(LOGTYPE_DEBUG,"DLMS CRC OK\r\n");
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):			//PrintLog(LOGTYPE_DEBUG,"GPRS:%d\r\n",uc);
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):			//PrintLog(LOGTYPE_DEBUG,"itf(%d) r=%02X,s=%d\r\n",itf, uc, fsm->stat);
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):					//PrintLog(LOGTYPE_DEBUG,"GPRS DLMS:%02X\r\n",uc);
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):					//PrintLog(LOGTYPE_DEBUG,"GPRS DLMS:%02X\r\n",uc);
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_SHORT, "logon Time:%d Retry%d.\r\n",times,retry);
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):		//PrintLog(LOGTYPE_SHORT, "logon Retry%d.\r\n",i);
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):		PrintLog(LOGTYPE_SHORT, "Send logon %s.\r\n",UTimeFormat(UTimeReadCurrent()));
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):			//PrintLog(LOGTYPE_SHORT, "logon waited %d.\r\n",UTimeReadCurrent());
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):				PrintLog(LOGTYPE_SHORT, "Recive logon %s.\r\n",UTimeFormat(UTimeReadCurrent()));
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_SHORT, "logon ok.\r\n");
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):	PrintLog(LOGTYPE_SHORT, "logon fail.\r\n");
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):			PrintLog(LOGTYPE_DEBUG,"SvrCommPeekNoteid:%d\r\n",pid);
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):			PrintLog(LOGTYPE_SHORT, "link test fail\r\n");
+Uplink_dl.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\application\uplink):			PrintLog(LOGTYPE_SHORT, "link test ok.\r\n");
+W25X64.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal):		PrintLog(LOGTYPE_DEBUG,"w25x64 read test\r\n");
+W25X64.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal):			PrintLog(LOGTYPE_DEBUG,"addr:%d ",addr);
+W25X64.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal):				PrintLog(LOGTYPE_DEBUG," %02X",buf[i]);
+W25X64.c (e:\工作用盘\伊朗gprs_ybz\伊朗gprs_app_ybz_2014_04_09\hal):			PrintLog(LOGTYPE_DEBUG,"\r\n");

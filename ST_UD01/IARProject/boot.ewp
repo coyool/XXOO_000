@@ -298,6 +298,7 @@
           <state>$PROJ_DIR$\..\common</state>
           <state>$PROJ_DIR$\..\driver</state>
           <state>$PROJ_DIR$\..\user</state>
+          <state>$PROJ_DIR$\..\Lib</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1838,6 +1839,15 @@
       <data/>
     </settings>
   </configuration>
+  <group>
+    <name>ALib_common</name>
+    <file>
+      <name>$PROJ_DIR$\..\Lib\print.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Lib\print.h</name>
+    </file>
+  </group>
   <group>
     <name>BOOT</name>
     <file>

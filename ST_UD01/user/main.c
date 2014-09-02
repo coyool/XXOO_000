@@ -64,6 +64,7 @@ static MFS_UARTModeConfigT tUARTModeConfigT =
 static void BSP(void)
 {   
     uint8_t i;
+    uint8_t tab_VectTab_address[4]={0};
 
     BUTTON_KEY_setup();
     LED_setup();
@@ -95,13 +96,23 @@ static void BSP(void)
     
     /* printf versions informations */     
     // ...
-    printf("fuck!!!\r\n");
-    printf("fuck!!!\r\n");
-    printf("fuck!!!\r\n");
-    printf("fuck!!!\r\n");
-
+    MX25L3206_Read((uint8_t *)tab_VectTab_address, (VectTab_address - USER_FLASH_START_ADDRESS), 4u);
+    printf("\r\n");
+    printf("ST_UD01(IAP) V1.0.0 20140902 \r\n");
+    printf("click button: download program to meter \r\n");
+    printf("push  button: refresh flash of ST_UD01 \r\n");
+    //printf();
+    
 //#define  TEST_1    
-#ifdef   TEST_1 
+#ifdef   TEST_1     
+    printf("helloworld!\r\n");
+    printf("helloworld!\r\n");
+    printf("helloworld!\r\n");
+    printf("helloworld!\r\n");
+    
+    uint8_t tab_01[5] = {0xFF,0x01,0x02,0x03,0x04};
+    printHex(tab_01,5);
+    
     MFS_UARTEnableRX(UART52_Ch);
     MFS_UARTEnableTX(UART52_Ch);
     Put_char(UART52_Ch , 'Z');
@@ -114,9 +125,7 @@ static void BSP(void)
     
     test_flash();
 #endif        
- 
-   // test_flash();
-    _NOP();
+
 }
 
 

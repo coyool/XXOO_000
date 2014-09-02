@@ -113,7 +113,7 @@ static void refresh_flash(void)
             //MX25L3206_Read((uint8_t *)tab_1024, (uint32_t)FlashDestination, PACKET_SIZE);
             MX25L3206_Read((uint8_t *)tab_1024, j, PACKET_SIZE);
             j += 128u;
-            UARTPollRX((uint8_t *)tab_1024, PACKET_SIZE);
+            UARTPollTX(UartUSBCh, (uint8_t *)tab_1024, PACKET_SIZE);
         }          
 #endif        
         /* check CRC32 */
