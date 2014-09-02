@@ -1,0 +1,38 @@
+*** Creating Trace Output File 'loader.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '".\startup_stm32f10x_hd.o"'
+### List of Objects: adding '"system_stm32f10x.o"'
+### List of Objects: adding '"core_cm3.o"'
+### List of Objects: adding '"stm32f10x_rcc.o"'
+### List of Objects: adding '"stm32f10x_spi.o"'
+### List of Objects: adding '"stm32f10x_flash.o"'
+### List of Objects: adding '"stm32f10x_gpio.o"'
+### List of Objects: adding '"misc.o"'
+### List of Objects: adding '"stm32f10x_usart.o"'
+### List of Objects: adding '"stm32f10x_iwdg.o"'
+### List of Objects: adding '"stm32f10x_tim.o"'
+### List of Objects: adding '"main.o"'
+### List of Objects: adding '"w25x64.o"'
+### List of Objects: adding '"crc.o"'
+### List of Objects: adding '"iap.o"'
+### List of Objects: adding '"flash.o"'
+### List of Objects: adding '"iapcmd.o"'
+### List of Objects: adding '"switch.o"'
+### List of Objects: adding '"uart.o"'
+### List of Objects: adding '"ymodem.o"'
+### ADS-LD Command completed:
+--device DARMSTM ".\startup_stm32f10x_hd.o" "system_stm32f10x.o" "core_cm3.o" "stm32f10x_rcc.o" "stm32f10x_spi.o" "stm32f10x_flash.o" "stm32f10x_gpio.o" "misc.o" "stm32f10x_usart.o" "stm32f10x_iwdg.o" "stm32f10x_tim.o" "main.o" "w25x64.o" "crc.o" "iap.o" "flash.o" "iapcmd.o" "switch.o" "uart.o" "ymodem.o" --library_type=microlib --strict --scatter "loader.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\loader.map" -o "loader.axf"### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: 'loader.axf'
+### ADS-LD Command File: 'loader.lnp'
+### Checking for dirty Components...
+### Creating CmdFile 'loader.lnp', Handle=0x0000026C
+### Writing '.lnp' file
+### ADS-LD Command file 'loader.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

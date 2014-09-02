@@ -1,0 +1,26 @@
+SUDT ACCESSPORT LOG FILE - Monitor mode
+
+Monitor: COM4
+Create Time: 2014-04-10, 16:33:16
+Computer Name: ýžJŠF
+System version: Microsoft Windows XP Professional Service Pack 3 (Build 2600)
+
+#       Time        Function                        Data ( Hex )	
+
+1       [00000000]  IRP_MJ_CREATE                   Port Opened - StarMeter.exe
+2       [00000000]  IOCTL_SERIAL_SET_BAUD_RATE      Baud Rate: 300
+3       [00000000]  IOCTL_SERIAL_SET_LINE_CONTROL   StopBits: 1, Parity: Even, DataBits: 7
+4       [00000411]  IOCTL_SERIAL_SET_BAUD_RATE      Baud Rate: 4800
+5       [00000411]  IOCTL_SERIAL_SET_LINE_CONTROL   StopBits: 1, Parity: Even, DataBits: 7
+6       [00000424]  IRP_MJ_WRITE                    Length: 0005, Data: 01 42 30 03 71 
+7       [00000490]  IRP_MJ_READ                     Length: 0001, Data: 06 
+8       [00000493]  IOCTL_SERIAL_SET_BAUD_RATE      Baud Rate: 300
+9       [00000493]  IOCTL_SERIAL_SET_LINE_CONTROL   StopBits: 1, Parity: Even, DataBits: 7
+10      [00000513]  IRP_MJ_WRITE                    Length: 0005, Data: 2F 3F 21 0D 0A 
+11      [00000628]  IRP_MJ_READ                     Length: 0018, Data: 2F 53 54 52 34 44 44 53 32 36 44 2D 41 46 31 30 0D 0A 
+12      [00000646]  IRP_MJ_WRITE                    Length: 0006, Data: 06 30 34 31 0D 0A 
+13      [00000659]  IOCTL_SERIAL_SET_BAUD_RATE      Baud Rate: 4800
+14      [00000659]  IOCTL_SERIAL_SET_LINE_CONTROL   StopBits: 1, Parity: Even, DataBits: 7
+15      [00000731]  IRP_MJ_READ                     Length: 0016, Data: 01 50 30 02 28 37 35 34 31 30 32 33 31 29 03 67 
+16      [00000732]  IRP_MJ_WRITE                    Length: 0013, Data: 01 52 32 02 30 2E 30 2E 30 28 29 03 50 
+17      [00000801]  IRP_MJ_READ                     Length: 0010, Data: 02 30 2E 30 2E 30 28 29 03 32 

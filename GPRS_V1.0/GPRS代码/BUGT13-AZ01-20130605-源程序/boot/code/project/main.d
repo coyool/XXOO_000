@@ -1,0 +1,16 @@
+main.o: ..\APP\main.c
+main.o: D:\”¶”√»Ìº˛\keil4\\ARM\RV31\INC\stdint.h
+main.o: ..\project\stm32f10x_conf.h
+main.o: ..\FWlib\inc\stm32f10x_gpio.h
+main.o: ..\CMSIS\stm32f10x.h
+main.o: ..\CMSIS\core_cm3.h
+main.o: ..\CMSIS\system_stm32f10x.h
+main.o: ..\FWlib\inc\stm32f10x_rcc.h
+main.o: ..\FWlib\inc\stm32f10x_tim.h
+main.o: ..\FWlib\inc\misc.h
+main.o: ..\include\W25X64.h
+main.o: ..\include\switch.h
+main.o: ..\include\iap.h
+main.o: ..\include\uart.h
+main.o: ..\include\ymodem.h
+main.o: ..\include\sys_config.h

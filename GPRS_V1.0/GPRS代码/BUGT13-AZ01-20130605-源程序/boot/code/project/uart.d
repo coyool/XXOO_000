@@ -1,0 +1,9 @@
+uart.o: ..\APP\uart.c
+uart.o: D:\”¶”√»Ìº˛\keil4\\ARM\RV31\INC\stdint.h
+uart.o: ..\include\sys_config.h
+uart.o: ..\FWlib\inc\stm32f10x_usart.h
+uart.o: ..\CMSIS\stm32f10x.h
+uart.o: ..\CMSIS\core_cm3.h
+uart.o: ..\CMSIS\system_stm32f10x.h
+uart.o: ..\FWlib\inc\stm32f10x_rcc.h
+uart.o: ..\FWlib\inc\stm32f10x_gpio.h

@@ -1,0 +1,249 @@
+/**
+* cuvupdate.c -- 历史数据库冻结(日,月, 抄表日)
+* 
+* 作者: zhuzhiqiang
+* 创建时间: 2009-5-14
+* 最后修改时间: 2009-5-14
+*/
+
+//#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stddef.h>
+
+#include "include/debug.h"
+#include "include/sys/timeal.h"
+#include "include/sys/task.h"
+#include "include/param/capconf.h"
+#include "include/param/metp.h"
+#include "include/param/meter.h"
+#include "mdbconf.h"
+#include "mdbcur.h"
+#include "dbconfig.h"
+#include "dbase.h"
+#include "curveday.h"
+#include "curvemon.h"
+#include "curvermd.h"
+#include "mdbstic.h"
+#include "mdbsave.h"
+#include "../cenmet_comm.h"
+
+/**
+* @brief 冻结测量点日数据
+* @param dbtime 当前时间(数据库时间格式, 以下相同)
+*/
+static void UpdateCuvMetpDay(dbtime_t dbtime)
+{
+	unsigned short metersn;
+	db_metday_t *pmet;
+	int len;
+	unsigned short MetCuvItems[MAX_READITEM_NUM];
+	unsigned short MetCuvItemsNum;
+
+	AssertLogReturnVoid(dbfrez_len<sizeof(db_metday_t),"invalid!  >dafrez_len (%d)",sizeof(db_metday_t));
+	
+	pmet = (db_metday_t *)dbfrez_buffer;
+
+	for(metersn=1; metersn<=MAX_CENMETP; metersn++) {
+		if(EMPTY_CENMETP(metersn-1)) continue;
+		if(metcommchk(metersn-1)) continue;
+		
+		
+
+		MetCuvItemsNum = MetReadItemsChk(metersn,MetCuvItems,DBFREZ_DAY);
+		
+		PrintLog(LOGTYPE_DEBUG,"dayfrez metersn(%d) MetCuvItemsNum(%d) MetCuvItems(%x)\n",metersn,MetCuvItemsNum,MetCuvItems[0]);
+
+		ReadImmMdbCur(metersn,MetCuvItems,MetCuvItemsNum,MdbCurIdSave);
+
+		LockMdbCurrent();
+
+		UpdateMdbCurRdTime(MdbCurIdSave);
+		smallcpy(pmet->rdtime,MdbCurrent[MdbCurIdSave].rdtime,5);
+		pmet->fenum = MAXNUM_FEEPRD;
+		
+		len = offsetof(db_metday_t,enepa_abc)-offsetof(db_metday_t,enepa);
+		smallcpy(pmet->enepa, MdbCurrent[MdbCurIdSave].enepa,len);
+		
+		smallcpy(&pmet->enepa_abc[0], MdbCurrent[MdbCurIdSave].enepa_a,5);
+		smallcpy(&pmet->enepa_abc[5], MdbCurrent[MdbCurIdSave].enepa_b,5);
+		smallcpy(&pmet->enepa_abc[10], MdbCurrent[MdbCurIdSave].enepa_c,5);
+		
+		smallcpy(&pmet->enepi_abc[0], MdbCurrent[MdbCurIdSave].enepi_a,4);
+		smallcpy(&pmet->enepi_abc[4], MdbCurrent[MdbCurIdSave].enepi_b,4);
+		smallcpy(&pmet->enepi_abc[8], MdbCurrent[MdbCurIdSave].enepi_c,4);
+
+		smallcpy(&pmet->enena_abc[0], MdbCurrent[MdbCurIdSave].enena_a,5);
+		smallcpy(&pmet->enena_abc[5], MdbCurrent[MdbCurIdSave].enena_b,5);
+		smallcpy(&pmet->enena_abc[10], MdbCurrent[MdbCurIdSave].enena_c,5);
+
+		smallcpy(&pmet->eneni_abc[0], MdbCurrent[MdbCurIdSave].eneni_a,4);
+		smallcpy(&pmet->eneni_abc[4], MdbCurrent[MdbCurIdSave].eneni_b,4);
+		smallcpy(&pmet->eneni_abc[8], MdbCurrent[MdbCurIdSave].eneni_c,4);
+		
+		UnlockMdbCurrent();
+
+		DbaseSave(DBID_MET_DAY(metersn-1), (unsigned char *)dbfrez_buffer, DBFREZ_DAY, dbtime);//@later
+
+	}
+	
+}
+
+/**
+* @brief 冻结测量点月数据
+*/
+static void UpdateCuvMetpMonth(dbtime_t dbtime)
+{
+	unsigned short metersn;
+	db_metmon_t *pmet;
+	int len;
+	unsigned short MetCuvItems[MAX_READITEM_NUM];
+	unsigned short MetCuvItemsNum;
+
+	AssertLogReturnVoid(dbfrez_len<sizeof(db_metmon_t),"invalid!  >dafrez_len (%d)",sizeof(db_metmon_t));
+	
+	pmet = (db_metmon_t *)dbfrez_buffer;
+
+	for(metersn=1; metersn<=MAX_CENMETP; metersn++) {
+		if(EMPTY_CENMETP(metersn-1)) continue;
+		if(metcommchk(metersn-1)) continue;
+
+		MetCuvItemsNum = MetReadItemsChk(metersn,MetCuvItems,DBFREZ_MONTH);
+		ReadImmMdbCur(metersn,MetCuvItems,MetCuvItemsNum,MdbCurIdSave);
+
+		LockMdbCurrent();
+
+		UpdateMdbCurRdTime(MdbCurIdSave);
+		smallcpy(pmet->rdtime,MdbCurrent[MdbCurIdSave].rdtime,5);
+		pmet->fenum = MAXNUM_FEEPRD;
+		
+		len = offsetof(mdbcur_t,phase_arc)-offsetof(mdbcur_t,enepa_lm);
+		smallcpy(pmet->enepa, MdbCurrent[MdbCurIdSave].enepa_lm,len);
+		//PrintLog(LOGTYPE_DEBUG,"mon frz metersn(%d)...\n",metersn);
+		//PrintHexLog(LOGTYPE_DEBUG,MdbCurrent[MdbCurIdSave].enepa_lm,len);
+		
+		smallcpy(&pmet->enepa_abc[0], MdbCurrent[MdbCurIdSave].enepa_a_lm,5);
+		smallcpy(&pmet->enepa_abc[5], MdbCurrent[MdbCurIdSave].enepa_b_lm,5);
+		smallcpy(&pmet->enepa_abc[10], MdbCurrent[MdbCurIdSave].enepa_c_lm,5);
+		
+		smallcpy(&pmet->enepi_abc[0], MdbCurrent[MdbCurIdSave].enepi_a_lm,4);
+		smallcpy(&pmet->enepi_abc[4], MdbCurrent[MdbCurIdSave].enepi_b_lm,4);
+		smallcpy(&pmet->enepi_abc[8], MdbCurrent[MdbCurIdSave].enepi_c_lm,4);
+
+		smallcpy(&pmet->enena_abc[0], MdbCurrent[MdbCurIdSave].enena_a_lm,5);
+		smallcpy(&pmet->enena_abc[5], MdbCurrent[MdbCurIdSave].enena_b_lm,5);
+		smallcpy(&pmet->enena_abc[10], MdbCurrent[MdbCurIdSave].enena_c_lm,5);
+
+		smallcpy(&pmet->eneni_abc[0], MdbCurrent[MdbCurIdSave].eneni_a_lm,4);
+		smallcpy(&pmet->eneni_abc[4], MdbCurrent[MdbCurIdSave].eneni_b_lm,4);
+		smallcpy(&pmet->eneni_abc[8], MdbCurrent[MdbCurIdSave].eneni_c_lm,4);
+		
+		UnlockMdbCurrent();
+
+		DbaseSave(DBID_MET_MONTH(metersn-1), (unsigned char *)dbfrez_buffer, DBFREZ_MONTH, dbtime);//@later
+
+	}
+	
+}
+
+/**
+* @brief 冻结终端日数据
+*/
+static void UpdateCuvTermDay(dbtime_t dbtime)
+{
+	db_termday_t *pterm = (db_termday_t *)dbfrez_buffer;
+
+	BakupSticTerm(0, pterm->pwr_time);
+
+	DbaseSave(DBID_TERMSTIC_DAY, dbfrez_buffer, DBFREZ_DAY, dbtime);//@later
+}
+
+/**
+* @brief 冻结终端月数据
+*/
+static void UpdateCuvTermMonth(dbtime_t dbtime)
+{
+	db_termmon_t *pterm = (db_termmon_t *)dbfrez_buffer;
+
+	BakupSticTerm(1, pterm->pwr_time);
+
+	DbaseSave(DBID_TERMSTIC_MONTH, dbfrez_buffer, DBFREZ_MONTH, dbtime);//@later
+}
+
+/**
+* @brief 冻结日数据
+*/
+void UpdateCurveDay(void)
+{
+	utime_t utime;
+	dbtime_t dbtime;
+
+	utime = UTimeReadCurrent();
+	utime -= 1440*60;  //冻结时间为一天前
+	UTIME_DBTIME(utime, dbtime);
+
+	UpdateCuvTermDay(dbtime);
+	UpdateCuvMetpDay(dbtime);
+}
+
+/**
+* @brief 冻结月数据
+*/
+void UpdateCurveMonth(void)
+{
+	utime_t utime;
+	dbtime_t dbtime;
+
+	utime = UTimeReadCurrent();
+	utime -= 1440*60*20;  //冻结时间为一月前
+	UTIME_DBTIME(utime, dbtime);
+
+	UpdateCuvTermMonth(dbtime);
+	UpdateCuvMetpMonth(dbtime);
+	//UpdateCuvTGrpMonth(dbtime);
+	//UpdateCuvAnaSigMonth(dbtime);
+}
+
+/**
+* @brief 冻结抄表日数据
+*/
+void UpdateCurveRmd(void)
+{
+	unsigned short metersn;
+	db_metrmd_t *pmet;
+	int len;
+	unsigned short MetCuvItems[MAX_READITEM_NUM];
+	unsigned short MetCuvItemsNum;
+	sysclock_t clock;
+	dbtime_t dbtime;
+
+	AssertLogReturnVoid(dbfrez_len<sizeof(db_metrmd_t),"invalid!  >dafrez_len (%d)",sizeof(db_metrmd_t));
+	
+	pmet = (db_metrmd_t *)dbfrez_buffer;
+
+	for(metersn=1; metersn<=MAX_CENMETP; metersn++) {
+		if(EMPTY_CENMETP(metersn-1)) continue;
+		if(metcommchk(metersn-1)) continue;
+		SysClockReadCurrent(&clock);
+		SYSCLOCK_DBTIME(&clock, dbtime);
+
+		MetCuvItemsNum = MetReadItemsChk(metersn,MetCuvItems,DBFREZ_CPDAY);
+		ReadImmMdbCur(metersn,MetCuvItems,MetCuvItemsNum,MdbCurIdSave);
+
+		LockMdbCurrent();
+
+		UpdateMdbCurRdTime(MdbCurIdSave);
+		smallcpy(pmet->rdtime,MdbCurrent[MdbCurIdSave].rdtime,5);
+		pmet->fenum = MAXNUM_FEEPRD;
+		
+		len = sizeof(db_metrmd_t)-offsetof(db_metrmd_t,enepa);
+		smallcpy(pmet->enepa, MdbCurrent[MdbCurIdSave].enepa,len);
+				
+		UnlockMdbCurrent();
+
+		DbaseSave(DBID_MET_CPYDAY(metersn-1), (unsigned char *)dbfrez_buffer, DBFREZ_DAY, dbtime);//@later
+
+	}
+	
+}
+

@@ -1,0 +1,10 @@
+switch.o: ..\APP\switch.c
+switch.o: ..\project\stm32f10x_conf.h
+switch.o: ..\FWlib\inc\stm32f10x_gpio.h
+switch.o: ..\CMSIS\stm32f10x.h
+switch.o: ..\CMSIS\core_cm3.h
+switch.o: D:\”¶”√»Ìº˛\keil4\\ARM\RV31\INC\stdint.h
+switch.o: ..\CMSIS\system_stm32f10x.h
+switch.o: ..\FWlib\inc\stm32f10x_rcc.h
+switch.o: ..\FWlib\inc\stm32f10x_tim.h
+switch.o: ..\FWlib\inc\stm32f10x_iwdg.h

@@ -1,0 +1,10 @@
+iap.o: ..\APP\iap.c
+iap.o: D:\应用软件\keil4\\ARM\RV31\INC\string.h
+iap.o: D:\应用软件\keil4\\ARM\RV31\INC\stdint.h
+iap.o: ..\include\iap_save.h
+iap.o: ..\include\flash.h
+iap.o: ..\include\iap.h
+iap.o: ..\include\iapcmd.h
+iap.o: ..\include\crc.h
+iap.o: ..\include\switch.h
+iap.o: ..\include\uart.h

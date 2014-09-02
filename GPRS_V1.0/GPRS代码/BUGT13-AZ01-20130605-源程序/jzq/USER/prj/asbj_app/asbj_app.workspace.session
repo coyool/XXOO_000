@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Session Name="F:\backup\2013-2-21\jzq\USER\prj\asbj_app\asbj_app.workspace">
+  <int Value="0" Name="m_selectedTab"/>
+  <wxString Value="F:\backup\2013-2-21\jzq\USER\prj\asbj_app\asbj_app.workspace" Name="m_workspaceName"/>
+  <TabInfoArray Name="TabInfoArray">
+    <TabInfo>
+      <wxString Value="F:\backup\2013-2-21\jzq\USER\stm32f10x_it.c" Name="FileName"/>
+      <int Value="10" Name="FirstVisibleLine"/>
+      <int Value="23" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+    </TabInfo>
+  </TabInfoArray>
+  <SerializedObject Name="m_breakpoints">
+    <long Value="0" Name="Count"/>
+  </SerializedObject>
+</Session>
