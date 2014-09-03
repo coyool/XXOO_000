@@ -9,7 +9,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=-1799163097
+Checksum=1676280171
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -41,8 +41,9 @@ Fmt0=char[129]	4	0
 Fmt1=uint8[256]	4	0
 Fmt2=uint8_t[1024]	4	0
 Fmt3=uint8_t[1029]	4	0
-Fmt4=uint8_t[133]	4	0
-Fmt5=uint8_t[256]	4	0
+Fmt4=uint8_t[128]	5	0
+Fmt5=uint8_t[133]	4	0
+Fmt6=uint8_t[256]	4	0
 [watch_formats]
 Fmt0={W}0:C_flag	3	0
 Fmt1={W}0:OK	4	0
@@ -56,18 +57,20 @@ Fmt8={W}0:flash_addr	4	0
 Fmt9={W}0:flash_addr_temp	4	0
 Fmt10={W}0:flashdestination	4	0
 Fmt11={W}0:pMFS_UART_REG[Ch]->SSR	1	0
-Fmt12={W}0:packet_length	4	0
-Fmt13={W}0:packets_received	4	0
-Fmt14={W}0:ramsource	4	0
-Fmt15={W}0:temp	4	0
-Fmt16={W}0:tempCRC	4	0
-Fmt17={W}0:temp_01	4	0
-Fmt18={W}0:temp_02	4	0
-Fmt19={W}0:temp_03	4	0
-Fmt20={W}0:tempdata	3	0
-Fmt21={W}0:timeout	4	0
-Fmt22={W}0:updata	4	0
-Fmt23={W}0:value	4	0
+Fmt12={W}0:packet_data[7]	5	0
+Fmt13={W}0:packet_length	4	0
+Fmt14={W}0:packets_received	4	0
+Fmt15={W}0:ramsource	4	0
+Fmt16={W}0:temp	4	0
+Fmt17={W}0:tempCRC	4	0
+Fmt18={W}0:temp_01	4	0
+Fmt19={W}0:temp_02	4	0
+Fmt20={W}0:temp_03	4	0
+Fmt21={W}0:tempdata	3	0
+Fmt22={W}0:tick_C	5	0
+Fmt23={W}0:timeout	4	0
+Fmt24={W}0:updata	4	0
+Fmt25={W}0:value	4	0
 [PowerLog]
 LogEnabled=0
 GraphEnabled=0
@@ -139,7 +142,9 @@ Exclusions=
 [Disassemble mode]
 mode=0
 [Breakpoints2]
-Count=0
+Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\boot\IAP.c}.211.13" 0 0 1 "" 0 "" 0
+Bp1=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\boot\Ymodem.c}.464.5" 0 0 1 "" 0 "" 0
+Count=2
 [Aliases]
 A0=_ "E:\Lierda\2013\Project\7.思达电表远程升级\远程升级-Ymodem-2014-02-20\boot-2014-01-23\IARProject\startup_mb9xfxxx.s" ""
 A1=_ "E:\Lierda\2013\Project\7.思达电表远程升级\远程升级-Ymodem-2014-02-26\boot-2014-01-23\IARProject\startup_mb9xfxxx.s" ""

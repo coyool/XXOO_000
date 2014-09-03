@@ -52,7 +52,7 @@ const uint8_t CommadReadProgamVersion[]=
 const uint8_t sSoftWare_Versions_ASCLL[23]=
 {
 	'D','D','S','2','6','D','-','X','3','2',
-	'8','-','2','0','1','4','0','8','2','2',
+	'8','-','2','0','1','4','0','8','2','3',
 	'-','V','1'
 };			//  DTS27	
 
@@ -93,8 +93,9 @@ void SendPacket(uint8_t *data, uint16_t length)
     {
         UartSend_Byte(UART52_Ch, data[i]);
         i++;
+        bFM3_GPIO_PDOR0_PD = ~bFM3_GPIO_PDIR0_PD; /* LED201 blink */
     }
-    bFM3_GPIO_PDOR0_PD = ~bFM3_GPIO_PDIR0_PD; /* LED201 */
+    //bFM3_GPIO_PDOR0_PD = ~bFM3_GPIO_PDIR0_PD; /* LED201 */
 }
 
 /*******************************************************************************
@@ -111,22 +112,22 @@ void SendPacket(uint8_t *data, uint16_t length)
 * --返回值: 
 * 函数功能: -- 
 *******************************************************************************/
-uint8_t Max3(uint8_t *t1,uint8_t *t2,uint8_t len)
-{
-	uint8_t i;
-	for(i=0;i<len;i++)
-	{
-        if(*(t1+i)<*(t2+i))
-        {     
-            return 0;
-        }
-        else if(*(t1+i)>*(t2+i))
-        { 
-            return 1;
-        }        
-	}		 	
-	return 1;
-}
+//uint8_t Max3(uint8_t *t1,uint8_t *t2,uint8_t len)
+//{
+//	uint8_t i;
+//	for(i=0;i<len;i++)
+//	{
+//        if(*(t1+i)<*(t2+i))
+//        {     
+//            return 0;
+//        }
+//        else if(*(t1+i)>*(t2+i))
+//        { 
+//            return 1;
+//        }        
+//	}		 	
+//	return 1;
+//}
 /*******************************************************************************
 * 函数名称:  比对版本号,返回提示
 * 输入参数: 
@@ -158,6 +159,7 @@ uint8_t  ReadVersion(void)
     
     do                                                  //读版本号      
     {   
+        MFS_UARTEnableRX(UART52_Ch);
         ackReceived = 0;
         SendPacket((uint8_t *)&CommadReadProgamVersion,sizeof(CommadReadProgamVersion));
         memset(packet_data,0,sizeof(packet_data));
@@ -174,29 +176,47 @@ uint8_t  ReadVersion(void)
             }    
         }
         ackReceived = 1;
+        MFS_UARTDisableRX(UART52_Ch);
+//        if(memcmp(packet_data+7, &sSoftWare_Versions_ASCLL, sizeof(sSoftWare_Versions_ASCLL)) != 0) // 比对版本号
+//        {  
+//             if(memcmp(packet_data+7, &sSoftWare_Versions_ASCLL, 12) != 0) // 型号
+//             {
+//                  return_val = VERSION_TYPE_ERR;  
+//             }
+//             else
+//             {
+//                 if(Max3(packet_data+19,(uint8_t *)&sSoftWare_Versions_ASCLL+12,11)) //下载的版本小于读出的版本 ==1
+//                 {
+//                    return_val = VERSION_HIGH;  
+//                 }
+//                 else
+//                 {
+//                    return_val = VERSION_LOW;   
+//                 }                           
+//             }                        
+//        } 
+//        else
+//        {          
+//            return_val = VERSION_EQU;           //名称版本 完成相同
+//        } 
         
-        if(memcmp(packet_data+7, &sSoftWare_Versions_ASCLL, sizeof(sSoftWare_Versions_ASCLL)) != 0) // 比对版本号
-        {  
-            if(memcmp(packet_data+7, &sSoftWare_Versions_ASCLL, 12) != 0) // 型号
-             {
-                  return_val = VERSION_TYPE_ERR;  
-             }
-             else
-             {
-                 if(Max3(packet_data+19,(uint8_t *)&sSoftWare_Versions_ASCLL+12,11)) //下载的版本小于读出的版本 ==1
-                 {
-                    return_val = VERSION_HIGH;  
-                 }
-                 else
-                 {
-                    return_val = VERSION_LOW;   
-                 }                           
-             }                        
+//        int32_t temp = 0;
+//        temp = memcmp(packet_data+8, &sSoftWare_Versions_ASCLL, 11);
+        if (memcmp(packet_data+7, &sSoftWare_Versions_ASCLL, 11) != 0) // 比对版本号
+        {
+            return_val = METER_TYPE_ERR;  
         } 
         else
-        {          
-            return_val = VERSION_EQU;           //名称版本 完成相同
-        } 
+        {
+            if (memcmp(packet_data+19, (uint8_t *)&sSoftWare_Versions_ASCLL+12, 11) <= 0)
+            {
+                return_val = VERSION_OK; 
+            }
+            else
+            {
+                return_val = VERSION_ERR;
+            }    
+        }    
         
         delay_ms(500);  //loop interval
         
@@ -242,24 +262,31 @@ void IEC62056_21_Process(void)
 {   
     uint8_t verstate;
 	
-    //EnterBootOK = 0;
+    MFS_UARTEnableTX(UART52_Ch);
+    //MFS_UARTEnableRX(UART52_Ch);
+    
     verstate =ReadVersion();
     
     switch(verstate)
     {
-        case VERSION_TYPE_ERR:  
-        case VERSION_LOW:
-        case VERSION_EQU:      
-            BuzzSound(VERSION_EQU);
+        case METER_TYPE_ERR:
+            BuzzSound(VERSION_ERR);
+            printf("METER_TYPE_ERR");
+            break;
+        case VERSION_ERR:      
+            BuzzSound(VERSION_ERR);
+            printf("VERSION_ERR");
           break;     
           
-        case VERSION_HIGH:
-            BuzzSound(VERSION_LOW);
+        case VERSION_OK:
+            BuzzSound(VERSION_OK);
+            printf("VERSION_OK");
             Enter21Upgrade();
-			//EnterBootOK =1;
         break;       
     }
-    
+
+    MFS_UARTDisableTX(UART52_Ch);
+    //MFS_UARTDisableRX(UART52_Ch);
 }
 
 

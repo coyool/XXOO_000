@@ -38,15 +38,15 @@ static void BSP(void);
 
 /*** static variable declarations ***/
 // UART config 
-static MFS_UARTModeConfigT tUARTModeConfigT =
-{
-    57600,                   /* 4800 or 19200  57600 */
-    UART_DATABITS_8,        
-    UART_STOPBITS_1,        
-    UART_PARITY_NONE,       
-    UART_BITORDER_LSB,
-    UART_NRZ,               /* level inversion */  
-};
+//static MFS_UARTModeConfigT tUARTModeConfigT =
+//{
+//    57600,                   /* 4800 or 19200  57600 */
+//    UART_DATABITS_8,        
+//    UART_STOPBITS_1,        
+//    UART_PARITY_NONE,       
+//    UART_BITORDER_LSB,
+//    UART_NRZ,               /* level inversion */  
+//};
 
 
 /*** extern variable declarations ***/
@@ -66,13 +66,14 @@ static void BSP(void)
     uint8_t i;
     uint8_t tab_VectTab_address[8] = {0};
     char file_name_temp[FILE_NAME_LENGTH] = {0};
+    char file_size_temp[FILE_SIZE_LENGTH] = {0};
 
     BUTTON_KEY_setup();
     LED_setup();
     BUZZ_setup();
     //UART_setup();
     UART_Port_init();                                /* UART IO init */             
-    UARTConfigMode(UART52_Ch, &tUARTModeConfigT);       /* UART setup */  
+    //UARTConfigMode(UART52_Ch, &tUARTModeConfigT);       /* UART setup */  
     UARTConfigMode(UartUSBCh, &tUARTModeConfigT);
 
     /* power on LED201 LED202 Blink */
@@ -101,6 +102,10 @@ static void BSP(void)
     MX25L3206_Read((uint8_t*)file_name_temp,
                    (uint32_t)VERSION_ADDRESS,
                    FILE_NAME_LENGTH);
+    MX25L3206_Read((uint8_t*)file_size_temp,
+                   (uint32_t)FLASH_IMAGE_SIZE_ADDRESS,
+                   FILE_SIZE_LENGTH);
+    
     printf("\r\n");   /* space */
     printf("ST_UD01(IAP) V1.0.0 20140902 \r\n");
     printf("click button: download program to meter \r\n");
@@ -110,9 +115,14 @@ static void BSP(void)
     printf("(1) Version: ");
     printf(file_name_temp);
     printf("\r\n");
-    printf("(2) VectTab_Address: (SP) (PC) ");
+    printf("(2) File size: ");
+    printf(file_size_temp);
+    printf("  byte");
+    printf("\r\n");
+    printf("(3) VectTab_Address: (SP) (PC) ");
     printHex(tab_VectTab_address,8u);
     printf("\r\n");
+    
     //printf();
 /*----------------------------------------------------------------------------*/
     

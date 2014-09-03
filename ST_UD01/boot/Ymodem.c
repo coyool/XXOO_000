@@ -29,8 +29,7 @@ static void Ymodem_SendPacket(uint8_t *data, uint16_t length);
 
 
 /*** static variable declarations ***/
-uint8_t file_name[FILE_NAME_LENGTH];
-uint32_t FlashDestination = ApplicationAddress; /* Flash user program offset */
+__IO uint32_t FlashDestination = ApplicationAddress; /* Flash user program offset */
 //uint16_t PageSize = PAGE_SIZE;
 //uint32_t EraseCounter = 0x0;
 //uint32_t NbrOfPage = 0u;
@@ -38,9 +37,11 @@ uint32_t FlashDestination = ApplicationAddress; /* Flash user program offset */
 __IO uint32_t RamSource;
 
 
+
 /*** extern variable declarations ***/
 //uint8_t tab_1024[1024u];
-
+uint8_t file_name[FILE_NAME_LENGTH] = {0};
+int32_t flash_image_size = 0u;
 volatile const uint32_t  Rev_timeout = 12000u; /* about 10S */ 
 
 
@@ -206,6 +207,7 @@ int32_t Ymodem_Receive (uint8_t *buf)
     uint8_t write_flash_check_flag = 0u;
     uint8_t  read_flash_check_flag = 0u; 
     uint8_t       flash_check_flag = 0u;
+    uint8_t write_flash_check_flag_01 = 0u; 
     
     /* Initialize FlashDestination variable */
     FlashDestination = ApplicationAddress;
@@ -257,10 +259,11 @@ int32_t Ymodem_Receive (uint8_t *buf)
                                         }
                                         file_size[i++] = '\0';
                                         Str2Int(file_size, &size);
+                                        //flash_image_size = size;
 
                                         /* Test the size of the image to be sent */
                                         /* Image size is greater than Flash size */
-                                        if (size > FLASH_IMAGE_SIZE)  //!!!
+                                        if (size > FLASH_IMAGE_MAX_SIZE)  //!!!
                                         {
                                             /* End session */
                                             UartSend_Byte(UartUSBCh, CAN);
@@ -278,8 +281,18 @@ int32_t Ymodem_Receive (uint8_t *buf)
                                         flash_check_flag = MX25L3206_Erase(0u, 32u);                        
                                         /* write meter versions */
                                         write_flash_check_flag = 0u;
-                                        write_flash_check_flag = MX25L3206_Write((uint32_t)VERSION_ADDRESS, file_name, FILE_NAME_LENGTH);
-                                        if ((OK != flash_check_flag) && (OK != write_flash_check_flag))
+                                        write_flash_check_flag = MX25L3206_Write((uint32_t)VERSION_ADDRESS,
+                                                                                 file_name,
+                                                                                 FILE_NAME_LENGTH);
+                                        /* write .bin size */
+                                        write_flash_check_flag_01 = 0u;
+                                        write_flash_check_flag_01 = MX25L3206_Write((uint32_t)FLASH_IMAGE_SIZE_ADDRESS,
+                                                                                    file_size,
+                                                                                    FILE_SIZE_LENGTH);
+                                        
+                                        if ((OK != flash_check_flag) 
+                                            && (OK != write_flash_check_flag) 
+                                            && (OK != write_flash_check_flag_01))
                                         {
                                             /* End session */
                                             UartSend_Byte(UartUSBCh, CAN);
@@ -440,15 +453,16 @@ void Ymodem_PrepareIntialPacket(uint8_t *data, const uint8_t* fileName, uint32_t
 *           0: end of transmission
 * 输出参数: 
 * --返回值: 
-* 函数功能: --
+* 函数功能: 可以改成返回最大错误，errors >= 0x0A
 *******************************************************************************/
 void Ymodem_PreparePacket(uint8_t *SourceBuf, uint8_t *data, uint8_t pktNo, uint32_t sizeBlk)
 {
     uint16_t i, size, packetSize;
     uint8_t* file_ptr = NULL;
+    uint8_t  read_flash_check_flag = 0u; 
     
-    ASSERT(NULL==SourceBuf);
-    ASSERT(NULL==data);
+    ASSERT(NULL == SourceBuf);
+    ASSERT(NULL == data);
   
     /* Make first three packet */
     packetSize = PACKET_SIZE;
@@ -456,21 +470,43 @@ void Ymodem_PreparePacket(uint8_t *SourceBuf, uint8_t *data, uint8_t pktNo, uint
 
     data[0] = SOH;
     data[1] = pktNo;
-    data[2] = (~pktNo);
+    data[2] = (~pktNo);             
     file_ptr = SourceBuf;
-  
-    /* Filename packet has valid data */
-    for (i = PACKET_HEADER; i < size + PACKET_HEADER; i++)
+//    
+//    /* Filename packet has valid data */
+//    for (i = PACKET_HEADER; i < size + PACKET_HEADER; i++)
+//    {
+//        data[i] = *file_ptr++;
+//    }
+//    if (size <= packetSize)
+//    {
+//        for (i = size + PACKET_HEADER; i < packetSize + PACKET_HEADER; i++)
+//        {
+//            data[i] = 0x1A; /* EOF (0x1A) or 0x00 */
+//        }
+//    }
+    
+    read_flash_check_flag = MX25L3206_Read((uint8_t*)(&data[PACKET_HEADER]),
+                                           (uint32_t)file_ptr,
+                                           PACKET_SIZE);
+    if (OK == read_flash_check_flag)
     {
-        data[i] = *file_ptr++;
-    }
-    if ( size  <= packetSize)
+        _NOP();
+    }   
+    else
+    {
+        //errors = 0x0A;
+        printf(" read flash check fail ");
+    }    
+    
+    if (size <= packetSize)
     {
         for (i = size + PACKET_HEADER; i < packetSize + PACKET_HEADER; i++)
         {
             data[i] = 0x1A; /* EOF (0x1A) or 0x00 */
         }
     }
+    
 }
 
 /*******************************************************************************
@@ -672,26 +708,28 @@ uint8_t Ymodem_Transmit (uint8_t *buf, const uint8_t* sendFileName, uint32_t siz
                
            // delay_ms(15);
             /* Wait for Ack */
-            if ((Receive_Byte(UART52_Ch, &receivedC[0], Rev_timeout) == 0)  && (receivedC[0] == ACK))
+            if ((Receive_Byte(UART52_Ch, &receivedC[0], Rev_timeout) == 0)  
+                && (receivedC[0] == ACK))
             {
                 ackReceived = 1;  
                 if (size > pktSize)
                 {
                     buf_ptr += pktSize;  
                     size -= pktSize;                   
-                    if (blkNumber == (FLASH_IMAGE_SIZE/128))   // !!!!!!
-                    {
-                        return 0xFF; /*  error */
-                    }
-                    else
-                    {
-                        blkNumber++;
-                    }
+//                    if (blkNumber == (FLASH_IMAGE_MAX_SIZE/PACKET_1K_SIZE))   
+//                    {
+//                        return 0xFF; /*  error */
+//                    }
+//                    else
+//                    {
+//                        blkNumber++;
+//                    }
+                    blkNumber++;  /* only 128 byte */
                 }
                 else     /* the last frame */                
                 {
                     buf_ptr += pktSize;     
-                    size = 0;                //!!!!!!!!!!!!!
+                    size = 0;                // !!! 
                 }/* if (size > pktSize) */
             }
             else
@@ -715,7 +753,8 @@ uint8_t Ymodem_Transmit (uint8_t *buf, const uint8_t* sendFileName, uint32_t siz
         UartSend_Byte(UART52_Ch, EOT);
         /* Send (EOT); */
         /* Wait for Ack */
-        if ((Receive_Byte(UART52_Ch, &receivedC[0], Rev_timeout) == 0)  && receivedC[0] == ACK)
+        if ((0u == Receive_Byte(UART52_Ch, &receivedC[0], Rev_timeout)) 
+            && (ACK == receivedC[0]))
         {
             ackReceived = 1;  
         }

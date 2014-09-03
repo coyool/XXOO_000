@@ -68,11 +68,11 @@ void oneSound(uint8_t cnt,uint16_t Voicedelay)
 *******************************************************************************/
 void BuzzSound(uint8_t mode)
 {
-    if(mode == VERSION_LOW)
+    if(mode == VERSION_OK)
     {
-        oneSound(1,0); 
+        oneSound(10,0); 
     }
-    else if(mode == VERSION_EQU)
+    else if(mode == VERSION_ERR)
     {
        oneSound(5,100); 
     }  

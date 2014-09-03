@@ -34,6 +34,8 @@
 extern uint16_t crcvalue;
 //extern uint8_t tab_1024[1024u];
 extern volatile const uint32_t  Rev_timeout;
+extern uint8_t file_name[FILE_NAME_LENGTH];
+extern int32_t flash_image_size;
 
 
 /*** extern function prototype declarations ***/

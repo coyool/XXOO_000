@@ -19,20 +19,21 @@ typedef volatile unsigned long  vuint32;
 typedef volatile unsigned short vuint16;
 typedef volatile unsigned char  vuint8;
 /*** define and type ***/
-#define    ApplicationAddress            0x0             /* MX25L(0x0)  MB9AF005 Flash(0x1100) */ 
-#define    USER_FLASH_START_ADDRESS      0x0001100
-#define    USER_FLASH_END_ADDRESS        0x0001FF80      /* 0x0001FF84 updata flag */ 
-#define    FLASH_SIZE                    0x0001FFFF 
+#define    ApplicationAddress          0x0          /* MX25L(0x0)  MB9AF005 Flash(0x1100) */ 
+#define    USER_FLASH_START_ADDRESS    0x0001100
+#define    USER_FLASH_END_ADDRESS      0x0001FF80   /* 0x0001FF84 updata flag, the last 0x80 is used for flag, don't touch */ 
+#define    FLASH_SIZE                  0x0001FFFF 
 
 #define    NVIC_VectTab_RAM        ((uint32_t)0x20000000)
 #define    NVIC_VectTab_FLASH      ((uint32_t)0x00000000)
 #define    VectTab_address         (0x00010000)    /* intvec_start, This value must be a multiple of 0x100 */
 
-/* Compute the FLASH upload image size */  
-#define    FLASH_IMAGE_SIZE        (uint32_t) (USER_FLASH_END_ADDRESS - (USER_FLASH_START_ADDRESS - 0x0))
+/* Compute the FLASH upload image size, This value must be a multiple of 0x80(128)  Note[3] */  
+#define    FLASH_IMAGE_MAX_SIZE    (uint32_t) (USER_FLASH_END_ADDRESS - (USER_FLASH_START_ADDRESS - 0x0))
 
 /* information */
-#define    VERSION_ADDRESS         (0x00020000)
+#define    VERSION_ADDRESS                  (0x00020000)
+#define    FLASH_IMAGE_SIZE_ADDRESS         (0x00020100)
 
 
 typedef  void (*pFunction)(void);
@@ -41,9 +42,8 @@ typedef  void (*pFunction)(void);
 /*** extern variable declarations ***/
 //extern pFunction Jump_To_Application;
 //extern __IO uint32_t JumpAddress;
-
-extern uint8_t file_name[FILE_NAME_LENGTH];
-
+//extern uint8_t file_name[FILE_NAME_LENGTH];
+extern MFS_UARTModeConfigT tUARTModeConfigT;
 
 /*** extern function prototype declarations ***/
 extern void IAP(void);

@@ -25,6 +25,16 @@ static void download_program_to_meter(void);
 /*** static variable declarations ***/
 uint8_t tab_1024[1024] = {0};
 //uint8_t file_name[FILE_NAME_LENGTH];
+MFS_UARTModeConfigT tUARTModeConfigT =
+{
+    57600,                   /* 4800 or 19200  57600 */
+    UART_DATABITS_8,        
+    UART_STOPBITS_1,        
+    UART_PARITY_NONE,       
+    UART_BITORDER_LSB,
+    UART_NRZ,               /* level inversion */  
+};
+
 
 /*** extern variable declarations ***/
 //pFunction Jump_To_Application;
@@ -140,7 +150,8 @@ static void refresh_flash(void)
         SerialPutString("\n\rFailed to receive the file!\n\r");
     }
     
-     bFM3_GPIO_PDOR0_PC = 1; /* LED 202 light off */
+    bFM3_GPIO_PDOR0_PD = 1; /* LED 201 light off */
+    bFM3_GPIO_PDOR0_PC = 1; /* LED 202 light off */
 }
 
 /*******************************************************************************
@@ -155,11 +166,16 @@ static void download_program_to_meter(void)
     uint32_t status = 0u; 
     uint8_t tick_C = 0u;
     uint8_t Rev_flag = 0u;
+    uint8_t read_flash_check_flag = 0u;
+    uint8_t file_size[FILE_SIZE_LENGTH] = {0};
 
+    UARTConfigMode(UART52_Ch, &tUARTModeConfigT);
+    
     MFS_UARTEnableRX(UART52_Ch);
     MFS_UARTEnableTX(UART52_Ch);
     
-    SerialPutString("\n\n\rSelect Receive File ... \n\r");
+    //SerialPutString("\n\n\rSelect Receive File ... \n\r");
+    SerialPutString("\n\n\rdownlod image .bin ... \n\r");
     Rev_flag = Receive_Byte(UART52_Ch , &tick_C, Rev_timeout); 
     if (0u == Rev_flag)
     {
@@ -173,18 +189,32 @@ static void download_program_to_meter(void)
     
     if (tick_C == CRC16)
     {
+        read_flash_check_flag = 0u;
+        read_flash_check_flag = MX25L3206_Read((uint8_t*)(file_size),
+                                               (uint32_t)FLASH_IMAGE_SIZE_ADDRESS,
+                                               FILE_SIZE_LENGTH);
+        if (OK != read_flash_check_flag)
+        {
+            return;
+        }    
+        Str2Int(file_size, &flash_image_size);
+        
         /* Transmit the flash image through ymodem protocol */
-        status = Ymodem_Transmit((uint8_t*)ApplicationAddress, (const uint8_t*)"DownloadFlashImage.bin", FLASH_IMAGE_SIZE);
+        status = Ymodem_Transmit((uint8_t*)ApplicationAddress,   //!!!!
+                                 (const uint8_t*)"DownloadFlashImage.bin",
+                                 flash_image_size);  /* , ,FLASH_IMAGE_MAX_SIZE */
+        
         MFS_UARTDisableRX(UART52_Ch);
         
         if (status != 0) 
         {
             SerialPutString("\n\rError Occured while Transmitting File\n\r");
-            oneSound(1, 0);  /* BUZZER 201 buzz */
+            oneSound(10, 300);  /* BUZZER 201 buzz */
         }
         else
         {
             SerialPutString("\n\rFile Trasmitted Successfully \n\r");
+            oneSound(10, 0);  /* BUZZER 201 buzz */
         }
     }
     else
@@ -193,6 +223,7 @@ static void download_program_to_meter(void)
     }
     
     bFM3_GPIO_PDOR0_PD = 1; /* LED 201 light off */
+    bFM3_GPIO_PDOR0_PC = 1; /* LED 202 light off */
     //MFS_UARTDisableRX(UART52_Ch);
     MFS_UARTDisableTX(UART52_Ch);
 }
@@ -224,6 +255,8 @@ void IAP(void)
                     button_key = CLICK;
                     //bFM3_GPIO_PDOR0_PD = ~bFM3_GPIO_PDIR0_PD; /* LED201 */
                     bFM3_GPIO_PDOR0_PD = 0;  /* LED 201 light */
+                    delay_ms(500u);
+                    //IEC62056_21_Process();
                     download_program_to_meter();
                 }
                 else
@@ -234,6 +267,7 @@ void IAP(void)
                         button_key = LONG;
                         //bFM3_GPIO_PDOR0_PC = ~bFM3_GPIO_PDIR0_PC;  /* LED 202 */
                         bFM3_GPIO_PDOR0_PC = 0; /* LED 202 light */
+                        delay_ms(500u);
                         refresh_flash(); 
                     }       
                 }    

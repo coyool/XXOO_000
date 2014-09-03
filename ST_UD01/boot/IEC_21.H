@@ -13,10 +13,9 @@
 
 typedef enum
 {
-	VERSION_EQU = 0,
-    VERSION_LOW,
-    VERSION_HIGH, 
-    VERSION_TYPE_ERR,
+	VERSION_OK = 0,
+    VERSION_ERR,
+    METER_TYPE_ERR,
 }VERSION_TYPEDEF;
 
 extern void IEC62056_21_Process(void);

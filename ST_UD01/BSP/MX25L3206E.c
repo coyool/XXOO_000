@@ -206,7 +206,7 @@ u8 Get_Byte(void)
 ** 出口参数:操作成功则返回OK,失败则返回FAIL		
 
 ************************************************************************/
-U08 MX25L3206_Read(u8* RcvBufPt,u32 Dst, U16 NByte)    
+U08 MX25L3206_Read(u8* RcvBufPt, u32 Dst, U16 NByte)    
 {
     u32 i = 0;
     u8 StatRgVal = 0 ;
