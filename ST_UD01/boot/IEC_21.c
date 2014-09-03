@@ -8,7 +8,7 @@
 * 摘    要：升级模块, 进入升级使用了21协议
 *
 * 当前版本：
-* 作    者：
+* 作    者：wzg
 * 完成日期：
 * 编译环境：
 * 
@@ -138,9 +138,9 @@ uint8_t  ReadVersion(void)
 {
     uint16_t i;
     uint8_t packet_data[128] = {0};
-    volatile uint8_t ackReceived = 0u;
+    volatile uint8_t ackReceived = 0;
     uint32_t errors = 0u;
-    volatile uint8_t return_val = 0u;
+    volatile uint8_t return_val = 0;
         
     UARTConfigMode(UART52_Ch,&tUART4800ModeConfigT);      // 第一步, 初始化波特率,让表回到 300波特率
     delay_ms(5);    
@@ -158,12 +158,12 @@ uint8_t  ReadVersion(void)
     
     do                                                  //读版本号      
     {   
-        ackReceived = 0u;
+        ackReceived = 0;
         SendPacket((uint8_t *)&CommadReadProgamVersion,sizeof(CommadReadProgamVersion));
         memset(packet_data,0,sizeof(packet_data));
         for(i=0;i<50;i++)
         {  
-            if (Receive_Byte(UART52_Ch, packet_data + i, 1000) != 0u)
+            if (Receive_Byte(UART52_Ch, packet_data + i, 1000) != 0)
             {
                errors++;   // ACC error
                break;    
@@ -173,7 +173,7 @@ uint8_t  ReadVersion(void)
                 _NOP();
             }    
         }
-        ackReceived = 1u;
+        ackReceived = 1;
         
         if(memcmp(packet_data+7, &sSoftWare_Versions_ASCLL, sizeof(sSoftWare_Versions_ASCLL)) != 0) // 比对版本号
         {  

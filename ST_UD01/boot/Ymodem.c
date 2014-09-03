@@ -273,17 +273,20 @@ int32_t Ymodem_Receive (uint8_t *buf)
                                         //MFlash_SectorErase ((uint16_t*)0x00001000);//擦除第2扇区
                                         //MFlash_SectorErase ((uint16_t*)0x00010000); //擦除第3扇区
                                         
-                                        /* Erase extern Flash(MX25L4006) sector 0-31(128K byte) */
+                                        /* Erase extern Flash(MX25L4006) sector 0-32(132K byte) */
                                         flash_check_flag = 0u;
-                                        flash_check_flag = MX25L3206_Erase(0u, 31u);
-                                        if (OK != flash_check_flag)
+                                        flash_check_flag = MX25L3206_Erase(0u, 32u);                        
+                                        /* write meter versions */
+                                        write_flash_check_flag = 0u;
+                                        write_flash_check_flag = MX25L3206_Write((uint32_t)VERSION_ADDRESS, file_name, FILE_NAME_LENGTH);
+                                        if ((OK != flash_check_flag) && (OK != write_flash_check_flag))
                                         {
                                             /* End session */
                                             UartSend_Byte(UartUSBCh, CAN);
                                             UartSend_Byte(UartUSBCh, CAN);
                                             return -2;
                                         } 
-                                        
+                                                                   
                                         UartSend_Byte(UartUSBCh, ACK);
                                         UartSend_Byte(UartUSBCh, CRC16);
                                     }
@@ -318,9 +321,7 @@ int32_t Ymodem_Receive (uint8_t *buf)
 //                                        RamSource += 4;
 //                                    }
                                     
-                                    /* write extern Flash(MX25L4006) 128K byte */
-                                    uint8_t tab_01[256] = {0};
-                                    
+                                    /* write extern Flash(MX25L4006) 128K byte */                                
                                     write_flash_check_flag = 0u;
                                     write_flash_check_flag = MX25L3206_Write((uint32_t)FlashDestination, buf, PACKET_SIZE);
                                     read_flash_check_flag = 0u;
@@ -328,7 +329,6 @@ int32_t Ymodem_Receive (uint8_t *buf)
                                     read_flash_check_flag = MX25L3206_Read((uint8_t*)(packet_data), (uint32_t)FlashDestination, PACKET_SIZE);
                                     flash_check_flag = 0u;
                                     flash_check_flag = memcmp((uint8_t *)buf, (uint8_t *)packet_data, PACKET_SIZE);
-                                    memcpy(tab_01, buf, 128); 
                                     
                                     if ((OK == write_flash_check_flag)
                                         && (OK == read_flash_check_flag) 
@@ -445,7 +445,10 @@ void Ymodem_PrepareIntialPacket(uint8_t *data, const uint8_t* fileName, uint32_t
 void Ymodem_PreparePacket(uint8_t *SourceBuf, uint8_t *data, uint8_t pktNo, uint32_t sizeBlk)
 {
     uint16_t i, size, packetSize;
-    uint8_t* file_ptr;
+    uint8_t* file_ptr = NULL;
+    
+    ASSERT(NULL==SourceBuf);
+    ASSERT(NULL==data);
   
     /* Make first three packet */
     packetSize = PACKET_SIZE;
@@ -573,11 +576,11 @@ void Ymodem_SendPacket(uint8_t *data, uint16_t length)
 uint8_t Ymodem_Transmit (uint8_t *buf, const uint8_t* sendFileName, uint32_t sizeFile)
 {
   
-    uint8_t packet_data[PACKET_1K_SIZE + PACKET_OVERHEAD];
-    uint8_t FileName[FILE_NAME_LENGTH];
-    uint8_t *buf_ptr;                    //tempCheckSum 
+    uint8_t packet_data[PACKET_1K_SIZE + PACKET_OVERHEAD] = {0};
+    uint8_t FileName[FILE_NAME_LENGTH] = {0};
+    uint8_t *buf_ptr = NULL;                    //tempCheckSum 
     uint16_t tempCRC, blkNumber;
-    uint8_t receivedC[2]={0};
+    uint8_t receivedC[2] = {0};
     uint8_t i;  //CRC16_F = 0
     uint32_t errors, ackReceived, size = 0, pktSize = 0;
 

@@ -64,7 +64,8 @@ static MFS_UARTModeConfigT tUARTModeConfigT =
 static void BSP(void)
 {   
     uint8_t i;
-    uint8_t tab_VectTab_address[4]={0};
+    uint8_t tab_VectTab_address[8] = {0};
+    char file_name_temp[FILE_NAME_LENGTH] = {0};
 
     BUTTON_KEY_setup();
     LED_setup();
@@ -74,8 +75,6 @@ static void BSP(void)
     UARTConfigMode(UART52_Ch, &tUARTModeConfigT);       /* UART setup */  
     UARTConfigMode(UartUSBCh, &tUARTModeConfigT);
 
-   // UARTConfigMode(&tUART300ModeConfigT);  
-    
     /* power on LED201 LED202 Blink */
     for (i=0u; i<10u; i++)
     {
@@ -94,14 +93,28 @@ static void BSP(void)
     MFS_UARTEnableTX(UartUSBCh);
     //MFS_UARTEnableRX(UartUSBCh);
     
-    /* printf versions informations */     
+/*------ printf versions informations ----------------------------------------*/     
     // ...
-    MX25L3206_Read((uint8_t *)tab_VectTab_address, (VectTab_address - USER_FLASH_START_ADDRESS), 4u);
-    printf("\r\n");
+    MX25L3206_Read((uint8_t *)tab_VectTab_address, 
+                   (VectTab_address - USER_FLASH_START_ADDRESS),
+                   8u);
+    MX25L3206_Read((uint8_t*)file_name_temp,
+                   (uint32_t)VERSION_ADDRESS,
+                   FILE_NAME_LENGTH);
+    printf("\r\n");   /* space */
     printf("ST_UD01(IAP) V1.0.0 20140902 \r\n");
     printf("click button: download program to meter \r\n");
     printf("push  button: refresh flash of ST_UD01 \r\n");
+    printf("\r\n");
+    printf("confirm the following information: \r\n");
+    printf("(1) Version: ");
+    printf(file_name_temp);
+    printf("\r\n");
+    printf("(2) VectTab_Address: (SP) (PC) ");
+    printHex(tab_VectTab_address,8u);
+    printf("\r\n");
     //printf();
+/*----------------------------------------------------------------------------*/
     
 //#define  TEST_1    
 #ifdef   TEST_1     

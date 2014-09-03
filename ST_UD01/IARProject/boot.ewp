@@ -1939,9 +1939,6 @@
     </file>
   </group>
   <group>
-    <name>task</name>
-  </group>
-  <group>
     <name>user</name>
     <file>
       <name>$PROJ_DIR$\..\user\all_header_file.h</name>

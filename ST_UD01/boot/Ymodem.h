@@ -12,7 +12,7 @@
 #define PACKET_SIZE             (128u)
 #define PACKET_1K_SIZE          (1024u)
 
-#define FILE_NAME_LENGTH        (256u)
+#define FILE_NAME_LENGTH        (128u)  /* file name 127 + '\0', (256u) */
 #define FILE_SIZE_LENGTH        (16u)
 
 #define SOH                     (0x01)  /* start of 128-byte data packet */

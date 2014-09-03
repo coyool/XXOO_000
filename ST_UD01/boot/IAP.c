@@ -102,18 +102,19 @@ static void refresh_flash(void)
         SerialPutString(" Bytes\r\n");
         SerialPutString("--------------------------------\r\n");
         
+        oneSound(10,0);
+        
         /* read extern Flash(MX25L4006) verify image */
 #define  TEST_IMAGE
 #ifdef   TEST_IMAGE     
         uint32_t i = 0;
         uint32_t j = ApplicationAddress; 
         memset(&tab_1024[0], 0, PACKET_SIZE);
-        for (i=0u; i<1024; i++)
+        for (i=0u; i<1056; i++) /* (132*1024)/128 0-32 sector */
         {
-            //MX25L3206_Read((uint8_t *)tab_1024, (uint32_t)FlashDestination, PACKET_SIZE);
             MX25L3206_Read((uint8_t *)tab_1024, j, PACKET_SIZE);
-            j += 128u;
-            UARTPollTX(UartUSBCh, (uint8_t *)tab_1024, PACKET_SIZE);
+            j += PACKET_SIZE;
+            printHex(tab_1024,PACKET_SIZE);
         }          
 #endif        
         /* check CRC32 */

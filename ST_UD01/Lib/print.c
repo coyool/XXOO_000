@@ -61,7 +61,7 @@ void printHex(const unsigned char *buf, uint32_t len)
 		{
 			printf("\r\n");
 		}
-		else if(0u == (i&0x07)) 
+		else if(0u == (i&0x03)) 
 		{
 			printf("%c", ' ');
 		}

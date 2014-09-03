@@ -26,11 +26,13 @@ typedef volatile unsigned char  vuint8;
 
 #define    NVIC_VectTab_RAM        ((uint32_t)0x20000000)
 #define    NVIC_VectTab_FLASH      ((uint32_t)0x00000000)
-#define    VectTab_address          0x00010000    /* intvec_start, This value must be a multiple of 0x100 */
+#define    VectTab_address         (0x00010000)    /* intvec_start, This value must be a multiple of 0x100 */
 
 /* Compute the FLASH upload image size */  
-#define FLASH_IMAGE_SIZE         (uint32_t) (USER_FLASH_END_ADDRESS - (USER_FLASH_START_ADDRESS - 0x0))
+#define    FLASH_IMAGE_SIZE        (uint32_t) (USER_FLASH_END_ADDRESS - (USER_FLASH_START_ADDRESS - 0x0))
 
+/* information */
+#define    VERSION_ADDRESS         (0x00020000)
 
 
 typedef  void (*pFunction)(void);
