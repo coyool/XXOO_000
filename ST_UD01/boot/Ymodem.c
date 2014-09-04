@@ -686,7 +686,6 @@ uint8_t Ymodem_Transmit (uint8_t *buf, const uint8_t* sendFileName, uint32_t siz
     blkNumber = 0x01;
     /* Here 128 bytes package is used to send the packets */
       
-  
     /* Resend packet if NAK  for a count of 10 else end of commuincation */
     while (size)
     {

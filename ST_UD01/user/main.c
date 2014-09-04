@@ -73,7 +73,7 @@ static void BSP(void)
     BUZZ_setup();
     //UART_setup();
     UART_Port_init();                                /* UART IO init */             
-    //UARTConfigMode(UART52_Ch, &tUARTModeConfigT);       /* UART setup */  
+    //UARTConfigMode(UART52_Ch, &tUARTModeConfigT);    /* UART setup */  
     UARTConfigMode(UartUSBCh, &tUARTModeConfigT);
 
     /* power on LED201 LED202 Blink */
@@ -88,7 +88,7 @@ static void BSP(void)
     } 
     
     /* power on BUZZER buzz */
-    oneSound(10,100); 
+    oneSound(20,0); 
     
     /* enable peripheral fuction */
     MFS_UARTEnableTX(UartUSBCh);
@@ -122,15 +122,12 @@ static void BSP(void)
     printf("(3) VectTab_Address: (SP) (PC) ");
     printHex(tab_VectTab_address,8u);
     printf("\r\n");
-    
+    //Flash no have image ！！！
     //printf();
 /*----------------------------------------------------------------------------*/
     
 //#define  TEST_1    
 #ifdef   TEST_1     
-    printf("helloworld!\r\n");
-    printf("helloworld!\r\n");
-    printf("helloworld!\r\n");
     printf("helloworld!\r\n");
     
     uint8_t tab_01[5] = {0xFF,0x01,0x02,0x03,0x04};

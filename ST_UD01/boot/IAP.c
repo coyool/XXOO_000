@@ -113,7 +113,7 @@ static void refresh_flash(void)
         SerialPutString(" Bytes\r\n");
         SerialPutString("--------------------------------\r\n");
         
-        oneSound(10,0);
+        //oneSound(10,0);
         
         /* read extern Flash(MX25L4006) verify image */
 #define  TEST_IMAGE
@@ -149,10 +149,19 @@ static void refresh_flash(void)
     else
     {
         SerialPutString("\n\rFailed to receive the file!\n\r");
-    }
+    }/* end if (Size > 0) Ymodem Rev */
     
-    bFM3_GPIO_PDOR0_PD = 1; /* LED 201 light off */
-    bFM3_GPIO_PDOR0_PC = 1; /* LED 202 light off */
+    if (Size > 0)
+    {
+        oneSound(10,0);
+    }
+    else
+    {
+        oneSound(10, 300);  /* BUZZER 201 error buzz */
+    }    
+    
+    bFM3_GPIO_PDOR0_PD = 1u; /* LED 201 light off */
+    bFM3_GPIO_PDOR0_PC = 1u; /* LED 202 light off */
 }
 
 /*******************************************************************************
@@ -213,7 +222,7 @@ static void download_program_to_meter(void)
         if (status != 0) 
         {
             SerialPutString("\n\rError Occured while Transmitting File\n\r");
-            oneSound(10, 300);  /* BUZZER 201 buzz */
+            oneSound(10, 300);  /* BUZZER 201 error buzz */
         }
         else
         {
@@ -224,10 +233,11 @@ static void download_program_to_meter(void)
     else
     {
         SerialPutString("\r\n\nAborted by user or no Rev 'C' .\n\r");  
+        oneSound(10, 300);  /* BUZZER 201 error buzz */
     }
     
-    bFM3_GPIO_PDOR0_PD = 1; /* LED 201 light off */
-    bFM3_GPIO_PDOR0_PC = 1; /* LED 202 light off */
+    bFM3_GPIO_PDOR0_PD = 1u; /* LED 201 light off */
+    bFM3_GPIO_PDOR0_PC = 1u; /* LED 202 light off */
     //MFS_UARTDisableRX(UART52_Ch);
     MFS_UARTDisableTX(UART52_Ch);
 }
@@ -242,7 +252,8 @@ static void download_program_to_meter(void)
 *******************************************************************************/
 void IAP(void)
 {
-    uint8_t i = 0;
+    uint8_t i = 0u;
+    uint8_t cnt = 0u;
     
     while (1u)
     {
@@ -257,11 +268,9 @@ void IAP(void)
                 {   
                     i = 0u;
                     button_key = CLICK;
-                    //bFM3_GPIO_PDOR0_PD = ~bFM3_GPIO_PDIR0_PD; /* LED201 */
-                    bFM3_GPIO_PDOR0_PD = 0;  /* LED 201 light */
-                    delay_ms(500u);
+                    oneSound(10,0); 
                     IEC62056_21_Process();
-                    download_program_to_meter();
+                    download_program_to_meter(); /* Note[4]!!! */
                 }
                 else
                 {
@@ -269,17 +278,23 @@ void IAP(void)
                     {
                         i = 0u;
                         button_key = LONG;
-                        //bFM3_GPIO_PDOR0_PC = ~bFM3_GPIO_PDIR0_PC;  /* LED 202 */
-                        bFM3_GPIO_PDOR0_PC = 0; /* LED 202 light */
-                        delay_ms(500u);
+                        oneSound(50,0); 
                         refresh_flash(); 
                     }       
                 }    
             }/* end if (0u == button_key) */ 
         }    
         
-        delay_ms(10);
-    }    
+        delay_ms(10u);
+        cnt++;
+        
+        if (50u == cnt)
+        {
+            cnt = 0u;
+            bFM3_GPIO_PDOR0_PD = ~bFM3_GPIO_PDIR0_PD; /* LED201 */
+        }    
+        
+    }/* while(1) */    
 }
 
 
