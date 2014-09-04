@@ -36,6 +36,7 @@ MFS_UARTModeConfigT tUARTModeConfigT =
 };
 
 
+
 /*** extern variable declarations ***/
 //pFunction Jump_To_Application;
 //__IO uint32_t JumpAddress;
@@ -168,9 +169,12 @@ static void download_program_to_meter(void)
     uint8_t Rev_flag = 0u;
     uint8_t read_flash_check_flag = 0u;
     uint8_t file_size[FILE_SIZE_LENGTH] = {0};
-
-    UARTConfigMode(UART52_Ch, &tUARTModeConfigT);
     
+    /* wait for meter send 'C', meter printf something before send 'C' */
+    delay_ms(1000);  
+    
+    MFS_UARTSWRst(UART52_Ch);  //reset UART
+    UARTConfigMode(UART52_Ch, &tUARTModeConfigT);
     MFS_UARTEnableRX(UART52_Ch);
     MFS_UARTEnableTX(UART52_Ch);
     
@@ -197,10 +201,10 @@ static void download_program_to_meter(void)
         {
             return;
         }    
-        Str2Int(file_size, &flash_image_size);
+        Str2Int(file_size, &flash_image_size);  /* str to hex */
         
         /* Transmit the flash image through ymodem protocol */
-        status = Ymodem_Transmit((uint8_t*)ApplicationAddress,   //!!!!
+        status = Ymodem_Transmit((uint8_t*)ApplicationAddress,   //!!!!Note
                                  (const uint8_t*)"DownloadFlashImage.bin",
                                  flash_image_size);  /* , ,FLASH_IMAGE_MAX_SIZE */
         
@@ -219,7 +223,7 @@ static void download_program_to_meter(void)
     }
     else
     {
-        SerialPutString("\r\n\nAborted by user.\n\r");  
+        SerialPutString("\r\n\nAborted by user or no Rev 'C' .\n\r");  
     }
     
     bFM3_GPIO_PDOR0_PD = 1; /* LED 201 light off */
@@ -256,7 +260,7 @@ void IAP(void)
                     //bFM3_GPIO_PDOR0_PD = ~bFM3_GPIO_PDIR0_PD; /* LED201 */
                     bFM3_GPIO_PDOR0_PD = 0;  /* LED 201 light */
                     delay_ms(500u);
-                    //IEC62056_21_Process();
+                    IEC62056_21_Process();
                     download_program_to_meter();
                 }
                 else

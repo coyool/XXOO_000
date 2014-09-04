@@ -9,7 +9,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=1676280171
+Checksum=-2002982101
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -142,9 +142,7 @@ Exclusions=
 [Disassemble mode]
 mode=0
 [Breakpoints2]
-Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\boot\IAP.c}.211.13" 0 0 1 "" 0 "" 0
-Bp1=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\boot\Ymodem.c}.464.5" 0 0 1 "" 0 "" 0
-Count=2
+Count=0
 [Aliases]
 A0=_ "E:\Lierda\2013\Project\7.思达电表远程升级\远程升级-Ymodem-2014-02-20\boot-2014-01-23\IARProject\startup_mb9xfxxx.s" ""
 A1=_ "E:\Lierda\2013\Project\7.思达电表远程升级\远程升级-Ymodem-2014-02-26\boot-2014-01-23\IARProject\startup_mb9xfxxx.s" ""

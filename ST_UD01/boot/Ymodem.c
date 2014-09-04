@@ -259,7 +259,6 @@ int32_t Ymodem_Receive (uint8_t *buf)
                                         }
                                         file_size[i++] = '\0';
                                         Str2Int(file_size, &size);
-                                        //flash_image_size = size;
 
                                         /* Test the size of the image to be sent */
                                         /* Image size is greater than Flash size */
@@ -453,17 +452,15 @@ void Ymodem_PrepareIntialPacket(uint8_t *data, const uint8_t* fileName, uint32_t
 *           0: end of transmission
 * 输出参数: 
 * --返回值: 
-* 函数功能: 可以改成返回最大错误，errors >= 0x0A
+* 函数功能: 可以改成返回最大错误，errors >= 0x0A  
+*           *SourceBuf == 空指针(NULL), need to take care 
 *******************************************************************************/
 void Ymodem_PreparePacket(uint8_t *SourceBuf, uint8_t *data, uint8_t pktNo, uint32_t sizeBlk)
 {
     uint16_t i, size, packetSize;
     uint8_t* file_ptr = NULL;
     uint8_t  read_flash_check_flag = 0u; 
-    
-    ASSERT(NULL == SourceBuf);
-    ASSERT(NULL == data);
-  
+      
     /* Make first three packet */
     packetSize = PACKET_SIZE;
     size = sizeBlk < packetSize ? sizeBlk :packetSize;
@@ -471,7 +468,7 @@ void Ymodem_PreparePacket(uint8_t *SourceBuf, uint8_t *data, uint8_t pktNo, uint
     data[0] = SOH;
     data[1] = pktNo;
     data[2] = (~pktNo);             
-    file_ptr = SourceBuf;
+//    file_ptr = SourceBuf;
 //    
 //    /* Filename packet has valid data */
 //    for (i = PACKET_HEADER; i < size + PACKET_HEADER; i++)
@@ -486,6 +483,7 @@ void Ymodem_PreparePacket(uint8_t *SourceBuf, uint8_t *data, uint8_t pktNo, uint
 //        }
 //    }
     
+    file_ptr = SourceBuf;
     read_flash_check_flag = MX25L3206_Read((uint8_t*)(&data[PACKET_HEADER]),
                                            (uint32_t)file_ptr,
                                            PACKET_SIZE);
@@ -608,18 +606,20 @@ void Ymodem_SendPacket(uint8_t *data, uint16_t length)
 * 输出参数: 
 * --返回值: The size of the file
 * 函数功能: only support CRC, only support 128 byte a frame 
+*           *buf == 空指针(NULL), need to take care 
 *******************************************************************************/
 uint8_t Ymodem_Transmit (uint8_t *buf, const uint8_t* sendFileName, uint32_t sizeFile)
 {
   
     uint8_t packet_data[PACKET_1K_SIZE + PACKET_OVERHEAD] = {0};
     uint8_t FileName[FILE_NAME_LENGTH] = {0};
-    uint8_t *buf_ptr = NULL;                    //tempCheckSum 
+    uint8_t *buf_ptr = NULL;      
+    //uint8_t tempCheckSum ;
     uint16_t tempCRC, blkNumber;
     uint8_t receivedC[2] = {0};
     uint8_t i;  //CRC16_F = 0
-    uint32_t errors, ackReceived, size = 0, pktSize = 0;
-
+    uint32_t errors, ackReceived, size = 0, pktSize = 0; 
+    
     errors = 0;
     ackReceived = 0;
     
@@ -676,6 +676,7 @@ uint8_t Ymodem_Transmit (uint8_t *buf, const uint8_t* sendFileName, uint32_t siz
   
     if (errors >=  0x0A)
     {
+        printf(" send file name and file length packet error ");
         return errors;
     }
     
@@ -741,6 +742,7 @@ uint8_t Ymodem_Transmit (uint8_t *buf, const uint8_t* sendFileName, uint32_t siz
 
         if (errors >=  0x0A)
         {
+            printf(" send data packets error "); 
             return errors;
         }
     }/* while (size) */
@@ -766,6 +768,7 @@ uint8_t Ymodem_Transmit (uint8_t *buf, const uint8_t* sendFileName, uint32_t siz
     
     if (errors >=  0x0A)
     {
+        printf(" send EOT error "); 
         return errors;
     }
  
@@ -814,7 +817,8 @@ uint8_t Ymodem_Transmit (uint8_t *buf, const uint8_t* sendFileName, uint32_t siz
     /* Resend packet if NAK  for a count of 10  else end of commuincation */
     if (errors >=  0x0A)
     {
-        return errors;
+        printf(" Last packet error ");
+        return errors; 
     }  
     
     return 0; /* file trasmitted successfully */

@@ -159,10 +159,14 @@ uint8_t  ReadVersion(void)
     
     do                                                  //读版本号      
     {   
-        MFS_UARTEnableRX(UART52_Ch);
+        //MFS_UARTEnableRX(UART52_Ch);
         ackReceived = 0;
         SendPacket((uint8_t *)&CommadReadProgamVersion,sizeof(CommadReadProgamVersion));
         memset(packet_data,0,sizeof(packet_data));
+        
+        Get_One_char(UART52_Ch, packet_data);   
+        MFS_UARTEnableRX(UART52_Ch);
+        
         for(i=0;i<50;i++)
         {  
             if (Receive_Byte(UART52_Ch, packet_data + i, 1000) != 0)
