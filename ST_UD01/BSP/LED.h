@@ -7,12 +7,12 @@
 
 
 /*** extern variable declarations ***/
-
+extern CNT_TYPE  LED;
 
 
 /*** extern function prototype declarations ***/
 extern void LED_setup(void);
-
+extern void LED_Blink(uint8_t cnt);
 
 #endif
 

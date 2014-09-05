@@ -52,7 +52,7 @@ const uint8_t CommadReadProgamVersion[]=
 const uint8_t sSoftWare_Versions_ASCLL[23]=
 {
 	'D','D','S','2','6','D','-','X','3','2',
-	'8','-','2','0','1','4','0','8','2','3',
+	'8','-','2','0','1','5','1','0','2','3',
 	'-','V','1'
 };			//  DTS27	
 

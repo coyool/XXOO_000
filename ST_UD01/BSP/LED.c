@@ -25,7 +25,7 @@
 
 
 /*** extern variable declarations ***/
-
+CNT_TYPE  LED;
 
 
 /*******************************************************************************
@@ -52,14 +52,21 @@ void LED_setup(void)
 
 /*******************************************************************************
 * 函数名称: LED Blink
-* 输入参数: 
+* 输入参数: cnt 
 * 输出参数: 
 * --返回值: 
-* 函数功能: --
+* 函数功能: basic time = 10ms
 *******************************************************************************/
-void LED_Blink(void)
+void LED_Blink(uint8_t cnt)
 {
+    uint8_t i;
     
+    i = LED.cnt_now - LED.cnt_last;
+    if (i >= 50)  
+    {
+        LED.cnt_last = LED.cnt_now;
+        bFM3_GPIO_PDOR0_PD = ~bFM3_GPIO_PDIR0_PD; /* LED201 */
+    }  
 }
 
 

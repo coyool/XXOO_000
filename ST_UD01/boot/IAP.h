@@ -38,6 +38,12 @@ typedef volatile unsigned char  vuint8;
 
 typedef  void (*pFunction)(void);
 
+typedef  struct
+{
+    uint8_t     cnt_now;
+    uint8_t     cnt_last;
+    uint8_t     cnt_interval;
+}CNT_TYPE;
 
 /*** extern variable declarations ***/
 //extern pFunction Jump_To_Application;

@@ -116,7 +116,7 @@ static void refresh_flash(void)
         //oneSound(10,0);
         
         /* read extern Flash(MX25L4006) verify image */
-#define  TEST_IMAGE
+//#define  TEST_IMAGE
 #ifdef   TEST_IMAGE     
         uint32_t i = 0;
         uint32_t j = ApplicationAddress; 
@@ -255,6 +255,8 @@ void IAP(void)
     uint8_t i = 0u;
     uint8_t cnt = 0u;
     
+    memset(&LED, 0, sizeof(LED));
+    
     while (1u)
     {
         if (0u == button_key)
@@ -288,12 +290,13 @@ void IAP(void)
         delay_ms(10u);
         cnt++;
         
-        if (50u == cnt)
-        {
-            cnt = 0u;
-            bFM3_GPIO_PDOR0_PD = ~bFM3_GPIO_PDIR0_PD; /* LED201 */
-        }    
+        /* LED standby blink */
+        LED_Blink(cnt);
         
+        /* shell --map */
+        
+     
+        _NOP();
     }/* while(1) */    
 }
 

@@ -9,7 +9,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=-420584556
+Checksum=1581673124
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -36,6 +36,9 @@ ITMportsEnable=0
 ITMportsTermIO=0
 ITMportsLogFile=0
 ITMlogFile=$PROJ_DIR$\ITM.log
+[struct_types]
+Fmt0=CNT_TYPE-cnt_last	3	0
+Fmt1=CNT_TYPE-cnt_now	3	0
 [array_types]
 Fmt0=char[129]	4	0
 Fmt1=uint8[256]	4	0
@@ -49,28 +52,35 @@ Fmt0={W}0:C_flag	3	0
 Fmt1={W}0:OK	4	0
 Fmt2={W}0:VTOR	4	0
 Fmt3={W}0:WriteData	4	0
-Fmt4={W}0:buf	4	0
-Fmt5={W}0:crc	4	0
-Fmt6={W}0:crcvalue	4	0
-Fmt7={W}0:errors	4	0
-Fmt8={W}0:flash_addr	4	0
-Fmt9={W}0:flash_addr_temp	4	0
-Fmt10={W}0:flashdestination	4	0
-Fmt11={W}0:pMFS_UART_REG[Ch]->SSR	1	0
-Fmt12={W}0:packet_data[7]	5	0
-Fmt13={W}0:packet_length	4	0
-Fmt14={W}0:packets_received	4	0
-Fmt15={W}0:ramsource	4	0
-Fmt16={W}0:temp	4	0
-Fmt17={W}0:tempCRC	4	0
-Fmt18={W}0:temp_01	4	0
-Fmt19={W}0:temp_02	4	0
-Fmt20={W}0:temp_03	4	0
-Fmt21={W}0:tempdata	3	0
-Fmt22={W}0:tick_C	5	0
-Fmt23={W}0:timeout	4	0
-Fmt24={W}0:updata	4	0
-Fmt25={W}0:value	4	0
+Fmt4={W}0:b	4	0
+Fmt5={W}0:buf	4	0
+Fmt6={W}0:crc	4	0
+Fmt7={W}0:crcvalue	4	0
+Fmt8={W}0:errors	4	0
+Fmt9={W}0:flash_addr	4	0
+Fmt10={W}0:flash_addr_temp	4	0
+Fmt11={W}0:flashdestination	4	0
+Fmt12={W}0:i	4	0
+Fmt13={W}0:k	4	0
+Fmt14={W}0:m	4	0
+Fmt15={W}0:n	4	0
+Fmt16={W}0:pMFS_UART_REG[Ch]->SSR	1	0
+Fmt17={W}0:packet_data[7]	5	0
+Fmt18={W}0:packet_length	4	0
+Fmt19={W}0:packets_received	4	0
+Fmt20={W}0:ramsource	4	0
+Fmt21={W}0:size	4	0
+Fmt22={W}0:temp	4	0
+Fmt23={W}0:tempCRC	4	0
+Fmt24={W}0:temp_01	4	0
+Fmt25={W}0:temp_02	4	0
+Fmt26={W}0:temp_03	4	0
+Fmt27={W}0:tempdata	3	0
+Fmt28={W}0:tick_C	5	0
+Fmt29={W}0:timeout	4	0
+Fmt30={W}0:updata	4	0
+Fmt31={W}0:value	4	0
+Fmt32={W}0:x	4	0
 [PowerLog]
 LogEnabled=0
 GraphEnabled=0
@@ -108,6 +118,11 @@ GraphEnabled=0
 ShowTimeLog=1
 ShowTimeSum=1
 SumSortOrder=0
+[Disassemble mode]
+mode=0
+[Breakpoints2]
+Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\BSP\LED.c}.85.5" 0 0 1 "" 0 "" 0
+Count=1
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -115,6 +130,12 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
+[Aliases]
+A0=_ "E:\Lierda\2013\Project\7.思达电表远程升级\远程升级-Ymodem-2014-02-20\boot-2014-01-23\IARProject\startup_mb9xfxxx.s" ""
+A1=_ "E:\Lierda\2013\Project\7.思达电表远程升级\远程升级-Ymodem-2014-02-26\boot-2014-01-23\IARProject\startup_mb9xfxxx.s" ""
+A2=_ "E:\Lierda\FM3\FM3外设应用笔记\支持\MB9AFA32N\升级工程(app用中断)-2014-02-08\boot-2014-01-23\IARProject\startup_mb9xfxxx.s" ""
+Count=3
+SuppressDialog=1
 [Trace2]
 Enabled=0
 ShowSource=0
@@ -139,13 +160,3 @@ Mode=3
 Graph=0
 Symbiont=0
 Exclusions=
-[Disassemble mode]
-mode=0
-[Breakpoints2]
-Count=0
-[Aliases]
-A0=_ "E:\Lierda\2013\Project\7.思达电表远程升级\远程升级-Ymodem-2014-02-20\boot-2014-01-23\IARProject\startup_mb9xfxxx.s" ""
-A1=_ "E:\Lierda\2013\Project\7.思达电表远程升级\远程升级-Ymodem-2014-02-26\boot-2014-01-23\IARProject\startup_mb9xfxxx.s" ""
-A2=_ "E:\Lierda\FM3\FM3外设应用笔记\支持\MB9AFA32N\升级工程(app用中断)-2014-02-08\boot-2014-01-23\IARProject\startup_mb9xfxxx.s" ""
-Count=3
-SuppressDialog=1
