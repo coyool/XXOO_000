@@ -1,0 +1,138 @@
+C51 COMPILER V9.00   ISR                                                                   08/27/2014 17:22:32 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE ISR
+OBJECT MODULE PLACED IN ISR.OBJ
+COMPILER INVOKED BY: D:\Program Files\keil4\C51\BIN\C51.EXE ISR.c OMF2 BROWSE DEBUG
+
+line level    source
+
+   1          
+   2          /*********************************************************************
+   3           *                      Interrupt Service Routines 
+   4           *********************************************************************
+   5           * FileName:        ISR.c
+   6           * Dependencies:    SH99F01.h
+   7           *                                      MAIN.h
+   8           *                  UART.h
+   9           *                  PLT.h
+  10           * Company:         Sinowealth Micro Electronics ltd
+  11           *
+  12           * All rights reserved.
+  13           *
+  14           * Author           Date         Comment
+  15           *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  16           * robbie.zhang    2010.4.13       Version 1.0
+  17           ********************************************************************/
+  18          
+  19          #include  <SH99F01.h>
+  20          #include  "MAIN.h"
+  21          #include  "UART.h"
+  22          #include  "PLT.h"
+  23          
+  24          uint Timer_count1=0;
+  25          
+  26          void ISR_OVL(void) interrupt 15        
+  27          {
+  28   1              while(1);       // go watch dog
+  29   1      }
+  30          
+  31          
+  32          void ISR_TIMER0(void) interrupt 1        // 1ms   
+  33          {
+  34   1              EA = 0;
+  35   1              TL0     = -TIMER0;    //wait 1ms 
+  36   1              TH0     = (-TIMER0)>>8; 
+  37   1      
+  38   1              Timer_count++;
+  39   1              PLT_TimerTask();
+  40   1      
+  41   1      
+  42   1              if(get_local_addr_timeout && get_local_addr_timeout!=0xFFFF)                      //receive flow timeout
+  43   1                       --get_local_addr_timeout; 
+  44   1      
+  45   1              Timer_count1++;
+  46   1              if(Timer_count1>=1000)  // 1s
+  47   1              { 
+  48   2                      Timer_count1 = 0;
+  49   2                      uart_tx_idle_timeout++;
+  50   2                      uart_rx_idle_timeout++;
+  51   2              }
+  52   1      
+  53   1              EA = 1;
+  54   1      }
+  55          
+C51 COMPILER V9.00   ISR                                                                   08/27/2014 17:22:32 PAGE 2   
+
+  56          
+  57          void ISR_INT1(void) interrupt 2
+  58          {
+  59   1              EA = 0;
+  60   1              EX1 = 0;
+  61   1          zc_flag = 1;
+  62   1              EA = 1;
+  63   1      }
+  64          
+  65          void ISR_UART(void) interrupt 4          //?? 此函数有问题
+  66          {
+  67   1              EA = 0;
+  68   1              ES = 0;
+  69   1              if(RI)     //UART Rev_flag
+  70   1              {               
+  71   2                      if (!uart_RI_start)
+  72   2                      {
+  73   3                              ACC = SBUF;
+  74   3                              if(P==RB8)               //奇偶校验一致
+  75   3                              {
+  76   4                                uart_trans.uart_ptr = 0;
+  77   4                                uart_trans.uart_buf[uart_trans.uart_ptr] = SBUF;
+  78   4                                uart_trans.uart_ptr++;
+  79   4                                uart_trans.uart_timeout = UART_DELAY;          //UART_DELAY = 20                                
+  80   4                                uart_RI_start = 1;    
+  81   4                              }
+  82   3                              else
+  83   3                                ES = 1;       // enable again                                                                         
+  84   3                      }
+  85   2                      RI = 0;
+  86   2              }
+  87   1              //ES = 1; //if RX complete then wait for TX complete then enable ES = 1 again   
+  88   1              EA = 1;
+  89   1      }
+  90          
+  91          
+  92          
+  93          void ISR_PLT(void) interrupt 7
+  94          {
+  95   1              EA = 0;
+  96   1              if(TXINT)                                               //Transmit interrupt
+  97   1              {
+  98   2                      TXINT = 0;
+  99   2                      tx_flag = 1;
+ 100   2              }
+ 101   1              if(RXINT)       
+ 102   1              {
+ 103   2                      RXINT = 0;
+ 104   2                      rx_flag = 1;
+ 105   2              }
+ 106   1              EA = 1;
+ 107   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    289    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+C51 COMPILER V9.00   ISR                                                                   08/27/2014 17:22:32 PAGE 3   
+
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

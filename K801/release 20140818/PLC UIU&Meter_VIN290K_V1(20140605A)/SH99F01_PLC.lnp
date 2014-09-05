@@ -1,0 +1,8 @@
+"main.obj",
+"UART.obj",
+"PLT.obj",
+"ISR.obj",
+"APP.obj",
+"SSP.obj" 
+TO "SH99F01_PLC" 
+

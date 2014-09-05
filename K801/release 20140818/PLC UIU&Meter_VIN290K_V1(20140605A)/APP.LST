@@ -1,0 +1,292 @@
+C51 COMPILER V9.00   APP                                                                   08/27/2014 17:22:32 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE APP
+OBJECT MODULE PLACED IN APP.OBJ
+COMPILER INVOKED BY: D:\Program Files\keil4\C51\BIN\C51.EXE APP.c OMF2 BROWSE DEBUG
+
+line level    source
+
+   1          //MCU: SH99F01
+   2          #include  <SH99F01.h>
+   3          #include  "MAIN.h"
+   4          #include  "APP.h"
+   5          #include  "UART.h"
+   6          #include  "PLT.h"
+   7          #include  "string.h"
+   8          
+   9          bit       plt_rx_start = 0;             // debug
+  10          bit       plt_tx_ready = 0;
+  11          
+  12          bit       plt_tx_continue = 0;
+  13          
+  14          bit   plt_rx_ok = 0;
+  15          bit   plt_tx_ok = 0;
+  16          
+  17          void App_Task()
+  18          {
+  19   1              uchar i;
+  20   1              PLC_TX = (PLCON&0X01);           // LED PLC_TX
+  21   1              PLC_RX = RXFA|RXNFA;             // LED PLC_RX
+  22   1      
+  23   1              if(rx_ok_flag)
+  24   1              {
+  25   2                      rx_ok_flag = 0; 
+  26   2      
+  27   2                      if ((plt_buf_trans[30]&0x80)==0x80)             //with continue
+  28   2                      {
+  29   3                              for(i=0;i<29;i++)
+  30   3                              {
+  31   4                                      plt_trans.plt_buf[plt_trans.plt_ptr] = plt_buf_trans[i];                        
+  32   4                                      plt_trans.plt_ptr++;
+  33   4                              }
+  34   3                      }
+  35   2                      else                            //      without continue
+  36   2                      {
+  37   3                              for(i=0;i<29;i++)
+  38   3                              {
+  39   4                                      plt_trans.plt_buf[plt_trans.plt_ptr] = plt_buf_trans[i];                        
+  40   4                                      plt_trans.plt_ptr++;                            
+  41   4                              }       
+  42   3      
+  43   3                              //plt_trans.plt_framelen = plt_trans.plt_ptr;                   
+  44   3                               //plt_trans.plt_framelen = plt_trans.plt_buf[29];
+  45   3                               //uart_trans.uart_framelen = plt_trans.plt_buf[29];
+  46   3                               uart_trans.uart_framelen = plt_buf_trans[29];  
+  47   3      
+  48   3                              plt_trans.plt_ptr = 0;                  
+  49   3                              plt_rx_ok = 1;          // user clear                   
+  50   3      
+  51   3                              uart_TI_ready = 1;      // debug
+  52   3      
+  53   3                      }
+  54   2      
+  55   2                      //PLC_RX = !PLC_RX;     // debug
+C51 COMPILER V9.00   APP                                                                   08/27/2014 17:22:32 PAGE 2   
+
+  56   2                              
+  57   2              }
+  58   1              if(tx_ok_flag)
+  59   1              {
+  60   2                      tx_ok_flag  = 0;
+  61   2      
+  62   2                      if(plt_tx_continue)
+  63   2                      {
+  64   3                              if (uart_trans.uart_framelen<=58)
+  65   3                              {
+  66   4                                      memset(plt_buf_trans,0,FRAME_LENGTH);
+  67   4                                      for(i=0;i<29;i++)
+  68   4                                      {
+  69   5                                              plt_buf_trans[i] = uart_trans.uart_buf[uart_trans.uart_ptr];
+  70   5                                              uart_trans.uart_ptr++;
+  71   5                                      }
+  72   4      
+  73   4                                      //plt_trans.plt_buf[29] = plt_trans.plt_framelen;
+  74   4                                      plt_buf_trans[29] = uart_trans.uart_framelen;                             
+  75   4      
+  76   4                                      plt_buf_trans[30] &= 0x7F;              // without continue
+  77   4                              
+  78   4                              //      while(!(Transmit()));                           
+  79   4                              Transmit();             
+  80   4                                      plt_tx_continue = 0;    
+  81   4                              }
+  82   3      
+  83   3                              else if (uart_trans.uart_framelen<=87)
+  84   3                              {
+  85   4                                      if (uart_trans.uart_ptr<58)                      // care!  can't  <=58    (uart_trans.uart_ptr decision first, increment
+             - second)
+  86   4                                      {
+  87   5                                              memset(plt_buf_trans,0,FRAME_LENGTH);
+  88   5                                              for(i=0;i<29;i++)
+  89   5                                              {
+  90   6                                                      plt_buf_trans[i] = uart_trans.uart_buf[uart_trans.uart_ptr];
+  91   6                                                      uart_trans.uart_ptr++;
+  92   6                                              }
+  93   5      
+  94   5                                      //plt_trans.plt_buf[29] = plt_trans.plt_framelen;
+  95   5                                      plt_buf_trans[29] = uart_trans.uart_framelen;
+  96   5                                              plt_buf_trans[30] |= 0x80;              // with continue
+  97   5                                      
+  98   5                                              //while(!(Transmit()));
+  99   5                                              Transmit();             
+ 100   5                                              plt_tx_continue = 1;    
+ 101   5                                      }
+ 102   4                                      else
+ 103   4                                      {
+ 104   5                                              memset(plt_buf_trans,0,FRAME_LENGTH);
+ 105   5                                              for(i=0;i<29;i++)
+ 106   5                                              {
+ 107   6                                                      plt_buf_trans[i] = uart_trans.uart_buf[uart_trans.uart_ptr];
+ 108   6                                                      uart_trans.uart_ptr++;
+ 109   6                                              }
+ 110   5      
+ 111   5                                      //plt_trans.plt_buf[29] = plt_trans.plt_framelen;
+ 112   5                                      plt_buf_trans[29] = uart_trans.uart_framelen;
+ 113   5                                              plt_buf_trans[30] &= 0x7F;              // without continue
+ 114   5                                      
+ 115   5                                      //      while(!(Transmit()));                                   
+ 116   5                                      Transmit();             
+C51 COMPILER V9.00   APP                                                                   08/27/2014 17:22:32 PAGE 3   
+
+ 117   5                                              plt_tx_continue = 0;    
+ 118   5                                      }
+ 119   4              
+ 120   4                              }       
+ 121   3                              else              // >87 bytes
+ 122   3                              {
+ 123   4                                      if (uart_trans.uart_ptr<58)             // care! can't <=58
+ 124   4                                      {
+ 125   5                                              memset(plt_buf_trans,0,FRAME_LENGTH);
+ 126   5                                              for(i=0;i<29;i++)
+ 127   5                                              {
+ 128   6                                                      plt_buf_trans[i] = uart_trans.uart_buf[uart_trans.uart_ptr];
+ 129   6                                                      uart_trans.uart_ptr++;
+ 130   6                                              }
+ 131   5      
+ 132   5                                      //plt_trans.plt_buf[29] = plt_trans.plt_framelen;
+ 133   5                                      plt_buf_trans[29] = uart_trans.uart_framelen;
+ 134   5                                              plt_buf_trans[30] |= 0x80;              // with continue                                
+ 135   5                                      
+ 136   5                              //              while(!(Transmit()));
+ 137   5                              Transmit();             
+ 138   5                                              plt_tx_continue = 1;
+ 139   5                                      }
+ 140   4                                      else
+ 141   4                                      {
+ 142   5                                              memset(plt_buf_trans,0,FRAME_LENGTH);
+ 143   5                                              for(i=0;i<29;i++)
+ 144   5                                              {
+ 145   6                                                      plt_buf_trans[i] = uart_trans.uart_buf[uart_trans.uart_ptr];
+ 146   6                                                      uart_trans.uart_ptr++;
+ 147   6                                              }
+ 148   5      
+ 149   5                                      //plt_trans.plt_buf[29] = plt_trans.plt_framelen;
+ 150   5                                      plt_buf_trans[29] = uart_trans.uart_framelen;
+ 151   5      
+ 152   5                                              plt_buf_trans[30] &= 0x7F;              // without continue
+ 153   5                                              plt_buf_trans[30] |= 0x40;              // length error flag
+ 154   5                                      
+ 155   5                      //                      while(!(Transmit()));                                   
+ 156   5                      Transmit();             
+ 157   5                                              plt_tx_continue = 0;
+ 158   5                                      }
+ 159   4                              }
+ 160   3                      }//end if(plt_tx_continue)
+ 161   2      
+ 162   2                      else       // tx complete
+ 163   2                      {
+ 164   3                              //memset(&uart_trans,0,sizeof(UART_TRANS));     // dummy        
+ 165   3                              //memset(&plt_trans,0,sizeof(PLT_TRANS));       // dummy        
+ 166   3      //                      memset(plt_buf_trans,0,FRAME_LENGTH+2);         // dummy
+ 167   3      //                      uart_trans.uart_timeout = 0xFFFF;       
+ 168   3      //                      plt_trans.plt_timeout = 0xFFFF; 
+ 169   3        
+ 170   3                              plt_tx_ok=1;             // user clear
+ 171   3                      }                                                       
+ 172   2              }
+ 173   1              if(uart_TI_ok)
+ 174   1              {
+ 175   2                      uart_TI_ok = 0;
+ 176   2      
+ 177   2                      memset(&plt_trans,0,sizeof(PLT_TRANS));         // dummy
+ 178   2                                      
+C51 COMPILER V9.00   APP                                                                   08/27/2014 17:22:32 PAGE 4   
+
+ 179   2              }
+ 180   1      
+ 181   1      
+ 182   1              if(uart_RI_ok)
+ 183   1              {
+ 184   2                      
+ 185   2      //              uart_RI_ok = 0;
+ 186   2      //                      for(i=0;i<uart_trans.uart_framelen;i++)
+ 187   2      //                        plt_trans.plt_buf[i] = uart_trans.uart_buf[i];
+ 188   2      //              uart_TI_ready = 1;
+ 189   2      
+ 190   2      
+ 191   2                      // 2014/6/5
+ 192   2                      uart_rx_idle_timeout = 0;               
+ 193   2      
+ 194   2                 // 2014/3/21, UIU
+ 195   2      //              for(i=0;i<(uart_trans.uart_framelen+4);i++)
+ 196   2      //              {
+ 197   2      //                      if (uart_trans.uart_buf[i]==0x68)
+ 198   2      //                        break;
+ 199   2      //              }
+ 200   2      //              if ((memcmp(&uart_trans.uart_buf[i+1],meter_local_addr,6)!=0)&&(uart_trans.uart_framelen>10))           // addr
+             -ess mismatch
+ 201   2      //              {
+ 202   2      //                      memcpy(meter_local_addr,&uart_trans.uart_buf[i+1],6);
+ 203   2      //                      memcpy(meter_local_addr_bak,meter_local_addr,6);                        
+ 204   2      //              }
+ 205   2      
+ 206   2                      // 2014/5/27, enable again
+ 207   2                      for(i=0;i<(uart_trans.uart_framelen+4);i++)
+ 208   2                      {
+ 209   3                              if (uart_trans.uart_buf[i]==0x68)
+ 210   3                                break;
+ 211   3                      }
+ 212   2                      if ((memcmp(&uart_trans.uart_buf[i+1],meter_local_addr,6)!=0)&&(uart_trans.uart_framelen>10))           // addres
+             -s mismatch
+ 213   2                      {
+ 214   3                              memcpy(meter_local_addr,&uart_trans.uart_buf[i+1],6);
+ 215   3                              memcpy(meter_local_addr_bak,meter_local_addr,6);                        
+ 216   3                      }
+ 217   2      
+ 218   2      
+ 219   2                  if (uart_trans.uart_framelen<=29)
+ 220   2                      {
+ 221   3                              memset(plt_buf_trans,0,FRAME_LENGTH);
+ 222   3                              for(i=0;i<uart_trans.uart_framelen;i++)
+ 223   3                                plt_buf_trans[i] = uart_trans.uart_buf[i];
+ 224   3      
+ 225   3      
+ 226   3                               //     plt_trans.plt_buf[29] = plt_trans.plt_framelen;
+ 227   3                               plt_buf_trans[29] = uart_trans.uart_framelen;   // bug
+ 228   3                              plt_buf_trans[30] &= 0x7F;      
+ 229   3      
+ 230   3                              //              while(!(Transmit()));
+ 231   3                              Transmit();             
+ 232   3                              uart_RI_ok = 0;         
+ 233   3                              plt_tx_continue = 0;    // dummy                                                        
+ 234   3                      }
+ 235   2                      else
+ 236   2                      {
+ 237   3                              memset(plt_buf_trans,0,FRAME_LENGTH);
+ 238   3                              for(i=0;i<29;i++)
+C51 COMPILER V9.00   APP                                                                   08/27/2014 17:22:32 PAGE 5   
+
+ 239   3                              {
+ 240   4                                      plt_buf_trans[i] = uart_trans.uart_buf[i];
+ 241   4                                      uart_trans.uart_ptr++;
+ 242   4                              }
+ 243   3      
+ 244   3                              //      plt_trans.plt_buf[29] = plt_trans.plt_framelen;
+ 245   3                              plt_buf_trans[29] = uart_trans.uart_framelen;
+ 246   3                              plt_buf_trans[30] |= 0x80;              // with continue
+ 247   3                      
+ 248   3              //              while(!(Transmit()));
+ 249   3                      Transmit();             
+ 250   3                              uart_RI_ok = 0; 
+ 251   3                              plt_tx_continue = 1;                    
+ 252   3                      }
+ 253   2              }
+ 254   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    865    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      5    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
