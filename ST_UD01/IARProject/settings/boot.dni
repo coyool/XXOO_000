@@ -118,11 +118,6 @@ GraphEnabled=0
 ShowTimeLog=1
 ShowTimeSum=1
 SumSortOrder=0
-[Disassemble mode]
-mode=0
-[Breakpoints2]
-Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\BSP\LED.c}.85.5" 0 0 1 "" 0 "" 0
-Count=1
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -130,12 +125,6 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
-[Aliases]
-A0=_ "E:\Lierda\2013\Project\7.思达电表远程升级\远程升级-Ymodem-2014-02-20\boot-2014-01-23\IARProject\startup_mb9xfxxx.s" ""
-A1=_ "E:\Lierda\2013\Project\7.思达电表远程升级\远程升级-Ymodem-2014-02-26\boot-2014-01-23\IARProject\startup_mb9xfxxx.s" ""
-A2=_ "E:\Lierda\FM3\FM3外设应用笔记\支持\MB9AFA32N\升级工程(app用中断)-2014-02-08\boot-2014-01-23\IARProject\startup_mb9xfxxx.s" ""
-Count=3
-SuppressDialog=1
 [Trace2]
 Enabled=0
 ShowSource=0
@@ -160,3 +149,14 @@ Mode=3
 Graph=0
 Symbiont=0
 Exclusions=
+[Disassemble mode]
+mode=0
+[Breakpoints2]
+Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\BSP\LED.c}.76.1" 0 0 1 "" 0 "" 0
+Count=1
+[Aliases]
+A0=_ "E:\Lierda\2013\Project\7.思达电表远程升级\远程升级-Ymodem-2014-02-20\boot-2014-01-23\IARProject\startup_mb9xfxxx.s" ""
+A1=_ "E:\Lierda\2013\Project\7.思达电表远程升级\远程升级-Ymodem-2014-02-26\boot-2014-01-23\IARProject\startup_mb9xfxxx.s" ""
+A2=_ "E:\Lierda\FM3\FM3外设应用笔记\支持\MB9AFA32N\升级工程(app用中断)-2014-02-08\boot-2014-01-23\IARProject\startup_mb9xfxxx.s" ""
+Count=3
+SuppressDialog=1
