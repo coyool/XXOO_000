@@ -192,7 +192,11 @@ static void download_program_to_meter(void)
     MFS_UARTEnableTX(UART52_Ch);
     
     //SerialPutString("\n\n\rSelect Receive File ... \n\r");
-    SerialPutString("\n\n\rdownlod image .bin ... \n\r");
+    if (VERSION_OK == verstate)
+    {
+        SerialPutString("\n\n\rdownlod image .bin ... \n\r");
+    }    
+    
     Rev_flag = Receive_Byte(UART52_Ch , &tick_C, Rev_timeout); 
     if (0u == Rev_flag)
     {
@@ -201,6 +205,7 @@ static void download_program_to_meter(void)
     else
     {
         bFM3_GPIO_PDOR0_PD = 1; /* LED 201 light off */
+        //SerialPutString("\n\nVERSION_ERR or Rev C\n\r");
         return;
     }    
     

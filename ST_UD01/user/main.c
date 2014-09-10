@@ -183,7 +183,7 @@ static void BSP(void)
     printf("  byte");
     printf("\r\n");
     printf("(3) VectTab_Address: (SP) (PC) ");
-    printHex(tab_VectTab_address,8u);
+    printHex(tab_VectTab_address, 8u);
     printf("\r\n");
     //Flash no have image ！！！
     //printf();

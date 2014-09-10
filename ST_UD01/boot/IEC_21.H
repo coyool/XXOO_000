@@ -18,6 +18,9 @@ typedef enum
     METER_TYPE_ERR,
 }VERSION_TYPEDEF;
 
+
+extern uint8_t verstate;
+
 extern void IEC62056_21_Process(void);
 
 #endif

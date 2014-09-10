@@ -76,6 +76,8 @@ MFS_UARTModeConfigT tUART300ModeConfigT =
     UART_NRZ,               /* level inversion */  
 };
 
+uint8_t verstate; 
+
 /*******************************************************************************
 * 函数名称: Transmit a data packet using the ymodem protocol
 * 输入参数: data
@@ -138,7 +140,8 @@ void SendPacket(uint8_t *data, uint16_t length)
 uint8_t  ReadVersion(void)
 {
     uint16_t i;
-    uint8_t packet_data[128] = {0};
+    uint8_t version_meter[FILE_NAME_LENGTH] = {0};
+    uint8_t  version_buff[FILE_NAME_LENGTH] = {0};
     volatile uint8_t ackReceived = 0;
     uint32_t errors = 0u;
     volatile uint8_t return_val = 0;
@@ -153,7 +156,7 @@ uint8_t  ReadVersion(void)
     delay_ms(1000);   
     SendPacket((uint8_t *)&CommadChangeBraud,sizeof(CommadChangeBraud)); //第三步, 发送表的更改波特率命令
     delay_ms(500);     
-    Get_One_char(UART52_Ch, packet_data);    
+    Get_One_char(UART52_Ch, version_meter);    
     UARTConfigMode(UART52_Ch,&tUART4800ModeConfigT);      //更改一下 波特率 4800
     delay_ms(5);   
     
@@ -162,14 +165,14 @@ uint8_t  ReadVersion(void)
         //MFS_UARTEnableRX(UART52_Ch);
         ackReceived = 0;
         SendPacket((uint8_t *)&CommadReadProgamVersion,sizeof(CommadReadProgamVersion));
-        memset(packet_data,0,sizeof(packet_data));
+        memset(version_meter,0,sizeof(version_meter));
         
-        Get_One_char(UART52_Ch, packet_data);   
+        Get_One_char(UART52_Ch, version_meter);  //read a char CLR  RDR 
         MFS_UARTEnableRX(UART52_Ch);
         
         for(i=0;i<50;i++)
         {  
-            if (Receive_Byte(UART52_Ch, packet_data + i, 1000) != 0)
+            if (Receive_Byte(UART52_Ch, version_meter + i, 1000) != 0)
             {
                errors++;   // ACC error
                break;    
@@ -181,15 +184,15 @@ uint8_t  ReadVersion(void)
         }
         ackReceived = 1;
         MFS_UARTDisableRX(UART52_Ch);
-//        if(memcmp(packet_data+7, &sSoftWare_Versions_ASCLL, sizeof(sSoftWare_Versions_ASCLL)) != 0) // 比对版本号
+//        if(memcmp(version_meter+7, &sSoftWare_Versions_ASCLL, sizeof(sSoftWare_Versions_ASCLL)) != 0) // 比对版本号
 //        {  
-//             if(memcmp(packet_data+7, &sSoftWare_Versions_ASCLL, 12) != 0) // 型号
+//             if(memcmp(version_meter+7, &sSoftWare_Versions_ASCLL, 12) != 0) // 型号
 //             {
 //                  return_val = VERSION_TYPE_ERR;  
 //             }
 //             else
 //             {
-//                 if(Max3(packet_data+19,(uint8_t *)&sSoftWare_Versions_ASCLL+12,11)) //下载的版本小于读出的版本 ==1
+//                 if(Max3(version_meter+19,(uint8_t *)&sSoftWare_Versions_ASCLL+12,11)) //下载的版本小于读出的版本 ==1
 //                 {
 //                    return_val = VERSION_HIGH;  
 //                 }
@@ -205,14 +208,21 @@ uint8_t  ReadVersion(void)
 //        } 
         
 //        int32_t temp = 0;
-//        temp = memcmp(packet_data+8, &sSoftWare_Versions_ASCLL, 11);
-        if (memcmp(packet_data+7, &sSoftWare_Versions_ASCLL, 11) != 0) // 比对版本号
+//        temp = memcmp(version_meter+8, &sSoftWare_Versions_ASCLL, 11);
+
+#define   VERSION_EN
+#ifdef    VERSION_EN    
+        
+        MX25L3206_Read((uint8_t*)version_buff,
+                       (uint32_t)VERSION_ADDRESS,
+                       FILE_NAME_LENGTH);
+        if (memcmp(version_meter+7, &version_buff, 11) != 0) // 比对版本号
         {
             return_val = METER_TYPE_ERR;  
-        } 
+        }         
         else
         {
-            if (memcmp(packet_data+19, (uint8_t *)&sSoftWare_Versions_ASCLL+12, 11) <= 0)
+            if (memcmp(version_meter+19, (uint8_t *)&version_buff+12, 11) < 0)
             {
                 return_val = VERSION_OK; 
             }
@@ -222,7 +232,26 @@ uint8_t  ReadVersion(void)
             }    
         }    
         
-        delay_ms(500);  //loop interval
+        delay_ms(500);  //loop interval     
+#else        
+        if (memcmp(version_meter+7, &sSoftWare_Versions_ASCLL, 11) != 0) // 比对版本号
+        {
+            return_val = METER_TYPE_ERR;  
+        }         
+        else
+        {
+            if (memcmp(version_meter+19, (uint8_t *)&sSoftWare_Versions_ASCLL+12, 11) <= 0)
+            {
+                return_val = VERSION_OK; 
+            }
+            else
+            {
+                return_val = VERSION_ERR;
+            }    
+        }    
+        
+        delay_ms(500);  //loop interval     
+#endif        
         
     }while (!ackReceived && (errors < 3u));  
     
@@ -264,51 +293,31 @@ void Enter21Upgrade(void)
 *******************************************************************************/
 void IEC62056_21_Process(void)
 {   
-    uint8_t verstate;
+    //uint8_t verstate;
 	
     MFS_UARTEnableTX(UART52_Ch);
     //MFS_UARTEnableRX(UART52_Ch);
-    
-    verstate =ReadVersion();
+    verstate = 0u;
+    verstate = ReadVersion();
     
     switch(verstate)
     {
         case METER_TYPE_ERR:
             BuzzSound(VERSION_ERR);
-            printf("METER_TYPE_ERR");
+            printf("METER_TYPE_ERR \r\n");
             break;
         case VERSION_ERR:      
             BuzzSound(VERSION_ERR);
-            printf("VERSION_ERR");
-          break;     
+            printf("VERSION_ERR \r\n");
+            break;     
           
         case VERSION_OK:
             BuzzSound(VERSION_OK);
-            printf("VERSION_OK");
+            printf("VERSION_OK \r\n");
             Enter21Upgrade();
-        break;       
+            break;       
     }
 
     MFS_UARTDisableTX(UART52_Ch);
     //MFS_UARTDisableRX(UART52_Ch);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
