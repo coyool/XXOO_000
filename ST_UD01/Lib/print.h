@@ -12,7 +12,7 @@
 
 /*** extern function prototype declarations ***/
 extern void printHex(const unsigned char *buf, uint32_t len);
-
+extern void Flash_map(void);
 
 #endif   /* end __PRINT_H_ */
 

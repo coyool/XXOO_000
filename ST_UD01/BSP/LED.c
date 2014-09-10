@@ -57,12 +57,13 @@ void LED_setup(void)
 * --返回值: 
 * 函数功能: basic time = 10ms
 *******************************************************************************/
-void LED_Blink(uint8_t cnt)
+void LED_Blink(uint32_t cnt)
 {
-    uint8_t i;
+    uint32_t i;
     
+    LED.cnt_now = cnt;
     i = LED.cnt_now - LED.cnt_last;
-    if (i >= 50)  
+    if (i >= 500)  
     {
         LED.cnt_last = LED.cnt_now;
         bFM3_GPIO_PDOR0_PD = ~bFM3_GPIO_PDIR0_PD; /* LED201 */

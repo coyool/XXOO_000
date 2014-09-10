@@ -40,9 +40,9 @@ typedef  void (*pFunction)(void);
 
 typedef  struct
 {
-    uint8_t     cnt_now;
-    uint8_t     cnt_last;
-    uint8_t     cnt_interval;
+    uint32_t     cnt_now;
+    uint32_t     cnt_last;
+    uint32_t     cnt_interval;
 }CNT_TYPE;
 
 /*** extern variable declarations ***/
@@ -50,6 +50,7 @@ typedef  struct
 //extern __IO uint32_t JumpAddress;
 //extern uint8_t file_name[FILE_NAME_LENGTH];
 extern MFS_UARTModeConfigT tUARTModeConfigT;
+extern uint8_t tab_1024[1024];
 
 /*** extern function prototype declarations ***/
 extern void IAP(void);

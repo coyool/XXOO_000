@@ -95,13 +95,17 @@ static void refresh_flash(void)
 {
     uint8_t Number[10] = "          ";
     int32_t Size = 0;
-
+    
+    MFS_UARTSWRst(UartUSBCh);  //reset UART
+    UARTConfigMode(UartUSBCh, &tUARTModeConfigT);
+    MFS_UARTEnableTX(UartUSBCh);
     MFS_UARTEnableRX(UartUSBCh);
     
     SerialPutString("Waiting for the file to be sent ...\n\r");
     Size = Ymodem_Receive(&tab_1024[0]);
     
-    MFS_UARTDisableRX(UartUSBCh);
+//    MFS_UARTDisableRX(UartUSBCh);
+//    MFS_UARTDisableTX(UartUSBCh);
     
     if (Size > 0)
     {
@@ -253,8 +257,8 @@ static void download_program_to_meter(void)
 void IAP(void)
 {
     uint8_t i = 0u;
-    uint8_t cnt = 0u;
-    
+    uint32_t cnt = 0u;
+
     memset(&LED, 0, sizeof(LED));
     
     while (1u)
@@ -287,14 +291,14 @@ void IAP(void)
             }/* end if (0u == button_key) */ 
         }    
         
-        delay_ms(10u);
+        delay_ms(1u);
         cnt++;
         
         /* LED standby blink */
         LED_Blink(cnt);
         
-        /* shell --map */
-        
+        /* shell */
+        shell();
      
         _NOP();
     }/* while(1) */    

@@ -69,3 +69,28 @@ void printHex(const unsigned char *buf, uint32_t len)
 
  	printf("\r\n");
 }
+
+/*******************************************************************************
+* 函数名称: Flash_map
+* 输入参数: 
+* 输出参数: 
+* --返回值: 
+* 函数功能: read extern Flash(MX25L4006) verify image
+*******************************************************************************/
+void Flash_map(void)
+{
+    uint32_t i = 0;
+    uint32_t j = ApplicationAddress; 
+    
+    memset(&tab_1024[0], 0, PACKET_SIZE);
+    for (i=0u; i<1056; i++) /* (132*1024)/128 0-32 sector */
+    {
+        MX25L3206_Read((uint8_t *)tab_1024, j, PACKET_SIZE);
+        j += PACKET_SIZE;
+        printHex(tab_1024,PACKET_SIZE);
+    }    
+}
+
+
+
+

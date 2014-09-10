@@ -1847,6 +1847,12 @@
     <file>
       <name>$PROJ_DIR$\..\Lib\print.h</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\..\Lib\shell.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Lib\shell.h</name>
+    </file>
   </group>
   <group>
     <name>BOOT</name>
@@ -1951,6 +1957,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\user\main.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\user\main.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\user\pdl_user.h</name>

@@ -30,11 +30,13 @@
 #include "LED.h"
 #include "MX25L3206E.h"
 #include "UART_Drv.h"
+#include "main.h"
 
 
 #include "IEC_21.H"
 
 #include "print.h"
+#include "shell.h"
 
 
 
