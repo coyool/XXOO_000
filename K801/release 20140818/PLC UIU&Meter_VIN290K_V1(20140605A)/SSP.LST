@@ -1,9 +1,9 @@
-C51 COMPILER V9.00   SSP                                                                   08/27/2014 17:22:32 PAGE 1   
+C51 COMPILER V9.00   SSP                                                                   09/11/2014 17:34:34 PAGE 1   
 
 
 C51 COMPILER V9.00, COMPILATION OF MODULE SSP
-OBJECT MODULE PLACED IN SSP.OBJ
-COMPILER INVOKED BY: D:\Program Files\keil4\C51\BIN\C51.EXE SSP.c OMF2 BROWSE DEBUG
+OBJECT MODULE PLACED IN ..\SSP.obj
+COMPILER INVOKED BY: D:\Program Files\keil4\C51\BIN\C51.EXE SSP.c OMF2 BROWSE DEBUG OBJECT(..\SSP.obj)
 
 line level    source
 
@@ -62,7 +62,7 @@ line level    source
               
               uchar SSP_Read(uint adr)
               {        
-C51 COMPILER V9.00   SSP                                                                   08/27/2014 17:22:32 PAGE 2   
+C51 COMPILER V9.00   SSP                                                                   09/11/2014 17:34:34 PAGE 2   
 
                       uchar datatemp;
                       datatemp = CBYTE[adr];
@@ -126,7 +126,7 @@ line level    source
                       FLASHCON = 0x00;
                   EA = 1;     
               
-C51 COMPILER V9.00   SSP                                                                   08/27/2014 17:22:32 PAGE 3   
+C51 COMPILER V9.00   SSP                                                                   09/11/2014 17:34:34 PAGE 3   
 
               }
               
@@ -190,7 +190,7 @@ line level    source
               /**************************************************************************
                * Function:          void Write_FLASH(uint adr, uchar dat)
                * Input parameter:   addr- data address; dat 
-C51 COMPILER V9.00   SSP                                                                   08/27/2014 17:22:32 PAGE 4   
+C51 COMPILER V9.00   SSP                                                                   09/11/2014 17:34:34 PAGE 4   
 
                * Output parameter:  None
                * Return Value:      None
@@ -254,7 +254,7 @@ line level    source
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
    CODE SIZE        =   ----    ----
-C51 COMPILER V9.00   SSP                                                                   08/27/2014 17:22:32 PAGE 5   
+C51 COMPILER V9.00   SSP                                                                   09/11/2014 17:34:34 PAGE 5   
 
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----

@@ -221,20 +221,20 @@ void main(void)
 
 						// 2014/6/4, quick restart
 						get_local_addr_timeout = 100;
-						PLC_TX=1;
-						PLC_RX=1;		
+						PLC_TX=0;   // 1
+						PLC_RX=0;	// 1
 						while(get_local_addr_timeout);
 						get_local_addr_timeout = 100;
-						PLC_TX=0;
-						PLC_RX=0;		
+						PLC_TX=1;  // 0
+						PLC_RX=1;  // 0
 						while(get_local_addr_timeout);
 						get_local_addr_timeout = 100;
-						PLC_TX=1;
-						PLC_RX=1;		
+						PLC_TX=0;  // 1
+						PLC_RX=0;  // 1
 						while(get_local_addr_timeout);
 						get_local_addr_timeout = 100;
-						PLC_TX=0;
-						PLC_RX=0;		
+						PLC_TX=1;    // 0
+						PLC_RX=1;    // 0
 						while(get_local_addr_timeout);
 						////////////////////////////////
 
@@ -299,20 +299,20 @@ void main(void)
 
 							// 2014/6/4, quick restart
 							get_local_addr_timeout = 100;
-							PLC_TX=1;
-							PLC_RX=1;		
+							PLC_TX=0;  // 1
+							PLC_RX=0;  // 1
 							while(get_local_addr_timeout);
 							get_local_addr_timeout = 100;
-							PLC_TX=0;
-							PLC_RX=0;		
+							PLC_TX=1;  //   0
+							PLC_RX=1;    // 0
 							while(get_local_addr_timeout);
 							get_local_addr_timeout = 100;
-							PLC_TX=1;
-							PLC_RX=1;		
+							PLC_TX=0;     //   1
+							PLC_RX=0;     //    1
 							while(get_local_addr_timeout);
 							get_local_addr_timeout = 100;
-							PLC_TX=0;
-							PLC_RX=0;		
+							PLC_TX=1;   //    0
+							PLC_RX=1;    //   0
 							while(get_local_addr_timeout);
 							////////////////////////////////
 

@@ -17,8 +17,8 @@ bit   plt_tx_ok = 0;
 void App_Task()
 {
 	uchar i;
-	PLC_TX = (PLCON&0X01);		 // LED PLC_TX
-	PLC_RX = RXFA|RXNFA;		 // LED PLC_RX
+	PLC_TX = (PLCON&0X01);		 // LED PLC_TX     (PLCON & 0x01 IDL 模式控制  bit)
+	PLC_RX = RXFA|RXNFA;		 // LED PLC_RX     (RXFA 帧同步bit)(RXNFA 反极性帧同步bit)
 
 	if(rx_ok_flag)
 	{

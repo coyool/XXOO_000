@@ -14,5 +14,18 @@ IDE:
 
 
 (1): 
+// session_done = 1; 
+改变Ymodem协议 多个bin文件不可以连续传输。因为升级中掉电后，bin文件还存在在上位机的进程中，
+上电后再给一个bin文件升级时，其实是download了两个bin文件. 加上此句会造成上位机卡死。
 
 (2):
+此句修复了，升级过程中掉电。
+再上电后重新发送APP_bin第一次发生错误后，再次发送APP_bin写入flash地址错误 (正确的地址应为0x0000_1100)
+
+(3)
+Compute the FLASH upload image size, This value must be a multiple of 0x80(128)  
+Ymodem协议(128 byte),一帧数据128 byte，未满补0x00 或 0x1A。
+防止补的 0x00、0x1A 将升级标志改写 (0x0001FF84)
+
+(4)
+

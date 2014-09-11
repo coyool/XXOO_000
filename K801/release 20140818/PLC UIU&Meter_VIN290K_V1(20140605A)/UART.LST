@@ -1,9 +1,9 @@
-C51 COMPILER V9.00   UART                                                                  08/27/2014 17:22:31 PAGE 1   
+C51 COMPILER V9.00   UART                                                                  09/11/2014 17:34:34 PAGE 1   
 
 
 C51 COMPILER V9.00, COMPILATION OF MODULE UART
-OBJECT MODULE PLACED IN UART.OBJ
-COMPILER INVOKED BY: D:\Program Files\keil4\C51\BIN\C51.EXE UART.c OMF2 BROWSE DEBUG
+OBJECT MODULE PLACED IN ..\UART.obj
+COMPILER INVOKED BY: D:\Program Files\keil4\C51\BIN\C51.EXE UART.c OMF2 BROWSE DEBUG OBJECT(..\UART.obj)
 
 line level    source
 
@@ -62,7 +62,7 @@ line level    source
   53   1              {
   54   2                      TH2 = 0xFF;             // 16000/32/(0x10000-0xFF30) = 2.4k
   55   2                      TL2 = 0x30;
-C51 COMPILER V9.00   UART                                                                  08/27/2014 17:22:31 PAGE 2   
+C51 COMPILER V9.00   UART                                                                  09/11/2014 17:34:34 PAGE 2   
 
   56   2                      RCAP2H = 0xFF;  // reload value
   57   2                      RCAP2L = 0x30;
@@ -126,7 +126,7 @@ line level    source
  115   2                      while(uart_trans.uart_timeout)    //receive other data
  116   2                      {
  117   3                              if(RI)
-C51 COMPILER V9.00   UART                                                                  08/27/2014 17:22:31 PAGE 3   
+C51 COMPILER V9.00   UART                                                                  09/11/2014 17:34:34 PAGE 3   
 
  118   3                              {                               
  119   4                                      ACC = SBUF;
@@ -190,7 +190,7 @@ line level    source
  177   2                      uart_RI_start=0;                                
  178   2                      uart_trans.uart_timeout = 0xFFFF;
  179   2                      ES = 1;         // care, uart timeout, enable ES
-C51 COMPILER V9.00   UART                                                                  08/27/2014 17:22:31 PAGE 4   
+C51 COMPILER V9.00   UART                                                                  09/11/2014 17:34:34 PAGE 4   
 
  180   2                      // not enable ES
  181   2              }
@@ -254,7 +254,7 @@ line level    source
  239   1                      uint Uart_Delay = 0XFFFF;       
  240   1      
  241   1                      ACC = dat;
-C51 COMPILER V9.00   UART                                                                  08/27/2014 17:22:31 PAGE 5   
+C51 COMPILER V9.00   UART                                                                  09/11/2014 17:34:34 PAGE 5   
 
  242   1                      TB8 = P;        // even check    第9数据位 写入奇偶校验位
  243   1                      SBUF = dat;

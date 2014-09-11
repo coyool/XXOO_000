@@ -1,8 +1,9 @@
-LX51 LINKER/LOCATER V4.41                                                               09/11/2014  17:32:50  PAGE 1
+LX51 LINKER/LOCATER V4.41                                                               09/11/2014  17:34:34  PAGE 1
 
 
 LX51 LINKER/LOCATER V4.41, INVOKED BY:
-D:\PROGRAM FILES\KEIL4\C51\BIN\LX51.EXE main.obj, UART.obj, PLT.obj, ISR.obj, APP.obj, SSP.obj TO SH99F01_PLC
+D:\PROGRAM FILES\KEIL4\C51\BIN\LX51.EXE ..\main.obj, ..\UART.obj, ..\PLT.obj, ..\ISR.obj, ..\APP.obj, ..\SSP.obj TO ..\S
+>> H99F01_PLC_20140911 PRINT (.\SH99F01_PLC_20140911.map)
 
 
 CPU MODE:     8051 MODE
@@ -10,17 +11,17 @@ MEMORY MODEL: SMALL WITH FLOATING POINT ARITHMETIC
 
 
 INPUT MODULES INCLUDED:
-  main.obj (MAIN)
+  ..\main.obj (MAIN)
          COMMENT TYPE 0: C51 V9.00
-  UART.obj (UART)
+  ..\UART.obj (UART)
          COMMENT TYPE 0: C51 V9.00
-  PLT.obj (PLT)
+  ..\PLT.obj (PLT)
          COMMENT TYPE 0: C51 V9.00
-  ISR.obj (ISR)
+  ..\ISR.obj (ISR)
          COMMENT TYPE 0: C51 V9.00
-  APP.obj (APP)
+  ..\APP.obj (APP)
          COMMENT TYPE 0: C51 V9.00
-  SSP.obj (SSP)
+  ..\SSP.obj (SSP)
          COMMENT TYPE 0: C51 V9.00
   D:\PROGRAM FILES\KEIL4\C51\LIB\C51FPS.LIB (?C?FPADD)
          COMMENT TYPE 1: A51 / ASM51 Assembler
@@ -54,7 +55,7 @@ INPUT MODULES INCLUDED:
          COMMENT TYPE 1: A51 / ASM51 Assembler
 
 
-ACTIVE MEMORY CLASSES OF MODULE:  SH99F01_PLC (MAIN)
+ACTIVE MEMORY CLASSES OF MODULE:  ..\SH99F01_PLC_20140911 (MAIN)
 
 BASE        START       END         USED      MEMORY CLASS
 ==========================================================
@@ -66,10 +67,10 @@ X:000000H   X:000000H   X:00FFFFH   0000F4H   XDATA
 I:000000H   I:000000H   I:0000FFH   000001H   IDATA
 
 
-MEMORY MAP OF MODULE:  SH99F01_PLC (MAIN)
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 2
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 2
 
 
+MEMORY MAP OF MODULE:  ..\SH99F01_PLC_20140911 (MAIN)
 
 
 START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
@@ -134,10 +135,10 @@ START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
 0018BBH   0018D4H   00001AH   BYTE   UNIT     CODE           ?PR?_UARTRETURN?UART
 0018D5H   0018E4H   000010H   BYTE   UNIT     CODE           ?PR?PLTSETTING?PLT
 0018E5H   0018EDH   000009H   BYTE   UNIT     CODE           ?PR?ISR_INT1?ISR
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 3
+
+
 0018EEH   00190BH   00001EH   BYTE   UNIT     CONST          ?CO?MAIN
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 3
-
-
 
 * * * * * * * * * * *  X D A T A   M E M O R Y  * * * * * * * * * * * * *
 000000H   000083H   000084H   BYTE   UNIT     XDATA          ?XD?PLT
@@ -146,7 +147,7 @@ START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
 
 
 
-OVERLAY MAP OF MODULE:   SH99F01_PLC (MAIN)
+OVERLAY MAP OF MODULE:   ..\SH99F01_PLC_20140911 (MAIN)
 
 
 FUNCTION/MODULE              BIT_GROUP   DATA_GROUP 
@@ -202,8 +203,8 @@ PLTSETTING/PLT              ----- -----  ----- -----
 
 INITNBZC/PLT                ----- -----  ----- -----
   +--> ?PR?_SETPLT?PLT
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 4
 
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 4
 
 
 _SETPLT/PLT                 ----- -----  ----- -----
@@ -263,17 +264,17 @@ MODE_SCSF/PLT               ----- -----  ----- -----
 
 
 
-PUBLIC SYMBOLS OF MODULE:  SH99F01_PLC (MAIN)
+PUBLIC SYMBOLS OF MODULE:  ..\SH99F01_PLC_20140911 (MAIN)
 
 
       VALUE       CLASS    TYPE      PUBLIC SYMBOL NAME
       =================================================
       0100035AH   CODE     ---       ?C?CASTF
       010004EAH   CODE     ---       ?C?CLDOPTR
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 5
+
+
       010004D1H   CODE     ---       ?C?CLDPTR
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 5
-
-
       00000000H   NUMBER   ---       ?C?CODESEG
       010004ABH   CODE     ---       ?C?COPY
       01000517H   CODE     ---       ?C?CSTPTR
@@ -338,10 +339,10 @@ PUBLIC SYMBOLS OF MODULE:  SH99F01_PLC (MAIN)
 *SFR* 000000A8H.7 DATA     BIT       EA
 *SFR* 000000A8H.6 DATA     BIT       EADC
       00000021H.4 BIT      BIT       en_delay_flag
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 6
+
+
       00000021H.7 BIT      BIT       en_delay_half
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 6
-
-
       00000021H.3 BIT      BIT       en_frame_delay
       00000021H.0 BIT      BIT       en_zc_delay
 *SFR* 000000A8H.4 DATA     BIT       ES
@@ -406,10 +407,10 @@ PUBLIC SYMBOLS OF MODULE:  SH99F01_PLC (MAIN)
 *SFR* 00000080H.1 DATA     BIT       P0_1
 *SFR* 00000080H.2 DATA     BIT       P0_2
 *SFR* 00000080H.3 DATA     BIT       P0_3
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 7
+
+
 *SFR* 00000080H.4 DATA     BIT       P0_4
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 7
-
-
 *SFR* 00000080H.5 DATA     BIT       P0_5
 *SFR* 00000080H.6 DATA     BIT       P0_6
 *SFR* 00000080H.7 DATA     BIT       P0_7
@@ -474,10 +475,10 @@ PUBLIC SYMBOLS OF MODULE:  SH99F01_PLC (MAIN)
 *SFR* 000000D8H   DATA     BIT       RXINT
 *SFR* 000000D8H.3 DATA     BIT       RXNFA
 *SFR* 000000D8H.1 DATA     BIT       RXPD
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 8
+
+
 *SFR* 0000009AH   DATA     BYTE      SADDR
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 8
-
-
 *SFR* 0000009BH   DATA     BYTE      SADEN
 *SFR* 00000099H   DATA     BYTE      SBUF
 *SFR* 00000098H   DATA     BYTE      SCON
@@ -530,7 +531,7 @@ PUBLIC SYMBOLS OF MODULE:  SH99F01_PLC (MAIN)
 
 
 
-SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
+SYMBOL TABLE OF MODULE:  ..\SH99F01_PLC_20140911 (MAIN)
 
       VALUE       REP       CLASS    TYPE      SYMBOL NAME
       ====================================================
@@ -542,10 +543,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       00000024H.0 PUBLIC    BIT      BIT       bModeOption
       00000023H.7 PUBLIC    BIT      BIT       bChanOption
       020000EAH   PUBLIC    XDATA    ---       meter_local_addr_bak
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 9
+
+
       020000E8H   PUBLIC    XDATA    WORD      get_local_addr_timeout
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 9
-
-
       020000E2H   PUBLIC    XDATA    ---       meter_local_addr
       00000023H.6 PUBLIC    BIT      BIT       bShakeHandsOk
       010018FEH   PUBLIC    CONST    ---       meter_read_addr_645_2007
@@ -610,10 +611,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       000000D0H.2 SFRSYM    DATA     BIT       OV
       000000B8H.2 SFRSYM    DATA     BIT       PX1L
       000000DAH   SFRSYM    DATA     BYTE      PLADR1
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 10
+
+
       000000CAH   SFRSYM    DATA     BYTE      RCAP2L
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 10
-
-
       000000DCH   SFRSYM    DATA     BYTE      PLADR2
       000000C8H.1 SFRSYM    DATA     BIT       C_T2
       000000C8H.5 SFRSYM    DATA     BIT       RCLK
@@ -678,10 +679,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       000000C8H   SFRSYM    DATA     BYTE      T2CON
       000000EAH   SFRSYM    DATA     BYTE      P1PCR
       00000080H.7 SFRSYM    DATA     BIT       PLC_RX
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 11
+
+
       00000080H.6 SFRSYM    DATA     BIT       PLC_TX
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 11
-
-
       0000009BH   SFRSYM    DATA     BYTE      SADEN
       000000B8H.4 SFRSYM    DATA     BIT       PSL
       0000009AH   SFRSYM    DATA     BYTE      SADDR
@@ -746,10 +747,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       010007E3H   LINE      CODE     ---       #177
       010007E6H   LINE      CODE     ---       #178
       010007E6H   LINE      CODE     ---       #179
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 12
+
+
       010007E9H   LINE      CODE     ---       #180
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 12
-
-
       010007ECH   LINE      CODE     ---       #181
       010007EFH   LINE      CODE     ---       #182
       010007F1H   LINE      CODE     ---       #184
@@ -814,10 +815,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       0100093DH   LINE      CODE     ---       #250
       0100093DH   LINE      CODE     ---       #251
       0100093DH   LINE      CODE     ---       #253
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 13
+
+
       0100093DH   LINE      CODE     ---       #255
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 13
-
-
       01000940H   LINE      CODE     ---       #265
       01000940H   LINE      CODE     ---       #266
       01000946H   LINE      CODE     ---       #267
@@ -882,10 +883,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       01000AE4H   LINE      CODE     ---       #336
       01000AE4H   LINE      CODE     ---       #337
       01000AE6H   LINE      CODE     ---       #338
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 14
+
+
       01000AEBH   LINE      CODE     ---       #339
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 14
-
-
       01000AEDH   LINE      CODE     ---       #340
       01000AF6H   LINE      CODE     ---       #341
       01000AF6H   LINE      CODE     ---       #342
@@ -950,10 +951,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       000000D0H.6 SFRSYM    DATA     BIT       AC
       000000A8H.7 SFRSYM    DATA     BIT       EA
       000000FCH   SFRSYM    DATA     BYTE      IB_DATA
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 15
+
+
       000000A8H   SFRSYM    DATA     BYTE      IEN0
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 15
-
-
       000000A8H.6 SFRSYM    DATA     BIT       EADC
       000000A9H   SFRSYM    DATA     BYTE      IEN1
       00000085H   SFRSYM    DATA     BYTE      DPH1
@@ -1018,10 +1019,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       000000B2H   SFRSYM    DATA     BYTE      CLKCON
       00000088H.1 SFRSYM    DATA     BIT       IE0
       000000D8H.1 SFRSYM    DATA     BIT       RXPD
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 16
+
+
       00000088H.3 SFRSYM    DATA     BIT       IE1
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 16
-
-
       00000098H.5 SFRSYM    DATA     BIT       SM2_TXCOL
       000000F0H   SFRSYM    DATA     BYTE      B
       000000C8H   SFRSYM    DATA     BIT       CP_RL2
@@ -1086,10 +1087,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       010015ADH   LINE      CODE     ---       #45
       010015ADH   LINE      CODE     ---       #46
       010015ADH   LINE      CODE     ---       #47
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 17
+
+
       010015AFH   LINE      CODE     ---       #48
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 17
-
-
       010015B1H   LINE      CODE     ---       #50
       010015B4H   LINE      CODE     ---       #52
       010015B8H   LINE      CODE     ---       #53
@@ -1154,10 +1155,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       01001078H   LINE      CODE     ---       #121
       01001078H   LINE      CODE     ---       #122
       01001088H   LINE      CODE     ---       #123
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 18
+
+
       0100108EH   LINE      CODE     ---       #124
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 18
-
-
       01001097H   LINE      CODE     ---       #125
       01001099H   LINE      CODE     ---       #127
       01001099H   LINE      CODE     ---       #129
@@ -1222,10 +1223,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       010011C9H   LINE      CODE     ---       #227
       ---         BLOCKEND  ---      ---       LVL=0
 
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 19
+
+
       010018BBH   BLOCK     CODE     ---       LVL=0
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 19
-
-
       00000007H   SYMBOL    DATA     BYTE      dat
       010018BBH   BLOCK     CODE     NEAR LAB  LVL=1
       00000004H   SYMBOL    DATA     WORD      Uart_Delay
@@ -1290,10 +1291,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       00000021H.5 PUBLIC    BIT      BIT       transmit_continue
       00000021H.4 PUBLIC    BIT      BIT       en_delay_flag
       00000020H   PUBLIC    DATA     BYTE      bit_data
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 20
+
+
       02000002H   PUBLIC    XDATA    WORD      plt_recev_timeout
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 20
-
-
       00000016H   PUBLIC    DATA     BYTE      nb_repeat
       00000021H.3 PUBLIC    BIT      BIT       en_frame_delay
       00000021H.2 PUBLIC    BIT      BIT       tx_ok_flag
@@ -1358,10 +1359,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       000000D8H   SFRSYM    DATA     BIT       RXINT
       000000B9H   SFRSYM    DATA     BYTE      IPL1
       000000E2H   SFRSYM    DATA     BYTE      P1CR
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 21
+
+
       00000090H.7 SFRSYM    DATA     BIT       P1_7
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 21
-
-
       000000A8H.4 SFRSYM    DATA     BIT       ES
       0000008EH   SFRSYM    DATA     BYTE      SUSLO
       000000D8H.7 SFRSYM    DATA     BIT       TXINT
@@ -1426,10 +1427,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       000000D8H.6 SFRSYM    DATA     BIT       FEC_DONE
       00000088H.4 SFRSYM    DATA     BIT       TR0
       000000D0H.4 SFRSYM    DATA     BIT       RS1
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 22
+
+
       00000088H.6 SFRSYM    DATA     BIT       TR1
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 22
-
-
       000000C8H.2 SFRSYM    DATA     BIT       TR2
       00000094H   SFRSYM    DATA     BYTE      ADT
       000000D8H   SFRSYM    DATA     BYTE      PLSTAT
@@ -1494,10 +1495,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       010018D8H   LINE      CODE     ---       #156
       010018DBH   LINE      CODE     ---       #157
       010018DEH   LINE      CODE     ---       #159
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 23
+
+
       010018E1H   LINE      CODE     ---       #160
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 23
-
-
       010018E1H   LINE      CODE     ---       #162
       010018E4H   LINE      CODE     ---       #163
       ---         BLOCKEND  ---      ---       LVL=0
@@ -1562,10 +1563,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       01001738H   LINE      CODE     ---       #264
       0100173FH   LINE      CODE     ---       #265
       01001746H   LINE      CODE     ---       #267
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 24
+
+
       01001749H   LINE      CODE     ---       #270
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 24
-
-
       ---         BLOCKEND  ---      ---       LVL=0
 
       0100174AH   BLOCK     CODE     ---       LVL=0
@@ -1630,10 +1631,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       01001397H   LINE      CODE     ---       #364
       01001399H   LINE      CODE     ---       #365
       0100139BH   LINE      CODE     ---       #366
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 25
+
+
       0100139DH   LINE      CODE     ---       #367
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 25
-
-
       010013A5H   LINE      CODE     ---       #368
       010013A7H   LINE      CODE     ---       #369
       010013ADH   LINE      CODE     ---       #370
@@ -1698,10 +1699,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       01000EA9H   LINE      CODE     ---       #444
       01000EABH   LINE      CODE     ---       #445
       01000EAEH   LINE      CODE     ---       #447
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 26
+
+
       01000EB1H   LINE      CODE     ---       #448
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 26
-
-
       01000EB7H   LINE      CODE     ---       #449
       01000EB7H   LINE      CODE     ---       #450
       01000EB9H   LINE      CODE     ---       #451
@@ -1766,10 +1767,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       01000F70H   LINE      CODE     ---       #521
       01000F72H   LINE      CODE     ---       #522
       01000F75H   LINE      CODE     ---       #523
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 27
+
+
       01000F79H   LINE      CODE     ---       #525
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 27
-
-
       01000F79H   LINE      CODE     ---       #526
       01000F80H   LINE      CODE     ---       #527
       01000F80H   LINE      CODE     ---       #534
@@ -1834,10 +1835,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       0100101CH   LINE      CODE     ---       #604
       0100101FH   LINE      CODE     ---       #605
       0100101FH   LINE      CODE     ---       #606
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 28
+
+
       01001021H   LINE      CODE     ---       #607
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 28
-
-
       01001028H   LINE      CODE     ---       #608
       01001028H   LINE      CODE     ---       #609
       01001028H   LINE      CODE     ---       #611
@@ -1902,10 +1903,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       01001889H   LINE      CODE     ---       #693
       0100188BH   LINE      CODE     ---       #694
       0100188BH   LINE      CODE     ---       #696
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 29
+
+
       0100188BH   LINE      CODE     ---       #697
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 29
-
-
       0100188DH   LINE      CODE     ---       #698
       01001895H   LINE      CODE     ---       #699
       01001897H   LINE      CODE     ---       #700
@@ -1970,10 +1971,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       010018BAH   LINE      CODE     ---       #757
       ---         BLOCKEND  ---      ---       LVL=0
 
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 30
+
+
       010011CAH   BLOCK     CODE     ---       LVL=0
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 30
-
-
       010011CAH   BLOCK     CODE     NEAR LAB  LVL=1
       00000011H   SYMBOL    DATA     BYTE      m_nRssiCount
       00000012H   SYMBOL    DATA     WORD      m_nRssiSum
@@ -2038,10 +2039,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       01001792H   LINE      CODE     ---       #848
       01001799H   LINE      CODE     ---       #849
       0100179CH   LINE      CODE     ---       #850
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 31
+
+
       0100179CH   LINE      CODE     ---       #851
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 31
-
-
       0100179FH   LINE      CODE     ---       #852
       0100179FH   LINE      CODE     ---       #853
       010017A2H   LINE      CODE     ---       #854
@@ -2106,10 +2107,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       00000080H.3 SFRSYM    DATA     BIT       P0_3
       000000B5H   SFRSYM    DATA     BYTE      IPH1
       00000090H.3 SFRSYM    DATA     BIT       P1_3
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 32
+
+
       00000080H.4 SFRSYM    DATA     BIT       P0_4
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 32
-
-
       00000090H.4 SFRSYM    DATA     BIT       P1_4
       00000080H.5 SFRSYM    DATA     BIT       P0_5
       00000090H.5 SFRSYM    DATA     BIT       P1_5
@@ -2174,10 +2175,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       00000088H   SFRSYM    DATA     BIT       IT0
       000000A8H   SFRSYM    DATA     BIT       EX0
       0000008DH   SFRSYM    DATA     BYTE      TH1
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 33
+
+
       00000088H.2 SFRSYM    DATA     BIT       IT1
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 33
-
-
       00000098H.3 SFRSYM    DATA     BIT       TB8
       000000A8H.2 SFRSYM    DATA     BIT       EX1
       000000CDH   SFRSYM    DATA     BYTE      TH2
@@ -2242,10 +2243,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       01001468H   LINE      CODE     ---       #48
       01001476H   LINE      CODE     ---       #49
       01001484H   LINE      CODE     ---       #50
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 34
+
+
       01001484H   LINE      CODE     ---       #52
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 34
-
-
       01001486H   LINE      CODE     ---       #53
       ---         BLOCKEND  ---      ---       LVL=0
 
@@ -2310,10 +2311,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       000000F3H   SFRSYM    DATA     BYTE      IB_CON2
       00000080H   SFRSYM    DATA     BYTE      P0
       000000F4H   SFRSYM    DATA     BYTE      IB_CON3
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 35
+
+
       000000D8H.3 SFRSYM    DATA     BIT       RXNFA
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 35
-
-
       00000090H   SFRSYM    DATA     BYTE      P1
       000000F5H   SFRSYM    DATA     BYTE      IB_CON4
       000000F6H   SFRSYM    DATA     BYTE      IB_CON5
@@ -2378,10 +2379,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       000000D8H.2 SFRSYM    DATA     BIT       RXFA
       000000F1H   SFRSYM    DATA     BYTE      AUXC
       00000098H   SFRSYM    DATA     BYTE      SCON
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 36
+
+
       00000089H   SFRSYM    DATA     BYTE      TMOD
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 36
-
-
       00000088H   SFRSYM    DATA     BYTE      TCON
       000000FBH   SFRSYM    DATA     BYTE      IB_OFFSET
       000000B1H   SFRSYM    DATA     BYTE      RSTSTAT
@@ -2446,10 +2447,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       000000DFH   SFRSYM    DATA     BYTE      PLOCK
       000000DBH   SFRSYM    DATA     BYTE      PLBUF
       000000D0H   SFRSYM    DATA     BYTE      PSW
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 37
+
+
       000000DDH   SFRSYM    DATA     BYTE      PLREG
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 37
-
-
       000000D9H   SFRSYM    DATA     BYTE      PLCON
       000000F2H   SFRSYM    DATA     BYTE      IB_CON1
 
@@ -2514,10 +2515,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       01000C33H   LINE      CODE     ---       #92
       01000C3AH   LINE      CODE     ---       #95
       01000C3AH   LINE      CODE     ---       #96
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 38
+
+
       01000C3AH   LINE      CODE     ---       #99
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 38
-
-
       01000C3AH   LINE      CODE     ---       #100
       01000C3AH   LINE      CODE     ---       #101
       01000C3DH   LINE      CODE     ---       #103
@@ -2582,10 +2583,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       01000D81H   LINE      CODE     ---       #212
       01000DA7H   LINE      CODE     ---       #213
       01000DA7H   LINE      CODE     ---       #214
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 39
+
+
       01000DBFH   LINE      CODE     ---       #215
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 39
-
-
       01000DD2H   LINE      CODE     ---       #216
       01000DD2H   LINE      CODE     ---       #219
       01000DDBH   LINE      CODE     ---       #220
@@ -2650,10 +2651,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       00000090H.5 SFRSYM    DATA     BIT       P1_5
       00000080H.6 SFRSYM    DATA     BIT       P0_6
       000000C8H.6 SFRSYM    DATA     BIT       EXF2
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 40
+
+
       00000096H   SFRSYM    DATA     BYTE      ADDL
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 40
-
-
       000000B8H   SFRSYM    DATA     BYTE      IPL0
       000000E1H   SFRSYM    DATA     BYTE      P0CR
       00000090H.6 SFRSYM    DATA     BIT       P1_6
@@ -2718,10 +2719,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       000000CDH   SFRSYM    DATA     BYTE      TH2
       000000D0H   SFRSYM    DATA     BIT       P
       0000008AH   SFRSYM    DATA     BYTE      TL0
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 41
+
+
       0000008BH   SFRSYM    DATA     BYTE      TL1
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 41
-
-
       000000A7H   SFRSYM    DATA     BYTE      FLASHCON
       000000CCH   SFRSYM    DATA     BYTE      TL2
       000000D8H.5 SFRSYM    DATA     BIT       CFD_DONE
@@ -2786,10 +2787,10 @@ SYMBOL TABLE OF MODULE:  SH99F01_PLC (MAIN)
       010003CDH   PUBLIC    CODE     ---       ?C?FPUNDERFLOW
 
       ---         MODULE    ---      ---       ?C_STARTUP
+LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:34:34  PAGE 42
+
+
       01000000H   PUBLIC    CODE     ---       ?C_STARTUP
-LX51 LINKER/LOCATER V4.41                                                             09/11/2014  17:32:50  PAGE 42
-
-
 
       ---         MODULE    ---      ---       ?C?COPY
       010004ABH   PUBLIC    CODE     ---       ?C?COPY

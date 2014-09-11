@@ -118,14 +118,15 @@ void shell(void)
     uint8_t Char = 0u;
     uint8_t i = 0u;
     int cmp_val = 0u;
-    
+
     temp = Get_One_char(MFS_Ch0, &Char);
     if (1u == temp)
     {
         if (('\r' == Char))
         {
+            bFM3_GPIO_PDOR0_PD = 1u;  /* LED 201 light off */
+            bFM3_GPIO_PDOR0_PC = 0u;  /* LED 202 light on */
             Char = 0u;
-            bFM3_GPIO_PDOR0_PC = 0;  /* LED 202 */
             
             UART_Shell_RX(Shell_buff_tab, SHELL_LEN, SHELL_TIMEOUT);
             
@@ -139,13 +140,29 @@ void shell(void)
                     {
                         //(*task_index[i])(void);
                         (*task_index[i])();
+                        break;
                     }//end if judge shell
-                }//end for 
-            }//end if cmp "ST_UD"
+                }//end for
+                if (6 <= i)
+                {
+                    printf("no found Shell command\r\n");
+                    oneSound(10, 300);  /* BUZZER 201 error buzz */     
+                }    
+            }
+            else
+            {
+                printf("ST_UD\r\n");
+                oneSound(10, 300);  /* BUZZER 201 error buzz */
+            }//end if cmp "ST_UD"    
+        }
+        else
+        {
+            MFS_UARTErrorClr(UartUSBCh);  //CLR error flag
         }//end if cmp 'S' 's'    
-    }    
-  
-    bFM3_GPIO_PDOR0_PC = 1u; /* LED 202 */
+        
+        bFM3_GPIO_PDOR0_PD = 1u;  /* LED 201 light off */
+        bFM3_GPIO_PDOR0_PC = 1u;  /* LED 202 light off */
+    }     
 }
 
 

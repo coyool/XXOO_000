@@ -1,0 +1,13 @@
+---- PLC_RX Matches (14 in 3 files) ----
+APP.c:	PLC_RX = RXFA|RXNFA;		 // LED PLC_RX     (RXFA 帧同步bit)(RXNFA 反极性帧同步bit)
+APP.c:		//PLC_RX = !PLC_RX;	// debug
+Main.c:						PLC_RX=0;	// 1
+Main.c:						PLC_RX=1;  // 0
+Main.c:						PLC_RX=0;  // 1
+Main.c:						PLC_RX=1;    // 0
+Main.c:							PLC_RX=0;  // 1
+Main.c:							PLC_RX=1;    // 0
+Main.c:							PLC_RX=0;     //    1
+Main.c:							PLC_RX=1;    //   0
+Main.h://sbit PLC_RX = P0^7;			// LED_RXD
+Main.h:sbit PLC_RX = P0^7;

@@ -1,9 +1,9 @@
-C51 COMPILER V9.00   PLT                                                                   08/27/2014 17:22:32 PAGE 1   
+C51 COMPILER V9.00   PLT                                                                   09/11/2014 17:34:34 PAGE 1   
 
 
 C51 COMPILER V9.00, COMPILATION OF MODULE PLT
-OBJECT MODULE PLACED IN PLT.OBJ
-COMPILER INVOKED BY: D:\Program Files\keil4\C51\BIN\C51.EXE PLT.c OMF2 BROWSE DEBUG
+OBJECT MODULE PLACED IN ..\PLT.obj
+COMPILER INVOKED BY: D:\Program Files\keil4\C51\BIN\C51.EXE PLT.c OMF2 BROWSE DEBUG OBJECT(..\PLT.obj)
 
 line level    source
 
@@ -62,7 +62,7 @@ line level    source
   53          
   54          /////Other Variable
   55          bit             rx_flag = 0;
-C51 COMPILER V9.00   PLT                                                                   08/27/2014 17:22:32 PAGE 2   
+C51 COMPILER V9.00   PLT                                                                   09/11/2014 17:34:34 PAGE 2   
 
   56          bit             tx_flag = 0;
   57          bit             zc_flag = 0;
@@ -126,7 +126,7 @@ line level    source
  115           * Input Parameter:    None
  116           * OutPut Parameter:   None
  117           * Return Value:       None
-C51 COMPILER V9.00   PLT                                                                   08/27/2014 17:22:32 PAGE 3   
+C51 COMPILER V9.00   PLT                                                                   09/11/2014 17:34:34 PAGE 3   
 
  118           * Description:        This function  Initializes Registers and variables of PLT Module 
  119          **********************************************************************************************/
@@ -190,7 +190,7 @@ line level    source
  176   1                      Mode_DMZC();
  177   1              else
  178   1                      Mode_SCSF();
-C51 COMPILER V9.00   PLT                                                                   08/27/2014 17:22:32 PAGE 4   
+C51 COMPILER V9.00   PLT                                                                   09/11/2014 17:34:34 PAGE 4   
 
  179   1      }
  180          
@@ -254,7 +254,7 @@ line level    source
  236          void InitNB()
  237          {
  238   1              PLOCK = 0xA5;        //UnLock
-C51 COMPILER V9.00   PLT                                                                   08/27/2014 17:22:32 PAGE 5   
+C51 COMPILER V9.00   PLT                                                                   09/11/2014 17:34:34 PAGE 5   
 
  239   1              PLCON |= 0x4;           //SRST
  240   1              PLCON = 0xE8;           //Enable PLT/CRC/FEC/ RSSIEN, FACPR=0   
@@ -318,7 +318,7 @@ line level    source
  298   2                      SetPLT(TXFC,0x5C); // 290KHz, 2014/2/24
  299   2                      SetPLT(RXFC,0x5C); 
  300   2              }
-C51 COMPILER V9.00   PLT                                                                   08/27/2014 17:22:32 PAGE 6   
+C51 COMPILER V9.00   PLT                                                                   09/11/2014 17:34:34 PAGE 6   
 
  301   1              SetPLT(NACQCT,0x06);   // 同步参数 默认值  ??
  302   1      
@@ -382,7 +382,7 @@ line level    source
  360   2                      {                          
  361   3                              rx_flag = 0;
  362   3      
-C51 COMPILER V9.00   PLT                                                                   08/27/2014 17:22:32 PAGE 7   
+C51 COMPILER V9.00   PLT                                                                   09/11/2014 17:34:34 PAGE 7   
 
  363   3                              ReadRXBUF(plt_buf_trans);
  364   3                              rx_ok_flag = 1;
@@ -446,7 +446,7 @@ line level    source
  422   1              uint    crc_temp00 = 0; 
  423   1      
  424   1              if(transmit_enable)
-C51 COMPILER V9.00   PLT                                                                   08/27/2014 17:22:32 PAGE 8   
+C51 COMPILER V9.00   PLT                                                                   09/11/2014 17:34:34 PAGE 8   
 
  425   1              {               
  426   2                      if(!nb_flag)
@@ -510,7 +510,7 @@ line level    source
  484   4                                      if(nb_repeat>=NB_CNT)
  485   4                                      {
  486   5                                              plt_trans_timeout = FRAME_DURATION_DMZC_TXTAIL;                 // care, can't return directly
-C51 COMPILER V9.00   PLT                                                                   08/27/2014 17:22:32 PAGE 9   
+C51 COMPILER V9.00   PLT                                                                   09/11/2014 17:34:34 PAGE 9   
 
  487   5                                              transmit_enable = 0;
  488   5                                                                      
@@ -574,7 +574,7 @@ line level    source
  546   3                  carrier_stage = 0;
  547   3                              plt_recev_timeout = 0xFFFF;                                                                                             
  548   3                      }
-C51 COMPILER V9.00   PLT                                                                   08/27/2014 17:22:32 PAGE 10  
+C51 COMPILER V9.00   PLT                                                                   09/11/2014 17:34:34 PAGE 10  
 
  549   2      
  550   2                      if(rx_flag)
@@ -638,7 +638,7 @@ line level    source
  608   4                              }       
  609   3                      }
  610   2      
-C51 COMPILER V9.00   PLT                                                                   08/27/2014 17:22:32 PAGE 11  
+C51 COMPILER V9.00   PLT                                                                   09/11/2014 17:34:34 PAGE 11  
 
  611   2                      if (frame_transmit_ready)
  612   2                      {
@@ -690,7 +690,7 @@ line level    source
  658   2                      en_zc_delay = 0;
  659   2                      transmit_continue = 1;          
  660   2              }
- 661   1              if(en_delay_half&&(Timer_count>=zc_delay_cnt))                          //half period of AC
+ 661   1              if(en_delay_half&&(Timer_count>=zc_delay_cnt))          //half period of AC
  662   1              {
  663   2                      en_delay_half = 0;
  664   2                      transmit_continue = 1;
@@ -702,7 +702,7 @@ line level    source
  670   1              if(plt_recev_timeout && plt_recev_timeout!=0xFFFF)                      //receive flow timeout
  671   1                       --plt_recev_timeout; 
  672   1      
-C51 COMPILER V9.00   PLT                                                                   08/27/2014 17:22:32 PAGE 12  
+C51 COMPILER V9.00   PLT                                                                   09/11/2014 17:34:34 PAGE 12  
 
  673   1              if(plt_trans.plt_timeout && plt_trans.plt_timeout!=0xFFFF)                      //receive flow timeout
  674   1                       --plt_trans.plt_timeout; 
@@ -766,7 +766,7 @@ line level    source
  732   1              for(i=0; i<FRAME_LENGTH; i++)
  733   1              {
  734   2                      PLADR1 = i;        
-C51 COMPILER V9.00   PLT                                                                   08/27/2014 17:22:32 PAGE 13  
+C51 COMPILER V9.00   PLT                                                                   09/11/2014 17:34:34 PAGE 13  
 
  735   2                      *(frame++) = PLBUF;
  736   2              }
@@ -830,7 +830,7 @@ line level    source
  794          /*******************************************************************************
  795           * Function:          uint  CRC16(uchar n, uchar *buf)
  796           * Input parameter:   n---FrameLength, *buf--the point to the buginning of data packet 
-C51 COMPILER V9.00   PLT                                                                   08/27/2014 17:22:32 PAGE 14  
+C51 COMPILER V9.00   PLT                                                                   09/11/2014 17:34:34 PAGE 14  
 
  797           * OutPut parameter:  None
  798           * Return Value:      None
@@ -894,7 +894,7 @@ line level    source
  856   3                              zc_delay_cnt = 18;                 // delay 17.5ms
  857   3                      }
  858   2                      else if(en_delay_half)                  //delay 10ms(half period of AC)
-C51 COMPILER V9.00   PLT                                                                   08/27/2014 17:22:32 PAGE 15  
+C51 COMPILER V9.00   PLT                                                                   09/11/2014 17:34:34 PAGE 15  
 
  859   2                  {
  860   3                              TL0     = -TIMER0;    

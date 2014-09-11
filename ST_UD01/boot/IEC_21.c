@@ -210,7 +210,7 @@ uint8_t  ReadVersion(void)
 //        int32_t temp = 0;
 //        temp = memcmp(version_meter+8, &sSoftWare_Versions_ASCLL, 11);
 
-#define   VERSION_EN
+//#define   VERSION_EN
 #ifdef    VERSION_EN    
         
         MX25L3206_Read((uint8_t*)version_buff,
@@ -318,6 +318,8 @@ void IEC62056_21_Process(void)
             break;       
     }
 
+    bFM3_GPIO_PDOR0_PD = 1u; /* LED 201 light off */
+    bFM3_GPIO_PDOR0_PC = 1u; /* LED 202 light off */
     MFS_UARTDisableTX(UART52_Ch);
     //MFS_UARTDisableRX(UART52_Ch);
 }

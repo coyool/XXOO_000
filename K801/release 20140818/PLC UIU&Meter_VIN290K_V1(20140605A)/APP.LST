@@ -1,9 +1,9 @@
-C51 COMPILER V9.00   APP                                                                   08/27/2014 17:22:32 PAGE 1   
+C51 COMPILER V9.00   APP                                                                   09/11/2014 17:34:34 PAGE 1   
 
 
 C51 COMPILER V9.00, COMPILATION OF MODULE APP
-OBJECT MODULE PLACED IN APP.OBJ
-COMPILER INVOKED BY: D:\Program Files\keil4\C51\BIN\C51.EXE APP.c OMF2 BROWSE DEBUG
+OBJECT MODULE PLACED IN ..\APP.obj
+COMPILER INVOKED BY: D:\Program Files\keil4\C51\BIN\C51.EXE APP.c OMF2 BROWSE DEBUG OBJECT(..\APP.obj)
 
 line level    source
 
@@ -26,8 +26,8 @@ line level    source
   17          void App_Task()
   18          {
   19   1              uchar i;
-  20   1              PLC_TX = (PLCON&0X01);           // LED PLC_TX
-  21   1              PLC_RX = RXFA|RXNFA;             // LED PLC_RX
+  20   1              PLC_TX = (PLCON&0X01);           // LED PLC_TX     (PLCON & 0x01 IDL 模式控制  bit)
+  21   1              PLC_RX = RXFA|RXNFA;             // LED PLC_RX     (RXFA 帧同步bit)(RXNFA 反极性帧同步bit)
   22   1      
   23   1              if(rx_ok_flag)
   24   1              {
@@ -62,7 +62,7 @@ line level    source
   53   3                      }
   54   2      
   55   2                      //PLC_RX = !PLC_RX;     // debug
-C51 COMPILER V9.00   APP                                                                   08/27/2014 17:22:32 PAGE 2   
+C51 COMPILER V9.00   APP                                                                   09/11/2014 17:34:34 PAGE 2   
 
   56   2                              
   57   2              }
@@ -126,7 +126,7 @@ line level    source
  114   5                                      
  115   5                                      //      while(!(Transmit()));                                   
  116   5                                      Transmit();             
-C51 COMPILER V9.00   APP                                                                   08/27/2014 17:22:32 PAGE 3   
+C51 COMPILER V9.00   APP                                                                   09/11/2014 17:34:34 PAGE 3   
 
  117   5                                              plt_tx_continue = 0;    
  118   5                                      }
@@ -190,7 +190,7 @@ line level    source
  176   2      
  177   2                      memset(&plt_trans,0,sizeof(PLT_TRANS));         // dummy
  178   2                                      
-C51 COMPILER V9.00   APP                                                                   08/27/2014 17:22:32 PAGE 4   
+C51 COMPILER V9.00   APP                                                                   09/11/2014 17:34:34 PAGE 4   
 
  179   2              }
  180   1      
@@ -254,7 +254,7 @@ line level    source
  236   2                      {
  237   3                              memset(plt_buf_trans,0,FRAME_LENGTH);
  238   3                              for(i=0;i<29;i++)
-C51 COMPILER V9.00   APP                                                                   08/27/2014 17:22:32 PAGE 5   
+C51 COMPILER V9.00   APP                                                                   09/11/2014 17:34:34 PAGE 5   
 
  239   3                              {
  240   4                                      plt_buf_trans[i] = uart_trans.uart_buf[i];

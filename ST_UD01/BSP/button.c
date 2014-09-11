@@ -44,7 +44,7 @@ void BUTTON_KEY_setup(void)
     //bFM3_GPIO_ADE_AN13 = 0;   // 0 GPIO  1特殊功能
     bFM3_GPIO_PFR3_PE = 0;      // 0 GPIO  1外设功能
     bFM3_GPIO_DDR3_PE = 0;      // 0 输入  1输出
-    bFM3_GPIO_PCR1_PD = 1;    // 上拉
+    bFM3_GPIO_PCR1_PD = 1;      // 上拉
 }
 
 

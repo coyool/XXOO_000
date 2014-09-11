@@ -184,7 +184,9 @@ static void download_program_to_meter(void)
     uint8_t file_size[FILE_SIZE_LENGTH] = {0};
     
     /* wait for meter send 'C', meter printf something before send 'C' */
-    delay_ms(1000);  
+    delay_ms(10000);  
+//    Get_One_char(UART52_Ch, &tick_C); 
+//    tick_C = 0u;
     
     MFS_UARTSWRst(UART52_Ch);  //reset UART
     UARTConfigMode(UART52_Ch, &tUARTModeConfigT);
@@ -204,7 +206,8 @@ static void download_program_to_meter(void)
     }    
     else
     {
-        bFM3_GPIO_PDOR0_PD = 1; /* LED 201 light off */
+        bFM3_GPIO_PDOR0_PD = 1u; /* LED 201 light off */
+        bFM3_GPIO_PDOR0_PC = 1u; /* LED 202 light off */
         //SerialPutString("\n\nVERSION_ERR or Rev C\n\r");
         return;
     }    
