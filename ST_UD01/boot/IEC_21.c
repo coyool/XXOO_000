@@ -281,7 +281,11 @@ void Enter21Upgrade(void)
      SendPacket((uint8_t *)&CommadConfirmPass,sizeof(CommadConfirmPass));//第四步, 验证密码
      delay_ms(200);
      SendPacket((uint8_t *)&CommadEnterUpgrade,sizeof(CommadEnterUpgrade));//第五步, 发送进入升级命令
-     delay_ms(200);     
+     delay_ms(200);    
+	 
+     delay_ms(5000);    /* 从升级发送命令到接收第一个 C，一般是5秒 */
+     printf("enter boot\r\n");
+     oneSound(10,0); 
 }
 
 /*******************************************************************************
@@ -294,7 +298,8 @@ void Enter21Upgrade(void)
 void IEC62056_21_Process(void)
 {   
     //uint8_t verstate;
-	
+	MFS_UARTDisableRX(UART52_Ch);
+    
     MFS_UARTEnableTX(UART52_Ch);
     //MFS_UARTEnableRX(UART52_Ch);
     verstate = 0u;

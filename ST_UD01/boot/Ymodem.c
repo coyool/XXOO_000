@@ -42,7 +42,7 @@ __IO uint32_t RamSource;
 //uint8_t tab_1024[1024u];
 uint8_t file_name[FILE_NAME_LENGTH] = {0};
 int32_t flash_image_size = 0u;
-volatile const uint32_t  Rev_timeout = 12000u; /* about 10S */ 
+volatile const uint32_t  Rev_timeout = 8000u; /* about 10S  12000u*/ 
 
 
 

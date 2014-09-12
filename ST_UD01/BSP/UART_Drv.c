@@ -366,15 +366,26 @@ void UARTPollTX_string(uint8_t *data)
 *******************************************************************************/
 uint32_t Get_One_char(uint8_t Ch,uint8_t *dat)
 {
+    uint32_t return_val = 0u;
+    
+    if (MFS_UARTGetOEStatus(UartUSBCh) 
+        || MFS_UARTGetPEStatus(UartUSBCh) 
+        || MFS_UARTGetFEStatus(UartUSBCh))
+    {
+        MFS_UARTErrorClr(UartUSBCh);  //CLR error flag
+        return_val = 0u;//Error happen
+    }
+    
     if(MFS_UARTGetRXRegFullStatus(Ch))
     {
         *dat = MFS_UARTRXOneData(Ch);
-        return 1u;                                  //接收成功返回1
+        return_val = 1u;                                  //接收成功返回1
     }
     else
     {
-        return 0u;                                  //没有接收到 字符返回0
+        return_val = 0u;                                  //没有接收到 字符返回0
     }
+    return return_val;
 }
 
 //接收一个字符  第二个参数为超时参数

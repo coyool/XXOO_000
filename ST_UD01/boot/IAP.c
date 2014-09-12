@@ -184,73 +184,74 @@ static void download_program_to_meter(void)
     uint8_t file_size[FILE_SIZE_LENGTH] = {0};
     
     /* wait for meter send 'C', meter printf something before send 'C' */
-    delay_ms(10000);  
-//    Get_One_char(UART52_Ch, &tick_C); 
-//    tick_C = 0u;
+    delay_ms(5000);  /* 存在很低的概率, 会出现在进入升级的时候会停滞几秒 */
     
+    MFS_UARTErrorClr(UartUSBCh);  //CLR error flag
     MFS_UARTSWRst(UART52_Ch);  //reset UART
     UARTConfigMode(UART52_Ch, &tUARTModeConfigT);
     MFS_UARTEnableRX(UART52_Ch);
     MFS_UARTEnableTX(UART52_Ch);
     
     //SerialPutString("\n\n\rSelect Receive File ... \n\r");
-    if (VERSION_OK == verstate)
-    {
-        SerialPutString("\n\n\rdownlod image .bin ... \n\r");
-    }    
     
     Rev_flag = Receive_Byte(UART52_Ch , &tick_C, Rev_timeout); 
     if (0u == Rev_flag)
     {
-        _NOP();
+        if (tick_C == CRC16)
+        {
+            printf("Rev C. \r\n");
+        }    
     }    
     else
     {
-        bFM3_GPIO_PDOR0_PD = 1u; /* LED 201 light off */
-        bFM3_GPIO_PDOR0_PC = 1u; /* LED 202 light off */
-        //SerialPutString("\n\nVERSION_ERR or Rev C\n\r");
-        return;
+		SerialPutString("\r\n no Rev 'C' .\r\n");  
     }    
     
     if (tick_C == CRC16)
     {
+        SerialPutString("downlod image .bin ... \r\n");
+        
         read_flash_check_flag = 0u;
         read_flash_check_flag = MX25L3206_Read((uint8_t*)(file_size),
                                                (uint32_t)FLASH_IMAGE_SIZE_ADDRESS,
                                                FILE_SIZE_LENGTH);
         if (OK != read_flash_check_flag)
         {
-            return;
-        }    
-        Str2Int(file_size, &flash_image_size);  /* str to hex */
-        
-        /* Transmit the flash image through ymodem protocol */
-        status = Ymodem_Transmit((uint8_t*)ApplicationAddress,   //!!!!Note
-                                 (const uint8_t*)"DownloadFlashImage.bin",
-                                 flash_image_size);  /* , ,FLASH_IMAGE_MAX_SIZE */
-        
-        MFS_UARTDisableRX(UART52_Ch);
-        
-        if (status != 0) 
-        {
-            SerialPutString("\n\rError Occured while Transmitting File\n\r");
-            oneSound(10, 300);  /* BUZZER 201 error buzz */
-        }
+            __NOP();
+        }  
         else
         {
-            SerialPutString("\n\rFile Trasmitted Successfully \n\r");
-            oneSound(10, 0);  /* BUZZER 201 buzz */
-        }
+            Str2Int(file_size, &flash_image_size);  /* str to hex */
+
+            /* Transmit the flash image through ymodem protocol */
+            status = Ymodem_Transmit((uint8_t*)ApplicationAddress,   //!!!!Note
+                     (const uint8_t*)"DownloadFlashImage.bin",
+                     flash_image_size);  /* , ,FLASH_IMAGE_MAX_SIZE */
+
+            MFS_UARTDisableRX(UART52_Ch);  //
+
+            if (status != 0) 
+            {
+                SerialPutString("\n\rError Occured while Transmitting File\n\r");
+                oneSound(10, 300);  /* BUZZER 201 error buzz */
+            }
+            else
+            {
+                SerialPutString("\n\rFile Trasmitted Successfully \n\r");
+                oneSound(10, 0);  /* BUZZER 201 buzz */
+            }
+        }//end if flash check    
     }
     else
     {
         SerialPutString("\r\n\nAborted by user or no Rev 'C' .\n\r");  
         oneSound(10, 300);  /* BUZZER 201 error buzz */
+        //while(1);  //test!!! 
     }
     
     bFM3_GPIO_PDOR0_PD = 1u; /* LED 201 light off */
     bFM3_GPIO_PDOR0_PC = 1u; /* LED 202 light off */
-    //MFS_UARTDisableRX(UART52_Ch);
+    MFS_UARTDisableRX(UART52_Ch);
     MFS_UARTDisableTX(UART52_Ch);
 }
 
@@ -266,6 +267,7 @@ void IAP(void)
 {
     uint8_t i = 0u;
     uint32_t cnt = 0u;
+    uint32_t cnt_00 = 0u;   //test !!!
 
     memset(&LED, 0, sizeof(LED));
     
@@ -301,14 +303,21 @@ void IAP(void)
         
         delay_ms(1u);
         cnt++;
-        
+        cnt_00++;
         /* LED standby blink */
         LED_Blink(cnt);
         
         /* shell */
         shell();
      
-        _NOP();
+        /* auto test*/
+//        if (5000==cnt_00)
+//        {
+//            cnt_00 = 0u;
+//            oneSound(10,0); 
+//            IEC62056_21_Process();
+//            download_program_to_meter(); /* Note[4]!!! */       
+//        }    
     }/* while(1) */    
 }
 
