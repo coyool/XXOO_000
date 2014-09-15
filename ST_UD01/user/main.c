@@ -185,7 +185,7 @@ static void BSP(void)
     printf("(3) VectTab_Address: (SP) (PC) ");
     printHex(tab_VectTab_address, 8u);
     printf("\r\n");
-    //Flash no have image ！！！
+    //Flash no have image 
     //printf();
     
 /*----------------------------------------------------------------------------*/
@@ -197,17 +197,12 @@ static void BSP(void)
     uint8_t tab_01[5] = {0xFF,0x01,0x02,0x03,0x04};
     printHex(tab_01,5);
     
-    MFS_UARTEnableRX(UART52_Ch);
-    MFS_UARTEnableTX(UART52_Ch);
-    Put_char(UART52_Ch , 'Z');
-    delay_ms(1000); //1S = 1.003S, 10ms = 10.061ms
-    Put_char(UART52_Ch, 'Z');
-    Receive_Byte(UART52_Ch, &i, Rev_timeout); 
-    Put_char(UART52_Ch, 'Z');
-    MFS_UARTDisableRX(UART52_Ch);
-    MFS_UARTDisableTX(UART52_Ch);
-    
-    test_flash();
+    uint8_t temp;
+    printf("start\r\n");
+    Receive_Byte(UART52_Ch , &temp, Rev_timeout); 
+    printf("end\r\n");
+     
+    //test_flash();
 #endif        
 
 }

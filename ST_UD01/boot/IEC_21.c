@@ -210,7 +210,7 @@ uint8_t  ReadVersion(void)
 //        int32_t temp = 0;
 //        temp = memcmp(version_meter+8, &sSoftWare_Versions_ASCLL, 11);
 
-//#define   VERSION_EN
+#define   VERSION_EN
 #ifdef    VERSION_EN    
         
         MX25L3206_Read((uint8_t*)version_buff,
@@ -234,6 +234,7 @@ uint8_t  ReadVersion(void)
         
         delay_ms(500);  //loop interval     
 #else        
+        /* version disable */
         if (memcmp(version_meter+7, &sSoftWare_Versions_ASCLL, 11) != 0) // 比对版本号
         {
             return_val = METER_TYPE_ERR;  

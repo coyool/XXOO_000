@@ -267,7 +267,6 @@ void IAP(void)
 {
     uint8_t i = 0u;
     uint32_t cnt = 0u;
-    uint32_t cnt_00 = 0u;   //test !!!
 
     memset(&LED, 0, sizeof(LED));
     
@@ -303,7 +302,7 @@ void IAP(void)
         
         delay_ms(1u);
         cnt++;
-        cnt_00++;
+
         /* LED standby blink */
         LED_Blink(cnt);
         
@@ -311,13 +310,18 @@ void IAP(void)
         shell();
      
         /* auto test*/
-//        if (5000==cnt_00)
-//        {
-//            cnt_00 = 0u;
-//            oneSound(10,0); 
-//            IEC62056_21_Process();
-//            download_program_to_meter(); /* Note[4]!!! */       
-//        }    
+//#define AUTO_TEST_IAP        
+#ifdef  AUTO_TEST_IAP  
+        uint32_t cnt_00 = 0u;  
+        cnt_00++;
+        if (5000==cnt_00)
+        {
+            cnt_00 = 0u;
+            oneSound(10,0); 
+            IEC62056_21_Process();
+            download_program_to_meter(); /* Note[4]!!! */       
+        }    
+#endif         
     }/* while(1) */    
 }
 

@@ -42,7 +42,7 @@ __IO uint32_t RamSource;
 //uint8_t tab_1024[1024u];
 uint8_t file_name[FILE_NAME_LENGTH] = {0};
 int32_t flash_image_size = 0u;
-volatile const uint32_t  Rev_timeout = 8000u; /* about 10S  12000u*/ 
+volatile const uint32_t  Rev_timeout = 4000u; /* about 15S  4000u  30S 8000u*/ 
 
 
 
@@ -490,6 +490,10 @@ void Ymodem_PreparePacket(uint8_t *SourceBuf, uint8_t *data, uint8_t pktNo, uint
     if (OK == read_flash_check_flag)
     {
         _NOP();
+#define   TEST_PACKET      
+#ifdef    TEST_PACKET        
+        printHex(&data[0], PACKET_SIZE + PACKET_OVERHEAD);
+#endif        
     }   
     else
     {
