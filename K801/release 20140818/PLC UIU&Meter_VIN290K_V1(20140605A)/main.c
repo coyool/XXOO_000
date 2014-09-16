@@ -4,6 +4,7 @@
 #include  "UART.h"
 #include  "PLT.h"
 #include  "string.h"
+//#include  "stdio.h"			/* printf scanf */
 
 
 //bit  bBaudOption = 1;		// 1: 2.4k, 0: 9.6k
@@ -96,6 +97,8 @@ void main(void)
 	
 	InitPLT(); 			//Initial PLT  
 	InitUART();			//Initial UART   
+	PLC_TX=1;           // LED light off  ybz!
+	PLC_RX=1;           // LED light off  ybz!
 
 	bShakeHandsOk = 0;
 	uart_tx_idle_timeout = 0;
@@ -142,6 +145,8 @@ void main(void)
 //	}
 
 	EA = 1;
+	//printf("fucking high \r\n");  //ybz!
+	//while(1);
 	
 	while(1)
 	{
@@ -185,10 +190,11 @@ void main(void)
 			// 2014/3/21
 			if (get_local_addr_timeout==0)
 			{
+			    //printf(" 645_1997_shakehand ");  //ybz!	
 				uart_trans.uart_framelen = sizeof(meter_read_addr_645_1997);
-				ES=0;		// dummy		
-				TI = 0;		// dummy
-				RI = 0;
+				ES=0;		// dummy	UART interrupt disable	
+				TI = 0;		// dummy    UART interrupt TX flag
+				RI = 0;		//        	UART interrupt RX flag
 			  	for(i=0; i<uart_trans.uart_framelen; i++)	
 				{
 					UartReturn(meter_read_addr_645_1997[i]);	  //putchar();
@@ -209,9 +215,9 @@ void main(void)
 				{
 					uart_RI_ok = 0;
 					get_local_addr_timeout = 0xFFFF;
-					for(i=0;i<(uart_trans.uart_framelen+4);i++)
+					for(i=0;i<(uart_trans.uart_framelen+4);i++)  //  20³¤¶È
 					{
-						if (uart_trans.uart_buf[i]==0x68)
+						if (uart_trans.uart_buf[i]==0x68)        //  limit 90 byte
 						  break;
 					}
 					temp = UartCheckSum(&uart_trans.uart_buf[i],18);
@@ -263,6 +269,7 @@ void main(void)
 				}
 				else
 				{
+					//printf(" 645_2007_shakehand ");		  //ybz!
 					uart_trans.uart_framelen = sizeof(meter_read_addr_645_2007);
 					ES=0;		// dummy		
 					TI = 0;		// dummy, 2014/3/21

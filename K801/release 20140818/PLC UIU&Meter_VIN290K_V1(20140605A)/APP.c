@@ -209,7 +209,7 @@ void App_Task()
 			if (uart_trans.uart_buf[i]==0x68)
 			  break;
 		}
-		if ((memcmp(&uart_trans.uart_buf[i+1],meter_local_addr,6)!=0)&&(uart_trans.uart_framelen>10))		// address mismatch
+		if ((memcmp(&uart_trans.uart_buf[i+1],meter_local_addr,6)!=0)&&(uart_trans.uart_framelen>10)) / address mismatch
 		{
 			memcpy(meter_local_addr,&uart_trans.uart_buf[i+1],6);
 			memcpy(meter_local_addr_bak,meter_local_addr,6);			

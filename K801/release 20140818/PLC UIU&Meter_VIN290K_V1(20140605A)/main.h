@@ -41,4 +41,6 @@ sbit PLC_RX = P0^7;
 //sbit RXD_LED = P0^7;		
 //sbit TXD_LED = P1^7;
 
+#include  "stdio.h"			/* printf scanf */
+
 #endif

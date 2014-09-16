@@ -136,16 +136,16 @@ void Uart_Task()
 		if(uart_check_fail_flag)
 		{
 			uart_RI_ok = 0;		// receive fail
-			memset(&uart_trans,0,sizeof(UART_TRANS));
+			memset(&uart_trans,0,sizeof(UART_TRANS));  //CLR 
 		}
 		else
 		{
 			uart_RI_ok = 1;		// receive ok
-			uart_trans.uart_framelen = uart_trans.uart_ptr;		// dummy
+			uart_trans.uart_framelen = uart_trans.uart_ptr;		// dummy  cnt
 			uart_trans.uart_ptr = 0;	
 
 			// 2014/6/4, add CRC check////////////
-			for(i=0;i<(uart_trans.uart_framelen+4);i++)
+			for(i=0;i<(uart_trans.uart_framelen+4);i++)  // FE FE 变长
 			{
 				if (uart_trans.uart_buf[i]==0x68)
 					  break;
@@ -260,3 +260,37 @@ uchar UartCheckSum(uchar *buf, uchar len)
 	return sum;
 }
 
+
+/**********************************
+putchar  ybz!
+
+***********************************/
+char putchar(char dat)		 
+{		
+	uint Uart_Delay = 0XFFFF;	
+	
+	ES = 0; // UART IRQ_Ban 
+	TI = 0; //清空发送完中断请求标志位 
+	ACC = dat;
+	TB8 = P;	// even check	 第9数据位 写入奇偶校验位
+	SBUF = dat;
+	while(0 == TI)
+	{
+		Uart_Delay--;
+		if(Uart_Delay==0)
+		break;
+	}
+	TI=0;
+	ES = 1; // UART IRQ EN 
+	return dat;
+
+//#define   PUTCHAR
+#ifdef  PUTCHAR 
+	ES = 0; // UART IRQ_Ban 
+	TI = 0; //清空发送完中断请求标志位  
+	SBUF = i;  //将数据放入寄存器发送  
+	while(TI == 0);//等待发送完毕，发送完毕 TI == 1  
+	TI = 0; //清空发送完中断请求标志位  
+	ES = 1; // UART IRQ EN 
+#endif 
+}	

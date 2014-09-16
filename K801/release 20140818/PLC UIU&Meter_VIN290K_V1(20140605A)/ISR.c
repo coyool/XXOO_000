@@ -63,9 +63,9 @@ void ISR_INT1(void) interrupt 2
 
 void ISR_UART(void) interrupt 4		 
 {
-	EA = 0;
-	ES = 0;
-	if(RI)	   //UART Rev_flag
+	EA = 0;    // disable all interrupt
+	ES = 0;    // disable UART interrupt
+	if(RI)	   // ART Rev_flag
 	{		
 		if (!uart_RI_start)
 		{

@@ -1,13 +1,11 @@
----- PLC_RX Matches (14 in 3 files) ----
-APP.c:	PLC_RX = RXFA|RXNFA;		 // LED PLC_RX     (RXFA 帧同步bit)(RXNFA 反极性帧同步bit)
-APP.c:		//PLC_RX = !PLC_RX;	// debug
-Main.c:						PLC_RX=0;	// 1
-Main.c:						PLC_RX=1;  // 0
-Main.c:						PLC_RX=0;  // 1
-Main.c:						PLC_RX=1;    // 0
-Main.c:							PLC_RX=0;  // 1
-Main.c:							PLC_RX=1;    // 0
-Main.c:							PLC_RX=0;     //    1
-Main.c:							PLC_RX=1;    //   0
-Main.h://sbit PLC_RX = P0^7;			// LED_RXD
-Main.h:sbit PLC_RX = P0^7;
+---- memcpy Matches (10 in 2 files) ----
+APP.c://			memcpy(meter_local_addr,&uart_trans.uart_buf[i+1],6);
+APP.c://			memcpy(meter_local_addr_bak,meter_local_addr,6);			
+APP.c:			memcpy(meter_local_addr,&uart_trans.uart_buf[i+1],6);
+APP.c:			memcpy(meter_local_addr_bak,meter_local_addr,6);			
+Main.c://		memcpy(&meter_local_addr,&uart_trans.uart_buf[i+1],6);
+Main.c://		memcpy(meter_local_addr_bak,meter_local_addr,6);
+Main.c:						memcpy(meter_local_addr_bak,&uart_trans.uart_buf[i+12],6);		// 2014/3/21, UIU
+Main.c:						memcpy(meter_local_addr_bak,meter_local_addr,6);	// 2014/5/27
+Main.c:							memcpy(meter_local_addr_bak,&uart_trans.uart_buf[i+10],6);		// 2014/3/21, UIU
+Main.c:							memcpy(meter_local_addr_bak,meter_local_addr,6);	// 2014/5/27

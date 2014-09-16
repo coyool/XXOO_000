@@ -1,9 +1,9 @@
-C51 COMPILER V9.00   ISR                                                                   09/11/2014 17:34:34 PAGE 1   
+C51 COMPILER V9.00   ISR                                                                   09/16/2014 17:53:00 PAGE 1   
 
 
 C51 COMPILER V9.00, COMPILATION OF MODULE ISR
-OBJECT MODULE PLACED IN ..\ISR.obj
-COMPILER INVOKED BY: D:\Program Files\keil4\C51\BIN\C51.EXE ISR.c OMF2 BROWSE DEBUG OBJECT(..\ISR.obj)
+OBJECT MODULE PLACED IN ..\..\ISR.obj
+COMPILER INVOKED BY: D:\Program Files\keil4\C51\BIN\C51.EXE ISR.c OMF2 BROWSE DEBUG OBJECT(..\..\ISR.obj)
 
 line level    source
 
@@ -62,7 +62,7 @@ line level    source
   53   1      }
   54          
   55          
-C51 COMPILER V9.00   ISR                                                                   09/11/2014 17:34:34 PAGE 2   
+C51 COMPILER V9.00   ISR                                                                   09/16/2014 17:53:00 PAGE 2   
 
   56          void ISR_INT1(void) interrupt 2
   57          {
@@ -74,9 +74,9 @@ line level    source
   63          
   64          void ISR_UART(void) interrupt 4          
   65          {
-  66   1              EA = 0;
-  67   1              ES = 0;
-  68   1              if(RI)     //UART Rev_flag
+  66   1              EA = 0;    // disable all interrupt
+  67   1              ES = 0;    // disable UART interrupt
+  68   1              if(RI)     // ART Rev_flag
   69   1              {               
   70   2                      if (!uart_RI_start)
   71   2                      {
@@ -126,7 +126,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
    EDATA SIZE       =   ----    ----
-C51 COMPILER V9.00   ISR                                                                   09/11/2014 17:34:34 PAGE 3   
+C51 COMPILER V9.00   ISR                                                                   09/16/2014 17:53:00 PAGE 3   
 
    HDATA SIZE       =   ----    ----
    XDATA CONST SIZE =   ----    ----

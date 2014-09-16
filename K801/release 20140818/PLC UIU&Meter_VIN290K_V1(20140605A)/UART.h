@@ -42,6 +42,8 @@ void Uart_Task();
 void UartReturn(uchar dat);
 uchar UartCheckSum(uchar *buf, uchar len);
 
+extern char putchar(char dat);
+
 extern bit	  uart_TI_ready;
 extern bit	  uart_RI_start;
 extern bit	  uart_TI_ok;
