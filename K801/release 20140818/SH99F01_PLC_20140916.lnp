@@ -1,9 +1,0 @@
-"..\main.obj",
-"..\UART.obj",
-"..\PLT.obj",
-"..\ISR.obj",
-"..\APP.obj",
-"..\SSP.obj" 
-TO "..\SH99F01_PLC_20140916" 
-
-PRINT(".\SH99F01_PLC_20140916.map")
