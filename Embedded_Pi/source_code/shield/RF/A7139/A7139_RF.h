@@ -30,10 +30,10 @@
 /* SDA */
 
 /* RF interrupt */
-//#define RF_A7139_IE_EN      EXTI_IE(EXTI9_5_IRQn, ENABLE)              
-//#define RF_A7139_IE_DIS     EXTI_IE(EXTI9_5_IRQn, DISABLE)  
-//
-//#define RF_A7139_IFG_CLR    EXTI_ClearITPendingBit(EXTI_Line5) //CLR pending bit 
+#define RF_A7139_IE_EN      EXTI_IE(EXTI9_5_IRQn, ENABLE)              
+#define RF_A7139_IE_DIS     EXTI_IE(EXTI9_5_IRQn, DISABLE)  
+
+#define RF_A7139_IFG_CLR    EXTI_ClearITPendingBit(EXTI_Line5) //CLR pending bit 
 
 
 
@@ -59,7 +59,7 @@ extern void LSD_RF_WritePageA(u8 address, u16 dataWord);
 extern u16 LSD_RF_ReadPageA(u8 address);
 extern void LSD_RF_WritePageB(u8 address, u16 dataWord);
 extern u16 LSD_RF_ReadPageB(u8 address);
-extern u8 LSD_RF_InitRF(void);
+extern u8 RF_A7139_setup(void);
 extern u8 LSD_RF_Config(void);
 extern u8 LSD_RF_WriteID(void);
 extern void LSD_RF_FreqSet(u8 ch);

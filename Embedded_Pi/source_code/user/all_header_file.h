@@ -3,9 +3,9 @@
 #define   _ALL_H_
 
 /*** C standard lib ***/
-//#include <stdio.h>      /* import printf scanf   */ 
-//#include <stdlib.h>     /* import string convert */
-//#include <string.h>     /* import memcpy memset memcmp ... */
+#include <stdio.h>      /* import printf scanf   */ 
+#include <stdlib.h>     /* import string convert */
+#include <string.h>     /* import memcpy memset memcmp ... */
 //#include <stdarg.h>
 
 
@@ -38,7 +38,7 @@
 /* shield lib */
 #include "A7139_RF.h"
 #include "A7139_RFreg.h"
-//#include "A7139_RFregsetting.h"
+#include "A7139_RFregsetting.h"
 
 
 /* STduino lib */

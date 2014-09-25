@@ -18,14 +18,15 @@
 
 /*** static function prototype declarations ***/
 static void NVIC_setup(void);
-
+static void EXTI_setup(void);
+static void SysTick_setup(void);
 
 /*** static variable declarations ***/
 
 
 
 /*** extern variable declarations ***/
-
+TIMER_TYPE timer;
 
 
 
@@ -75,6 +76,33 @@ void EXTI_setup(void)
     GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource5); 
 }
 
+/*******************************************************************************
+* Description : SysTick
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+void SysTick_setup(void)
+{
+    /* 
+    * SystemFrequency / 100     10ms 
+    * SystemFrequency / 1000    1ms  
+    * SystemFrequency / 100000  10us   
+    * SystemFrequency / 1000000 1us   
+    */   
+    u32 reload = 0u;
+    
+    reload = SystemCoreClock / 100;
+    if (SysTick_Config(reload))  
+    {    
+        /* Capture error */    
+        //printf("reload greater than MAX")
+        while(1);
+    }   
+
+    SysTick_ENABLLE(DISABLE);
+}
 
 
 /*******************************************************************************
@@ -122,13 +150,27 @@ void BSP(void)
     /* EXTI configuration */
     EXTI_setup();
     
+    /* SysTick configuration 10ms one time */  
+    SysTick_setup();  
+    
     /* Embedded Pi setup */
     LED_setup(LED1);
     
     /* shield setup */
-    //RF_A7139_setup();
+    u8 temp = 0u;
+    temp = RF_A7139_setup();
+    if (temp != NORMAL)
+    {
+        //printf(" RF A7139 setup failed ");
+    }  
+    
+    /* Enable */
+    __enable_irq();                  /* EA = 1 */
+    SysTick_ENABLLE(ENABLE);          /* systick enable */
+
     
     /* power on action */
+    memset(&timer, 0, sizeof(&timer));
     LED_Blink(LED1, 10, 100);
    
 }

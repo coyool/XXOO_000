@@ -22,69 +22,7 @@
 
 
 /*** static variable declarations ***/
-const u16 LSD_RFregConfig[]= //470MHz, 10kbps (IFBW = 50KHz, Fdev = 18.75KHz)
-{
-    0x0823,     /*0x0823(10K)-->0x3023(2K) 此时定时器时间加长*///SYSTEM CLOCK register,CSC=1,SDR=4 DataRate=10kbps(DMOS=1,so not use 0x0821)
-//  0x1221,	    //SYSTEM CLOCK register,
-	0x0A24,		//PLL1 register,
-	0xB805,		//PLL2 register,	470.001MHz
-	0x0000,		//PLL3 register,
-	0x0A20,		//PLL4 register,
-	0x0024,		//PLL5 register,
-	0x0000,		//PLL6 register,
-	0x0001,		//CRYSTAL register,
-	0x0000,		//PAGEA,
-	0x0000,		//PAGEB,	
-    0x18D0,         //RX1 register, 	IFBW=50KHz, ETH=1	
-	0x7009,		//RX2 register, 	by preamble
-	0x4400,		//ADC register,	   	
-	0x0800,		//PIN CONTROL register,		Use Strobe CMD
-	0x4845,		//CALIBRATION register,
-	0x20C0		//MODE CONTROL register, 	Use FIFO mode
-};
 
-const u16 LSD_RFregConfig_PageA[]=   //470MHz, 10kbps (IFBW = 50KHz, Fdev = 18.75KHz)
-{
-    0x1703,         /*0x1703--0x1260*///TX1 register, 	Fdev = 18.75kHz
-//  0x1706,	S//TX1 register, 	Fdev = 37.5kHz
-	0x0000,		//WOR1 register,
-	0x0000,		//WOR2 register,
-	0x1187,		//RFI register, 	Enable Tx Ramp up/down  
-	0x8160,		//PM register,		CST=1
-	0x0302,		//RTH register,
-	0x400F,		//AGC1 register,	
-	0x0AC0,		//AGC2 register, 
-	0x0041,		//GIO register, 	GIO2=WTR, GIO1=WTR
-//  0x0145,		//GIO register, 	GIO2=WTR, GIO1=WTR
-	0xD281,		//CKO register
-	0x0004,		//VCB register,
-	0x0825,		//CHG1 register, 	480MHz
-	0x0127,		//CHG2 register, 	500MHz
-	0x003F,		//FIFO register, 	FEP=63+1=64bytes
-	0x151F,		//CODE register, Preamble=4bytes, ID=4bytes, FEC+CRC
-	0x0000		//WCAL register,
-};
-
-const u16 LSD_RFregConfig_PageB[]=   //470MHz, 10kbps (IFBW = 100KHz, Fdev = 18.75KHz)
-{
-	0x0B37,		/*0x0B7F-->0x0B37 733 721功率测试*///TX2 register, 	Tx power=20dBm
-	0x8200,     //IF1 register, 	Enable Auto-IF, IF=100KHz     0x8400,IF=200KHz 
-    0x0000,		//IF2 register,
-	0x0000,		//ACK register,
-	0x0000		//ART register,
-};
-
-//const Uint8 HopTab[] = {0,1,2,3,4}; //hopping channel
-
-int Freq_Cal_Tab[]=
-{
-    0x0A24,	0xBA05,	//470.101MHz
-	0x0A26, 0x4805,	//490.001MHz
-	0x0A27, 0xD805,	//510.001MHz 
-};
-
-const u8 BitCount_Tab[16]={0,1,1,2,1,2,2,3,1,2,2,3,2,3,3,4};
-const u8 ID_Tab[8]={0x34,0x75,0xC5,0x8C,0xC7,0x33,0x45,0xE7};   //ID code
 
 
 /*** extern variable declarations ***/
@@ -300,8 +238,9 @@ u16 LSD_RF_ReadPageB(u8 address)
 * Parameters O: 
 * return      :  
 *******************************************************************************/
-u8 LSD_RF_InitRF(void)
+u8 RF_A7139_setup(void)
 {
+    u8 return_val = 0u;
     // init io pin
     LSD_SCS_MO;
     LSD_SCK_MO;
@@ -314,16 +253,24 @@ u8 LSD_RF_InitRF(void)
     
     LSD_RF_StrobeCMD(CMD_RF_RST);	//reset  chip
     if(LSD_RF_Config())		//config A7139 chip
-      return 1;
+    {    
+        return_val = 1u;
+    }
     delay_ms(1);		//for crystal stabilized
     if(LSD_RF_WriteID())		//write ID code
-      return 1;
+    {    
+        return_val = 1u;
+    }
     if(LSD_RF_Cal())		//IF and VCO calibration
-      return 1;
+    {
+        return_val = 1u;
+    }
+
     _NOP();
     _NOP();
     _NOP();
-    return 0;
+    
+    return return_val;
 }
 
 /*******************************************************************************
@@ -427,7 +374,8 @@ u8 LSD_RF_Cal(void)
 
     //IF calibration procedure @STB state
     LSD_RF_WriteReg(MODE_REG, LSD_RFregConfig[MODE_REG] | 0x0802);	 //IF Filter & VCO Current Calibration
-    do{
+    do
+    {
         tmp = LSD_RF_ReadReg(MODE_REG);
     }while(tmp & 0x0802);
 	
@@ -446,9 +394,8 @@ u8 LSD_RF_Cal(void)
     if(vccf)
     {
 //        LSD_Err_State();
-      return 1;
+        return 1;
     }
-    
     
     //RSSI Calibration procedure @STB state
     LSD_RF_WriteReg(ADC_REG, 0x4C00);					//set ADC average=64
@@ -463,7 +410,7 @@ u8 LSD_RF_Cal(void)
     LSD_RF_WritePageA(TX1_PAGEA, LSD_RFregConfig_PageA[TX1_PAGEA]);
 
     //VCO calibration procedure @STB state
-    for(unsigned char i=0;i<3;i++)
+    for (unsigned char i=0;i<3;i++)
     {
         LSD_RF_WriteReg(PLL1_REG, Freq_Cal_Tab[i*2]);
         LSD_RF_WriteReg(PLL2_REG, Freq_Cal_Tab[i*2+1]);
@@ -482,23 +429,23 @@ u8 LSD_RF_Cal(void)
         }
     }
     
-        LSD_RF_WriteReg(PLL1_REG, Freq_Cal_Tab[0*2]);
-        LSD_RF_WriteReg(PLL2_REG, Freq_Cal_Tab[0*2+1]);
-        LSD_RF_WriteReg(MODE_REG, LSD_RFregConfig[MODE_REG] | 0x0004);	//VCO Band Calibration
-        do{
-                tmp = LSD_RF_ReadReg(MODE_REG);
-        }while(tmp & 0x0004);
+    LSD_RF_WriteReg(PLL1_REG, Freq_Cal_Tab[0*2]);
+    LSD_RF_WriteReg(PLL2_REG, Freq_Cal_Tab[0*2+1]);
+    LSD_RF_WriteReg(MODE_REG, LSD_RFregConfig[MODE_REG] | 0x0004);	//VCO Band Calibration
+    do{
+            tmp = LSD_RF_ReadReg(MODE_REG);
+    }while(tmp & 0x0004);
 
-        //for check(VCO Band)
-        tmp = LSD_RF_ReadReg(CALIBRATION_REG);
-        vbcf = (tmp >>8) & 0x01;
-        if(vbcf)
-        {
-           //LSD_Err_State();
-          return 1;
-        }
-        
-        return 0;
+    //for check(VCO Band)
+    tmp = LSD_RF_ReadReg(CALIBRATION_REG);
+    vbcf = (tmp >>8) & 0x01;
+    if(vbcf)
+    {
+       //LSD_Err_State();
+      return 1;
+    }
+
+    return 0;
 }
 
 /*******************************************************************************
@@ -515,8 +462,8 @@ void LSD_RF_SendPacket(u8 *txBuffer, u8 size)
     
 //    LSD_GPIO_INT_PORT_IFG &=~ LSD_GPIO_INT_PIN; 
 //    LSD_GPIO_INT_PORT_IE &=~ LSD_GPIO_INT_PIN;   //发送数据包前关闭中断
-//    RF_A7139_IFG_CLR;
-//    RF_A7139_IE_DIS;
+    RF_A7139_IFG_CLR;
+    RF_A7139_IE_DIS;
     
     
     LSD_RF_StrobeCMD(CMD_STBY);          //进入空闲
@@ -581,24 +528,24 @@ void LSD_RF_RxPacket(u8 *cRxBuf, u8 cLength)
 *********************************************************************/
 void LSD_RF_RCOSC_Cal(void)
 {
-      u16 tmp;
+    u16 tmp;
 
-      LSD_RF_WritePageA(WOR2_PAGEA, LSD_RFregConfig_PageA[WOR2_PAGEA] | 0x0010);		//enable RC OSC
+    LSD_RF_WritePageA(WOR2_PAGEA, LSD_RFregConfig_PageA[WOR2_PAGEA] | 0x0010);		//enable RC OSC
 
-      while(1)
-      {
-            LSD_RF_WritePageA(WCAL_PAGEA, LSD_RFregConfig_PageA[WCAL_PAGEA] | 0x0001);	//set ENCAL=1 to start RC OSC CAL
-            do{
-                    tmp = LSD_RF_ReadPageA(WCAL_PAGEA);
-            }while(tmp & 0x0001);
-                    
-            tmp = (LSD_RF_ReadPageA(WCAL_PAGEA) & 0x03FF);		//read NUMLH[8:0]
-            tmp>>=1;	
-            if((tmp>186)&&(tmp<198))	//NUMLH[8:0]~192
-            {
-                break;
-            }
-      }
+    while(1)
+    {
+        LSD_RF_WritePageA(WCAL_PAGEA, LSD_RFregConfig_PageA[WCAL_PAGEA] | 0x0001);	//set ENCAL=1 to start RC OSC CAL
+        do{
+                tmp = LSD_RF_ReadPageA(WCAL_PAGEA);
+        }while(tmp & 0x0001);
+                
+        tmp = (LSD_RF_ReadPageA(WCAL_PAGEA) & 0x03FF);		//read NUMLH[8:0]
+        tmp>>=1;	
+        if((tmp>186)&&(tmp<198))	//NUMLH[8:0]~192
+        {
+            break;
+        }
+    }
 }
 
 /*******************************************************************************
@@ -616,8 +563,8 @@ void LSD_RF_RXmode(void)
 //    LSD_GPIO_INT_PORT_IFG &=~ LSD_GPIO_INT_PIN; 
 //    LSD_GPIO_INT_PORT_IE |= LSD_GPIO_INT_PIN;      //进入接收状态要开启中断
     
-//    RF_A7139_IFG_CLR;
-//    RF_A7139_IE_EN;
+    RF_A7139_IFG_CLR;
+    RF_A7139_IE_EN;
     
 }
 ///*********************************************************************

@@ -3,11 +3,21 @@
 
 
 /*** define and type ***/
+#define SysTick_ENABLLE(a)   if(a)\
+                                  SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk;\
+                                  else\
+                                  SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk
+
+typedef struct
+{
+    u32 systick_cnt;
+    
+}TIMER_TYPE;
 
 
 
 /*** extern variable declarations ***/
-
+extern TIMER_TYPE timer;
 
 
 /*** extern function prototype declarations ***/

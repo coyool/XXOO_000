@@ -22,8 +22,10 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f10x_it.h"
-
+//#include "stm32f10x_it.h"
+#include "all_header_file.h"
+      
+      
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
   */
@@ -134,6 +136,14 @@ void PendSV_Handler(void)
   */
 void SysTick_Handler(void)
 {
+    timer.systick_cnt++; 
+    if (10u == timer.systick_cnt)
+    {
+    
+    }
+    else
+    {
+    }    
 }
 
 /******************************************************************************/
