@@ -53,7 +53,7 @@ const uint16_t LED_GPIO_PIN[LEDn] =
 *******************************************************************************/
 void LED_setup(Led_TypeDef LED)
 {
-    pinMode(LED_GPIO_PORT[LED], LED_GPIO_PIN[LED], 
+    pinMode_ALL(LED_GPIO_PORT[LED], LED_GPIO_PIN[LED], 
             GPIO_Mode_Out_PP, GPIO_Speed_50MHz);
 }
 
@@ -84,7 +84,7 @@ void LED_Blink(Led_TypeDef LED, __IO u32 cnt, const u32 interval)
 *******************************************************************************/
 void LED_on(Led_TypeDef LED)
 {
-    digitalWrite(LED_GPIO_PORT[LED], LED_GPIO_PIN[LED], HIGH);
+    digitalWrite_ALL(LED_GPIO_PORT[LED], LED_GPIO_PIN[LED], HIGH);
 }
 
 /*******************************************************************************
@@ -96,7 +96,7 @@ void LED_on(Led_TypeDef LED)
 *******************************************************************************/
 void LED_off(Led_TypeDef LED)
 {
-    digitalWrite(LED_GPIO_PORT[LED], LED_GPIO_PIN[LED], LOW);
+    digitalWrite_ALL(LED_GPIO_PORT[LED], LED_GPIO_PIN[LED], LOW);
 }
 
 

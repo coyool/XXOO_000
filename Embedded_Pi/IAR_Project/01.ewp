@@ -1917,6 +1917,9 @@
     <group>
       <name>RF</name>
       <file>
+        <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139_RF.c</name>
       </file>
       <file>

@@ -38,14 +38,27 @@
 *               For communicating with the computer, use one of these rates: 
 *               300, 1200, 2400, 4800, 9600, 14400, 19200, 28800, 38400, 57600, 
 *               or 115200. 
-* Syntax      : Serial.begin(speed)   Serial1.begin(speed)  
+* Syntax      : Serial.begin(speed)   
 * Parameters I: speed: in bits per second (baud) - long
 * Parameters O: none
 * return      : nothing
 *******************************************************************************/
-void bigen(void)
+void Serial_bigen()
 {
-    _NOP();
+   /* config USART1 clock */  
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
+
+    sPinTypeUART(serialPort);
+    
+    
+    xUARTConfigSet(serialPort, baud, (xUART_CONFIG_WLEN_8 | xUART_CONFIG_STOP_1 | xUART_CONFIG_PAR_NONE));
+    xUARTEnable(serialPort, (xUART_BLOCK_UART | xUART_BLOCK_TX | xUART_BLOCK_RX));
+    
+    xUARTIntCallbackInit(serialPort, uartCallback);  
+    xUARTIntEnable(serialPort, xUART_INT_RX);
+    xIntEnable(xSysCtlPeripheralIntNumGet(serialPort));
+
+    transmitting = false;
 }
 
 /*******************************************************************************

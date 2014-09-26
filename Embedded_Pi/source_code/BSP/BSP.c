@@ -136,10 +136,11 @@ void BSP(void)
     
     /* Enable the GPIOx Clock */
 //    RCC_APB2PeriphClockCmd(RCC_APB2Periph_ALL, ENABLE);
-//    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
 //    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
 //    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);
+    
     
     /* Enable AFIO Clock Alternate function */
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
@@ -154,7 +155,9 @@ void BSP(void)
     SysTick_setup();  
     
     /* Embedded Pi setup */
-    LED_setup(LED1);
+    LED_setup(LED1);  /* SPI SCK pin */
+    Serial_begin();
+    
     
     /* shield setup */
     u8 temp = 0u;

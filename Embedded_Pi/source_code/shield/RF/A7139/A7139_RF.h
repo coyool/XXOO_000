@@ -4,25 +4,25 @@
 
 /*** define and type ***/
 /* SDIO */
-#define LSD_SDIO_OH     digitalWrite(GPIOB, GPIO_Pin_14, HIGH)
-#define LSD_SDIO_OL     digitalWrite(GPIOB, GPIO_Pin_14, LOW)
-#define LSD_SDIO_IN     digitalRead(GPIOB, GPIO_Pin_14)  
-#define LSD_SDIO_MI     pinMode(GPIOB, GPIO_Pin_14, GPIO_Mode_IN_FLOATING, GPIO_Speed_50MHz) 
-#define LSD_SDIO_MO     pinMode(GPIOB, GPIO_Pin_14, GPIO_Mode_Out_PP, GPIO_Speed_50MHz)
+#define LSD_SDIO_OH     digitalWrite_ALL(GPIOB, GPIO_Pin_14, HIGH)
+#define LSD_SDIO_OL     digitalWrite_ALL(GPIOB, GPIO_Pin_14, LOW)
+#define LSD_SDIO_IN     digitalRead_ALL(GPIOB, GPIO_Pin_14)  
+#define LSD_SDIO_MI     pinMode_ALL(GPIOB, GPIO_Pin_14, GPIO_Mode_IN_FLOATING, GPIO_Speed_50MHz) 
+#define LSD_SDIO_MO     pinMode_ALL(GPIOB, GPIO_Pin_14, GPIO_Mode_Out_PP, GPIO_Speed_50MHz)
 
 /* SCK */
-#define LSD_SCK_MO      pinMode(GPIOB, GPIO_Pin_13, GPIO_Mode_Out_PP, GPIO_Speed_50MHz)	
-#define LSD_SCK_H       digitalWrite(GPIOB, GPIO_Pin_13, HIGH)	
-#define LSD_SCK_L       digitalWrite(GPIOB, GPIO_Pin_13, LOW)
+#define LSD_SCK_MO      pinMode_ALL(GPIOB, GPIO_Pin_13, GPIO_Mode_Out_PP, GPIO_Speed_50MHz)	
+#define LSD_SCK_H       digitalWrite_ALL(GPIOB, GPIO_Pin_13, HIGH)	
+#define LSD_SCK_L       digitalWrite_ALL(GPIOB, GPIO_Pin_13, LOW)
 
 /* SCS */
-#define LSD_SCS_MO      pinMode(GPIOB, GPIO_Pin_12, GPIO_Mode_Out_PP, GPIO_Speed_50MHz)	
-#define LSD_SCS_H       digitalWrite(GPIOB, GPIO_Pin_12, HIGH)	
-#define LSD_SCS_L       digitalWrite(GPIOB, GPIO_Pin_12, LOW)
+#define LSD_SCS_MO      pinMode_ALL(GPIOB, GPIO_Pin_12, GPIO_Mode_Out_PP, GPIO_Speed_50MHz)	
+#define LSD_SCS_H       digitalWrite_ALL(GPIOB, GPIO_Pin_12, HIGH)	
+#define LSD_SCS_L       digitalWrite_ALL(GPIOB, GPIO_Pin_12, LOW)
 
 /* GIO1 */	
-#define LSD_GIO1_MI     pinMode(GPIOB, GPIO_Pin_15, GPIO_Mode_IN_FLOATING, GPIO_Speed_50MHz)
-#define GIO1_IN         digitalRead(GPIOB, GPIO_Pin_15) 
+#define LSD_GIO1_MI     pinMode_ALL(GPIOB, GPIO_Pin_15, GPIO_Mode_IN_FLOATING, GPIO_Speed_50MHz)
+#define GIO1_IN         digitalRead_ALL(GPIOB, GPIO_Pin_15) 
 
 /* GIO2 */
 /* CKO */
