@@ -22,12 +22,6 @@
 *         MISO pin D12----------SDO   (SPI data out)
 *                               IRQ   (Interrupt output, not connected)
 *                  GND----------GND   (ground in)
-*
-*            Center Freq:
-*               Freq dev:  
-*               
-* VCO -- Voltage Controlled Oscillator
-* IF  -- Intermediate Frequency
 *******************************************************************************/
 #include    "all_header_file.h"
 
@@ -43,157 +37,6 @@
 
 
 
-
-
-
-
-
-/*******************************************************************************
-* Description : A7139_sleepMode
-* Syntax      : 
-* Parameters I: 
-* Parameters O: 
-* return      : 
-*******************************************************************************/
-void A7139_sleepMode(void)
-{
-	A7139_StrobeCMD(CMD_STBY);			
-	//delay_us(600);
-    delay_ms(5);
-    A7139_StrobeCMD(CMD_SLEEP);	
-    delay_ms(5);  /* at least delay 2ms */
-}
-
-/*******************************************************************************
-* Description : only use for direct mode, don't use to TX mode of FIFO  
-* Syntax      : 
-* Parameters I: 
-* Parameters O: 
-* return      : 
-*******************************************************************************/
-void A7139_TxMode(void)
-{
-    /* disable RF IRQ */
-    A7139_IFG_CLR;
-    A7139_IE_DIS;
-    
-    A7139_StrobeCMD(CMD_STBY);  
-    delay_us(100u);
-    A7139_StrobeCMD(CMD_TX);
-}
-
-
-/*******************************************************************************
-* Description : Receive mode 
-* Syntax      : 
-* Parameters I: 
-* Parameters O: 
-* return      :  
-*******************************************************************************/
-void A7139_RxMode(void)
-{ 
-    A7139_StrobeCMD(CMD_STBY);  
-    delay_us(100u);
-    A7139_StrobeCMD(CMD_RX);            
-    
-    /* enable RF IRQ */
-    A7139_IFG_CLR;
-    A7139_IE_EN;
-}
-
-/*******************************************************************************
-* Description : Return true if still trying to send. If the chip is still in 
-*               transmit mode then this method will return the chip to 
-*               receive mode.
-* Syntax      : 
-* Parameters I: send buff address   
-*               send number
-* Parameters O: 
-* return      :  
-*******************************************************************************/
-void A7139_Send(u8 *txBuffer, u8 size)
-{
-    u8 i;
-    
-    /* disable RF IRQ */
-    A7139_IFG_CLR;
-    A7139_IE_DIS;
-    
-    A7139_StrobeCMD(CMD_STBY);      // standby
-    delay_us(100u);
-    A7139_StrobeCMD(CMD_TFR);		// TX FIFO address pointer reset
-    A7139_SCS_OUT_LOW;
-    A7139_ByteSend(CMD_FIFO_W);	    // TX FIFO write command
-    for (i=0; i<size; i++)
-    A7139_ByteSend(txBuffer[i]);
-    A7139_SCS_OUT_HIGH;
-    A7139_StrobeCMD(CMD_TX);
-    delay_us(100u);                  // buffering check
-    while (A7139_GIO1_IN_HIGH);     // wait transmit completed  
-    
-    A7139_RxMode();                 // afresh enter Recv mode
-}
-
-/*******************************************************************************
-* Description : Receive data 
-* Syntax      : 
-* Parameters I: receive buff address 
-*               receive number
-* Parameters O: 
-* return      :  
-*******************************************************************************/
-void A7139_Recv(u8* RxBuf, u8 size)
-{
-    u8 i;
-    
-    A7139_StrobeCMD(CMD_RFR);		//RX FIFO address pointer reset
-    A7139_SCS_OUT_LOW;
-    A7139_ByteSend(CMD_FIFO_R);	    //RX FIFO read command
-    for(i=0; i <size; i++)
-    {
-        RxBuf[i] = A7139_ByteSend();
-    }
-    A7139_SCS_OUT_HIGH;
-
-//    for(i=0; i<64; i++)
-//    {
-//        recv = tmpbuf[i];
-//        tmp = recv ^ PN9_Tab[i];
-//        if (tmp != 0)
-//        {
-//            Err_ByteCnt++;
-//            Err_BitCnt += (BitCount_Tab[tmp>>4] + BitCount_Tab[tmp & 0x0F]);
-//        }
-//    }
-}
-
-/*******************************************************************************
-* Description : TX FIFO address pointer reset 
-* Syntax      : 
-* Parameters I: 
-* Parameters O: 
-* return      : 
-*******************************************************************************/
-void A7139_flushTxFIFO(void)
-{
-    A7139_StrobeCMD(CMD_STBY);      // standby
-    delay_us(100u);
-    A7139_StrobeCMD(CMD_TFR);		// TX FIFO address pointer reset
-}
-
-/*******************************************************************************
-* Description : RX FIFO address pointer reset
-* Syntax      : 
-* Parameters I: 
-* Parameters O: 
-* return      : 
-*******************************************************************************/
-void A7139_flushRxFIFO(void)
-{
-    A7139_StrobeCMD(CMD_STBY);      // standby
-    delay_us(100u);
-    A7139_StrobeCMD(CMD_RFR);		// RX FIFO address pointer reset
-}
 
 
 
@@ -259,7 +102,8 @@ u8 A7139_ByteRead(void)
         A7139_SCK_OUT_HIGH;
         delay_us(5);
         A7139_SCK_OUT_LOW;
-    }    
+    }
+//    A7139_SDIO_MO;      
     
     return tmp;         // Return tmp value.
 }
@@ -367,7 +211,6 @@ u16 A7139_ReadPageA(const u8 address)
     tmp = A7139_ReadReg(PAGEA_REG);
     /*here lost  A7108_WriteReg(CRYSTAL_REG, temp_Crystal_Reg);
     is it because never change CRYSTAL_REG?*/
-    
     return tmp; 
 }
 
@@ -413,8 +256,7 @@ u16 LSD_RF_ReadPageB(const u8 address)
 * Syntax      : 
 * Parameters I:    
 * Parameters O: 
-* return      : return 0 -- normal  
-*               return 1 -- abnormal 
+* return      :  
 *******************************************************************************/
 u8 RF_A7139_setup(void)
 {
@@ -435,17 +277,13 @@ u8 RF_A7139_setup(void)
         return_val = 1u;
     }
     delay_ms(5);		        //for crystal stabilized 600us
-    else if(A7139_WriteID())    //write ID code
+    if(A7139_WriteID())		    //write ID code
     {    
         return_val = 1u;
     }
-    else if(A7139_Cal())		//IF and VCO calibration
+    if(A7139_Cal())		        //IF and VCO calibration
     {
         return_val = 1u;
-    }
-    else
-    {
-        return_val = 0u;
     }
     delay_ms(5);
     
@@ -453,7 +291,7 @@ u8 RF_A7139_setup(void)
 }
 
 /*******************************************************************************
-* Description : RF config  
+* Description : RF config 
 * Syntax      : 
 * Parameters I:    
 * Parameters O: 
@@ -498,7 +336,6 @@ u8 A7139_Config(void)
         printf(" A7139 config error! \r\n");
         return_val = 1u;
     }
-    
     return return_val;
 }
 
@@ -507,44 +344,33 @@ u8 A7139_Config(void)
 * Syntax      : 
 * Parameters I:    
 * Parameters O: 
-* return      : return 0 -- normal  
-*               return 1 -- abnormal 
+* return      :  
 *******************************************************************************/
 u8 A7139_WriteID(void)
 {
     u8 i;
     u8 d1, d2, d3, d4;
-    u8 return_val = 0u;
 
     A7139_SCS_OUT_LOW;
     A7139_ByteSend(CMD_ID_W);
     for(i=0; i<4; i++)
-    {    
-        A7139_ByteSend(ID_Tab[i]);
-    }
-    A7139_SCS_OUT_HIGH;
-    delay_us(5u);
+      A7139_ByteSend(ID_Tab[i]);
     
+    A7139_SCS_OUT_HIGH;
     A7139_SCS_OUT_LOW;
+    
     A7139_ByteSend(CMD_ID_R);
-    d1 = A7139_ByteRead();
-    d2 = A7139_ByteRead();
-    d3 = A7139_ByteRead();
-    d4 = A7139_ByteRead();
+    d1=A7139_ByteSend();
+    d2=A7139_ByteSend();
+    d3=A7139_ByteSend();
+    d4=A7139_ByteSend();
     A7139_SCS_OUT_HIGH;
 	
-    if((d1!=ID_Tab[0]) || (d2!=ID_Tab[1])
-       || (d3!=ID_Tab[2]) || (d4!=ID_Tab[3]))
+    if((d1!=ID_Tab[0]) || (d2!=ID_Tab[1]) || (d3!=ID_Tab[2]) || (d4!=ID_Tab[3]))
     {
-        printf(" A7139 write ID error! \r\n");
-        return_val = 1u;
+        return 1;
     }
-    else
-    {
-        return_val = 0u;
-    }
-    
-    return return_val;
+    return 0;
 }
 
 /*******************************************************************************
@@ -554,13 +380,13 @@ u8 A7139_WriteID(void)
 * Parameters O: 
 * return      :  
 *******************************************************************************/
-void A7139_FreqSet(u8 ch)
+void LSD_RF_FreqSet(u8 ch)
 {
-    u16 temp;
+    u16 unnDataTemp;
     
-    temp = ch*16u;                      // 200k
-    A7139_StrobeCMD(CMD_STBY);          // standby
-    A7139_WritePageB(IF2_PAGEB, temp);  // setting PLL1 A7139_WritePageB   
+    unnDataTemp = ch*16;// 200k
+    A7139_StrobeCMD(CMD_STBY);          //进入空闲
+    A7139_WritePageB(IF2_PAGEB, unnDataTemp);//setting PLL1     A7139_WritePageB   
 }
 
 /*******************************************************************************
@@ -572,49 +398,43 @@ void A7139_FreqSet(u8 ch)
 *******************************************************************************/
 u8 A7139_Cal(void)
 {
-    u8 i;
-    u8 fbcf;	    //IF Filter
+//    Uint8 i;
+    u8 fbcf;	//IF Filter
     u8 vbcf;		//VCO Current
-    u8 vccf;	    //VCO Band
+    u8 vccf;	        //VCO Band
     u16 tmp;
-    u8 return_val = 0u; 
-    
-    /* @STB state IF Filter & VCO Current Calibration */
-    A7139_WriteReg(MODE_REG, A7139_Reg_Config[MODE_REG] | 0x0802);	 
+
+    //IF calibration procedure @STB state
+    A7139_WriteReg(MODE_REG, A7139_Reg_Config[MODE_REG] | 0x0802);	 //IF Filter & VCO Current Calibration
     do
     {
         tmp = A7139_ReadReg(MODE_REG);
     }while(tmp & 0x0802);
 	
-    /* for check(IF Filter) */
+    //for check(IF Filter)
     tmp = A7139_ReadReg(CALIBRATION_REG);
     fbcf = (tmp>>4) & 0x01;
-    if (fbcf)
+    if(fbcf)
     {
-        //LSD_Err_State();
-        printf(" IF failed! ");
-        return_val = 1u;
+//        LSD_Err_State();
+        return 1;
     }
 
 	//for check(VCO Current)
     tmp = A7139_ReadPageA(VCB_PAGEA);
     vccf = (tmp>>4) & 0x01;
-    if (vccf)
+    if(vccf)
     {
-        //LSD_Err_State();
-        printf(" VCO Current failed! ");
-        return_val = 1u;
+//        LSD_Err_State();
+        return 1;
     }
     
     //RSSI Calibration procedure @STB state
-    A7139_WriteReg(ADC_REG, 0x4C00);	    //set ADC average=64
-    A7139_WritePageA(WOR2_PAGEA, 0xF800);	//set RSSC_D=40us and RS_DLY=80us
-    A7139_WritePageA(TX1_PAGEA, 
-                     A7139_Config_PageA[TX1_PAGEA] | 0xE000); //set RC_DLY=1.5ms
-    A7139_WriteReg(MODE_REG, 
-                   A7139_Reg_Config[MODE_REG] | 0x1000);	  //RSSI Calibration
-    do
-    {
+    A7139_WriteReg(ADC_REG, 0x4C00);					//set ADC average=64
+    A7139_WritePageA(WOR2_PAGEA, 0xF800);					//set RSSC_D=40us and RS_DLY=80us
+    A7139_WritePageA(TX1_PAGEA, A7139_Config_PageA[TX1_PAGEA] | 0xE000);	//set RC_DLY=1.5ms
+    A7139_WriteReg(MODE_REG, A7139_Reg_Config[MODE_REG] | 0x1000);			//RSSI Calibration
+    do{
         tmp = A7139_ReadReg(MODE_REG);
     }while(tmp & 0x1000);
     A7139_WriteReg(ADC_REG, A7139_Reg_Config[ADC_REG]);
@@ -622,36 +442,30 @@ u8 A7139_Cal(void)
     A7139_WritePageA(TX1_PAGEA, A7139_Config_PageA[TX1_PAGEA]);
 
     //VCO calibration procedure @STB state
-    for (i=0; i<3; i++)
+    for (unsigned char i=0;i<3;i++)
     {
         A7139_WriteReg(PLL1_REG, Freq_Cal_Tab[i*2]);
         A7139_WriteReg(PLL2_REG, Freq_Cal_Tab[i*2+1]);
-        //VCO Band Calibration
-        A7139_WriteReg(MODE_REG, A7139_Reg_Config[MODE_REG] | 0x0004);
-        
-        do
-        {
-            tmp = A7139_ReadReg(MODE_REG);
+        A7139_WriteReg(MODE_REG, A7139_Reg_Config[MODE_REG] | 0x0004);	//VCO Band Calibration
+        do{
+                tmp = A7139_ReadReg(MODE_REG);
         }while(tmp & 0x0004);
 
         //for check(VCO Band)
         tmp = A7139_ReadReg(CALIBRATION_REG);
         vbcf = (tmp >>8) & 0x01;
-        if (vbcf)
+        if(vbcf)
         {
-            //LSD_Err_State();
-            printf(" VCO Band failed! ");
-            return_val = 1u;
+           //LSD_Err_State();
+          return 1;
         }
     }
     
     A7139_WriteReg(PLL1_REG, Freq_Cal_Tab[0*2]);
     A7139_WriteReg(PLL2_REG, Freq_Cal_Tab[0*2+1]);
-    //VCO Band Calibration
-    A7139_WriteReg(MODE_REG, A7139_Reg_Config[MODE_REG] | 0x0004);	
-    do
-    {
-        tmp = A7139_ReadReg(MODE_REG);
+    A7139_WriteReg(MODE_REG, A7139_Reg_Config[MODE_REG] | 0x0004);	//VCO Band Calibration
+    do{
+            tmp = A7139_ReadReg(MODE_REG);
     }while(tmp & 0x0004);
 
     //for check(VCO Band)
@@ -659,41 +473,75 @@ u8 A7139_Cal(void)
     vbcf = (tmp >>8) & 0x01;
     if(vbcf)
     {
-        //LSD_Err_State();
-        printf(" VCO Band failed! ");
-        return_val = 1u;
+       //LSD_Err_State();
+      return 1;
     }
 
-    return return_val;
+    return 0;
 }
 
-/*********************************************************************
-** RC Oscillator Calibration
-*********************************************************************/
-void LSD_RF_RCOSC_Cal(void)
+/*******************************************************************************
+* Description : Send data
+* Syntax      : 
+* Parameters I: send buff address   
+*               send number
+* Parameters O: 
+* return      :  
+*******************************************************************************/
+void LSD_RF_SendPacket(u8 *txBuffer, u8 size)
 {
-    u16 tmp;
+    u8 i;
+    
+//    LSD_GPIO_INT_PORT_IFG &=~ LSD_GPIO_INT_PIN; 
+//    LSD_GPIO_INT_PORT_IE &=~ LSD_GPIO_INT_PIN;   //发送数据包前关闭中断
+    RF_A7139_IFG_CLR;
+    RF_A7139_IE_DIS;
+    
+    
+    A7139_StrobeCMD(CMD_STBY);          //进入空闲
+    delay_us(2);
+    A7139_StrobeCMD(CMD_TFR);		//TX FIFO address pointer reset
+    A7139_SCS_OUT_LOW;
+    A7139_ByteSend(CMD_FIFO_W);	//TX FIFO write command
+    for(i=0; i <size; i++)
+    A7139_ByteSend(txBuffer[i]);
+    A7139_SCS_OUT_HIGH;
+    A7139_StrobeCMD(CMD_TX);
+    delay_us(10);
+    while(GIO1_IN); 		    //wait transmit completed
 
-    /* enable RC OSC */
-    A7139_WritePageA(WOR2_PAGEA, A7139_Config_PageA[WOR2_PAGEA] | 0x0010);		
+}
 
-    while(1)
+/*******************************************************************************
+* Description : Receive data 
+* Syntax      : 
+* Parameters I: receive buff address 
+*               receive number
+* Parameters O: 
+* return      :  
+*******************************************************************************/
+void LSD_RF_RxPacket(u8 *cRxBuf, u8 cLength)
+{
+    u8 i;
+    A7139_StrobeCMD(CMD_RFR);		//RX FIFO address pointer reset
+    A7139_SCS_OUT_LOW;
+    A7139_ByteSend(CMD_FIFO_R);	//RX FIFO read command
+    for(i=0; i <cLength; i++)
     {
-        /* set ENCAL=1 to start RC OSC CAL */
-        A7139_WritePageA(WCAL_PAGEA, A7139_Config_PageA[WCAL_PAGEA] | 0x0001);	
-        do
-        {
-            tmp = A7139_ReadPageA(WCAL_PAGEA);
-        }while(tmp & 0x0001);
-          
-        /* read NUMLH[8:0] */
-        tmp = (A7139_ReadPageA(WCAL_PAGEA) & 0x03FF);		
-        tmp >>= 1;	
-        if ((tmp>186) && (tmp<198))	//NUMLH[8:0]~192
-        {
-            break;
-        }
+        cRxBuf[i] = A7139_ByteSend();
     }
+    A7139_SCS_OUT_HIGH;
+
+//    for(i=0; i<64; i++)
+//    {
+//        recv = tmpbuf[i];
+//        tmp = recv ^ PN9_Tab[i];
+//        if(tmp!=0)
+//        {
+//            Err_ByteCnt++;
+//            Err_BitCnt += (BitCount_Tab[tmp>>4] + BitCount_Tab[tmp & 0x0F]);
+//        }
+//    }
 }
 
 /*********************************************************************
@@ -707,6 +555,50 @@ void LSD_RF_RCOSC_Cal(void)
 //    while(1);
 //}
 
+/*********************************************************************
+** RC Oscillator Calibration
+*********************************************************************/
+void LSD_RF_RCOSC_Cal(void)
+{
+    u16 tmp;
+
+    A7139_WritePageA(WOR2_PAGEA, A7139_Config_PageA[WOR2_PAGEA] | 0x0010);		//enable RC OSC
+
+    while(1)
+    {
+        A7139_WritePageA(WCAL_PAGEA, A7139_Config_PageA[WCAL_PAGEA] | 0x0001);	//set ENCAL=1 to start RC OSC CAL
+        do{
+                tmp = A7139_ReadPageA(WCAL_PAGEA);
+        }while(tmp & 0x0001);
+                
+        tmp = (A7139_ReadPageA(WCAL_PAGEA) & 0x03FF);		//read NUMLH[8:0]
+        tmp>>=1;	
+        if((tmp>186)&&(tmp<198))	//NUMLH[8:0]~192
+        {
+            break;
+        }
+    }
+}
+
+/*******************************************************************************
+* Description : Receive mode 
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      :  
+*******************************************************************************/
+void LSD_RF_RXmode(void)
+{
+    
+    A7139_StrobeCMD(CMD_STBY);            //进入RX,准备接受数据
+    A7139_StrobeCMD(CMD_RX);            //进入RX,准备接受数据
+//    LSD_GPIO_INT_PORT_IFG &=~ LSD_GPIO_INT_PIN; 
+//    LSD_GPIO_INT_PORT_IE |= LSD_GPIO_INT_PIN;      //进入接收状态要开启中断
+    
+    RF_A7139_IFG_CLR;
+    RF_A7139_IE_EN;
+    
+}
 ///*********************************************************************
 //** WOR_enable_by_preamble
 //*********************************************************************/
@@ -1072,7 +964,15 @@ void LSD_RF_RCOSC_Cal(void)
 //	}
 //}
 //
-
+///*********************************************************************
+//** entry__sleep_mode
+//*********************************************************************/
+void LSD_RF_Sleepmode(void)
+{
+	A7139_StrobeCMD(CMD_STBY);			//
+	delay_us(600);
+    A7139_StrobeCMD(CMD_SLEEP);			//entry sleep mode
+}
 //
 ///*********************************************************************
 //** wake_up_from_deep_sleep_mode

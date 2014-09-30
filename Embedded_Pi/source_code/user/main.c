@@ -66,19 +66,20 @@ int main(void)
   * @param  None
   * @retval None
   */
-//PUTCHAR_PROTOTYPE
-//{
-//  /* Place your implementation of fputc here */
-//  /* e.g. write a character to the USART */
-//  USART_SendData(EVAL_COM1, (uint8_t) ch);
-//
-//  /* Loop until the end of transmission */
-//  while (USART_GetFlagStatus(EVAL_COM1, USART_FLAG_TC) == RESET)
-//  {
-//  }
-//
-//  return ch;
-//}
+PUTCHAR_PROTOTYPE
+{
+    /* Place your implementation of fputc here */
+    /* e.g. write a character to the USART */
+    USART_SendData(USART1, (u8) ch);
+
+    /* Loop until the end of transmission */
+    while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET)
+    {
+        __NOP();
+    }
+
+    return ch;
+}
 
 #ifdef  USE_FULL_ASSERT
 
@@ -93,11 +94,13 @@ void assert_failed(uint8_t* file, uint32_t line)
 { 
   /* User can add his own implementation to report the file name and line number,
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+    printf("Wrong parameters value: file %s on line %d\r\n", file, line); 
 
-  /* Infinite loop */
-  while (1)
-  {
-  }
+    /* Infinite loop */
+    while (1)
+    {
+    }
 }
 #endif
+
 

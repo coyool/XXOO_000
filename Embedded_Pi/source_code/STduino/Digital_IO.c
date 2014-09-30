@@ -38,11 +38,6 @@ static const PORT_PIN_TYPE PORT_pin_tab[PD2+1] =
 };
 
 
-
-
-
-
-
 /*** extern variable declarations ***/
 
 
@@ -65,12 +60,12 @@ void pinMode_ALL(GPIO_TypeDef* PORT, u16 pin,
 {
     GPIO_InitTypeDef  GPIO_InitStructure;
 
-//    /* Enable the GPIO_LED Clock */
+//    /* Enable the GPIO Clock */
 //    RCC_APB2PeriphClockCmd(PORT, ENABLE);    
     
     /* Configure the GPIO_LED pin */
     GPIO_InitStructure.GPIO_Pin = pin;
-    GPIO_InitStructure.GPIO_Mode = mode;  /* 推挽输出 */
+    GPIO_InitStructure.GPIO_Mode = mode;  
     GPIO_InitStructure.GPIO_Speed = speed;
     
     GPIO_Init(PORT, &GPIO_InitStructure);

@@ -6,7 +6,7 @@
 #include <stdio.h>      /* import printf scanf   */ 
 #include <stdlib.h>     /* import string convert */
 #include <string.h>     /* import memcpy memset memcmp ... */
-//#include <stdarg.h>
+#include <stdarg.h>
 
 
 /*** cortex M3 lib ***/
@@ -31,7 +31,7 @@
 /* BSP lib */
 #include "BSP.h"
 #include "delay.h"
-#include "EXTI_shield.h"
+#include "EXTI.h"
 #include "LED.h"
 
 
@@ -40,9 +40,13 @@
 #include "A7139_RFreg.h"
 #include "A7139_RFregsetting.h"
 
+#include "A7139.h"
+#include "A7139_config.h"
+
 
 /* STduino lib */
 #include "Digital_IO.h"
+#include "Serial.h"
 
 
 

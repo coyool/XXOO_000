@@ -42,8 +42,8 @@
 #define	ART_PAGEB			0x04
 
 
-#define CMD_Reg_W			0x00	//000x,xxxx	control register write
-#define CMD_Reg_R			0x80	//100x,xxxx	control register read
+#define CMD_REG_W			0x00	//000x,xxxx	control register write
+#define CMD_REG_R			0x80	//100x,xxxx	control register read
 #define CMD_ID_W			0x20	//001x,xxxx	ID write
 #define CMD_ID_R			0xA0	//101x,xxxx	ID Read
 #define CMD_FIFO_W			0x40	//010x,xxxx	TX FIFO Write

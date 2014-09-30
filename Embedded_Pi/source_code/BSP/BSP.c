@@ -122,7 +122,7 @@ void BSP(void)
     /* 1. 该函数不改动寄存器RCC_CR的HSITRIM[4:0]位。
        2. 该函数不重置寄存器RCC_BDCR和寄存器RCC_CSR。
        3. IO默认高 */
-    RCC_DeInit();
+//    RCC_DeInit();
 
     /* Resets the GPIO peripheral registers to their default reset 
     values */ 
@@ -174,6 +174,8 @@ void BSP(void)
     
     /* power on action */
     memset(&timer, 0, sizeof(&timer));
+    
     LED_Blink(LED1, 10, 100);
+    printf("\r\n ("__DATE__ "-" __TIME__ ") \r\n");
    
 }

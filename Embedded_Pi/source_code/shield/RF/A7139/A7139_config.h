@@ -1,5 +1,5 @@
-#ifndef __SERIAL_H_
-#define __SERIAL_H_
+#ifndef __A7139_config_H_
+#define __A7139_config_H_
 
 
 /*** define and type ***/
@@ -11,9 +11,9 @@
 
 
 /*** extern function prototype declarations ***/
-extern void Serial_bigen();
 
 
-#endif   /* end __SERIAL_H_ */
+
+#endif   /* end __A7139_config_H_ */
 
 
