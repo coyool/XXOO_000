@@ -15,7 +15,6 @@
 * 源代码说明：arduino SDK for STM32  
 *                Embedded Pi    A7139 RF
 *                  3V3 or 5V----VCC   (3.3V to 7V in)
-*              pin D8-----------CE    (chip enable in)
 *           SS pin D10----------CSN   (chip select in)
 *          SCK pin D13----------SCK   (SPI clock in)
 *         MOSI pin D11----------SDI   (SPI Data in)
@@ -32,24 +31,36 @@
 #include    "all_header_file.h"
 
 /*** static function prototype declarations ***/
-
-
+static u8 A7139_Config(void);
+static void A7139_ByteSend(u8 src);
+static u8 A7139_ByteRead(void);
+static void A7139_StrobeCMD(const u8 cmd);
+static void A7139_WriteReg(u8 address, u16 dat);
+static u16 A7139_ReadReg(u8 address);
+static void A7139_WritePageA(const u8 address, const u16 dat);
+static u16 A7139_ReadPageA(const u8 address);
+static void A7139_WritePageB(const u8 address, const u16 dat);
+//static u16 A7139_ReadPageB(const u8 address);
+static u8 A7139_Cal(void);
+//static void A7139_RCOSC_Cal(void);
 
 /*** static variable declarations ***/
 
 
 
 /*** extern variable declarations ***/
+FLAG_BIT_FIELD_TYPE     A7139_RF_FLG;
+RF_STATUS_TYPE          A7139_status;
 
 
 
 
 
 
-
+/*--- RF API -----------------------------------------------------------------*/
 
 /*******************************************************************************
-* Description : A7139_sleepMode
+* Description : sleep Mode    disable IRQ
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
@@ -57,6 +68,10 @@
 *******************************************************************************/
 void A7139_sleepMode(void)
 {
+    /* disable RF IRQ */
+    A7139_IFG_CLR;
+    A7139_IE_DIS;
+    
 	A7139_StrobeCMD(CMD_STBY);			
 	//delay_us(600);
     delay_ms(5);
@@ -65,7 +80,8 @@ void A7139_sleepMode(void)
 }
 
 /*******************************************************************************
-* Description : only use for direct mode, don't use to TX mode of FIFO  
+* Description : only use for direct mode, don't use to TX mode of FIFO. 
+*               disable IRQ  
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
@@ -82,9 +98,8 @@ void A7139_TxMode(void)
     A7139_StrobeCMD(CMD_TX);
 }
 
-
 /*******************************************************************************
-* Description : Receive mode 
+* Description : Receive mode  enable IRQ
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
@@ -102,8 +117,25 @@ void A7139_RxMode(void)
 }
 
 /*******************************************************************************
-* Description : Return true if still trying to send. If the chip is still in 
-*               transmit mode then this method will return the chip to 
+* Description : standby Mode  
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+void A7139_standbyMode(void)
+{
+    /* disable RF IRQ */
+    A7139_IFG_CLR;
+    A7139_IE_DIS;
+    
+    A7139_StrobeCMD(CMD_STBY);  
+    delay_us(100u);
+}
+
+/*******************************************************************************
+* Description : Send data. 'data' should be A7139 payload bytes long.
+*               send complete then this method will return the chip to 
 *               receive mode.
 * Syntax      : 
 * Parameters I: send buff address   
@@ -111,27 +143,64 @@ void A7139_RxMode(void)
 * Parameters O: 
 * return      :  
 *******************************************************************************/
-void A7139_Send(u8 *txBuffer, u8 size)
+void A7139_Send(u8 *txBuffer, const u8 size)
 {
-    u8 i;
+    A7139_standbyMode();
+    A7139_flushTxFIFO();             // TX FIFO address pointer reset
+    A7139_write(txBuffer, size);
+    A7139_StrobeCMD(CMD_TX);         // TxMode
+    delay_us(100u);                  // buffering check, see A7139 datasheet
+    A7139_waitSend();
     
-    /* disable RF IRQ */
-    A7139_IFG_CLR;
-    A7139_IE_DIS;
+    A7139_RxMode();                  // afresh enter Recv mode
     
-    A7139_StrobeCMD(CMD_STBY);      // standby
-    delay_us(100u);
-    A7139_StrobeCMD(CMD_TFR);		// TX FIFO address pointer reset
-    A7139_SCS_OUT_LOW;
-    A7139_ByteSend(CMD_FIFO_W);	    // TX FIFO write command
-    for (i=0; i<size; i++)
-    A7139_ByteSend(txBuffer[i]);
-    A7139_SCS_OUT_HIGH;
-    A7139_StrobeCMD(CMD_TX);
-    delay_us(100u);                  // buffering check
-    while (A7139_GIO1_IN_HIGH);     // wait transmit completed  
+}
+
+/*******************************************************************************
+* Description : Indicates if the chip is in transmit mode and there is a packet 
+*               currently being transmitted. (true)
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : ture    1 
+*               false   0
+*******************************************************************************/
+void A7139_isSending(void)
+{
     
-    A7139_RxMode();                 // afresh enter Recv mode
+}
+
+/*******************************************************************************
+* Description : true on success, false if the Max retries were exceeded, 
+*               or if the chip is not in transmit mode.
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : ture  1
+*               false 0
+*******************************************************************************/
+void A7139_waitSend(void)
+{
+    u32 i;
+    
+    for (i=0; i<1000; i++)
+    {
+        delay_ms(1u);
+        if (A7139_GIO1_IN_HIGH)
+        {         
+        }
+        else
+        {
+            delay_ms(1u);
+            if (A7139_GIO1_IN_HIGH)
+            {    
+            }
+            else
+            {
+                break;
+            }//end if
+        }    
+    }//end for
 }
 
 /*******************************************************************************
@@ -142,30 +211,41 @@ void A7139_Send(u8 *txBuffer, u8 size)
 * Parameters O: 
 * return      :  
 *******************************************************************************/
-void A7139_Recv(u8* RxBuf, u8 size)
+void A7139_Recv(u8 *RxBuf, const u8 size)
 {
-    u8 i;
+    A7139_flushRxFIFO();            //RX FIFO address pointer reset
+    A7139_read(RxBuf, size);
     
-    A7139_StrobeCMD(CMD_RFR);		//RX FIFO address pointer reset
-    A7139_SCS_OUT_LOW;
-    A7139_ByteSend(CMD_FIFO_R);	    //RX FIFO read command
-    for(i=0; i <size; i++)
+#ifdef  PN9_CHECK    
+    for(i=0; i<64; i++)
     {
-        RxBuf[i] = A7139_ByteSend();
+        recv = tmpbuf[i];
+        tmp = recv ^ PN9_Tab[i];
+        if (tmp != 0)
+        {
+            Err_ByteCnt++;
+            Err_BitCnt += (BitCount_Tab[tmp>>4] + BitCount_Tab[tmp & 0x0F]);
+        }
     }
-    A7139_SCS_OUT_HIGH;
-
-//    for(i=0; i<64; i++)
-//    {
-//        recv = tmpbuf[i];
-//        tmp = recv ^ PN9_Tab[i];
-//        if (tmp != 0)
-//        {
-//            Err_ByteCnt++;
-//            Err_BitCnt += (BitCount_Tab[tmp>>4] + BitCount_Tab[tmp & 0x0F]);
-//        }
-//    }
+#endif    
 }
+
+/*******************************************************************************
+* Description : Checks whether a received message is available. This can be 
+*               called multiple times in a timeout loop.
+*               true if a complete, valid message has been received and is able 
+*               to be retrieved by A7139_Recv()
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : true 
+*               false
+*******************************************************************************/
+void A7139_available(void)
+{
+    
+}
+
 
 /*******************************************************************************
 * Description : TX FIFO address pointer reset 
@@ -176,8 +256,8 @@ void A7139_Recv(u8* RxBuf, u8 size)
 *******************************************************************************/
 void A7139_flushTxFIFO(void)
 {
-    A7139_StrobeCMD(CMD_STBY);      // standby
-    delay_us(100u);
+//    A7139_StrobeCMD(CMD_STBY);      // standby
+//    delay_us(100u);
     A7139_StrobeCMD(CMD_TFR);		// TX FIFO address pointer reset
 }
 
@@ -190,222 +270,80 @@ void A7139_flushTxFIFO(void)
 *******************************************************************************/
 void A7139_flushRxFIFO(void)
 {
-    A7139_StrobeCMD(CMD_STBY);      // standby
-    delay_us(100u);
+//    A7139_StrobeCMD(CMD_STBY);      // standby
+//    delay_us(100u);
     A7139_StrobeCMD(CMD_RFR);		// RX FIFO address pointer reset
 }
 
-
-
 /*******************************************************************************
-* Description : write one byte data to A7139
+* Description : Blocks until the current message (if any) has been transmitted
 * Syntax      : 
-* Parameters I: data (8 bit)
+* Parameters I: txbuffer -- payload 
+*               size -- payload size   
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void A7139_ByteSend(u8 src)
+void A7139_write(u8 *txBuffer, const u8 size)
 {
-    u8 i;
+    u8 i;  
     
-    A7139_SDIO_MO;
+    /* Check the parameters */
+    assert_param(NULL == txBuffer); 
     
-    for (i=0; i<8; i++)
-    {
-        if (src & 0x80)
-        {    
-            A7139_SDIO_OUT_HIGH;  
-        }
-        else
-        {
-            A7139_SDIO_OUT_LOW; 
-        }
-        
-        delay_us(5);
-        A7139_SCK_OUT_HIGH;
-        delay_us(5);
-        A7139_SCK_OUT_LOW;
-        src = src << 1;
-    }
-}
-
-/*******************************************************************************
-* Description : read one byte data from A7139
-* Syntax      : 
-* Parameters I: 
-* Parameters O: 
-* return      : return data (8 bit)
-*******************************************************************************/
-u8 A7139_ByteRead(void)
-{
-    u8 i,tmp;
-    
-    A7139_SDIO_MO;
-    A7139_SDIO_OUT_HIGH;         
-    A7139_SDIO_MI;               // change SDIO input 
-    
-    for (i=0; i<8; i++)          
-    {
-        if (A7139_SDIO_IN_HIGH)
-        {
-            tmp = (tmp << 1) | 0x01;
-        }    
-        else
-        {    
-            tmp = tmp << 1;
-        }
-        
-        delay_us(5);
-        A7139_SCK_OUT_HIGH;
-        delay_us(5);
-        A7139_SCK_OUT_LOW;
-    }    
-    
-    return tmp;         // Return tmp value.
-}
-
-/*******************************************************************************
-* Description : A7139_StrobeCMD
-* Syntax      : 
-* Parameters I: command
-* Parameters O: 
-* return      : 
-*******************************************************************************/
-void A7139_StrobeCMD(const u8 cmd)
-{
     A7139_SCS_OUT_LOW;
-    A7139_ByteSend(cmd);
+    A7139_ByteSend(CMD_FIFO_W);	    // TX FIFO write command
+    for (i=0; i<size; i++)
+    {    
+        A7139_ByteSend(txBuffer[i]);
+    }
     A7139_SCS_OUT_HIGH;
 }
 
 /*******************************************************************************
-* Description : write A7139 reg 
+* Description : A7139_read
 * Syntax      : 
-* Parameters I: address  
-*               data 
+* Parameters I: 
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void A7139_WriteReg(u8 address, u16 dat)
+void A7139_read(u8 *RxBuf, const u8 size)
 {
-    u8 data_low_byte;
-    u8 data_high_byte;
+    u8 i;
     
-    data_low_byte = (dat) & 0x00FF;
-    data_high_byte = (dat >> 8) & 0x00FF;
+    /* Check the parameters */
+    assert_param(NULL == RxBuf); 
     
     A7139_SCS_OUT_LOW;
-    
-    address |= CMD_REG_W;     
-    A7139_ByteSend(address); 
-    delay_us(5);
-    A7139_ByteSend(data_high_byte);
-    A7139_ByteSend(data_low_byte);
-    
-    A7139_SCS_OUT_HIGH; 
+    A7139_ByteSend(CMD_FIFO_R);	    //RX FIFO read command
+    for (i=0; i <size; i++)
+    {
+        RxBuf[i] = A7139_ByteRead();
+    }
+    A7139_SCS_OUT_HIGH;
 }
 
 /*******************************************************************************
-* Description : read A7139 reg 
+* Description : A7139_setPower
 * Syntax      : 
-* Parameters I: address   
-* Parameters O: 
-* return      : A7139 reg data 
-*******************************************************************************/
-u16 A7139_ReadReg(u8 address)
-{
-    u16 data_low_byte;
-    u16 data_high_byte;
-    u16 tmp;
-    
-    A7139_SCS_OUT_LOW;
-    
-    address |= CMD_REG_R;
-    A7139_ByteSend(address);
-    delay_us(5);
-    data_high_byte = A7139_ByteRead();
-    data_low_byte = A7139_ByteRead();
-    tmp = ((data_high_byte<<8)&0xFF00) | (data_low_byte&0x00FF); 
-    
-    A7139_SCS_OUT_HIGH; 
-    
-    return tmp;
-}
-
-/*******************************************************************************
-* Description : write page_A reg 
-* Syntax      : 
-* Parameters I: address  
-*               data
+* Parameters I: 
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void A7139_WritePageA(const u8 address, const u16 dat)
+void A7139_setPower(void)
 {
-    u16 tmp;
-
-    tmp = address;
-    tmp = (((tmp << 12)&0xF000) | A7139_Reg_Config[CRYSTAL_REG]);  
-    A7139_WriteReg(CRYSTAL_REG, tmp);
-    A7139_WriteReg(PAGEA_REG, dat);
-}
-
-/*******************************************************************************
-* Description : read page_A reg  
-* Syntax      : 
-* Parameters I: address   
-* Parameters O: 
-* return      : reg data 
-*******************************************************************************/
-u16 A7139_ReadPageA(const u8 address)
-{
-    u16 tmp;
-
-    tmp = address;
-    tmp = (((tmp << 12)&0xF000) | A7139_Reg_Config[CRYSTAL_REG]);
-    A7139_WriteReg(CRYSTAL_REG, tmp);
-    tmp = A7139_ReadReg(PAGEA_REG);
-    /*here lost  A7108_WriteReg(CRYSTAL_REG, temp_Crystal_Reg);
-    is it because never change CRYSTAL_REG?*/
     
-    return tmp; 
 }
 
 /*******************************************************************************
-* Description : write page_A reg  
+* Description : A7139_setBaudRate
 * Syntax      : 
-* Parameters I: address   
-*               data
+* Parameters I: 
 * Parameters O: 
-* return      :  
+* return      : 
 *******************************************************************************/
-void A7139_WritePageB(const u8 address, const u16 dat)
+void A7139_setBaudRate(void)
 {
-    u16 tmp;
-
-    tmp = address;
-    tmp = (((tmp << 7)&0xFF80) | A7139_Reg_Config[CRYSTAL_REG]);
-    A7139_WriteReg(CRYSTAL_REG, tmp);
-    A7139_WriteReg(PAGEB_REG, dat);
-}
-
-/*******************************************************************************
-* Description : read page_A reg  
-* Syntax      : 
-* Parameters I: address   
-* Parameters O: 
-* return      : reg data 
-*******************************************************************************/
-u16 LSD_RF_ReadPageB(const u8 address)
-{
-    u16 tmp;
-
-    tmp = address;
-    tmp = (((tmp << 7)&0xFF80) | A7139_Reg_Config[CRYSTAL_REG]);
-    A7139_WriteReg(CRYSTAL_REG, tmp);
-    tmp = A7139_ReadReg(PAGEB_REG);
     
-    return tmp;
 }
 
 /*******************************************************************************
@@ -416,7 +354,7 @@ u16 LSD_RF_ReadPageB(const u8 address)
 * return      : return 0 -- normal  
 *               return 1 -- abnormal 
 *******************************************************************************/
-u8 RF_A7139_setup(void)
+u8 A7139_setup(void)
 {
     u8 return_val = 0u;
     /* init io pin */
@@ -434,8 +372,13 @@ u8 RF_A7139_setup(void)
     {    
         return_val = 1u;
     }
-    delay_ms(5);		        //for crystal stabilized 600us
-    else if(A7139_WriteID())    //write ID code
+    else
+    {
+        return_val = 0u;
+    }
+    delay_ms(5);		    //for crystal stabilized 600us
+    
+    if(A7139_WriteID())    //write ID code
     {    
         return_val = 1u;
     }
@@ -448,56 +391,6 @@ u8 RF_A7139_setup(void)
         return_val = 0u;
     }
     delay_ms(5);
-    
-    return return_val;
-}
-
-/*******************************************************************************
-* Description : RF config  
-* Syntax      : 
-* Parameters I:    
-* Parameters O: 
-* return      : return 0 -- normal  
-*               return 1 -- abnormal 
-*******************************************************************************/
-u8 A7139_Config(void)
-{
-    u8 i;
-    u16 tmp = 0u;
-    u8 return_val = 0u;
-
-    for(i=0; i<8; i++)
-    {    
-        A7139_WriteReg(i, A7139_Reg_Config[i]);
-    }
-    /* PAGEA_REG PAGEB_REG don't config */
-    for(i=10; i<16; i++)
-    {
-        A7139_WriteReg(i, A7139_Reg_Config[i]);
-    }
-    for(i=0; i<16; i++)
-    {    
-        A7139_WritePageA(i, A7139_Config_PageA[i]);
-    }
-    for(i=0; i<5; i++)
-    {
-        A7139_WritePageB(i, A7139_Config_PageB[i]);
-    }
-    //for check        
-    tmp = A7139_ReadReg(SYSTEMCLOCK_REG);
-    if(tmp != A7139_Reg_Config[SYSTEMCLOCK_REG])
-    {
-        //LSD_Err_State();
-        printf(" A7139 config error! \r\n");
-        return_val = 1u;
-    }
-    tmp = A7139_ReadReg(PLL3_REG);
-    if(tmp != A7139_Reg_Config[PLL3_REG])
-    {
-        //LSD_Err_State();
-        printf(" A7139 config error! \r\n");
-        return_val = 1u;
-    }
     
     return return_val;
 }
@@ -563,6 +456,268 @@ void A7139_FreqSet(u8 ch)
     A7139_WritePageB(IF2_PAGEB, temp);  // setting PLL1 A7139_WritePageB   
 }
 
+/*------- RF driver ----------------------------------------------------------*/
+/*******************************************************************************
+* Description : RF config  
+* Syntax      : 
+* Parameters I:    
+* Parameters O: 
+* return      : return 0 -- normal  
+*               return 1 -- abnormal 
+*******************************************************************************/
+static u8 A7139_Config(void)
+{
+    u8 i;
+    u16 tmp = 0u;
+    u8 return_val = 0u;
+
+    for(i=0; i<8; i++)
+    {    
+        A7139_WriteReg(i, A7139_Reg_Config[i]);
+    }
+    /* PAGEA_REG PAGEB_REG don't config */
+    for(i=10; i<16; i++)
+    {
+        A7139_WriteReg(i, A7139_Reg_Config[i]);
+    }
+    for(i=0; i<16; i++)
+    {    
+        A7139_WritePageA(i, A7139_Config_PageA[i]);
+    }
+    for(i=0; i<5; i++)
+    {
+        A7139_WritePageB(i, A7139_Config_PageB[i]);
+    }
+    //for check        
+    tmp = A7139_ReadReg(SYSTEMCLOCK_REG);
+    if(tmp != A7139_Reg_Config[SYSTEMCLOCK_REG])
+    {
+        //LSD_Err_State();
+        printf(" A7139 config error! \r\n");
+        return_val = 1u;
+    }
+    tmp = A7139_ReadReg(PLL3_REG);
+    if(tmp != A7139_Reg_Config[PLL3_REG])
+    {
+        //LSD_Err_State();
+        printf(" A7139 config error! \r\n");
+        return_val = 1u;
+    }
+    
+    return return_val;
+}
+
+/*******************************************************************************
+* Description : write one byte data to A7139
+* Syntax      : 
+* Parameters I: data (8 bit)
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+static void A7139_ByteSend(u8 src)
+{
+    u8 i;
+    
+    A7139_SDIO_MO;
+    
+    for (i=0; i<8; i++)
+    {
+        if (src & 0x80)
+        {    
+            A7139_SDIO_OUT_HIGH;  
+        }
+        else
+        {
+            A7139_SDIO_OUT_LOW; 
+        }
+        
+        delay_us(5);
+        A7139_SCK_OUT_HIGH;
+        delay_us(5);
+        A7139_SCK_OUT_LOW;
+        src = src << 1;
+    }
+}
+
+/*******************************************************************************
+* Description : read one byte data from A7139
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : return data (8 bit)
+*******************************************************************************/
+static u8 A7139_ByteRead(void)
+{
+    u8 i,tmp;
+    
+    A7139_SDIO_MO;
+    A7139_SDIO_OUT_HIGH;         
+    A7139_SDIO_MI;               // change SDIO input 
+    
+    for (i=0; i<8; i++)          
+    {
+        if (A7139_SDIO_IN_HIGH)
+        {
+            tmp = (tmp << 1) | 0x01;
+        }    
+        else
+        {    
+            tmp = tmp << 1;
+        }
+        
+        delay_us(5);
+        A7139_SCK_OUT_HIGH;
+        delay_us(5);
+        A7139_SCK_OUT_LOW;
+    }    
+    
+    return tmp;         // Return tmp value.
+}
+
+/*******************************************************************************
+* Description : A7139_StrobeCMD
+* Syntax      : 
+* Parameters I: command
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+static void A7139_StrobeCMD(const u8 cmd)
+{
+    A7139_SCS_OUT_LOW;
+    A7139_ByteSend(cmd);
+    A7139_SCS_OUT_HIGH;
+}
+
+/*******************************************************************************
+* Description : write A7139 reg 
+* Syntax      : 
+* Parameters I: address  
+*               data 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+static void A7139_WriteReg(u8 address, u16 dat)
+{
+    u8 data_low_byte;
+    u8 data_high_byte;
+    
+    data_low_byte = (dat) & 0x00FF;
+    data_high_byte = (dat >> 8) & 0x00FF;
+    
+    A7139_SCS_OUT_LOW;
+    
+    address |= CMD_REG_W;     
+    A7139_ByteSend(address); 
+    delay_us(5);
+    A7139_ByteSend(data_high_byte);
+    A7139_ByteSend(data_low_byte);
+    
+    A7139_SCS_OUT_HIGH; 
+}
+
+/*******************************************************************************
+* Description : read A7139 reg 
+* Syntax      : 
+* Parameters I: address   
+* Parameters O: 
+* return      : A7139 reg data 
+*******************************************************************************/
+static u16 A7139_ReadReg(u8 address)
+{
+    u16 data_low_byte;
+    u16 data_high_byte;
+    u16 tmp;
+    
+    A7139_SCS_OUT_LOW;
+    
+    address |= CMD_REG_R;
+    A7139_ByteSend(address);
+    delay_us(5);
+    data_high_byte = A7139_ByteRead();
+    data_low_byte = A7139_ByteRead();
+    tmp = ((data_high_byte<<8)&0xFF00) | (data_low_byte&0x00FF); 
+    
+    A7139_SCS_OUT_HIGH; 
+    
+    return tmp;
+}
+
+/*******************************************************************************
+* Description : write page_A reg 
+* Syntax      : 
+* Parameters I: address  
+*               data
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+static void A7139_WritePageA(const u8 address, const u16 dat)
+{
+    u16 tmp;
+
+    tmp = address;
+    tmp = (((tmp << 12)&0xF000) | A7139_Reg_Config[CRYSTAL_REG]);  
+    A7139_WriteReg(CRYSTAL_REG, tmp);
+    A7139_WriteReg(PAGEA_REG, dat);
+}
+
+/*******************************************************************************
+* Description : read page_A reg  
+* Syntax      : 
+* Parameters I: address   
+* Parameters O: 
+* return      : reg data 
+*******************************************************************************/
+static u16 A7139_ReadPageA(const u8 address)
+{
+    u16 tmp;
+
+    tmp = address;
+    tmp = (((tmp << 12)&0xF000) | A7139_Reg_Config[CRYSTAL_REG]);
+    A7139_WriteReg(CRYSTAL_REG, tmp);
+    tmp = A7139_ReadReg(PAGEA_REG);
+    /*here lost  A7108_WriteReg(CRYSTAL_REG, temp_Crystal_Reg);
+    is it because never change CRYSTAL_REG?*/
+    
+    return tmp; 
+}
+
+/*******************************************************************************
+* Description : write page_A reg  
+* Syntax      : 
+* Parameters I: address   
+*               data
+* Parameters O: 
+* return      :  
+*******************************************************************************/
+static void A7139_WritePageB(const u8 address, const u16 dat)
+{
+    u16 tmp;
+
+    tmp = address;
+    tmp = (((tmp << 7)&0xFF80) | A7139_Reg_Config[CRYSTAL_REG]);
+    A7139_WriteReg(CRYSTAL_REG, tmp);
+    A7139_WriteReg(PAGEB_REG, dat);
+}
+
+/*******************************************************************************
+* Description : read page_A reg  
+* Syntax      : 
+* Parameters I: address   
+* Parameters O: 
+* return      : reg data 
+*******************************************************************************/
+//static u16 A7139_ReadPageB(const u8 address)
+//{
+//    u16 tmp;
+//
+//    tmp = address;
+//    tmp = (((tmp << 7)&0xFF80) | A7139_Reg_Config[CRYSTAL_REG]);
+//    A7139_WriteReg(CRYSTAL_REG, tmp);
+//    tmp = A7139_ReadReg(PAGEB_REG);
+//    
+//    return tmp;
+//}
+
 /*******************************************************************************
 * Description : cal
 * Syntax      : 
@@ -570,7 +725,7 @@ void A7139_FreqSet(u8 ch)
 * Parameters O: 
 * return      :  
 *******************************************************************************/
-u8 A7139_Cal(void)
+static u8 A7139_Cal(void)
 {
     u8 i;
     u8 fbcf;	    //IF Filter
@@ -667,34 +822,43 @@ u8 A7139_Cal(void)
     return return_val;
 }
 
-/*********************************************************************
-** RC Oscillator Calibration
-*********************************************************************/
-void LSD_RF_RCOSC_Cal(void)
-{
-    u16 tmp;
+/*******************************************************************************
+* Description : 
+* Syntax      : 
+* Parameters I:    
+* Parameters O: 
+* return      :  
+*******************************************************************************/
+//static void A7139_RCOSC_Cal(void)
+//{
+//    u16 tmp;
+//
+//    /* enable RC OSC */
+//    A7139_WritePageA(WOR2_PAGEA, A7139_Config_PageA[WOR2_PAGEA] | 0x0010);		
+//
+//    while(1)
+//    {
+//        /* set ENCAL=1 to start RC OSC CAL */
+//        A7139_WritePageA(WCAL_PAGEA, A7139_Config_PageA[WCAL_PAGEA] | 0x0001);	
+//        do
+//        {
+//            tmp = A7139_ReadPageA(WCAL_PAGEA);
+//        }while(tmp & 0x0001);
+//          
+//        /* read NUMLH[8:0] */
+//        tmp = (A7139_ReadPageA(WCAL_PAGEA) & 0x03FF);		
+//        tmp >>= 1;	
+//        if ((tmp>186) && (tmp<198))	//NUMLH[8:0]~192
+//        {
+//            break;
+//        }
+//    }
+//}
 
-    /* enable RC OSC */
-    A7139_WritePageA(WOR2_PAGEA, A7139_Config_PageA[WOR2_PAGEA] | 0x0010);		
 
-    while(1)
-    {
-        /* set ENCAL=1 to start RC OSC CAL */
-        A7139_WritePageA(WCAL_PAGEA, A7139_Config_PageA[WCAL_PAGEA] | 0x0001);	
-        do
-        {
-            tmp = A7139_ReadPageA(WCAL_PAGEA);
-        }while(tmp & 0x0001);
-          
-        /* read NUMLH[8:0] */
-        tmp = (A7139_ReadPageA(WCAL_PAGEA) & 0x03FF);		
-        tmp >>= 1;	
-        if ((tmp>186) && (tmp<198))	//NUMLH[8:0]~192
-        {
-            break;
-        }
-    }
-}
+
+
+
 
 /*********************************************************************
 ** Err_State

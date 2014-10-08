@@ -168,7 +168,7 @@ void SysTick_Handler(void)
 
 
 /*******************************************************************************
-* Description : RF_A7139 ISR   pin: PB15  GIO1
+* Description : RF A7139 ISR   pin: PB15  GIO1
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
@@ -182,6 +182,7 @@ void EXTI9_5_IRQHandler(void)
     if (EXTIStatus != RESET) 
     {     
         EXTI_ClearITPendingBit(EXTI_Line5); //CLR pending bit 
+        //do something
     }
     else
     {

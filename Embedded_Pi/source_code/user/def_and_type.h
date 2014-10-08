@@ -72,6 +72,12 @@ typedef enum
     ABNORMAL  = 1
 }NORMAL_TYPE;
 
+typedef enum
+{
+    FALSE = 0,
+    TRUE
+}TRUE_TYPE;
+
 
 /* function poniter */
 typedef void (*pFunction)(void);        /* 定义函数指针 */  

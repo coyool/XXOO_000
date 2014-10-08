@@ -74,6 +74,15 @@ void EXTI_setup(void)
     EXTI_Init(&EXTI_InitStructure);
     
     GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource5); 
+    
+    // PA7
+    EXTI_InitStructure.EXTI_Line = EXTI_Line7;                 
+    EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+    EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;   
+    EXTI_InitStructure.EXTI_LineCmd = ENABLE;        
+    EXTI_Init(&EXTI_InitStructure);
+    
+    GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource7); 
 }
 
 /*******************************************************************************
@@ -156,7 +165,7 @@ void BSP(void)
     
     /* Embedded Pi setup */
     LED_setup(LED1);  /* SPI SCK pin */
-    Serial_begin();
+    //Serial_begin();
     
     
     /* shield setup */
@@ -169,7 +178,7 @@ void BSP(void)
     
     /* Enable */
     __enable_irq();                  /* EA = 1 */
-    SysTick_ENABLLE(ENABLE);          /* systick enable */
+    SysTick_ENABLLE(ENABLE);         /* systick enable */
 
     
     /* power on action */
