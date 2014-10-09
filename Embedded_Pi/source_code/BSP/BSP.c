@@ -50,7 +50,7 @@ static void NVIC_setup(void)
     /* configuration A7139 Priority */
     NVIC_InitStructure.NVIC_IRQChannel = EXTI9_5_IRQn; 
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0; /* invalid */
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;     
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 5;        /* 0 - 15 */
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;      
     NVIC_Init(&NVIC_InitStructure);
 }
@@ -66,20 +66,20 @@ void EXTI_setup(void)
 {
     EXTI_InitTypeDef  EXTI_InitStructure;
 
-    /* configuration A7139 to generate an interrupt on falling edge */  
-    EXTI_InitStructure.EXTI_Line = EXTI_Line5;                 
-    EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
-    EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;   
-    EXTI_InitStructure.EXTI_LineCmd = ENABLE;        
-    EXTI_Init(&EXTI_InitStructure);
+//    /* configuration A7139 to generate an interrupt on falling edge */  
+//    EXTI_InitStructure.EXTI_Line = EXTI_Line5;                 
+//    EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+//    EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;   
+//    EXTI_InitStructure.EXTI_LineCmd = DISABLE;        
+//    EXTI_Init(&EXTI_InitStructure);
+//    
+//    GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource5); 
     
-    GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource5); 
-    
-    // PA7
+    // PA7 GIO1 A7139
     EXTI_InitStructure.EXTI_Line = EXTI_Line7;                 
     EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
     EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;   
-    EXTI_InitStructure.EXTI_LineCmd = ENABLE;        
+    EXTI_InitStructure.EXTI_LineCmd = ENABLE;   /* manual operation */        
     EXTI_Init(&EXTI_InitStructure);
     
     GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource7); 
@@ -106,7 +106,7 @@ void SysTick_setup(void)
     if (SysTick_Config(reload))  
     {    
         /* Capture error */    
-        //printf("reload greater than MAX")
+        printf("reload greater than MAX");
         while(1);
     }   
 
@@ -125,6 +125,9 @@ void BSP(void)
 {
 /* Initialize LEDs, Key Button, LCD and COM port(USART) available on
    STM3210X-EVAL board ******************************************************/  
+    
+    /* disable interrput EA */
+    //__disable_irq();     /* EA = 0 */ 
     
     /* Deinit */
     /* Deinitialize the RCC registers */ 
@@ -150,41 +153,39 @@ void BSP(void)
 //    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
 //    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);
     
-    
     /* Enable AFIO Clock Alternate function */
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
     
-    /* NVIC configuration */
-    NVIC_setup();
-    
-    /* EXTI configuration */
-    EXTI_setup();
-    
-    /* SysTick configuration 10ms one time */  
-    SysTick_setup();  
+    NVIC_setup();    /* NVIC configuration */
+    EXTI_setup();    /* EXTI configuration */
+    SysTick_setup(); /* SysTick configuration 10ms one time */  
     
     /* Embedded Pi setup */
     LED_setup(LED1);  /* SPI SCK pin */
-    //Serial_begin();
-    
+    Serial_begin();
     
     /* shield setup */
     u8 temp = 0u;
-    temp = RF_A7139_setup();
+    u8 temp1 = 0u;
+    temp1 = LSD_RF_setup();
+    temp1 = temp1;
+    temp = A7139_setup();
     if (temp != NORMAL)
     {
-        //printf(" RF A7139 setup failed ");
+        printf(" RF A7139 setup failed ");
+        _NOP();
     }  
     
     /* Enable */
-    __enable_irq();                  /* EA = 1 */
     SysTick_ENABLLE(ENABLE);         /* systick enable */
-
+    A7139_RxMode();
+    __enable_irq();                  /* EA = 1 */
     
     /* power on action */
     memset(&timer, 0, sizeof(&timer));
     
     LED_Blink(LED1, 10, 100);
-    printf("\r\n ("__DATE__ "-" __TIME__ ") \r\n");
-   
+    printf(" programing information: \r\n");
+    printf("\r\n ("__DATE__ "  " __TIME__ ") \r\n");
+    printf("version: \r\n");
 }

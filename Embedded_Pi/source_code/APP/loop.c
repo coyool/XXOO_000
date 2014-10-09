@@ -43,7 +43,9 @@ void loop(void)
     
     for (;;)
     {
-        
+        RF_Send();
+        delay_s(12);
+        RF_Recv();
     }//end for(;;)    
 }
 

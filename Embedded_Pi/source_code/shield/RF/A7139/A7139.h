@@ -14,8 +14,10 @@ typedef enum
 //    Deep_Sleep_mode
 }RF_STATUS_TYPE;
 
+/*RF flag*/
+#define A7139_Recv_flag       A7139_RF_FLG.bits.bit0
 
-/*** extern variable declarations ***/
+
 /* SDIO */
 #define A7139_SDIO_OUT_HIGH   digitalWrite_ALL(GPIOA, GPIO_Pin_6, HIGH)
 #define A7139_SDIO_OUT_LOW    digitalWrite_ALL(GPIOA, GPIO_Pin_6, LOW)
@@ -43,11 +45,13 @@ typedef enum
 /* SDA */
 
 /* RF interrupt */
-#define A7139_IE_EN      EXTI_IE(EXTI9_5_IRQn, ENABLE)              
-#define A7139_IE_DIS     EXTI_IE(EXTI9_5_IRQn, DISABLE)  
+#define A7139_IE_EN      EXTI_IE(EXTI_Line7, ENABLE)              
+#define A7139_IE_DIS     EXTI_IE(EXTI_Line7, DISABLE)  
 
 #define A7139_IFG_CLR    EXTI_ClearITPendingBit(EXTI_Line7) //CLR pending bit 
 
+/*** extern variable declarations ***/
+extern FLAG_BIT_FIELD_TYPE  A7139_RF_FLG;
 
 /*** extern function prototype declarations ***/
 extern void A7139_sleepMode(void);

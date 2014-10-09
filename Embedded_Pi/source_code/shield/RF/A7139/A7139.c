@@ -13,17 +13,17 @@
 * 编译环境：D:\software\IAR_for_ARM\arm
 * 
 * 源代码说明：arduino SDK for STM32  
-*                Embedded Pi    A7139 RF
-*                  3V3 or 5V----VCC   (3.3V to 7V in)
-*           SS pin D10----------CSN   (chip select in)
-*          SCK pin D13----------SCK   (SPI clock in)
-*         MOSI pin D11----------SDI   (SPI Data in)
-*         MISO pin D12----------SDO   (SPI data out)
-*                               IRQ   (Interrupt output, not connected)
-*                  GND----------GND   (ground in)
+*         Embedded Pi        A7139 RF
+*         3V3     ---------- VCC   (3.3V)
+*         SCS  A4 ---------- CSN   (chip select in)
+*         SCK  A5 ---------- SCK   (SPI clock in)
+*         GIO1 A7 ---------- GIO1  (SPI Data out, interrupt AFIO)
+*         SDIO A6 ---------- SDIO  (SPI data out in)
+*         GIO2    ---------- IRQ   (Interrupt output, not connected, AFIO)
+*         GND     ---------- GND   (ground in)
 *
-*            Center Freq:
-*               Freq dev:  
+*         Center Freq:
+*         Freq dev:  
 *               
 * VCO -- Voltage Controlled Oscillator
 * IF  -- Intermediate Frequency
@@ -216,6 +216,8 @@ void A7139_Recv(u8 *RxBuf, const u8 size)
     A7139_flushRxFIFO();            //RX FIFO address pointer reset
     A7139_read(RxBuf, size);
     
+    A7139_RxMode();
+    
 #ifdef  PN9_CHECK    
     for(i=0; i<64; i++)
     {
@@ -357,6 +359,10 @@ void A7139_setBaudRate(void)
 u8 A7139_setup(void)
 {
     u8 return_val = 0u;
+    
+    /* RF parameter clear */
+    A7139_RF_FLG.bit_field = 0u;
+    
     /* init io pin */
     A7139_SCS_MO;
     A7139_SCK_MO;
@@ -391,6 +397,7 @@ u8 A7139_setup(void)
         return_val = 0u;
     }
     delay_ms(5);
+    A7139_standbyMode();
     
     return return_val;
 }
@@ -473,12 +480,12 @@ static u8 A7139_Config(void)
 
     for(i=0; i<8; i++)
     {    
-        A7139_WriteReg(i, A7139_Reg_Config[i]);
+        A7139_WriteReg(i, A7139_Config_Reg[i]);
     }
     /* PAGEA_REG PAGEB_REG don't config */
     for(i=10; i<16; i++)
     {
-        A7139_WriteReg(i, A7139_Reg_Config[i]);
+        A7139_WriteReg(i, A7139_Config_Reg[i]);
     }
     for(i=0; i<16; i++)
     {    
@@ -490,14 +497,14 @@ static u8 A7139_Config(void)
     }
     //for check        
     tmp = A7139_ReadReg(SYSTEMCLOCK_REG);
-    if(tmp != A7139_Reg_Config[SYSTEMCLOCK_REG])
+    if(tmp != A7139_Config_Reg[SYSTEMCLOCK_REG])
     {
         //LSD_Err_State();
         printf(" A7139 config error! \r\n");
         return_val = 1u;
     }
     tmp = A7139_ReadReg(PLL3_REG);
-    if(tmp != A7139_Reg_Config[PLL3_REG])
+    if(tmp != A7139_Config_Reg[PLL3_REG])
     {
         //LSD_Err_State();
         printf(" A7139 config error! \r\n");
@@ -655,7 +662,7 @@ static void A7139_WritePageA(const u8 address, const u16 dat)
     u16 tmp;
 
     tmp = address;
-    tmp = (((tmp << 12)&0xF000) | A7139_Reg_Config[CRYSTAL_REG]);  
+    tmp = (((tmp << 12)&0xF000) | A7139_Config_Reg[CRYSTAL_REG]);  
     A7139_WriteReg(CRYSTAL_REG, tmp);
     A7139_WriteReg(PAGEA_REG, dat);
 }
@@ -672,7 +679,7 @@ static u16 A7139_ReadPageA(const u8 address)
     u16 tmp;
 
     tmp = address;
-    tmp = (((tmp << 12)&0xF000) | A7139_Reg_Config[CRYSTAL_REG]);
+    tmp = (((tmp << 12)&0xF000) | A7139_Config_Reg[CRYSTAL_REG]);
     A7139_WriteReg(CRYSTAL_REG, tmp);
     tmp = A7139_ReadReg(PAGEA_REG);
     /*here lost  A7108_WriteReg(CRYSTAL_REG, temp_Crystal_Reg);
@@ -694,7 +701,7 @@ static void A7139_WritePageB(const u8 address, const u16 dat)
     u16 tmp;
 
     tmp = address;
-    tmp = (((tmp << 7)&0xFF80) | A7139_Reg_Config[CRYSTAL_REG]);
+    tmp = (((tmp << 7)&0xFF80) | A7139_Config_Reg[CRYSTAL_REG]);
     A7139_WriteReg(CRYSTAL_REG, tmp);
     A7139_WriteReg(PAGEB_REG, dat);
 }
@@ -711,7 +718,7 @@ static void A7139_WritePageB(const u8 address, const u16 dat)
 //    u16 tmp;
 //
 //    tmp = address;
-//    tmp = (((tmp << 7)&0xFF80) | A7139_Reg_Config[CRYSTAL_REG]);
+//    tmp = (((tmp << 7)&0xFF80) | A7139_Config_Reg[CRYSTAL_REG]);
 //    A7139_WriteReg(CRYSTAL_REG, tmp);
 //    tmp = A7139_ReadReg(PAGEB_REG);
 //    
@@ -735,7 +742,7 @@ static u8 A7139_Cal(void)
     u8 return_val = 0u; 
     
     /* @STB state IF Filter & VCO Current Calibration */
-    A7139_WriteReg(MODE_REG, A7139_Reg_Config[MODE_REG] | 0x0802);	 
+    A7139_WriteReg(MODE_REG, A7139_Config_Reg[MODE_REG] | 0x0802);	 
     do
     {
         tmp = A7139_ReadReg(MODE_REG);
@@ -767,12 +774,12 @@ static u8 A7139_Cal(void)
     A7139_WritePageA(TX1_PAGEA, 
                      A7139_Config_PageA[TX1_PAGEA] | 0xE000); //set RC_DLY=1.5ms
     A7139_WriteReg(MODE_REG, 
-                   A7139_Reg_Config[MODE_REG] | 0x1000);	  //RSSI Calibration
+                   A7139_Config_Reg[MODE_REG] | 0x1000);	  //RSSI Calibration
     do
     {
         tmp = A7139_ReadReg(MODE_REG);
     }while(tmp & 0x1000);
-    A7139_WriteReg(ADC_REG, A7139_Reg_Config[ADC_REG]);
+    A7139_WriteReg(ADC_REG, A7139_Config_Reg[ADC_REG]);
     A7139_WritePageA(WOR2_PAGEA, A7139_Config_PageA[WOR2_PAGEA]);
     A7139_WritePageA(TX1_PAGEA, A7139_Config_PageA[TX1_PAGEA]);
 
@@ -782,7 +789,7 @@ static u8 A7139_Cal(void)
         A7139_WriteReg(PLL1_REG, Freq_Cal_Tab[i*2]);
         A7139_WriteReg(PLL2_REG, Freq_Cal_Tab[i*2+1]);
         //VCO Band Calibration
-        A7139_WriteReg(MODE_REG, A7139_Reg_Config[MODE_REG] | 0x0004);
+        A7139_WriteReg(MODE_REG, A7139_Config_Reg[MODE_REG] | 0x0004);
         
         do
         {
@@ -803,7 +810,7 @@ static u8 A7139_Cal(void)
     A7139_WriteReg(PLL1_REG, Freq_Cal_Tab[0*2]);
     A7139_WriteReg(PLL2_REG, Freq_Cal_Tab[0*2+1]);
     //VCO Band Calibration
-    A7139_WriteReg(MODE_REG, A7139_Reg_Config[MODE_REG] | 0x0004);	
+    A7139_WriteReg(MODE_REG, A7139_Config_Reg[MODE_REG] | 0x0004);	
     do
     {
         tmp = A7139_ReadReg(MODE_REG);

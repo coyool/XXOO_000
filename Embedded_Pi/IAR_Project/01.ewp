@@ -1851,6 +1851,12 @@
     <file>
       <name>$PROJ_DIR$\..\source_code\APP\loop.h</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\..\source_code\APP\RF.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\source_code\APP\RF.h</name>
+    </file>
   </group>
   <group>
     <name>BSP</name>
@@ -1916,33 +1922,36 @@
     <name>shield</name>
     <group>
       <name>RF</name>
-      <file>
-        <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139_config.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139_config.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139_RF.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139_RF.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139_RFreg.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139_RFregsetting.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139_RFregsetting.h</name>
-      </file>
+      <group>
+        <name>A7139</name>
+        <file>
+          <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139_config.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139_config.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139_RF.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139_RF.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139_RFreg.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139_RFregsetting.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139_RFregsetting.h</name>
+        </file>
+      </group>
     </group>
   </group>
   <group>

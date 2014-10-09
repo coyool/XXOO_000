@@ -40,7 +40,7 @@
 
 
 /*** extern variable declarations ***/
-const u16 A7139_Reg_Config[]= //470MHz, 10kbps (IFBW = 50KHz, Fdev = 18.75KHz)
+const u16 A7139_Config_Reg[]= //470MHz, 10kbps (IFBW = 50KHz, Fdev = 18.75KHz)
 {
     0x0823,     /*0x0823(10K)-->0x3023(2K) 此时定时器时间加长*///SYSTEM CLOCK register,CSC=1,SDR=4 DataRate=10kbps(DMOS=1,so not use 0x0821)
 //  0x1221,	    //SYSTEM CLOCK register,

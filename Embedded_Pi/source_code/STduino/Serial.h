@@ -11,8 +11,8 @@
 
 
 /*** extern function prototype declarations ***/
-extern void Serial_bigen();
-
+extern void Serial_begin(void);
+extern void Serial_end(void);
 
 #endif   /* end __SERIAL_H_ */
 

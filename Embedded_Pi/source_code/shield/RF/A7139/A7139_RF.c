@@ -238,7 +238,7 @@ u16 LSD_RF_ReadPageB(u8 address)
 * Parameters O: 
 * return      :  
 *******************************************************************************/
-u8 RF_A7139_setup(void)
+u8 LSD_RF_setup(void)
 {
     u8 return_val = 0u;
     // init io pin
@@ -248,20 +248,20 @@ u8 RF_A7139_setup(void)
     LSD_GIO1_MI;
     // AMICCOM_SPISetup();笙科初始化程序
     LSD_SCS_H;
-    LSD_SCK_L;                           // CPOL=0,CPAH=0
+    LSD_SCK_L;                      // CPOL=0,CPAH=0
     LSD_SDIO_OH;
     
     LSD_RF_StrobeCMD(CMD_RF_RST);	//reset  chip
-    if(LSD_RF_Config())		//config A7139 chip
+    if(LSD_RF_Config())		        //config A7139 chip
     {    
         return_val = 1u;
     }
-    delay_ms(1);		//for crystal stabilized
-    if(LSD_RF_WriteID())		//write ID code
+    delay_ms(1);		            //for crystal stabilized
+    if(LSD_RF_WriteID())		    //write ID code
     {    
         return_val = 1u;
     }
-    if(LSD_RF_Cal())		//IF and VCO calibration
+    if(LSD_RF_Cal())		        //IF and VCO calibration
     {
         return_val = 1u;
     }

@@ -7,7 +7,7 @@
 
 
 /*** extern variable declarations ***/
-extern const u16 A7139_Reg_Config[];
+extern const u16 A7139_Config_Reg[];
 extern const u16 A7139_Config_PageA[];
 extern const u16 A7139_Config_PageB[];
 extern int A7139_Freq_Cal_Tab[];

@@ -44,7 +44,7 @@
 * Parameters O: none
 * return      : nothing
 *******************************************************************************/
-void Serial_bigen()
+void Serial_begin(void)
 {
     GPIO_InitTypeDef GPIO_InitStructure;
     USART_InitTypeDef USART_InitStructure;

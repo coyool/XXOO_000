@@ -31,6 +31,7 @@
 
 /*******************************************************************************
 * Description : EXTI interrupt enable or disable
+*               MRx: 线x上的中断屏蔽 (Interrupt Mask on line x)
 * Syntax      : EXTI_IE(ENABLE);  
 *               EXTI_IE(DISABLE); 
 * Parameters I: 
@@ -39,6 +40,10 @@
 *******************************************************************************/
 void EXTI_IE(u32 EXTI_Line, FunctionalState status)
 {
+    /* Clear EXTI line configuration */
+    EXTI->IMR &= ~EXTI_Line;
+    EXTI->EMR &= ~EXTI_Line;
+    
     if (status == ENABLE)
     {
         EXTI->IMR |= EXTI_Line;   
