@@ -71,7 +71,7 @@ extern void A7139_setPower(void);
 extern void A7139_setBaudRate(void);
 extern u8 A7139_setup(void);
 extern u8 A7139_WriteID(void);
-extern void A7139_FreqSet(u8 ch);
+extern void A7139_FreqSet(const u8 ch);
 
 
 

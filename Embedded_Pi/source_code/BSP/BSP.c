@@ -173,7 +173,6 @@ void BSP(void)
     if (temp != NORMAL)
     {
         printf(" RF A7139 setup failed ");
-        _NOP();
     }  
     
     /* Enable */
@@ -188,4 +187,5 @@ void BSP(void)
     printf(" programing information: \r\n");
     printf("\r\n ("__DATE__ "  " __TIME__ ") \r\n");
     printf("version: \r\n");
+    
 }

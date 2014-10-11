@@ -296,13 +296,14 @@
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$\..\source_code\cmsis</state>
           <state>$PROJ_DIR$\..\source_code\cmsis_boot</state>
+          <state>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\inc</state>
+          <state>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src</state>
           <state>$PROJ_DIR$\..\source_code\BSP</state>
           <state>$PROJ_DIR$\..\source_code\APP</state>
           <state>$PROJ_DIR$\..\source_code\user</state>
-          <state>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\inc</state>
-          <state>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src</state>
           <state>$PROJ_DIR$\..\source_code\STduino</state>
           <state>$PROJ_DIR$\..\source_code\shield\RF\A7139</state>
+          <state>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1919,6 +1920,24 @@
     </file>
   </group>
   <group>
+    <name>OpenSource_Lib</name>
+    <group>
+      <name>FEC</name>
+      <file>
+        <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\01.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\FEC.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\FECDec.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\FECEnc.c</name>
+      </file>
+    </group>
+  </group>
+  <group>
     <name>shield</name>
     <group>
       <name>RF</name>
@@ -1961,6 +1980,12 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\source_code\STduino\Digital_IO.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\source_code\STduino\Interrupts.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\source_code\STduino\Interrupts.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\source_code\STduino\Serial.c</name>
@@ -2131,6 +2156,12 @@
       <name>$PROJ_DIR$\..\source_code\user\main.h</name>
     </file>
   </group>
+  <file>
+    <name>$PROJ_DIR$\..\Note\CodeTemplates_V1.0.ENU.txt</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\..\source_code\LICENSE.txt</name>
+  </file>
 </project>
 
 

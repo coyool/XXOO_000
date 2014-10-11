@@ -250,7 +250,7 @@ void A7139_available(void)
 
 
 /*******************************************************************************
-* Description : TX FIFO address pointer reset 
+* Description : TX FIFO address pointer reset, need to enter standby mode before
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
@@ -264,7 +264,7 @@ void A7139_flushTxFIFO(void)
 }
 
 /*******************************************************************************
-* Description : RX FIFO address pointer reset
+* Description : RX FIFO address pointer reset, need to enter standby mode before
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
@@ -368,7 +368,7 @@ u8 A7139_setup(void)
     A7139_SCK_MO;
     A7139_SDIO_MO;
     A7139_GIO1_MI;
-    // AMICCOM_SPISetup();笙科初始化程序
+
     A7139_SCS_OUT_HIGH;
     A7139_SCK_OUT_LOW;              
     A7139_SDIO_OUT_HIGH;
@@ -454,7 +454,7 @@ u8 A7139_WriteID(void)
 * Parameters O: 
 * return      :  
 *******************************************************************************/
-void A7139_FreqSet(u8 ch)
+void A7139_FreqSet(const u8 ch)
 {
     u16 temp;
     

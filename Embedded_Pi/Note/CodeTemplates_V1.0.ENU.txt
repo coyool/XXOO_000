@@ -111,45 +111,6 @@ for (u8 %2=0; %2<%1; %2++)
     %c
 }//end for()
 
-#TEMPLATE &Function>&Function_void,"Function &name","Input &para;meter","Out &para;meter","return &parameter",&Description=--
-/*******************************************************************************
-* 函数名称: %1
-* 输入参数: %2
-* 输出参数: %3 
-* --返回值: %4
-* 函数功能: %5
-*******************************************************************************/
-static void %1(void)
-{
-    %c
-}
-
-#TEMPLATE &Function>&Function_u8,"Function &name","Input &parameter","Out &parameter","return &parameter",&Description=--
-/*******************************************************************************
-* 函数名称: %1
-* 输入参数: %2
-* 输出参数: %3
-* --返回值: %4
-* 函数功能: %5
-*******************************************************************************/
-static u8 %3 %1(u8 %2)
-{
-    %c
-}
-
-#TEMPLATE &Function>&void_Function_void,"Function &name","Input &para;meter","Out &para;meter","return &parameter",&Description=--
-/*******************************************************************************
-* 函数名称: %1
-* 输入参数: %2
-* 输出参数: %3
-* --返回值: %4
-* 函数功能: %5
-*******************************************************************************/
-void %1(void)
-{
-    %c
-}
-
 #TEMPLATE &Function>&ST_duino_void_Function_void,"Description","Syntax","Input &para;meter","Out &para;meter","return &parameter"
 /*******************************************************************************
 * Description : %1
