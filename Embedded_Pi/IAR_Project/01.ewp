@@ -304,6 +304,7 @@
           <state>$PROJ_DIR$\..\source_code\STduino</state>
           <state>$PROJ_DIR$\..\source_code\shield\RF\A7139</state>
           <state>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC</state>
+          <state>$PROJ_DIR$\..\source_code\OpenSource_Lib\CRC</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1922,12 +1923,24 @@
   <group>
     <name>OpenSource_Lib</name>
     <group>
+      <name>CRC</name>
+      <file>
+        <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\CRC\CRC.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\CRC\CRC.h</name>
+      </file>
+    </group>
+    <group>
       <name>FEC</name>
       <file>
         <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\01.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\FEC.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\FEC.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\FECDec.c</name>
