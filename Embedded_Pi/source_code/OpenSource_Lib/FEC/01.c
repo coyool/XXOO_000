@@ -1,9 +1,3 @@
-#include <windows.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#include <sys/time.h>
 
 #define 	Schar8  	signed  char       //windows环境下 跟 单片机有区别 
 #define 	Uchar8  	unsigned char

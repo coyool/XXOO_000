@@ -1935,6 +1935,9 @@
       <name>FEC</name>
       <file>
         <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\01.c</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\FEC.c</name>
@@ -1944,9 +1947,15 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\FECDec.c</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\FECEnc.c</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
     </group>
   </group>

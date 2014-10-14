@@ -108,6 +108,38 @@ void Serial_end(void)
     //
 }
 
+/*******************************************************************************
+* Description : 画蛇添足
+* Syntax      : Serial_print("%d \r\n", 78);
+*               Serial_print("%o \r\n", 78);
+*               Serial_print("%X \r\n", 78);
+*               Serial_print("%f \r\n", 1.23456);
+*               Serial_print("%g \r\n", 1.23456);
+*               Serial_print("N \r\n");
+*               Serial_print("Hello world.\r\n");
+*
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+//int Serial_print(va_list args, NUMBER_TYPE number)
+//{
+//    
+//}
+
+va_list G_A;
+int Serial_print(const char* format,...)
+{
+    va_list args;
+    int tmp;
+
+    va_start(args, format);
+    G_A = args;
+    tmp = vprintf(format, args);
+    va_end(args);
+
+    return tmp;
+}
 
 
 

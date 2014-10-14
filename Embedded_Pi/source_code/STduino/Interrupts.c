@@ -47,7 +47,7 @@
 void Interrupts(void)
 {
     __set_PRIMASK(0);  
-#ifdef  CPU_Pro  0
+#ifdef  CPU_Pro  
     __set_FAULTMASK(0);
 #endif
 }
@@ -78,7 +78,7 @@ void Interrupts(void)
 void noInterrupt(void)
 {
     __set_PRIMASK(1);
-#ifdef  CPU_Pro  0
+#ifdef  CPU_Pro  
     __set_FAULTMASK(1);
 #endif
 }

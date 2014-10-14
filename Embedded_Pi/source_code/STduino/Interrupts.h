@@ -3,7 +3,7 @@
 
 
 /*** define and type ***/
-
+//#define  CPU_Pro    -1
 
 
 /*** extern variable declarations ***/

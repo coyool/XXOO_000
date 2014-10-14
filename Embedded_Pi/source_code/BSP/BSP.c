@@ -165,15 +165,15 @@ void BSP(void)
     Serial_begin();
     
     /* shield setup */
-    u8 temp = 0u;
-    u8 temp1 = 0u;
-    temp1 = LSD_RF_setup();
-    temp1 = temp1;
-    temp = A7139_setup();
-    if (temp != NORMAL)
-    {
-        printf(" RF A7139 setup failed ");
-    }  
+//    u8 temp = 0u;
+//    u8 temp1 = 0u;
+//    temp1 = LSD_RF_setup();
+//    temp1 = temp1;
+//    temp = A7139_setup();
+//    if (temp != NORMAL)
+//    {
+//        printf(" RF A7139 setup failed ");
+//    }  
     
     /* Enable */
     SysTick_ENABLLE(ENABLE);         /* systick enable */
@@ -187,5 +187,18 @@ void BSP(void)
     printf(" programing information: \r\n");
     printf("\r\n ("__DATE__ "  " __TIME__ ") \r\n");
     printf("version: \r\n");
+    printf("\n");
     
+    putchar('%');
+//    printf("%d %o %X");
+//    Serial_print("%d %o %X");
+//    Serial_print("%d \r\n", 78);
+//    Serial_print("%o \r\n", 78);
+//    Serial_print("%X \r\n", 78);
+//    Serial_print("%f \r\n", 1.23456);
+//    Serial_print("%g \r\n", 1.23456);
+//    Serial_print("N \r\n");
+    Serial_print("Hello world.\r\n");
+
+    __NOP();
 }

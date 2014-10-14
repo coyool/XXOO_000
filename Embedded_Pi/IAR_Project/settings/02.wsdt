@@ -24,7 +24,7 @@
     <Windows>
       
       
-    <Wnd0>
+    <Wnd2>
         <Tabs>
           <Tab>
             <Identity>TabID-19632-1973</Identity>
@@ -32,11 +32,11 @@
             <Factory>Workspace</Factory>
             <Session>
               
-            <NodeDict><ExpandedNode>01</ExpandedNode><ExpandedNode>01/APP</ExpandedNode><ExpandedNode>01/BSP</ExpandedNode><ExpandedNode>01/OpenSource_Lib</ExpandedNode><ExpandedNode>01/OpenSource_Lib/CRC</ExpandedNode><ExpandedNode>01/OpenSource_Lib/FEC</ExpandedNode><ExpandedNode>01/Output</ExpandedNode><ExpandedNode>01/STduino</ExpandedNode><ExpandedNode>01/user</ExpandedNode></NodeDict></Session>
+            <NodeDict><ExpandedNode>01</ExpandedNode><ExpandedNode>01/BSP</ExpandedNode><ExpandedNode>01/OpenSource_Lib</ExpandedNode><ExpandedNode>01/OpenSource_Lib/CRC</ExpandedNode><ExpandedNode>01/OpenSource_Lib/FEC</ExpandedNode><ExpandedNode>01/Output</ExpandedNode><ExpandedNode>01/STduino</ExpandedNode><ExpandedNode>01/user</ExpandedNode></NodeDict></Session>
           </Tab>
         </Tabs>
         
-      <SelectedTab>0</SelectedTab></Wnd0><Wnd1>
+      <SelectedTab>0</SelectedTab></Wnd2><Wnd3>
         <Tabs>
           <Tab>
             <Identity>TabID-16834-26383</Identity>
@@ -46,20 +46,20 @@
           </Tab>
         <Tab><Identity>TabID-17394-32387</Identity><TabName>Ambiguous Definitions</TabName><Factory>Select-Ambiguous-Definitions</Factory><Session/></Tab><Tab><Identity>TabID-22686-10163</Identity><TabName>Find in Files</TabName><Factory>Find-in-Files</Factory><Session/></Tab><Tab><Identity>TabID-24569-12175</Identity><TabName>Find All Declarations</TabName><Factory>Find-All-Declarations</Factory><Session/></Tab><Tab><Identity>TabID-7227-13505</Identity><TabName>Debug Log</TabName><Factory>Debug-Log</Factory><Session/></Tab></Tabs>
         
-      <SelectedTab>2</SelectedTab></Wnd1></Windows>
+      <SelectedTab>0</SelectedTab></Wnd3></Windows>
     <Editor>
       
       
       
       
-    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\source_code\OpenSource_Lib\FEC\FEC.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\source_code\OpenSource_Lib\FEC\01.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>522</YPos2><SelStart2>19438</SelStart2><SelEnd2>19438</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\source_code\OpenSource_Lib\CRC\CRC.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>33</YPos2><SelStart2>904</SelStart2><SelEnd2>904</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\source_code\OpenSource_Lib\CRC\CRC.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>36</SelStart2><SelEnd2>36</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\source_code\shield\RF\A7139\A7139.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>41</YPos2><SelStart2>1434</SelStart2><SelEnd2>1434</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\source_code\STduino\Digital_IO.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>6078</SelStart2><SelEnd2>6078</SelEnd2></Tab><ActiveTab>5</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\source_code\STduino\Digital_IO.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>48</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\source_code\STduino\Serial.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>388</SelStart2><SelEnd2>388</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\source_code\cmsis_boot\startup_stm32f10x_md.s</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>106</YPos2><SelStart2>6100</SelStart2><SelEnd2>6100</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\software\IAR_for_ARM\arm\inc\c\stdio.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>128</YPos2><SelStart2>5057</SelStart2><SelEnd2>5057</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\source_code\BSP\BSP.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\software\IAR_for_ARM\arm\inc\c\yvals.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>436</YPos2><SelStart2>12377</SelStart2><SelEnd2>12377</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\software\IAR_for_ARM\arm\inc\c\stdarg.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>322</SelStart2><SelEnd2>329</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\source_code\user\def_and_type.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>45</YPos2><SelStart2>1580</SelStart2><SelEnd2>1595</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\source_code\BSP\BSP.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>151</YPos2><SelStart2>6282</SelStart2><SelEnd2>6282</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\source_code\STduino\Serial.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>96</YPos2><SelStart2>4542</SelStart2><SelEnd2>4542</SelEnd2></Tab><ActiveTab>8</ActiveTab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
     <Positions>
       
       
       
       
       
-    <Top><Row0><Sizes><Toolbar-0136fbb0><key>iaridepm.enu1</key></Toolbar-0136fbb0></Sizes></Row0></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>695</Bottom><Right>299</Right><x>-2</x><y>-2</y><xscreen>269</xscreen><yscreen>284</yscreen><sizeHorzCX>210156</sizeHorzCX><sizeHorzCY>299578</sizeHorzCY><sizeVertCX>235156</sizeVertCX><sizeVertCY>735232</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>208</Bottom><Right>1282</Right><x>-2</x><y>-2</y><xscreen>1284</xscreen><yscreen>210</yscreen><sizeHorzCX>1003125</sizeHorzCX><sizeHorzCY>221519</sizeHorzCY><sizeVertCX>210156</sizeVertCX><sizeVertCY>299578</sizeVertCY></Rect></Wnd1></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+    <Top><Row0><Sizes><Toolbar-0136fd70><key>iaridepm.enu1</key></Toolbar-0136fd70></Sizes></Row0><Row1><Sizes/></Row1></Top><Left><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>695</Bottom><Right>299</Right><x>-2</x><y>-2</y><xscreen>269</xscreen><yscreen>284</yscreen><sizeHorzCX>210156</sizeHorzCX><sizeHorzCY>299578</sizeHorzCY><sizeVertCX>235156</sizeVertCX><sizeVertCY>735232</sizeVertCY></Rect></Wnd2></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>208</Bottom><Right>1282</Right><x>-2</x><y>-2</y><xscreen>1284</xscreen><yscreen>210</yscreen><sizeHorzCX>1003125</sizeHorzCX><sizeHorzCY>221519</sizeHorzCY><sizeVertCX>210156</sizeVertCX><sizeVertCY>299578</sizeVertCY></Rect></Wnd3></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
   </Desktop>
 </Workspace>
 

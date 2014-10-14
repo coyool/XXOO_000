@@ -59,7 +59,7 @@ const unsigned char aTrellisTransitionOutput[8][2] =
 };
 
 // Look-up input bit at encoder when:
-//                     Destination state --\                                                      
+//                     Destination state                                                     
 const unsigned char aTrellisTransitionInput[8] = 
 { 
   0,

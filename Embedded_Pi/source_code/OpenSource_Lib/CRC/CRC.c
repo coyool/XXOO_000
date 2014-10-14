@@ -12,7 +12,8 @@
 * 完成日期：2014-10-13
 * 编译环境：D:\software\IAR_for_ARM\arm
 * 
-* 源代码说明：
+* 源代码说明：calc -- calculate
+*           
 *******************************************************************************/
 #include    "all_header_file.h"
 
@@ -32,27 +33,24 @@
 
 
 /*******************************************************************************
-* Description : CRC_CC1101
+* Description : CC1101 CRC software implementation, detail:DN502.
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-u16 CRC_CC1101(u8 *FIFO_buff, u8 n)
+u16 calc_CRC_CC1101(u8 *FIFO_buff, u8 size)
 {
-    // CRC 软件解码  输入CRC_reg = CRC种子  输出 CRC_reg = CRC 校验和 
-Uint16 Calc_CRCSUM(Uchar8 *FIFO_buff, Uchar8 n)
-{
-     Uchar8 i;
-     Uchar8 x;
-     Uint16 CRC_SUM;
-     Uchar8 dat;
+     u8 i;
+     u8 j;
+     u16 CRC_SUM;
+     u8 dat;
      
-     CRC_SUM = 0xFFFF; //CRC_SUM的初始值 = 0xFFFF，相关内容查看DN502 
+     CRC_SUM = 0xFFFF;        /* CRC init value = 0xFFFF */
      
-     for (x=0; x<n; x++)
+     for (j=0; j<size; j++)
      {   
-         dat = *(FIFO_buff + x);  //导入FIFO_buff 数组数据
+         dat = *(FIFO_buff + j);  
          
          for (i=0; i<8; i++)
          {
@@ -70,3 +68,11 @@ Uint16 Calc_CRCSUM(Uchar8 *FIFO_buff, Uchar8 n)
      
      return CRC_SUM;
 }
+
+/*******************************************************************************
+* Description : 查询列表
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
