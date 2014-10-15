@@ -21,7 +21,10 @@
 
 
 /*** static variable declarations ***/
-
+//static const char BIN[] = {""}; 
+//    OCT = 8u,
+//    DEC = 10u,
+//    HEX = 16u
 
 
 /*** extern variable declarations ***/
@@ -122,24 +125,25 @@ void Serial_end(void)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-//int Serial_print(va_list args, NUMBER_TYPE number)
-//{
-//    
-//}
-
-va_list G_A;
-int Serial_print(const char* format,...)
+int Serial_print(va_list args, NUMBER_TYPE number)
 {
-    va_list args;
-    int tmp;
-
-    va_start(args, format);
-    G_A = args;
-    tmp = vprintf(format, args);
-    va_end(args);
-
-    return tmp;
+    _NOP();
+    return 0;
 }
+
+//va_list G_A;
+//int Serial_print(const char* format,...)
+//{
+//    va_list args;
+//    int tmp;
+//
+//    va_start(args, format);
+//    G_A = args;
+//    tmp = vprintf(format, args);
+//    va_end(args);
+//
+//    return tmp;
+//}
 
 
 

@@ -358,7 +358,7 @@ void A7139_setBaudRate(void)
 *******************************************************************************/
 u8 A7139_setup(void)
 {
-    u8 return_val = 0u;
+    u8 return_val = 0u;    //must be init 0
     
     /* RF parameter clear */
     A7139_RF_FLG.bit_field = 0u;
@@ -380,21 +380,21 @@ u8 A7139_setup(void)
     }
     else
     {
-        return_val = 0u;
+        //return_val = 0u; //don't add this sentence, make error
     }
-    delay_ms(5);		    //for crystal stabilized 600us
+    delay_ms(5);		   //for crystal stabilized 600us
     
     if(A7139_WriteID())    //write ID code
     {    
         return_val = 1u;
     }
-    else if(A7139_Cal())		//IF and VCO calibration
+    else if(A7139_Cal())   //IF and VCO calibration
     {
         return_val = 1u;
     }
     else
     {
-        return_val = 0u;
+        //return_val = 0u;  //don't add this sentence, make error
     }
     delay_ms(5);
     A7139_standbyMode();
@@ -441,7 +441,7 @@ u8 A7139_WriteID(void)
     }
     else
     {
-        return_val = 0u;
+        //return_val = 0u;  //don't add this sentence, make error
     }
     
     return return_val;
@@ -456,11 +456,11 @@ u8 A7139_WriteID(void)
 *******************************************************************************/
 void A7139_FreqSet(const u8 ch)
 {
-    u16 temp;
+    u16 tmp = 0u;
     
-    temp = ch*16u;                      // 200k
+    tmp = ch*16u;                      // 200k
     A7139_StrobeCMD(CMD_STBY);          // standby
-    A7139_WritePageB(IF2_PAGEB, temp);  // setting PLL1 A7139_WritePageB   
+    A7139_WritePageB(IF2_PAGEB, tmp);  // setting PLL1 A7139_WritePageB   
 }
 
 /*------- RF driver ----------------------------------------------------------*/
@@ -555,7 +555,8 @@ static void A7139_ByteSend(u8 src)
 *******************************************************************************/
 static u8 A7139_ByteRead(void)
 {
-    u8 i,tmp;
+    u8 i;
+    u8 tmp = 0u;
     
     A7139_SDIO_MO;
     A7139_SDIO_OUT_HIGH;         
@@ -605,8 +606,8 @@ static void A7139_StrobeCMD(const u8 cmd)
 *******************************************************************************/
 static void A7139_WriteReg(u8 address, u16 dat)
 {
-    u8 data_low_byte;
-    u8 data_high_byte;
+    u8 data_low_byte = 0u;
+    u8 data_high_byte = 0u;
     
     data_low_byte = (dat) & 0x00FF;
     data_high_byte = (dat >> 8) & 0x00FF;
@@ -631,9 +632,9 @@ static void A7139_WriteReg(u8 address, u16 dat)
 *******************************************************************************/
 static u16 A7139_ReadReg(u8 address)
 {
-    u16 data_low_byte;
-    u16 data_high_byte;
-    u16 tmp;
+    u16 data_low_byte = 0u;
+    u16 data_high_byte = 0u;
+    u16 tmp = 0u;
     
     A7139_SCS_OUT_LOW;
     
@@ -659,7 +660,7 @@ static u16 A7139_ReadReg(u8 address)
 *******************************************************************************/
 static void A7139_WritePageA(const u8 address, const u16 dat)
 {
-    u16 tmp;
+    u16 tmp = 0u;
 
     tmp = address;
     tmp = (((tmp << 12)&0xF000) | A7139_Config_Reg[CRYSTAL_REG]);  
@@ -676,7 +677,7 @@ static void A7139_WritePageA(const u8 address, const u16 dat)
 *******************************************************************************/
 static u16 A7139_ReadPageA(const u8 address)
 {
-    u16 tmp;
+    u16 tmp = 0u;
 
     tmp = address;
     tmp = (((tmp << 12)&0xF000) | A7139_Config_Reg[CRYSTAL_REG]);
@@ -698,7 +699,7 @@ static u16 A7139_ReadPageA(const u8 address)
 *******************************************************************************/
 static void A7139_WritePageB(const u8 address, const u16 dat)
 {
-    u16 tmp;
+    u16 tmp = 0u;
 
     tmp = address;
     tmp = (((tmp << 7)&0xFF80) | A7139_Config_Reg[CRYSTAL_REG]);
@@ -734,11 +735,11 @@ static void A7139_WritePageB(const u8 address, const u16 dat)
 *******************************************************************************/
 static u8 A7139_Cal(void)
 {
-    u8 i;
-    u8 fbcf;	    //IF Filter
-    u8 vbcf;		//VCO Current
-    u8 vccf;	    //VCO Band
-    u16 tmp;
+    u8 i = 0u;
+    u8 fbcf = 0u;	    //IF Filter
+    u8 vbcf = 0u;		//VCO Current
+    u8 vccf = 0u;	    //VCO Band
+    u16 tmp = 0u;
     u8 return_val = 0u; 
     
     /* @STB state IF Filter & VCO Current Calibration */

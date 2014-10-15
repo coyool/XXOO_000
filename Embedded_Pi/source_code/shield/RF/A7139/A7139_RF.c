@@ -70,7 +70,8 @@ void LSD_RF_ByteSend(u8 src)
 *******************************************************************************/
 u8 LSD_RF_ByteRead(void)
 {
-    u8 i,tmp;
+    u8 i;
+    u8 tmp = 0u;
     
     LSD_SDIO_OH;         // SDIO pull high
     LSD_SDIO_MI;         // change SDIO input 
@@ -118,8 +119,8 @@ void LSD_RF_StrobeCMD(u8 cmd)
 *******************************************************************************/
 void LSD_RF_WriteReg(u8 address, u16 dataWord)
 {
-    u8 dataWord1;
-    u8 dataWord0;
+    u8 dataWord1 = 0u;
+    u8 dataWord0 = 0u;
     
     dataWord0 = (dataWord)&0x00FF;
     dataWord1 = (dataWord >> 8)&0x00FF;
@@ -142,7 +143,7 @@ void LSD_RF_WriteReg(u8 address, u16 dataWord)
 *******************************************************************************/
 u16 LSD_RF_ReadReg(u8 address)
 {
-    u16 tmp;
+    u16 tmp = 0u;
     
     LSD_SCS_L;// Set SCS=0 to enable SPI write function.
     LSD_SDIO_MO;// change SDIO output
@@ -167,7 +168,7 @@ u16 LSD_RF_ReadReg(u8 address)
 *******************************************************************************/
 void LSD_RF_WritePageA(u8 address, u16 dataWord)
 {
-    u16 tmp;
+    u16 tmp = 0u;
 
     tmp = address;
     tmp = ((tmp << 12) | LSD_RFregConfig[CRYSTAL_REG]);  /*it's different here*/
@@ -184,7 +185,7 @@ void LSD_RF_WritePageA(u8 address, u16 dataWord)
 *******************************************************************************/
 u16 LSD_RF_ReadPageA(u8 address)
 {
-    u16 tmp;
+    u16 tmp = 0u;
 
     tmp = address;
     tmp = ((tmp << 12) | LSD_RFregConfig[CRYSTAL_REG]);
@@ -205,7 +206,7 @@ u16 LSD_RF_ReadPageA(u8 address)
 *******************************************************************************/
 void LSD_RF_WritePageB(u8 address, u16 dataWord)
 {
-    u16 tmp;
+    u16 tmp = 0u;
 
     tmp = address;
     tmp = ((tmp << 7) | LSD_RFregConfig[CRYSTAL_REG]);
@@ -222,7 +223,7 @@ void LSD_RF_WritePageB(u8 address, u16 dataWord)
 *******************************************************************************/
 u16 LSD_RF_ReadPageB(u8 address)
 {
-    u16 tmp;
+    u16 tmp = 0u;
 
     tmp = address;
     tmp = ((tmp << 7) | LSD_RFregConfig[CRYSTAL_REG]);
@@ -283,7 +284,7 @@ u8 LSD_RF_setup(void)
 u8 LSD_RF_Config(void)
 {
     u8 i;
-    u16 tmp;
+    u16 tmp = 0u;
 
     for(i=0; i<8; i++)
         LSD_RF_WriteReg(i, LSD_RFregConfig[i]);

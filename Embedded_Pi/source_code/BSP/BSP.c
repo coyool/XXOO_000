@@ -188,8 +188,8 @@ void BSP(void)
     printf("\r\n ("__DATE__ "  " __TIME__ ") \r\n");
     printf("version: \r\n");
     printf("\n");
-    
-    putchar('%');
+
+//    putchar('%');
 //    printf("%d %o %X");
 //    Serial_print("%d %o %X");
 //    Serial_print("%d \r\n", 78);
@@ -198,7 +198,8 @@ void BSP(void)
 //    Serial_print("%f \r\n", 1.23456);
 //    Serial_print("%g \r\n", 1.23456);
 //    Serial_print("N \r\n");
-    Serial_print("Hello world.\r\n");
+//    Serial_print("Hello world.\r\n");
+    Serial_print("hello kity!", void);
 
     __NOP();
 }

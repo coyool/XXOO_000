@@ -20,8 +20,8 @@ typedef enum
 /*** extern function prototype declarations ***/
 extern void Serial_begin(void);
 extern void Serial_end(void);
-extern int Serial_print(const char* format,...);
-
+//extern int Serial_print(const char* format,...);
+extern int Serial_print(va_list args, NUMBER_TYPE number);
 #endif   /* end __SERIAL_H_ */
 
 
