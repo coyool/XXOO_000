@@ -95,14 +95,16 @@ void EXTI_setup(void)
 void SysTick_setup(void)
 {
     /* 
+    * SystemFrequency -- SystemCoreClock 
     * SystemFrequency / 100     10ms 
     * SystemFrequency / 1000    1ms  
+    * SystemFrequency / 10000   100us  
     * SystemFrequency / 100000  10us   
     * SystemFrequency / 1000000 1us   
     */   
     u32 reload = 0u;
     
-    reload = SystemCoreClock / 100;
+    reload = SystemCoreClock / 1000000;
     if (SysTick_Config(reload))  
     {    
         /* Capture error */    
@@ -199,7 +201,6 @@ void BSP(void)
 //    Serial_print("%g \r\n", 1.23456);
 //    Serial_print("N \r\n");
 //    Serial_print("Hello world.\r\n");
-    Serial_print("hello kity!", void);
 
     __NOP();
 }

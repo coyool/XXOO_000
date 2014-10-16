@@ -12,7 +12,7 @@
 * 完成日期：2014-10-10
 * 编译环境：D:\software\IAR_for_ARM\arm
 * 
-* 源代码说明：
+* 源代码说明：STM32 具备单周期 硬件乘除法
 *******************************************************************************/
 #include    "all_header_file.h"
 
@@ -31,80 +31,86 @@ u8  fecEncodeTable[] =
 
 
 /*** extern variable declarations ***/
-u8 input[10]={3,1,2,3}; 
-u8 i;
-u8 j;
-u16 val;
-u16 fecReg;
-u16 fecOutput; 
-u32 intOutput; 
-u8 fec[20]; 
-u8 interleaved[20]; 
-u16 inputNum = 0, fecNum;  // 16 bit 防止不够 
-u16 checksum; 
-u8 length = 3;
 
-
-u8 FEClength = 0;
 
 
 
 
 
 /*******************************************************************************
-* Description : payload data pass (3,1,4)convolution encode and Interleave encode 
+* Description : payload data pass(3,1,4)convolution encode and Interleave encode 
 *               transmitted over the air 
-*               Int
+*               IntOutput -- Interleave Output
+*               note: A7139 FIFO buffer size 64 byte.
 * Syntax      : 
-* Parameters I: 
-* Parameters O: 
-* return      : 
+* Parameters I: input -- payload data  ( MAX 508 byte)
+*               size -- payload length ( MAX 508 byte)
+* Parameters O: output -- interleave data on the Air (MAX 1024)
+* return      : Bytes on the Air
 *******************************************************************************/
-void FEC_enCode(u8 *input, const u16 size)
-{
-    
-    u16 CRC = 0u; 
-    u16 fecReg; = 0u;
-    u32 inputNum = 0u;
+u32 FEC_enCode(u8 *output, u8 *input, const u16 size)
+{ 
+    u8 i;
+    u8 j; 
+    u16 CRC_checksum= 0u; 
+    u16 fecReg = 0u;    /* S2 S1 S0 d7 ~ d0 */
+    u16 fecNum = 0u;    /* before fec encode size */
+    u32 inputNum = 0u;  /* Payload size = data + CRC + Terminator */
     u16 fecOutput = 0u; 
-    u32 Interleave_Output = 0u;
+    u32 intOutput = 0u;
+    u8 fec[FEC_LIMIT_LEN] = {0}; 
+    u32 return_val = 0u;
     
+    /* Check the parameters */
+    //ASSERT (input == NULL);
+    //ASSERT (size > 1024);
     
-    inputNum = size + 1u;  // include 0 
+    timer.systick_cnt = 0;
     
-    printf("Input: [%5d bytes]\n", inputNum); 
+    inputNum = size;
+ 
+#ifdef USE_FULL_ASSERT         
+    printf("Input: [%d bytes] \r\n", inputNum); 
     for (i=0; i<inputNum; i++) 
     {
-        printf("%02X%s", input[i], (i % 8 == 7) ? "\n" : (i % 2 == 1) ? " " : " ");
+        printf("%X%s", input[i], (i % 32 == 31) ? "\r\n" : (i % 2 == 1) ? " " : " ");
     }     
     printf("\r\n");
-     
-    // Generate CRC 
-    CRC = calc_CRC_CC1101(input, size);      
-    input[inputNum] = (CRC >> 8);    
-    inputNum++;
-    input[inputNum] = CRC & 0x00FF; 
-    inputNum++;
+    printf("\r\n");
+#endif 
     
-    printf("Appended CRC: [%5d bytes]\n", inputNum); 
-    for (i = 0; i < inputNum; i++) 
+    // Generate CRC 
+    CRC_checksum = calc_CRC_CC1101(input, size);      
+    input[inputNum] = CRC_checksum >> 8;    
+    inputNum++;
+    input[inputNum] = CRC_checksum & 0x00FF; 
+    inputNum++;
+
+#ifdef USE_FULL_ASSERT      
+    printf("Appended CRC: [%d bytes] \r\n", inputNum); 
+    for (i=0; i<inputNum; i++) 
     {
-        printf("%02X%s", input[i], (i % 8 == 7) ? "\n" : (i % 2 == 1) ? " " : " "); 
+        printf("%X%s", input[i], (i % 32 == 31) ? "\r\n" : (i % 2 == 1) ? " " : " "); 
     }        
-    printf("\n\n"); 
+    printf("\r\n"); 
+    printf("\r\n");
+#endif 
     
     // Append Trellis Terminator 
     input[inputNum] = 0x0B;        //前000 用于结束符
     input[inputNum + 1] = 0x0B; 
-    fecNum = 2*((inputNum / 2) + 1); 
-    
-    printf("Appended Trellis terminator: [%5d bytes]\n", fecNum); 
+    fecNum = 2*((inputNum / 2) + 1);  /* 奇数0x0B, 偶数0x0B 0x0B */
+
+#ifdef USE_FULL_ASSERT 
+    printf("Appended Trellis terminator: [%d bytes] \r\n", fecNum); 
     for (i=0; i<fecNum; i++) 
     {
-        printf("%02X%s", input[i], (i % 8 == 7) ? "\n" : (i % 2 == 1) ? " " : " ");  
+        printf("%X%s", input[i], (i % 32 == 31) ? "\r\n" : (i % 2 == 1) ? " " : " ");  
     }        
-    printf("\n\n"); 
-  
+    printf("\r\n"); 
+    printf("\r\n");
+#endif 
+    
     // FEC encode 
     for (i=0; i<fecNum; i++) 
     { 
@@ -115,17 +121,20 @@ void FEC_enCode(u8 *input, const u16 size)
              fecOutput = (fecOutput << 2) | fecEncodeTable[fecReg >> 7]; //查表状态机 
              fecReg = (fecReg << 1) & 0x7FF; 
          } 
-         fec[i * 2] = fecOutput >> 8;  //fec_H
-         fec[i * 2 + 1] = fecOutput & 0xFF; //fec_L 
+         fec[i*2] = fecOutput >> 8;  //fec_H
+         fec[(i*2)+1] = fecOutput & 0xFF; //fec_L 
     }
-    //printf("%02X%s", fecReg & 0x700,"\n");
-     
-    printf("FEC encoder output: [%5d bytes]\n", fecNum * 2); 
-    for (i = 0; i < fecNum * 2; i++) 
+    //printf("%X%s", fecReg & 0x700,"\n");
+    
+#ifdef USE_FULL_ASSERT 
+    printf("FEC encoder output: [%d bytes] \r\n", fecNum * 2); 
+    for (i=0; i<(fecNum*2); i++) 
     { 
-        printf("%02X%s", fec[i], (i % 16 == 15) ? "\n" : (i % 4 == 3) ? " " : " "); 
+        printf("%#X%s", fec[i], (i % 16 == 15) ? "\r\n" : (i % 4 == 3) ? " " : " "); 
     }      
-    printf("\n\n"); 
+    printf("\r\n"); 
+    printf("\r\n");
+#endif 
     
     // TX Perform interleaving 
     for (i=0; i<(fecNum*2); i=i+4) 
@@ -133,28 +142,32 @@ void FEC_enCode(u8 *input, const u16 size)
         intOutput = 0; 
         for (j=0; j <(4*4); j++)
         { 
-           Interleave_Output = (Interleave_Output << 2) 
-                                | ((fec[i+(~j & 0x03)]>>(2*((j&0x0C)>>2)))&0x03);
-           // (~j) & 0x03 == (~j) % 4;  ((j & 0x0C) >> 2) == j/4;   
-           //printf("%0d%s", i +(~j & 0x03), (i % 16 == 15) ? "\n" : " "); //
-           //printf("%02X%s",~j);  
+            // (~j) & 0x03 == (~j) % 4;  ((j & 0x0C) >> 2) == j/4;   
+            //printf("%0d%s", i +(~j & 0x03), (i % 16 == 15) ? "\n" : " "); //
+            //printf("%02X%s",~j);  
+           intOutput = (intOutput << 2) 
+                        | ((fec[i+(~j & 0x03)]>>(2*((j&0x0C)>>2)))&0x03);
         } 
-        //printf("\n\n"); //
-        
-        interleaved[i] = (intOutput >> 24) & 0xFF; 
-        interleaved[i + 1] = (intOutput >> 16) & 0xFF; 
-        interleaved[i + 2] = (intOutput >> 8) & 0xFF; 
-        interleaved[i + 3] = (intOutput >> 0) & 0xFF; 
+       
+        output[i] = (intOutput >> 24) & 0xFF; 
+        output[i+1] = (intOutput >> 16) & 0xFF; 
+        output[i+2] = (intOutput >> 8) & 0xFF; 
+        output[i+3] = (intOutput >> 0) & 0xFF; 
     } 
-    
-    printf("TX Interleaver output: [%5d bytes]\n", fecNum * 2); 
-    for (i = 0; i < fecNum * 2; i++) 
+#ifdef USE_FULL_ASSERT 
+    printf("TX Interleaver output: [%d bytes] \r\n", fecNum * 2); 
+    for (i=0; i <(fecNum*2); i++) 
     { 
-        printf("%02X%s", interleaved[i], (i % 16 == 15) ? "\n" : (i % 4 == 3) ? " " : " "); 
+        printf("%#X%s", output[i], (i % 16 == 15) ? "\r\n" : (i % 4 == 3) ? " " : " "); 
     } 
-    printf("\n\n"); 
+    printf("\r\n");
+    printf("\r\n");
+#endif     
+    return_val = fecNum * 2;
+        
+    SysTick_ENABLLE(DISABLE);
     
-    //printf("%0d%s",sizeof( unsigned short int));
+    return return_val;
 }
 
 
@@ -166,10 +179,10 @@ void FEC_enCode(u8 *input, const u16 size)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-//void FEC_deCode(void)
-//{
-//    
-//}
+void FEC_deCode(void)
+{
+    
+}
 
 
 

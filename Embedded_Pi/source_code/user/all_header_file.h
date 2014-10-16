@@ -34,6 +34,9 @@
 #include "EXTI.h"
 #include "LED.h"
 
+/* OpenSource lib */
+#include "CRC.h"
+#include "FEC.h"
 
 /* shield lib */
 #include "A7139_RF.h"

@@ -14,6 +14,7 @@ extern int A7139_Freq_Cal_Tab[];
 extern const u8 A7139_BitCnt_Tab[16];
 extern const u8 A7139_ID_Tab[8];
 extern u8 PN9_Tab[];
+extern u8 Tab_64[];
 
 /*** extern function prototype declarations ***/
 

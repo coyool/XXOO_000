@@ -39,7 +39,7 @@
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-u16 calc_CRC_CC1101(u8 *FIFO_buff, u8 size)
+u16 calc_CRC_CC1101(const u8 *FIFO_buff, const u8 size)
 {
      u8 i;
      u8 j;
@@ -56,7 +56,7 @@ u16 calc_CRC_CC1101(u8 *FIFO_buff, u8 size)
          {
              if (((CRC_SUM & 0x8000) >> 8) ^ (dat & 0x80))
              {
-                CRC_SUM = (CRC_SUM << 1) ^ 0x8005;  //CRC_16算法   0x8005 查看DN095
+                CRC_SUM = (CRC_SUM << 1) ^ 0x8005; //CRC_16算法 0x8005 查看DN095
              }
              else
              {
@@ -70,7 +70,7 @@ u16 calc_CRC_CC1101(u8 *FIFO_buff, u8 size)
 }
 
 /*******************************************************************************
-* Description : 查询列表
+* Description : 查表实现
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 

@@ -18,6 +18,11 @@ typedef enum
 #define A7139_Recv_flag       A7139_RF_FLG.bits.bit0
 
 
+/* buffer size */
+#define A7139_FIFO_LIMIT_SIZE 64u
+#define A7139_payload_len     10u   /* FIFO mode MAX 64, FEC MAX 508 byte */
+#define A7139_onTheAir_len    ((((A7139_payload_len+2)/2)+1)*4) /* MAX 1024 byte */
+
 /* SDIO */
 #define A7139_SDIO_OUT_HIGH   digitalWrite_ALL(GPIOA, GPIO_Pin_6, HIGH)
 #define A7139_SDIO_OUT_LOW    digitalWrite_ALL(GPIOA, GPIO_Pin_6, LOW)
@@ -50,8 +55,12 @@ typedef enum
 
 #define A7139_IFG_CLR    EXTI_ClearITPendingBit(EXTI_Line7) //CLR pending bit 
 
+
+
 /*** extern variable declarations ***/
 extern FLAG_BIT_FIELD_TYPE  A7139_RF_FLG;
+
+
 
 /*** extern function prototype declarations ***/
 extern void A7139_sleepMode(void);

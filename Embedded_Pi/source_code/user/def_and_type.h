@@ -13,8 +13,8 @@
 //#define     uL64         uint64_t
 
 
-
-#define  _NOP() __NOP();    //__no_operation(void)
+#define  ASSERT     assert_param
+#define  _NOP()     __NOP();    //__no_operation(void)
 
 
 /*** typedef ***/

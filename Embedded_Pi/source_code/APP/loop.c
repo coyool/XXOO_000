@@ -21,8 +21,8 @@
 
 
 /*** static variable declarations ***/
-
-
+u8 A7139_buffer_onTheAir[A7139_onTheAir_len] = {0};
+u32 temp = 0u;
 
 /*** extern variable declarations ***/
 
@@ -40,12 +40,19 @@
 *******************************************************************************/
 void loop(void)
 {
+    //u32 temp = 0u;
+    
+    temp = FEC_enCode(A7139_buffer_onTheAir, 
+                  Tab_64, A7139_payload_len);
+    printf("# bytes of on the Air : %d \r\n", temp);
+    printf("cla time : %dus \r\n", timer.systick_cnt);
     
     for (;;)
     {
-        RF_Send();
-        delay_s(12);
-        RF_Recv();
+//        RF_Send();
+//        delay_s(12);
+//        RF_Recv();
+        
     }//end for(;;)    
 }
 
