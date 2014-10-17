@@ -179,9 +179,9 @@ u32 FEC_enCode(u8 *output, u8 *input, const u16 size)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void FEC_deCode(void)
+void FEC_deCode(u8 *output, u8 *input, const u32 size)
 {
-    
+
 }
 
 

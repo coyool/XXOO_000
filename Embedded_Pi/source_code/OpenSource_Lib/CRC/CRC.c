@@ -12,7 +12,8 @@
 * 完成日期：2014-10-13
 * 编译环境：D:\software\IAR_for_ARM\arm
 * 
-* 源代码说明：calc -- calculate
+* 源代码说明：CRC software implementation library
+* calc -- calculate
 *           
 *******************************************************************************/
 #include    "all_header_file.h"
@@ -70,9 +71,43 @@ u16 calc_CRC_CC1101(const u8 *FIFO_buff, const u8 size)
 }
 
 /*******************************************************************************
-* Description : 查表实现
+* Description : the function implemetiom query table of byte
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
 * return      : 
 *******************************************************************************/
+void (void)
+{
+
+
+
+}
+
+/*******************************************************************************
+* Description : the function implemetiom query table of half byte
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+void (void)
+{
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

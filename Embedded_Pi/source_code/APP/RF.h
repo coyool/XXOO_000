@@ -13,7 +13,7 @@
 /*** extern function prototype declarations ***/
 extern void RF_Send(void);
 extern void RF_Recv(void);
-
+extern void RF_test(void);
 
 #endif   /* end __RF_H_ */
 

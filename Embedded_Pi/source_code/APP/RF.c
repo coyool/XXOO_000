@@ -32,6 +32,22 @@ u8 RF_RecvBuff[RF_buffSize] = {0};
 
 
 
+
+/*******************************************************************************
+* Description : RF_test
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+void RF_test(void)
+{
+    RF_Send();
+    delay_s(12);
+    RF_Recv();
+}
+
+
 /*******************************************************************************
 * Description : RF_Send
 * Syntax      : 
@@ -41,8 +57,14 @@ u8 RF_RecvBuff[RF_buffSize] = {0};
 *******************************************************************************/
 void RF_Send(void)
 {
+#define  RF_module_A7139
+#ifdef   RF_module_A7139
     LSD_RF_FreqSet(0);    /* set RF channel 0 */   
     LSD_RF_SendPacket(PN9_Tab, RF_buffSize);    /* send PN9 data */
+#endif 
+    
+    
+    
 }
 
 
@@ -55,15 +77,21 @@ void RF_Send(void)
 *******************************************************************************/
 void RF_Recv(void)
 {
+#define  RF_module_A7139
+#ifdef   RF_module_A7139
     if (TRUE == A7139_Recv_flag)
     {
         A7139_Recv_flag = 0u;
-        memset(RF_RecvBuff, 0, RF_buffSize);
+        memset(RF_RecvBuff, 0u, RF_buffSize);
         A7139_Recv(RF_RecvBuff, RF_buffSize);
     }
     else
     {
     }//end if 
+#endif 
+    
+    
+    
 }
 
 
