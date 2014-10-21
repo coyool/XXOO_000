@@ -77,12 +77,12 @@ u16 calc_CRC_CC1101(const u8 *FIFO_buff, const u8 size)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void (void)
-{
-
-
-
-}
+//void (void)
+//{
+//
+//
+//
+//}
 
 /*******************************************************************************
 * Description : the function implemetiom query table of half byte
@@ -91,10 +91,10 @@ void (void)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void (void)
-{
-    
-}
+//void (void)
+//{
+//    
+//}
 
 
 

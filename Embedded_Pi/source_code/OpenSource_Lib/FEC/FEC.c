@@ -62,18 +62,20 @@ u32 FEC_enCode(u8 *output, u8 *input, const u16 size)
     u32 return_val = 0u;
     
     /* Check the parameters */
-    //ASSERT (input == NULL);
-    //ASSERT (size > 1024);
+    ASSERT (input != NULL);
+    ASSERT (output != NULL); 
+    ASSERT (size < 508u);
     
-    timer.systick_cnt = 0;
+    timer.systick_cnt = 0u;
+    SysTick_ENABLLE(ENABLE);   
     
     inputNum = size;
- 
-#ifdef USE_FULL_ASSERT         
+#define FEC_Debug 
+#ifdef FEC_Debug         
     printf("Input: [%d bytes] \r\n", inputNum); 
     for (i=0; i<inputNum; i++) 
     {
-        printf("%X%s", input[i], (i % 32 == 31) ? "\r\n" : (i % 2 == 1) ? " " : " ");
+        printf("0x%02X%s", input[i], (i % 16 == 15) ? "\r\n" : (i % 2 == 1) ? " " : " ");
     }     
     printf("\r\n");
     printf("\r\n");
@@ -86,11 +88,11 @@ u32 FEC_enCode(u8 *output, u8 *input, const u16 size)
     input[inputNum] = CRC_checksum & 0x00FF; 
     inputNum++;
 
-#ifdef USE_FULL_ASSERT      
+#ifdef FEC_Debug      
     printf("Appended CRC: [%d bytes] \r\n", inputNum); 
     for (i=0; i<inputNum; i++) 
     {
-        printf("%X%s", input[i], (i % 32 == 31) ? "\r\n" : (i % 2 == 1) ? " " : " "); 
+        printf("0x%02X%s", input[i], (i % 16 == 15) ? "\r\n" : (i % 2 == 1) ? " " : " "); 
     }        
     printf("\r\n"); 
     printf("\r\n");
@@ -101,11 +103,11 @@ u32 FEC_enCode(u8 *output, u8 *input, const u16 size)
     input[inputNum + 1] = 0x0B; 
     fecNum = 2*((inputNum / 2) + 1);  /* 奇数0x0B, 偶数0x0B 0x0B */
 
-#ifdef USE_FULL_ASSERT 
+#ifdef FEC_Debug 
     printf("Appended Trellis terminator: [%d bytes] \r\n", fecNum); 
     for (i=0; i<fecNum; i++) 
     {
-        printf("%X%s", input[i], (i % 32 == 31) ? "\r\n" : (i % 2 == 1) ? " " : " ");  
+        printf("0x%02X%s", input[i], (i % 16 == 15) ? "\r\n" : (i % 2 == 1) ? " " : " ");  
     }        
     printf("\r\n"); 
     printf("\r\n");
@@ -126,11 +128,12 @@ u32 FEC_enCode(u8 *output, u8 *input, const u16 size)
     }
     //printf("%X%s", fecReg & 0x700,"\n");
     
-#ifdef USE_FULL_ASSERT 
+#ifdef FEC_Debug 
     printf("FEC encoder output: [%d bytes] \r\n", fecNum * 2); 
     for (i=0; i<(fecNum*2); i++) 
     { 
-        printf("%#X%s", fec[i], (i % 16 == 15) ? "\r\n" : (i % 4 == 3) ? " " : " "); 
+        printf("0x%02X%s", fec[i], (i % 16 == 15) ? "\r\n" : (i % 4 == 3) ? " " : " "); 
+        //printf("%#02X%s", fec[i], (i % 16 == 15) ? "\r\n" : (i % 4 == 3) ? " " : " "); 
     }      
     printf("\r\n"); 
     printf("\r\n");
@@ -154,11 +157,12 @@ u32 FEC_enCode(u8 *output, u8 *input, const u16 size)
         output[i+2] = (intOutput >> 8) & 0xFF; 
         output[i+3] = (intOutput >> 0) & 0xFF; 
     } 
-#ifdef USE_FULL_ASSERT 
+#ifdef FEC_Debug 
     printf("TX Interleaver output: [%d bytes] \r\n", fecNum * 2); 
     for (i=0; i <(fecNum*2); i++) 
     { 
-        printf("%#X%s", output[i], (i % 16 == 15) ? "\r\n" : (i % 4 == 3) ? " " : " "); 
+        printf("0x%02X%s", output[i], (i % 16 == 15) ? "\r\n" : (i % 4 == 3) ? " " : " "); 
+        //printf("%#02X%s", output[i], (i % 16 == 15) ? "\r\n" : (i % 4 == 3) ? " " : " "); 
     } 
     printf("\r\n");
     printf("\r\n");
@@ -181,11 +185,16 @@ u32 FEC_enCode(u8 *output, u8 *input, const u16 size)
 *******************************************************************************/
 void FEC_deCode(u8 *output, u8 *input, const u32 size)
 {
-
+    ASSERT (input != NULL);
+    ASSERT (output != NULL); 
+    ASSERT (size < 1024u);
+    
+    
+    
 }
 
 
-
+//Hamming distance
 
 
 

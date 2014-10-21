@@ -1,3 +1,4 @@
+#include    "all_header_file.h"
 #include "string.h"
 
 #define biao 1
@@ -185,7 +186,7 @@ unsigned short fecDecode(unsigned char *pDecData, unsigned char* pInData, unsign
     pInData = aDeintData;
   }  
 
-  //´¦Àí½»Ö¯Êı¾İ£¬Ò»´ÎĞÔ×î¶à´¦Àí4¸ö×Ö½Ú£¬Ò»¸ö±àÂë·ûºÅ(2B)
+  //å¤„ç†äº¤ç»‡æ•°æ®ï¼Œä¸€æ¬¡æ€§æœ€å¤šå¤„ç†4ä¸ªå­—èŠ‚ï¼Œä¸€ä¸ªç¼–ç ç¬¦å·(2B)
   // Process up to 4 bytes of de-interleaved input data, processing one encoder symbol (2b) at a time 
   for (nIterations = 16; nIterations > 0; nIterations--) {
     
@@ -203,10 +204,9 @@ unsigned short fecDecode(unsigned char *pDecData, unsigned char* pInData, unsign
     
     // For each destination state in the trellis, calculate hamming costs for both possible paths into state and
     // select the one with lowest cost. 
-    for (iDestState = 0; iDestState < 8; iDestState++) { 
-
-      
-      nInputBit = aTrellisTransitionInput[iDestState];
+    for (iDestState = 0; iDestState < 8; iDestState++) 
+    { 
+      nInputBit = aTrellisTransitionInput[iDestState];  /* æŸ¥çœ‹å…«æ€å›¾ */
       
       // Calculate cost of transition from each of the two source states (cost is Hamming difference between
       // received 2b symbol and expected symbol for transition)
@@ -230,7 +230,7 @@ unsigned short fecDecode(unsigned char *pDecData, unsigned char* pInData, unsign
       }
     }   
     nPathBits++;
-	//Èç¹û±àÂëÀúÊ·Êı¾İ×ã¹»³¤£¬ÔòÊä³öÒ»¸ö½âÂëÊı¾İ
+	//å¦‚æœç¼–ç å†å²æ•°æ®è¶³å¤Ÿé•¿ï¼Œåˆ™è¾“å‡ºä¸€ä¸ªè§£ç æ•°æ®
     // If trellis history is sufficiently long, output a byte of decoded data 
     if (nPathBits == 32) {
       *pDecData++ = (aPath[iCurrBuf][0] >> 24) & 0xFF; 
@@ -238,7 +238,7 @@ unsigned short fecDecode(unsigned char *pDecData, unsigned char* pInData, unsign
       nPathBits -= 8;
       nRemBytes--;
     }
-	//´¦Àí¹ı3¸ö·ûºÅÍøÂç½áÊøºó£¬Çå³ıÊ£ÓàÊı¾İ
+	//å¤„ç†è¿‡3ä¸ªç¬¦å·ç½‘ç»œç»“æŸåï¼Œæ¸…é™¤å‰©ä½™æ•°æ®
     // After having processed 3-symbol trellis terminator, flush out remaining data 
     if ((nRemBytes <= 3) && (nPathBits == ((8 * nRemBytes) + 3))) {
       while (nPathBits >= 8) { 
@@ -267,13 +267,16 @@ unsigned short fecDecode(unsigned char *pDecData, unsigned char* pInData, unsign
 
 unsigned char OutData[30];
 
-unsigned short FEC_Decode(unsigned char *data, unsigned char datalen)
+u8 FEC_Decode(unsigned char *data, unsigned char datalen)
 {  
   unsigned short nBytes;
   unsigned char *pDecData;
   unsigned char *pEncData;
   unsigned char DecLen = 0;
   unsigned short nBytesOut;
+  
+  timer.systick_cnt = 0;
+  SysTick_ENABLLE(ENABLE);   
   
   pEncData = data;
   pDecData = data;
@@ -288,7 +291,7 @@ unsigned short FEC_Decode(unsigned char *data, unsigned char datalen)
     pEncData += 4;
 //    if(DecLen != 0)
 //    {
-//      if(data[0] > DATALEN_MAX)//ÃüÁîÖĞ£¬³¤¶È×î³¤20
+//      if(data[0] > DATALEN_MAX)//å‘½ä»¤ä¸­ï¼Œé•¿åº¦æœ€é•¿20
 //        return 0;
 //      if(DecLen >= data[0])
 //      {
@@ -309,5 +312,8 @@ unsigned short FEC_Decode(unsigned char *data, unsigned char datalen)
     else
       nBytes = 0;
   }
+  
+    SysTick_ENABLLE(DISABLE);
+  
   return DecLen;
 }

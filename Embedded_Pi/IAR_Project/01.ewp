@@ -1948,9 +1948,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\FECDec.c</name>
-        <excluded>
-          <configuration>Debug</configuration>
-        </excluded>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\FECDec.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\FECEnc.c</name>

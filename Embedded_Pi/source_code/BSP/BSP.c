@@ -178,7 +178,7 @@ void BSP(void)
 //    }  
     
     /* Enable */
-    SysTick_ENABLLE(ENABLE);         /* systick enable */
+    SysTick_ENABLLE(DISABLE);         /* systick disable */
     A7139_RxMode();
     __enable_irq();                  /* EA = 1 */
     
