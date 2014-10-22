@@ -1948,15 +1948,30 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\FECDec.c</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\FECDec.h</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\FECEnc.c</name>
         <excluded>
           <configuration>Debug</configuration>
         </excluded>
+      </file>
+    </group>
+    <group>
+      <name>Hamming</name>
+      <file>
+        <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\Hamming.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\Hamming.h</name>
       </file>
     </group>
   </group>
@@ -2098,12 +2113,18 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src\stm32f10x_adc.c</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src\stm32f10x_bkp.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src\stm32f10x_can.c</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src\stm32f10x_cec.c</name>
@@ -2113,18 +2134,27 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src\stm32f10x_dac.c</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src\stm32f10x_dbgmcu.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src\stm32f10x_dma.c</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src\stm32f10x_exti.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src\stm32f10x_flash.c</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src\stm32f10x_fsmc.c</name>
@@ -2134,9 +2164,15 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src\stm32f10x_i2c.c</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src\stm32f10x_iwdg.c</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src\stm32f10x_pwr.c</name>
@@ -2152,15 +2188,24 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src\stm32f10x_spi.c</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src\stm32f10x_tim.c</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src\stm32f10x_usart.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source_code\STM32F10x_StdPeriph_Lib\src\stm32f10x_wwdg.c</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
     </group>
   </group>

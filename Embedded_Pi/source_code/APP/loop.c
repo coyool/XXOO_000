@@ -21,11 +21,8 @@
 
 
 /*** static variable declarations ***/
-u8 A7139_TxBuffer_onTheAir[A7139_onTheAir_len] = {0};
 u32 temp = 0u;
 
-u8 A7139_TxBuffer[200] = {03,01,02,03};
-u8 A7139_RxBuffer[200] = {0};
 
 /*** extern variable declarations ***/
 
@@ -43,33 +40,19 @@ u8 A7139_RxBuffer[200] = {0};
 *******************************************************************************/
 void loop(void)
 {
-    //u32 temp = 0u;
-    u8 i;
-    
-    temp = FEC_enCode(A7139_TxBuffer_onTheAir, 
-                      A7139_TxBuffer, 
-                      4);
-//    temp = FEC_enCode(A7139_TxBuffer_onTheAir, 
-//                      Tab_64, 
-//                      A7139_payload_len);
-    printf("# bytes of on the Air : %d \r\n", temp);
-    printf("cla time : %dus \r\n", timer.systick_cnt);
-    
-    
-    FEC_Decode(A7139_TxBuffer_onTheAir, temp);
-    printf("\r\n");
-    printf("FEC dec \r\n");
-    for (i=0; i<temp/2; i++) 
-    {
-        printf("0x%02X%s", A7139_TxBuffer_onTheAir[i], 
-                       (i % 16 == 15) ? "\r\n" : (i % 2 == 1) ? " " : " ");
-    }
-    printf("cla time : %dus \r\n", timer.systick_cnt);
-    
-    
+    __NOP();
     for (;;)
     {
-        LED_Blink(LED1, 10, 1000);
+        //LED_Blink(LED1, 10, 1000);
+        //RF_test();
+        LED_on(LED1);
+        //delay_ms(1000);
+        //delay_us(100);
+        delay_s(5);
+        LED_off(LED1);
+        //delay_ms(1000);
+        //delay_us(10);
+        delay_s(10);
         
     }//end for(;;)    
 }

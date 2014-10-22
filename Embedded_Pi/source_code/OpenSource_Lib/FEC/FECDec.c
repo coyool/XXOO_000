@@ -174,8 +174,6 @@ unsigned short fecDecode(unsigned char *pDecData, unsigned char* pInData, unsign
   } 
 
   { 
-
-    
     // De-interleave received data (and change pInData to point to de-interleaved data) 
     for (iOut = 0; iOut < 4; iOut++) {
       unsigned char dataByte = 0;

@@ -42,7 +42,12 @@
 *******************************************************************************/
 void delay_us(__IO u32 us)
 {
-    for (; us>0; us--);
+    __IO u32 cnt;
+    
+    for (; us>0; us--)
+    {
+        for (cnt=5u; cnt>0; cnt--);
+    }
 }
 
 
@@ -60,7 +65,10 @@ void delay_ms(__IO u32 ms)
     //cnt = us * (SystemCoreClock/72000000UL);	
     for (; ms>0; ms--)
     {
-        for (cnt=1000u; cnt>0; cnt--);
+        for (cnt=5550u; cnt>0; cnt--)
+        {
+            __NOP();
+        }
     }
 }
 

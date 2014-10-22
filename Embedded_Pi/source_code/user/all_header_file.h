@@ -37,7 +37,8 @@
 /* OpenSource lib */
 #include "CRC.h"
 #include "FEC.h"
-#include "FECDec.h"
+#include "Hamming.h"
+//#include "FECDec.h"
 
 /* shield lib */
 #include "A7139_RF.h"
