@@ -91,11 +91,21 @@ static u8 iCurrBuf;
 static u8 nPathBits;
 
 /*** extern variable declarations ***/
-u8 A7139_TxBuffer_onTheAir[A7139_onTheAir_len] = {0};
-u8 A7139_TxBuffer[200] = {03,01,02,03};
+u8 A7139_TxBuffer_onTheAir[A7139_onTheAir_LIMIT_SIZE] = {0};
+u8 A7139_TxBuffer[200] = {03,01,02,03};  //注意 CRC 终止符
 u8 A7139_RxBuffer[200] = {0};
 
-
+u8 XXX[]=
+{
+    0xFF,0xFF,0xFF,0xFF,
+    0xFF,0xFF,0xFF,0xFF,
+    0xFF,0xFF,0xFF,0xFF,
+    0xFF,0xFF,0xFF,0xFF,
+    0xFF,0xFF,0xFF,0xFF,
+    0xFF,0xFF,0xFF,0xFF,
+    0xFF,0xFF,0xFF,0xFF,
+    0xFF,0xFF,0xFF,0xFF,
+};
 
 
 
@@ -110,13 +120,18 @@ void FEC_test(void)
 {
     u32 tmp = 0u; 
     u8 i;
-    
-    tmp = FEC_enCode(A7139_TxBuffer_onTheAir, 
-                  A7139_TxBuffer, 
-                  4);
+//    tmp = FEC_enCode(A7139_TxBuffer_onTheAir, 
+//                  A7139_TxBuffer, 
+//                  4);
 //    tmp = FEC_enCode(A7139_TxBuffer_onTheAir, 
 //                      Tab_64, 
 //                      A7139_payload_len);
+//    tmp = FEC_enCode(A7139_TxBuffer_onTheAir, 
+//                  PN9_Tab, 
+//                  sizeof(PN9_Tab));
+    tmp = FEC_enCode(A7139_TxBuffer_onTheAir, 
+                  XXX, 
+                  sizeof(XXX));    
     printf("# bytes of on the Air : %d \r\n", tmp);
     printf("cla time : %dus \r\n", timer.systick_cnt);
     
@@ -131,6 +146,7 @@ void FEC_test(void)
         printf("0x%02X%s", A7139_RxBuffer[i], 
                        (i % 16 == 15) ? "\r\n" : (i % 2 == 1) ? " " : " ");
     }
+    printf("\r\n");
     printf("cla time : %dus \r\n", timer.systick_cnt);
 }
 
@@ -146,7 +162,7 @@ void FEC_test(void)
 * Parameters O: output -- interleave data on the Air (MAX 1024)
 * return      : Bytes on the Air
 *******************************************************************************/
-u32 FEC_enCode(u8 *output, u8 *input, const u16 size)
+u32 FEC_enCode(u8 *output, u8 *input, u16 size)
 { 
     u8 i;
     u8 j; 
@@ -285,6 +301,7 @@ static u32 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
 {
     u8 i;
     s8 j;
+    u8 cnt;
     s8 iBit = 6;  /* 8 - 2 */
     u32 nOutputBytes = 0u;
     u8 nMinCost = 0xFF;
@@ -376,7 +393,14 @@ static u32 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
             }
         }//end for (iDestState = 0; iDestState < 8; iDestState++)  
         
-        nPathBits++;
+        //cpopy path
+        for (cnt=0; cnt<8; cnt++)
+        {
+            nCost[iLastBuf][cnt] = nCost[iCurrBuf][cnt];
+            Path[iLastBuf][cnt] = Path[iCurrBuf][cnt]; 
+        }    
+        
+        nPathBits++; /* The number of bits have been decoded */
         
     /* If trellis history is sufficiently long, output a byte of decoded data */
         if (32u == nPathBits) 
@@ -401,8 +425,8 @@ static u32 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
         } 
 
         /* Swap current and last buffers for next iteration */
-        iLastBuf = (iLastBuf + 1) % 2;
-        iCurrBuf = (iCurrBuf + 1) % 2;    //??
+//        iLastBuf = (iLastBuf + 1) % 2;
+//        iCurrBuf = (iCurrBuf + 1) % 2;    // copy last Current
     }//end for(i=0; i<16; i++) 
   
     /* Normalize costs so that minimum cost becomes 0 */
@@ -442,7 +466,7 @@ u32 FEC_deCode(u8 *output, const u8 *input, u32 size)
 
     /* init global variable */
     memset((u8 *)nCost, 0u, sizeof(nCost));
-    /* Trellis start from 000(S2,S1,S0),other State is Impossible */
+  /* Trellis start from 000(S2,S1,S0),other State is Impossible, so that 100u */
     for (i=1; i<8; i++)
     {
         nCost[0][i] = 100u; 

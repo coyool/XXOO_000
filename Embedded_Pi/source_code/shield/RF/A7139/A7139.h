@@ -19,9 +19,9 @@ typedef enum
 
 
 /* buffer size */
-#define A7139_FIFO_LIMIT_SIZE 64u   /* CC1101 buffer limit 62 byte + 2byte */
-#define A7139_payload_len     62u   /* FIFO mode MAX 64, FEC MAX 508 byte */
-#define A7139_onTheAir_len    ((((A7139_payload_len+2)/2)+1)*4) /* MAX 1024 byte */
+#define A7139_FIFO_LIMIT_SIZE 64u   /* buffer MAX 64 */
+#define A7139_payload_len     62u   /* FIFO mode MAX 29, FEC MAX 508 byte */
+#define A7139_onTheAir_LIMIT_SIZE   ((((A7139_payload_len+2)/2)+1)*4) /* MAX 1024 byte */
 
 /* SDIO */
 #define A7139_SDIO_OUT_HIGH   digitalWrite_ALL(GPIOA, GPIO_Pin_6, HIGH)

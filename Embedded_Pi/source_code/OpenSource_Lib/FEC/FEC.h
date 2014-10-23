@@ -11,7 +11,7 @@
 
 
 /*** extern function prototype declarations ***/
-extern u32 FEC_enCode(u8 *output, u8 *input, const u16 size);
+extern u32 FEC_enCode(u8 *output, u8 *input, u16 size);
 extern u32 FEC_deCode(u8 *output, const u8 *input, u32 size);
 extern void FEC_test(void);
 

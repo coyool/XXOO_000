@@ -9,7 +9,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=-548247127
+Checksum=1386792401
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -53,8 +53,11 @@ Fmt1=u8[8]	3	0
 [watch_formats]
 Fmt0={W}0:EXTI_Line	4	0
 Fmt1={W}0:i	3	0
-Fmt2={W}0:input[63]	3	0
-Fmt3={W}0:nPathBits	3	0
+Fmt2={W}0:iCurrBuf	3	0
+Fmt3={W}0:iLastBuf	3	0
+Fmt4={W}0:input[63]	3	0
+Fmt5={W}0:nMinCost	4	0
+Fmt6={W}0:nPathBits	3	0
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""

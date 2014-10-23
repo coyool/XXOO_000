@@ -80,7 +80,7 @@ typedef enum
 
 
 /* function poniter */
-typedef void (*pFunction)(void);        /* 定义函数指针 */  
+#define FUNC(pFunction) void (*pFunction)(void)  ;        /* 定义函数指针 */  
 
 
 #endif
