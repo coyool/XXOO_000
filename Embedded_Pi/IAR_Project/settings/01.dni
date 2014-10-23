@@ -9,7 +9,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=604248824
+Checksum=-548247127
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -47,9 +47,14 @@ CStepIntDis=_ 0
 [struct_types]
 Fmt0=EXTI_InitTypeDef-EXTI_Line	4	0
 Fmt1=TIMER_TYPE-systick_cnt	4	0
+[array_types]
+Fmt0=u32[8]	4	0
+Fmt1=u8[8]	3	0
 [watch_formats]
 Fmt0={W}0:EXTI_Line	4	0
-Fmt1={W}0:input[63]	3	0
+Fmt1={W}0:i	3	0
+Fmt2={W}0:input[63]	3	0
+Fmt3={W}0:nPathBits	3	0
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""

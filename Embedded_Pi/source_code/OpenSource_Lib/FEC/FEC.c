@@ -114,7 +114,7 @@ void FEC_test(void)
     tmp = FEC_enCode(A7139_TxBuffer_onTheAir, 
                   A7139_TxBuffer, 
                   4);
-//    temp = FEC_enCode(A7139_TxBuffer_onTheAir, 
+//    tmp = FEC_enCode(A7139_TxBuffer_onTheAir, 
 //                      Tab_64, 
 //                      A7139_payload_len);
     printf("# bytes of on the Air : %d \r\n", tmp);
@@ -126,7 +126,9 @@ void FEC_test(void)
     printf("FEC dec \r\n");
     for (i=0; i<tmp/2; i++) 
     {
-        printf("0x%02X%s", A7139_TxBuffer_onTheAir[i], 
+//        printf("0x%02X%s", A7139_TxBuffer_onTheAir[i], 
+//                       (i % 16 == 15) ? "\r\n" : (i % 2 == 1) ? " " : " ");
+        printf("0x%02X%s", A7139_RxBuffer[i], 
                        (i % 16 == 15) ? "\r\n" : (i % 2 == 1) ? " " : " ");
     }
     printf("cla time : %dus \r\n", timer.systick_cnt);
@@ -279,12 +281,12 @@ u32 FEC_enCode(u8 *output, u8 *input, const u16 size)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-static u8 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
+static u32 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
 {
     u8 i;
-    u8 j;
+    s8 j;
     s8 iBit = 6;  /* 8 - 2 */
-    u8 nOutputBytes = 0u;
+    u32 nOutputBytes = 0u;
     u8 nMinCost = 0xFF;
     u8 nCost0 = 0u; 
     u8 nCost1 = 0u;
@@ -294,7 +296,7 @@ static u8 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
     u8 nInputBit = 0u; 
       
     u8 DeintData[4] = {0};
-    u8 *pDecodeData = NULL;
+    u8 *pDeintData = NULL;
     
     /*
     * De-interleave received data (and change pInData to point to de-interleaved
@@ -303,14 +305,14 @@ static u8 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
     for (i=0; i<4; i++) 
     {
         u8 dat = 0;
-        for (j=0; j<4; j++) 
+        for (j=3; j>=0; j--) 
         {
             dat = (dat << 2) | ((pInData[j] >> (2 * i)) & 0x03);
         }    
         
         DeintData[i] = dat;
     }
-    pDecodeData = DeintData;
+    pDeintData = DeintData;
     /*
     * Process up to 4 bytes of de-interleaved input data, processing one encoder
     * symbol (2b) at a time 
@@ -318,7 +320,7 @@ static u8 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
     for (i=0; i<16; i++) 
     {
         u8 iDestState; 
-        u8 symbol = ((*pDecodeData) >> iBit) & 0x03;
+        u8 symbol = ((*pDeintData) >> iBit) & 0x03;
   
         /* 
         * Find minimum cost so that we can normalize costs 
@@ -332,7 +334,7 @@ static u8 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
         if ((iBit -= 2) < 0) 
         {
             iBit = 6; 
-            pDecodeData++; /* Update pointer to the next byte of received data */
+            pDeintData++; /* Update pointer to the next byte of received data */
         }
     
         /*
@@ -379,7 +381,7 @@ static u8 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
     /* If trellis history is sufficiently long, output a byte of decoded data */
         if (32u == nPathBits) 
         {
-            *pDecData++ = (Path[iCurrBuf][0] >> 24) & 0xFF; 
+            *pDecData++ = (Path[iCurrBuf][0] >> 24) & 0xFF; //??
             nOutputBytes++;
             nPathBits = nPathBits - 8;
             nRemBytes--;
@@ -400,7 +402,7 @@ static u8 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
 
         /* Swap current and last buffers for next iteration */
         iLastBuf = (iLastBuf + 1) % 2;
-        iCurrBuf = (iCurrBuf + 1) % 2;    
+        iCurrBuf = (iCurrBuf + 1) % 2;    //??
     }//end for(i=0; i<16; i++) 
   
     /* Normalize costs so that minimum cost becomes 0 */
