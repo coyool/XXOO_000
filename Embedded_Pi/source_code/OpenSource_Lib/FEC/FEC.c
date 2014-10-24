@@ -15,12 +15,13 @@
 * 源代码说明：STM32 具备单周期 硬件乘除法
 *             lut -- look up table
 *             destn -- destination
+*             树状图(Trellis diagram)又称篱笆图
 *             进一步优化的方式，可以通过Trellis输入输出关系
 *******************************************************************************/
 #include    "all_header_file.h"
 
 /*** static function prototype declarations ***/
-
+static u8 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes);
 
 
 /*** static variable declarations ***/
@@ -38,14 +39,14 @@ static const u8  fecEncodeTable[] =
 */
 static const u8 TrellisSrcState_Lut[8][2] = 
 { 
-  {0, 4},     // State {0,4} -> State 0
-  {0, 4},     // State {0,4} -> State 1
-  {1, 5},     // State {1,5} -> State 2
-  {1, 5},     // State {1,5} -> State 3
-  {2, 6},     // State {2,6} -> State 4
-  {2, 6},     // State {2,6} -> State 5
-  {3, 7},     // State {3,7} -> State 6
-  {3, 7},     // State {3,7} -> State 7 
+    {0, 4},     // State {0,4} -> State 0
+    {0, 4},     // State {0,4} -> State 1
+    {1, 5},     // State {1,5} -> State 2
+    {1, 5},     // State {1,5} -> State 3
+    {2, 6},     // State {2,6} -> State 4
+    {2, 6},     // State {2,6} -> State 5
+    {3, 7},     // State {3,7} -> State 6
+    {3, 7},     // State {3,7} -> State 7 
 }; 
 
 /*
@@ -54,14 +55,14 @@ static const u8 TrellisSrcState_Lut[8][2] =
 */
 static const u8 Trellis_g1g0[8][2] = 
 { 
-  {0, 3},     // State {0,4} -> State 0 produces {"00", "11"}
-  {3, 0},     // State {0,4} -> State 1 produces {"11", "00"}
-  {1, 2},     // State {1,5} -> State 2 produces {"01", "10"}
-  {2, 1},     // State {1,5} -> State 3 produces {"10", "01"}
-  {3, 0},     // State {2,6} -> State 4 produces {"11", "00"}
-  {0, 3},     // State {2,6} -> State 5 produces {"00", "11"}
-  {2, 1},     // State {3,7} -> State 6 produces {"10", "01"}
-  {1, 2},     // State {3,7} -> State 7 produces {"01", "10"}
+    {0, 3},     // State {0,4} -> State 0 produces {"00", "11"}
+    {3, 0},     // State {0,4} -> State 1 produces {"11", "00"}
+    {1, 2},     // State {1,5} -> State 2 produces {"01", "10"}
+    {2, 1},     // State {1,5} -> State 3 produces {"10", "01"}
+    {3, 0},     // State {2,6} -> State 4 produces {"11", "00"}
+    {0, 3},     // State {2,6} -> State 5 produces {"00", "11"}
+    {2, 1},     // State {3,7} -> State 6 produces {"10", "01"}
+    {1, 2},     // State {3,7} -> State 7 produces {"01", "10"}
 };
 
 /*
@@ -69,15 +70,50 @@ Look-up input bit at encoder when Destination state
 */
 static const u8 Trellis_i[8] =   //input data i 
 { 
-  0,
-  1,
-  0,
-  1,
-  0,
-  1,
-  0,
-  1,
+    0,
+    1,
+    0,
+    1,
+    0,
+    1,
+    0,
+    1,
 };
+
+/*
+* Look-up expected output when:
+* Each of two possible source states to Destination state (one way)
+* Each of four possible symbol to g1g0
+*/
+static const u8 HammingWeightTable0[8][4]=
+{
+    {0,1,1,2}, //HammingWeightTable0[iDestState][symbol]
+    {2,1,1,0},
+    {1,0,2,1},
+    {1,2,0,1},
+    {2,1,1,0},
+    {0,1,1,2},
+    {1,2,0,1},
+    {1,0,2,1},
+};
+
+/*
+* Look-up expected output when:
+* Each of two possible source states to Destination state (other way)
+* Each of four possible symbol to g1g0
+*/
+static const u8 HammingWeightTable1[8][4]=
+{
+    {2,1,1,0}, //HammingWeightTable1[iDestState][symbol]
+    {0,1,1,2},
+    {1,2,0,1},
+    {1,0,2,1},
+    {0,1,1,2}, 
+    {2,1,1,0},
+    {1,0,2,1},
+    {1,2,0,1},
+};
+
 
 /* Two sets of buffers (last, current) for each destination state for holding */ 
 static u8  nCost[2][8];    // Accumulated path cost 
@@ -123,15 +159,15 @@ void FEC_test(void)
 //    tmp = FEC_enCode(A7139_TxBuffer_onTheAir, 
 //                  A7139_TxBuffer, 
 //                  4);
-//    tmp = FEC_enCode(A7139_TxBuffer_onTheAir, 
-//                      Tab_64, 
-//                      A7139_payload_len);
+    tmp = FEC_enCode(A7139_TxBuffer_onTheAir, 
+                      Tab_64, 
+                      A7139_payload_len);
 //    tmp = FEC_enCode(A7139_TxBuffer_onTheAir, 
 //                  PN9_Tab, 
 //                  sizeof(PN9_Tab));
-    tmp = FEC_enCode(A7139_TxBuffer_onTheAir, 
-                  XXX, 
-                  sizeof(XXX));    
+//    tmp = FEC_enCode(A7139_TxBuffer_onTheAir, 
+//                  XXX, 
+//                  sizeof(XXX));    
     printf("# bytes of on the Air : %d \r\n", tmp);
     printf("cla time : %dus \r\n", timer.systick_cnt);
     
@@ -297,13 +333,12 @@ u32 FEC_enCode(u8 *output, u8 *input, u16 size)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-static u32 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
+static u8 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
 {
     u8 i;
     s8 j;
-    u8 cnt;
     s8 iBit = 6;  /* 8 - 2 */
-    u32 nOutputBytes = 0u;
+    u8 nOutputBytes = 0u;
     u8 nMinCost = 0xFF;
     u8 nCost0 = 0u; 
     u8 nCost1 = 0u;
@@ -368,11 +403,14 @@ static u32 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
             */
             iSrcState0 = TrellisSrcState_Lut[iDestState][0];
             nCost0  = nCost[iLastBuf][iSrcState0];
-            nCost0 += calcHammingWeight(symbol ^ Trellis_g1g0[iDestState][0]);
-
+            //nCost0 += calcHammingWeight(symbol ^ Trellis_g1g0[iDestState][0]);
+            nCost0 += HammingWeightTable0[iDestState][symbol];
+            
             iSrcState1 = TrellisSrcState_Lut[iDestState][1];
             nCost1  = nCost[iLastBuf][iSrcState1];
-            nCost1 += calcHammingWeight(symbol ^ Trellis_g1g0[iDestState][1]);
+            //nCost1 += calcHammingWeight(symbol ^ Trellis_g1g0[iDestState][1]);
+            nCost1 += HammingWeightTable1[iDestState][symbol];
+            
             /*          
             * Select transition that gives lowest cost in destination state, 
             * copy that source state's path and add new decoded bit.
@@ -393,19 +431,20 @@ static u32 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
             }
         }//end for (iDestState = 0; iDestState < 8; iDestState++)  
         
-        //cpopy path
-        for (cnt=0; cnt<8; cnt++)
-        {
-            nCost[iLastBuf][cnt] = nCost[iCurrBuf][cnt];
-            Path[iLastBuf][cnt] = Path[iCurrBuf][cnt]; 
-        }    
+        //cpopy path,  Swap current and last replace this 
+//        u8 cnt;
+//        for (cnt=0; cnt<8; cnt++)
+//        {
+//            nCost[iLastBuf][cnt] = nCost[iCurrBuf][cnt];
+//            Path[iLastBuf][cnt] = Path[iCurrBuf][cnt]; 
+//        }    
         
         nPathBits++; /* The number of bits have been decoded */
         
     /* If trellis history is sufficiently long, output a byte of decoded data */
-        if (32u == nPathBits) 
+        if (32u == nPathBits) // 5 or 6 倍约束长度(32 bit)
         {
-            *pDecData++ = (Path[iCurrBuf][0] >> 24) & 0xFF; //??
+            *pDecData++ = (Path[iCurrBuf][0] >> 24) & 0xFF;  // 加窗截取 MSB8
             nOutputBytes++;
             nPathBits = nPathBits - 8;
             nRemBytes--;
@@ -425,8 +464,8 @@ static u32 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
         } 
 
         /* Swap current and last buffers for next iteration */
-//        iLastBuf = (iLastBuf + 1) % 2;
-//        iCurrBuf = (iCurrBuf + 1) % 2;    // copy last Current
+        iLastBuf = (iLastBuf + 1) % 2;    // 寄存器交换法 RE
+        iCurrBuf = (iCurrBuf + 1) % 2;    // copy last Current
     }//end for(i=0; i<16; i++) 
   
     /* Normalize costs so that minimum cost becomes 0 */
@@ -453,7 +492,7 @@ u32 FEC_deCode(u8 *output, const u8 *input, u32 size)
 {
     u32 nBytes = 0u;
     u32 DecLen = 0u;
-    u32 nBytesOut = 0u;
+    u8 nBytesOut = 0u;
     u8 i;
     
     ASSERT (input != NULL);
@@ -466,6 +505,7 @@ u32 FEC_deCode(u8 *output, const u8 *input, u32 size)
 
     /* init global variable */
     memset((u8 *)nCost, 0u, sizeof(nCost));
+    memset((u32 *)Path, 0u, sizeof(Path)); 
   /* Trellis start from 000(S2,S1,S0),other State is Impossible, so that 100u */
     for (i=1; i<8; i++)
     {
