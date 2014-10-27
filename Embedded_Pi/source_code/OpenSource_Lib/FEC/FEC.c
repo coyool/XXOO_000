@@ -17,6 +17,7 @@
 *             destn -- destination
 *             树状图(Trellis diagram)又称篱笆图
 *             进一步优化的方式，可以通过Trellis输入输出关系
+* PS: 详见 FECreadme.txt
 *******************************************************************************/
 #include    "all_header_file.h"
 
@@ -188,7 +189,7 @@ void FEC_test(void)
 
 
 /*******************************************************************************
-* Description : payload data pass(3,1,4)convolution encode and Interleave encode 
+* Description : payload data pass(2,1,4)convolution encode and Interleave encode 
 *               transmitted over the air 
 *               IntOutput -- Interleave Output
 *               note: A7139 FIFO buffer size 64 byte.
@@ -350,6 +351,11 @@ static u8 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
     u8 DeintData[4] = {0};
     u8 *pDeintData = NULL;
     
+    /* Check the parameters */
+    ASSERT (pInData != NULL);
+    ASSERT (pDecData != NULL); 
+    ASSERT (size < 1024u);
+    
     /*
     * De-interleave received data (and change pInData to point to de-interleaved
     * data) 
@@ -480,7 +486,7 @@ static u8 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
 
 
 /*******************************************************************************
-* Description : Recv data pass Interleave decode(3,1,4) and Viterbi decode  
+* Description : Recv data pass Interleave decode(2,1,4) and Viterbi decode  
 *               restore payload data
 * Syntax      : 
 * Parameters I: input  
