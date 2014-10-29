@@ -448,7 +448,7 @@ static u8 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
         nPathBits++; /* The number of bits have been decoded */
         
     /* If trellis history is sufficiently long, output a byte of decoded data */
-        if (32u == nPathBits) // 5 or 6 倍约束长度(32 bit)
+        if (32u == nPathBits) // 5 or 6 倍约束长度(4)(20 or  bit)
         {
             *pDecData++ = (Path[iCurrBuf][0] >> 24) & 0xFF;  // 加窗截取 MSB8
             nOutputBytes++;
@@ -470,7 +470,7 @@ static u8 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
         } 
 
         /* Swap current and last buffers for next iteration */
-        iLastBuf = (iLastBuf + 1) % 2;    // 寄存器交换法 RE
+        iLastBuf = (iLastBuf + 1) % 2;    // buff 交换
         iCurrBuf = (iCurrBuf + 1) % 2;    // copy last Current
     }//end for(i=0; i<16; i++) 
   

@@ -1940,9 +1940,6 @@
       <file>
         <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\FEC.h</name>
       </file>
-      <file>
-        <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC\FEC_readme.txt</name>
-      </file>
     </group>
     <group>
       <name>Hamming</name>
