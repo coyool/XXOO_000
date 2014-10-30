@@ -54,17 +54,17 @@ static const u8 TrellisSrcState_Lut[8][2] =
 * Look-up expected output when:
 * Each of two possible source states to Destination state
 */
-static const u8 Trellis_g1g0[8][2] = 
-{ 
-    {0, 3},     // State {0,4} -> State 0 produces {"00", "11"}
-    {3, 0},     // State {0,4} -> State 1 produces {"11", "00"}
-    {1, 2},     // State {1,5} -> State 2 produces {"01", "10"}
-    {2, 1},     // State {1,5} -> State 3 produces {"10", "01"}
-    {3, 0},     // State {2,6} -> State 4 produces {"11", "00"}
-    {0, 3},     // State {2,6} -> State 5 produces {"00", "11"}
-    {2, 1},     // State {3,7} -> State 6 produces {"10", "01"}
-    {1, 2},     // State {3,7} -> State 7 produces {"01", "10"}
-};
+//static const u8 Trellis_g1g0[8][2] = 
+//{ 
+//    {0, 3},     // State {0,4} -> State 0 produces {"00", "11"}
+//    {3, 0},     // State {0,4} -> State 1 produces {"11", "00"}
+//    {1, 2},     // State {1,5} -> State 2 produces {"01", "10"}
+//    {2, 1},     // State {1,5} -> State 3 produces {"10", "01"}
+//    {3, 0},     // State {2,6} -> State 4 produces {"11", "00"}
+//    {0, 3},     // State {2,6} -> State 5 produces {"00", "11"}
+//    {2, 1},     // State {3,7} -> State 6 produces {"10", "01"}
+//    {1, 2},     // State {3,7} -> State 7 produces {"01", "10"}
+//};
 
 /*
 Look-up input bit at encoder when Destination state
@@ -170,7 +170,7 @@ void FEC_test(void)
 //                  XXX, 
 //                  sizeof(XXX));    
     printf("# bytes of on the Air : %d \r\n", tmp);
-    printf("cla time : %dus \r\n", timer.systick_cnt);
+    printf("encoding time : %dus \r\n", timer.systick_cnt);
     
     //FEC_Decode(A7139_TxBuffer_onTheAir, tmp);
     FEC_deCode(A7139_RxBuffer, A7139_TxBuffer_onTheAir, tmp);
@@ -184,7 +184,7 @@ void FEC_test(void)
                        (i % 16 == 15) ? "\r\n" : (i % 2 == 1) ? " " : " ");
     }
     printf("\r\n");
-    printf("cla time : %dus \r\n", timer.systick_cnt);
+    printf("decoding time : %dus \r\n", timer.systick_cnt);
 }
 
 
@@ -222,7 +222,7 @@ u32 FEC_enCode(u8 *output, u8 *input, u16 size)
     SysTick_ENABLLE(ENABLE);   
     
     inputNum = size;
-#define FEC_Debug 
+//#define FEC_Debug 
 #ifdef FEC_Debug         
     printf("Input: [%d bytes] \r\n", inputNum); 
     for (i=0; i<inputNum; i++) 
@@ -354,7 +354,7 @@ static u8 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
     /* Check the parameters */
     ASSERT (pInData != NULL);
     ASSERT (pDecData != NULL); 
-    ASSERT (size < 1024u);
+    ASSERT (nRemBytes < 1024u);
     
     /*
     * De-interleave received data (and change pInData to point to de-interleaved
@@ -448,7 +448,7 @@ static u8 Viterbi_deCode(u8 *pDecData, const u8 *pInData, u32 nRemBytes)
         nPathBits++; /* The number of bits have been decoded */
         
     /* If trellis history is sufficiently long, output a byte of decoded data */
-        if (32u == nPathBits) // 5 or 6 倍约束长度(4)(20 or  bit)
+        if (32u == nPathBits) // 5 or 6 倍约束长度(4)(20 or 24 bit)
         {
             *pDecData++ = (Path[iCurrBuf][0] >> 24) & 0xFF;  // 加窗截取 MSB8
             nOutputBytes++;
