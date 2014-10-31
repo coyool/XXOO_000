@@ -30,7 +30,7 @@
         <option>
           <name>Variant</name>
           <version>20</version>
-          <state>0</state>
+          <state>34</state>
         </option>
         <option>
           <name>GEndianMode</name>
@@ -43,7 +43,7 @@
         </option>
         <option>
           <name>Input description</name>
-          <state></state>
+          <state>Automatic choice of formatter.</state>
         </option>
         <option>
           <name>Output variant</name>
@@ -52,7 +52,7 @@
         </option>
         <option>
           <name>Output description</name>
-          <state></state>
+          <state>Automatic choice of formatter.</state>
         </option>
         <option>
           <name>GOutputBinary</name>
@@ -65,7 +65,7 @@
         </option>
         <option>
           <name>OGCoreOrChip</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>GRuntimeLibSelect</name>
@@ -79,7 +79,7 @@
         </option>
         <option>
           <name>RTDescription</name>
-          <state></state>
+          <state>Use the normal configuration of the C/C++ runtime library. No locale interface, C locale, no file descriptor support, no multibytes in printf and scanf, and no hex floats in strtod.</state>
         </option>
         <option>
           <name>OGProductVersion</name>
@@ -99,7 +99,7 @@
         </option>
         <option>
           <name>OGChipSelectEditMenu</name>
-          <state></state>
+          <state>M051DN series	Nuvoton M051DN series (M052DN,M054DN,M058DN,M0516DN)</state>
         </option>
         <option>
           <name>GenLowLevelInterface</name>
@@ -107,7 +107,7 @@
         </option>
         <option>
           <name>GEndianModeBE</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>OGBufferedTerminalOutput</name>
@@ -133,21 +133,21 @@
         </option>
         <option>
           <name>RTConfigPath2</name>
-          <state></state>
+          <state>$TOOLKIT_DIR$\INC\c\DLib_Config_Normal.h</state>
         </option>
         <option>
           <name>GFPUCoreSlave</name>
           <version>20</version>
-          <state>0</state>
+          <state>34</state>
         </option>
         <option>
           <name>GBECoreSlave</name>
           <version>20</version>
-          <state>1</state>
+          <state>34</state>
         </option>
         <option>
           <name>OGUseCmsis</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>OGUseCmsisDspLib</name>
@@ -277,7 +277,7 @@
         </option>
         <option>
           <name>OutputFile</name>
-          <state></state>
+          <state>$FILE_BNAME$.o</state>
         </option>
         <option>
           <name>CCLibConfigHeader</name>
@@ -293,7 +293,20 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state></state>
+          <state>$PROJ_DIR$\..\Source_code\Library\CMSIS\Include</state>
+          <state>$PROJ_DIR$\..\Source_code\Library\Device\Nuvoton\M051Series\Source</state>
+          <state>$PROJ_DIR$\..\Source_code\Library\Device\Nuvoton\M051Series\Include</state>
+          <state>$PROJ_DIR$\..\Source_code\Library\Device\Nuvoton\M051Series\Source\IAR</state>
+          <state>$PROJ_DIR$\..\Source_code\Library\StdDriver\src</state>
+          <state>$PROJ_DIR$\..\Source_code\Library\StdDriver\inc</state>
+          <state>$PROJ_DIR$\..\Source_code\BSP</state>
+          <state>$PROJ_DIR$\..\Source_code\APP</state>
+          <state>$PROJ_DIR$\..\Source_code\API</state>
+          <state>$PROJ_DIR$\..\Source_code\User</state>
+          <state>$PROJ_DIR$\..\Source_code\Arduino</state>
+          <state>$PROJ_DIR$\..\Source_code\Shield\RF\A7139</state>
+          <state>$PROJ_DIR$\..\Source_code\OpenSource_Lib\FEC</state>
+          <state>$PROJ_DIR$\..\source_code\OpenSource_Lib\CRC</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -522,7 +535,7 @@
         </option>
         <option>
           <name>AOutputFile</name>
-          <state></state>
+          <state>$FILE_BNAME$.o</state>
         </option>
         <option>
           <name>AMultibyteSupport</name>
@@ -572,7 +585,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state></state>
+          <state>BUZT13-01CN.srec</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -686,11 +699,11 @@
         </option>
         <option>
           <name>IlinkIcfOverride</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>lnk0t.icf</state>
+          <state>$PROJ_DIR$\..\M051Series.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -750,7 +763,7 @@
         </option>
         <option>
           <name>IlinkProgramEntryLabel</name>
-          <state></state>
+          <state>__iar_program_start</state>
         </option>
         <option>
           <name>DoFill</name>
@@ -1842,6 +1855,21 @@
   </group>
   <group>
     <name>Arduino</name>
+    <file>
+      <name>$PROJ_DIR$\..\Source_code\Arduino\Arduino.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Source_code\Arduino\Serial.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Source_code\Arduino\Serial.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Source_code\Arduino\Time.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Source_code\Arduino\Time.h</name>
+    </file>
   </group>
   <group>
     <name>BSP</name>
@@ -1853,23 +1881,110 @@
     </group>
     <group>
       <name>M051Series</name>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\Device\Nuvoton\M051Series\Include\M051Series.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\Device\Nuvoton\M051Series\Source\IAR\startup_M051Series.s</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\Device\Nuvoton\M051Series\Include\system_M051Series.h</name>
+      </file>
     </group>
     <group>
       <name>StdDriver</name>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\StdDriver\src\acmp.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\StdDriver\src\adc.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\StdDriver\src\clk.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\StdDriver\src\ebi.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\StdDriver\src\fmc.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\StdDriver\src\gpio.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\StdDriver\src\i2c.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\StdDriver\src\pwm.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\StdDriver\src\retarget.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\StdDriver\src\spi.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\StdDriver\src\sys.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\StdDriver\src\timer.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\StdDriver\src\uart.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\StdDriver\src\wdt.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\StdDriver\src\wwdt.c</name>
+      </file>
     </group>
   </group>
   <group>
     <name>OpenSource_Lib</name>
     <group>
-      <name>FEC</name>
+      <name>CRC</name>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\OpenSource_Lib\CRC\CRC.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\source_code\OpenSource_Lib\CRC\CRC.h</name>
+      </file>
     </group>
     <group>
-      <name>CRC</name>
+      <name>FEC</name>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\OpenSource_Lib\FEC\FEC.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\OpenSource_Lib\FEC\FEC.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\OpenSource_Lib\FEC\Hamming.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\OpenSource_Lib\FEC\Hamming.h</name>
+      </file>
     </group>
   </group>
   <group>
     <name>User</name>
+    <file>
+      <name>$PROJ_DIR$\..\Source_code\User\all_header_file.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Source_code\User\def_and_type.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Source_code\User\main.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Source_code\User\main.h</name>
+    </file>
   </group>
+  <file>
+    <name>$PROJ_DIR$\..\Note\CodeTemplates_V1.0.ENU.txt</name>
+  </file>
 </project>
 
 

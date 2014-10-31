@@ -19,6 +19,6 @@
 @REM 
 
 
-"D:\software\IAR_for_ARM\common\bin\cspybat" "D:\software\IAR_for_ARM\arm\bin\armproc.dll" "D:\software\IAR_for_ARM\arm\bin\armsim2.dll"  %1 --plugin "D:\software\IAR_for_ARM\arm\bin\armbat.dll" --backend -B "--endian=little" "--cpu=ARM7TDMI" "--fpu=None" "--semihosting" 
+"D:\software\IAR_for_ARM\common\bin\cspybat" "D:\software\IAR_for_ARM\arm\bin\armproc.dll" "D:\Program Files\Nu-Link_IAR\Nu-Link_IAR.dll"  %1 --plugin "D:\software\IAR_for_ARM\arm\bin\armbat.dll" --backend -B "--endian=little" "--cpu=Cortex-M0" "--fpu=None" "-p" "D:\software\IAR_for_ARM\arm\CONFIG\debugger\Nuvoton\iom051dn.ddf" "--drv_verify_download" "--semihosting" "--device=M051" 
 
 
