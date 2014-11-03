@@ -38,7 +38,8 @@
 
 
 
-/* STduino lib */
+/* arduino lib */
+#include "Arduino.h"
 #include "Digital_IO.h"
 #include "Serial.h"
 

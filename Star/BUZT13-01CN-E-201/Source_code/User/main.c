@@ -1,16 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*******************************************************************************
 * Copyright 2014      Jr 
 * All right reserved
@@ -25,7 +12,7 @@
 * 完成日期：2014-10-31
 * 编译环境：D:\software\IAR_for_ARM\arm
 * 
-* 源代码说明：
+* 源代码说明：MCU -- M0516 ZDN 
 *******************************************************************************/
 #include    "all_header_file.h"
 
@@ -45,9 +32,9 @@
 
 void SYS_Init(void)
 {
-    /*---------------------------------------------------------------------------------------------------------*/
-    /* Init System Clock                                                                                       */
-    /*---------------------------------------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------*/
+    /* Init System Clock                                                      */
+    /*------------------------------------------------------------------------*/
     /* Enable Internal RC 22.1184MHz clock */
     CLK_EnableXtalRC(CLK_PWRCON_OSC22M_EN_Msk);
 
@@ -72,9 +59,9 @@ void SYS_Init(void)
     /* Select UART module clock source */
     CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL1_UART_S_PLL, CLK_CLKDIV_UART(1));
 
-    /*---------------------------------------------------------------------------------------------------------*/
-    /* Init I/O Multi-function                                                                                 */
-    /*---------------------------------------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------*/
+    /* Init I/O Multi-function                                                */
+    /*------------------------------------------------------------------------*/
 
     /* Set P3 multi-function pins for UART0 RXD and TXD */
     SYS->P3_MFP &= ~(SYS_MFP_P30_Msk | SYS_MFP_P31_Msk);
@@ -82,32 +69,61 @@ void SYS_Init(void)
 
 }
 
+///*******************************************************************************
+//* Description : systemSetup
+//* Syntax      : 
+//* Parameters I: 
+//* Parameters O: 
+//* return      : 
+//*******************************************************************************/
+//void SYS_Init(void)
+//{
+//    /* Unlock protected registers */
+//    SYS_UnlockReg();
+//
+//    /* Enable IP clock */
+//    CLK->APBCLK = CLK_APBCLK_UART0_EN_Msk;
+//
+//    /* Update System Core Clock */
+//    /* User can use SystemCoreClockUpdate() to calculate SystemCoreClock and cyclesPerUs automatically. */
+//    SystemCoreClockUpdate();
+//
+//    /* Set P3 multi-function pins for UART0 RXD and TXD */
+//    SYS->P3_MFP &= ~(SYS_MFP_P30_Msk | SYS_MFP_P31_Msk);
+//    SYS->P3_MFP |= (SYS_MFP_P30_RXD0 | SYS_MFP_P31_TXD0);
+//
+//    /* Lock protected registers */
+//    SYS_LockReg();
+//}
+
 /*******************************************************************************
-* Description : systemSetup
+* Description : peripheral setup
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void SYS_Init(void)
+void setup(void)
 {
     /* Unlock protected registers */
     SYS_UnlockReg();
 
-    /* Enable IP clock */
-    CLK->APBCLK = CLK_APBCLK_UART0_EN_Msk;
-
-    /* Update System Core Clock */
-    /* User can use SystemCoreClockUpdate() to calculate SystemCoreClock and cyclesPerUs automatically. */
-    SystemCoreClockUpdate();
-
-    /* Set P3 multi-function pins for UART0 RXD and TXD */
-    SYS->P3_MFP &= ~(SYS_MFP_P30_Msk | SYS_MFP_P31_Msk);
-    SYS->P3_MFP |= (SYS_MFP_P30_RXD0 | SYS_MFP_P31_TXD0);
+    /* Init System, IP clock and multi-function I/O */
+    SYS_Init();
 
     /* Lock protected registers */
     SYS_LockReg();
+    
+    /* Peripheral setup */
+    Serial_begin();
+    
+    /*------------------------------------------------------------------------*/
+    /* pwer on action                                                         */
+    /*------------------------------------------------------------------------*/
+    /* LED */
+    
 }
+
 
 /*******************************************************************************
 * 函数名称: main
@@ -118,11 +134,8 @@ void SYS_Init(void)
 *******************************************************************************/
 int main(void)
 { 
-    SYS_Init();
+    /* power on setup */
     setup();
-    
-    /* Init UART0 to 115200-8n1 for print message */
-    UART_Open(UART0, 115200);
     
     while (1)
     {

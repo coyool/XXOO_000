@@ -46,7 +46,7 @@ void delayMs(u32 ms)
 /*******************************************************************************
 * Description : Pauses the program for the amount of time (in microseconds) 
 *               specified as parameter. 
-* Caveats     : This function works very accurately in the range 3 microseconds 
+* Caveats     : This function works very accurately in the range 10 microseconds 
 *               and up. It cannot assure that delayMicroseconds will perform 
 *               precisely for smaller delay-times.            
 * Syntax      : delayUs(us)
@@ -56,6 +56,6 @@ void delayMs(u32 ms)
 *******************************************************************************/
 void delayUs(u32 us)
 {
-    
+    for (; us>0; us--);
 }
 

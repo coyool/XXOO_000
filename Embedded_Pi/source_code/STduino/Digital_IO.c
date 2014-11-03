@@ -21,7 +21,7 @@
 
 
 /*** static variable declarations ***/
-static const PORT_PIN_TYPE PORT_pin_tab[PD2+1] =
+static const PORT_PIN_TYPE PORT_pin_tab[PD2+1] =  //结构体数组
 {
     {GPIOA,GPIO_Pin_0},{GPIOA,GPIO_Pin_1},{GPIOA,GPIO_Pin_2},{GPIOA,GPIO_Pin_3},
     {GPIOA,GPIO_Pin_4},{GPIOA,GPIO_Pin_5},{GPIOA,GPIO_Pin_6},{GPIOA,GPIO_Pin_7},

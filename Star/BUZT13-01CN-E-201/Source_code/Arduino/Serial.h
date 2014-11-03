@@ -11,11 +11,11 @@
 
 
 /*** extern function prototype declarations ***/
-extern 
-extern 
-extern 
-extern 
-extern 
+extern void Serial_begin(void);
+extern void end(void);
+//extern 
+//extern 
+//extern 
 
 
 #endif   /* end __SERIAL_H_ */

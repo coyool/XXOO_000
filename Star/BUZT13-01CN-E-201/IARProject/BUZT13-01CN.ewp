@@ -304,7 +304,7 @@
           <state>$PROJ_DIR$\..\Source_code\API</state>
           <state>$PROJ_DIR$\..\Source_code\User</state>
           <state>$PROJ_DIR$\..\Source_code\Arduino</state>
-          <state>$PROJ_DIR$\..\Source_code\Shield\RF\A7139</state>
+          <state>$PROJ_DIR$\..\Source_code\Shield</state>
           <state>$PROJ_DIR$\..\Source_code\OpenSource_Lib\FEC</state>
           <state>$PROJ_DIR$\..\source_code\OpenSource_Lib\CRC</state>
         </option>
@@ -1859,6 +1859,12 @@
       <name>$PROJ_DIR$\..\Source_code\Arduino\Arduino.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\Source_code\Arduino\Digital_IO.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Source_code\Arduino\Digital_IO.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\Source_code\Arduino\Serial.c</name>
     </file>
     <file>
@@ -1886,6 +1892,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\Source_code\Library\Device\Nuvoton\M051Series\Source\IAR\startup_M051Series.s</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Library\Device\Nuvoton\M051Series\Source\system_M051Series.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Source_code\Library\Device\Nuvoton\M051Series\Include\system_M051Series.h</name>
@@ -1964,6 +1973,18 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\Source_code\OpenSource_Lib\FEC\Hamming.h</name>
+      </file>
+    </group>
+  </group>
+  <group>
+    <name>Shield</name>
+    <group>
+      <name>Display</name>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Shield\Display\LED\LED.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Source_code\Shield\Display\LED\LED.h</name>
       </file>
     </group>
   </group>

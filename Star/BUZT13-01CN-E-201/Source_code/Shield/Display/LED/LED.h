@@ -1,9 +1,9 @@
-#ifndef __MAIN_H_
-#define __MAIN_H_
+#ifndef __LED_H_
+#define __LED_H_
 
 
 /*** define and type ***/
-#define PLL_CLOCK           50000000
+
 
 
 /*** extern variable declarations ***/
@@ -11,9 +11,13 @@
 
 
 /*** extern function prototype declarations ***/
+extern 
+extern 
+extern 
+extern 
+extern 
 
 
-
-#endif   /* end __MAIN_H_ */
+#endif   /* end __LEd_H_ */
 
 
