@@ -28,6 +28,34 @@
 
 
 
+/*******************************************************************************
+* Description : Returns the number of milliseconds since the board began
+*               running the current program. This number will overflow (go back 
+*               to zero), after approximately XX days
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : Number of milliseconds since the program started (u32)
+*******************************************************************************/
+u32 millis(void)
+{
+    u32 cnt = 0;
+    return cnt;
+}
+
+/*******************************************************************************
+* Description : Returns the number of microseconds since the Arduino board began
+*               running the current program. This number will overflow (go back 
+*               to zero), after approximately XX minutes
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : Number of microseconds since the program started (u32)
+*******************************************************************************/
+void micros(void)
+{
+    
+}
 
 
 /*******************************************************************************
@@ -40,7 +68,10 @@
 *******************************************************************************/
 void delayMs(u32 ms)
 {
-    
+    for (; ms>0; ms--);
+    {
+        delayUs(1000);
+    }
 }
 
 /*******************************************************************************
@@ -58,4 +89,7 @@ void delayUs(u32 us)
 {
     for (; us>0; us--);
 }
+
+
+
 

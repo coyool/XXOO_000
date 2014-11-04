@@ -21,13 +21,10 @@
 
 
 /*** static variable declarations ***/
-const int ledPin =  13;         // the number of the LED pin
+//digitalValue_TYPE ledState = LOW;            // ledState used to set the LED
+u32 previousMillis = 0;        // will store last time LED was updated
 
-
-int ledState = LOW;             // ledState used to set the LED
-long previousMillis = 0;        // will store last time LED was updated
-
-long interval = 1000;           // interval at which to blink (milliseconds)
+u32 interval = 1000;           // interval at which to blink (milliseconds)
 
 
 /*** extern variable declarations ***/
@@ -36,20 +33,36 @@ long interval = 1000;           // interval at which to blink (milliseconds)
 
 
 
-
 /*******************************************************************************
-* Description : Blink
+* Description : LED_init
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void Blink(__IO u32* ledPin)
+void LED_init(void)
 {
-    digitalWrite(ledPin, HIGH);   
-    delay_ms(1000);              
-    digitalWrite(ledPin, LOW);    
-    delay_ms(1000);               
+    pinMode_ALL(P1, BIT3, OUTPUT);
+    digitalWrite(13, LOW);
+}
+
+
+/*******************************************************************************
+* Description : Blink
+* Syntax      : Blink(13, 10);
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+void Blink(u32 Pin, u32 n)
+{
+    for (; n>0u; n--)
+    {
+        digitalWrite(Pin, HIGH);   
+        delayMs(500);              
+        digitalWrite(Pin, LOW);    
+        delayMs(500);  
+    }                 
 }
 
 /*******************************************************************************
@@ -59,23 +72,17 @@ void Blink(__IO u32* ledPin)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void BlinkWithoutDelay(__IO u32* ledPin)
+void BlinkWithoutDelay(u32 pin)
 {
-    u32 currentMillis = millis();
+    u32 currentMillis;
+    
+    currentMillis = millis();
 
     if (currentMillis - previousMillis > interval) 
     {
-        // save the last time you blinked the LED 
         previousMillis = currentMillis;   
 
-        // if the LED is off turn it on and vice-versa:
-        if (ledState == LOW)
-          ledState = HIGH;
-        else
-          ledState = LOW;
-
-        // set the LED with the ledState of the variable:
-        digitalWrite(ledPin, ledState);
+        GPIO_PIN_ADDR(pin/10, pin%10) ^= HIGH;  
     }
 }
 

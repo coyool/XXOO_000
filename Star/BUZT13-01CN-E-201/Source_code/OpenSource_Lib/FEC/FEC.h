@@ -4,6 +4,7 @@
 
 /*** define and type ***/
 #define FEC_LIMIT_LEN   1024u
+#define  A7139_onTheAir_LIMIT_SIZE 64u
 #define min(a,b)    (a <= b ? a : b)
 
 /*** extern variable declarations ***/

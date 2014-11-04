@@ -3,7 +3,7 @@
 
 
 /*** define and type ***/
-
+#define  ledPin  P13
 
 
 /*** extern variable declarations ***/
@@ -11,11 +11,11 @@
 
 
 /*** extern function prototype declarations ***/
-extern 
-extern 
-extern 
-extern 
-extern 
+extern void LED_init(void);
+void Blink(u32 Pin, u32 n);
+extern void BlinkWithoutDelay(u32 pin);
+//extern 
+//extern 
 
 
 #endif   /* end __LEd_H_ */

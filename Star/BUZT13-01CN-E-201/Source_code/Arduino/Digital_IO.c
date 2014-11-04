@@ -41,42 +41,40 @@
 *******************************************************************************/
 void pinMode_ALL(GPIO_T *port, u32 Pin, u32 Mode)
 {    
-    u32 i;
-    
-    port->PMD = (port->PMD & ~(0x3 << (Pin << 1))) | (u32Mode << (i << 1));   
+    port->PMD = (port->PMD & ~(0x3 << (Pin << 1))) | (Mode << (Pin << 1));   
 }
 
 /*******************************************************************************
-* Description : digitalWrite
+* Description : 效率低 
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void digitalWrite(__IO u32* pin, digitalValue_TYPE value)
+void digitalWrite(u32 pin, digitalValue_TYPE value)
 {
-    pin = value;
+    /* assert */
+    ASSERT_PARAM(((pin%10) < 8)&& (pin < 48));
+    ASSERT_PARAM((value==HIGH)||(value==LOW));
+    
+    GPIO_PIN_ADDR(pin/10, pin%10) = HIGH;
 }
 
 /*******************************************************************************
-* Description : digitalRead
+* Description : 效率低
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-u8 digitalRead(__IO u32* pin)
+u8 digitalRead(u32 pin)
 {
-    u8 return_val;
+    u8 return_val = 0u;
     
-    if (1 == pin)
-    {
-        return_val = HIGH;
-    }
-    else
-    {
-        return_val = LOW;
-    }
+    /* assert */
+    ASSERT_PARAM(((pin%10) < 8)&& (pin < 48));
+    
+    return_val = GPIO_PIN_ADDR(pin/10, pin%10); 
     
     return return_val;
 }

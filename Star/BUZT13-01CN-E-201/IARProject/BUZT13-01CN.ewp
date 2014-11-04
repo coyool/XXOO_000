@@ -70,16 +70,16 @@
         <option>
           <name>GRuntimeLibSelect</name>
           <version>0</version>
-          <state>1</state>
+          <state>2</state>
         </option>
         <option>
           <name>GRuntimeLibSelectSlave</name>
           <version>0</version>
-          <state>1</state>
+          <state>2</state>
         </option>
         <option>
           <name>RTDescription</name>
-          <state>Use the normal configuration of the C/C++ runtime library. No locale interface, C locale, no file descriptor support, no multibytes in printf and scanf, and no hex floats in strtod.</state>
+          <state>Use the full configuration of the C/C++ runtime library. Full locale interface, C locale, file descriptor support, multibytes in printf and scanf, and hex floats in strtod.</state>
         </option>
         <option>
           <name>OGProductVersion</name>
@@ -115,7 +115,7 @@
         </option>
         <option>
           <name>GenStdoutInterface</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>GeneralMisraRules98</name>
@@ -133,7 +133,7 @@
         </option>
         <option>
           <name>RTConfigPath2</name>
-          <state>$TOOLKIT_DIR$\INC\c\DLib_Config_Normal.h</state>
+          <state>$TOOLKIT_DIR$\INC\c\DLib_Config_Full.h</state>
         </option>
         <option>
           <name>GFPUCoreSlave</name>
@@ -164,7 +164,8 @@
         <debug>1</debug>
         <option>
           <name>CCDefines</name>
-          <state></state>
+          <state>USE_ASSERT</state>
+          <state>INIT_SYSCLK_AT_BOOTING</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -304,7 +305,7 @@
           <state>$PROJ_DIR$\..\Source_code\API</state>
           <state>$PROJ_DIR$\..\Source_code\User</state>
           <state>$PROJ_DIR$\..\Source_code\Arduino</state>
-          <state>$PROJ_DIR$\..\Source_code\Shield</state>
+          <state>$PROJ_DIR$\..\Source_code\Shield\Display\LED</state>
           <state>$PROJ_DIR$\..\Source_code\OpenSource_Lib\FEC</state>
           <state>$PROJ_DIR$\..\source_code\OpenSource_Lib\CRC</state>
         </option>
@@ -675,7 +676,7 @@
         </option>
         <option>
           <name>IlinkMapFile</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkLogFile</name>
@@ -703,7 +704,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$PROJ_DIR$\..\M051Series.icf</state>
+          <state>$PROJ_DIR$\M051Series.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1855,6 +1856,9 @@
   </group>
   <group>
     <name>Arduino</name>
+    <excluded>
+      <configuration>Debug</configuration>
+    </excluded>
     <file>
       <name>$PROJ_DIR$\..\Source_code\Arduino\Arduino.h</name>
     </file>
@@ -1889,6 +1893,9 @@
       <name>M051Series</name>
       <file>
         <name>$PROJ_DIR$\..\Source_code\Library\Device\Nuvoton\M051Series\Include\M051Series.h</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Source_code\Library\Device\Nuvoton\M051Series\Source\IAR\startup_M051Series.s</name>
@@ -1898,6 +1905,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\Source_code\Library\Device\Nuvoton\M051Series\Include\system_M051Series.h</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
     </group>
     <group>
@@ -1964,20 +1974,35 @@
       <name>FEC</name>
       <file>
         <name>$PROJ_DIR$\..\Source_code\OpenSource_Lib\FEC\FEC.c</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Source_code\OpenSource_Lib\FEC\FEC.h</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Source_code\OpenSource_Lib\FEC\Hamming.c</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Source_code\OpenSource_Lib\FEC\Hamming.h</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
       </file>
     </group>
   </group>
   <group>
     <name>Shield</name>
+    <excluded>
+      <configuration>Debug</configuration>
+    </excluded>
     <group>
       <name>Display</name>
       <file>

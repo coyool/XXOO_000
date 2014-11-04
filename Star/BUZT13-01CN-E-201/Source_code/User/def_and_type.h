@@ -58,11 +58,6 @@ typedef union
     BITS bits;
 }FLAG_BIT_FIELD_TYPE;
 
-typedef enum
-{
-    OFF = 0,
-    ON  = 1
-}ON_OFF_TYPE;
 
 typedef enum
 {
@@ -70,11 +65,7 @@ typedef enum
     ABNORMAL  = 1
 }NORMAL_TYPE;
 
-typedef enum
-{
-    FALSE = 0,
-    TRUE
-}TRUE_TYPE;
+
 
 
 /* function poniter */
