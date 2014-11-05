@@ -36,7 +36,7 @@ ActionState=1
 Enabled=0
 ShowSource=1
 [DebugChecksum]
-Checksum=191924684
+Checksum=-137072597
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -44,19 +44,17 @@ StopOnThrow=_ 0
 ShowArgs=0
 [Disassembly]
 MixedMode=1
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
 Category=_ 0
-[TermIOLog]
-LoggingEnabled=_ 0
-LogFile=_ ""
 [Disassemble mode]
 mode=0
 [Breakpoints]
-Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\Source_code\User\main.c}.141.5" 1 0 0 0 "" 0 ""
-Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\Source_code\User\main.c}.82.5" 1 0 0 0 "" 0 ""
-Count=2
+Count=0
 [Aliases]
 Count=0
 SuppressDialog=0

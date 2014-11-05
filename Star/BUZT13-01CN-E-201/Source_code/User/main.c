@@ -17,6 +17,7 @@
 #include    "all_header_file.h"
 
 /*** static function prototype declarations ***/
+#define PLLCON_SETTING      CLK_PLLCON_50MHz_HXT
 
 
 
@@ -30,70 +31,74 @@
 
 
 
-//void SYS_Init(void)
-//{
-//    /*------------------------------------------------------------------------*/
-//    /* Init System Clock                                                      */
-//    /*------------------------------------------------------------------------*/
-//    /* Enable Internal RC 22.1184MHz clock */
-//    CLK_EnableXtalRC(CLK_PWRCON_OSC22M_EN_Msk);
-//
-//    /* Waiting for Internal RC clock ready */
-//    CLK_WaitClockReady(CLK_CLKSTATUS_OSC22M_STB_Msk);
-//
-//    /* Switch HCLK clock source to Internal RC and HCLK source divide 1 */
-//    CLK_SetHCLK(CLK_CLKSEL0_HCLK_S_HIRC, CLK_CLKDIV_HCLK(1));
-//
-//    /* Enable external XTAL 12MHz clock */
-//    CLK_EnableXtalRC(CLK_PWRCON_XTL12M_EN_Msk);
-//
-//    /* Waiting for external XTAL clock ready */
-//    CLK_WaitClockReady(CLK_CLKSTATUS_XTL12M_STB_Msk);
-//
-//    /* Set core clock as PLL_CLOCK from PLL */
-//    CLK_SetCoreClock(PLL_CLOCK);
-//
-//    /* Enable UART module clock */
-//    CLK_EnableModuleClock(UART0_MODULE);
-//
-//    /* Select UART module clock source */
-//    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL1_UART_S_PLL, CLK_CLKDIV_UART(1));
-//
-//    /*------------------------------------------------------------------------*/
-//    /* Init I/O Multi-function                                                */
-//    /*------------------------------------------------------------------------*/
-//
-//    /* Set P3 multi-function pins for UART0 RXD and TXD */
-//    SYS->P3_MFP &= ~(SYS_MFP_P30_Msk | SYS_MFP_P31_Msk);
-//    SYS->P3_MFP |= (SYS_MFP_P30_RXD0 | SYS_MFP_P31_TXD0);
-//
-//}
-
-/*******************************************************************************
-* Description : systemSetup
-* Syntax      : 
-* Parameters I: 
-* Parameters O: 
-* return      : 
-*******************************************************************************/
 void SYS_Init(void)
 {
-    /* Unlock protected registers */
-    SYS_UnlockReg();
+//    /* 解锁保护的寄存器 */
+//    SYS_UnlockReg();
+    
+/*----------------------------------------------------------------------------*/
+/* Init System Clock                                                          */
+/*----------------------------------------------------------------------------*/
+    /* 使能 内部高速时钟 */
+    CLK_EnableXtalRC(CLK_PWRCON_OSC22M_EN_Msk);
 
-    /* Enable IP clock */
-    CLK->APBCLK = CLK_APBCLK_UART0_EN_Msk;
+    /* 等待时钟稳定 */
+    CLK_WaitClockReady(CLK_CLKSTATUS_OSC22M_STB_Msk);
 
+    /* 切换HCLK时钟源 分频1 */
+    CLK_SetHCLK(CLK_CLKSEL0_HCLK_S_HIRC, CLK_CLKDIV_HCLK(1));
+    
+    /* 使能 XTL12M */
+    CLK_EnableXtalRC(CLK_PWRCON_XTL12M_EN_Msk);
+    
+    /* 使能 PLL, 设置PLL频率, HLCK = PLLOUT */
+    CLK_SetCoreClock(PLLCON_SETTING);  
+
+    /* 等待时钟稳定 */
+    CLK_WaitClockReady(CLK_CLKSTATUS_XTL12M_STB_Msk
+                       |CLK_CLKSTATUS_PLL_STB_Msk
+                       |CLK_CLKSTATUS_OSC22M_STB_Msk);
+
+    /* 切换HCLK和SysTick的时钟源 */
+    CLK_SetHCLK(CLK_CLKSEL0_HCLK_S_PLL, CLK_CLKDIV_HCLK(1)); // HLCK=PLLOUT,不分频可以不需要这句
+    CLK_SetSysTickClockSrc(CLK_CLKSEL0_STCLK_S_HCLK_DIV2); // SysTick = HLCK/2
+    /* !!! SysTick被设定为来自"CPU", 当开始该时钟时，
+       请在SysTick->CTRL中使用SysTick_CTRL_CLKSOURCE_Msk位。*/
+    
+    /* 使能IP模块的时钟源 */
+    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(PWM23_MODULE);
+    CLK_EnableModuleClock(PWM45_MODULE);
+
+    /* 切换IP模块的时钟源 */
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL1_UART_S_PLL , CLK_CLKDIV_UART(1));
+    CLK_SetModuleClock(PWM23_MODULE, CLK_CLKSEL1_PWM23_S_HCLK  , 0);
+    CLK_SetModuleClock(PWM45_MODULE, CLK_CLKSEL2_PWM45_S_HCLK  , 0);
+    
+    /* 现在可以安全的关闭没使用的时钟了！*/
+    CLK_DisableXtalRC(CLK_PWRCON_OSC22M_EN_Msk | CLK_PWRCON_OSC10K_EN_Msk);  
+ 
     /* Update System Core Clock */
-    /* User can use SystemCoreClockUpdate() to calculate SystemCoreClock and cyclesPerUs automatically. */
+    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CycylesPerUs automatically. */
     SystemCoreClockUpdate();
+
+    /* Reset IP Module */
+    SYS_ResetModule(UART0_RST);
+    SYS_ResetModule(PWM03_RST);
+    SYS_ResetModule(PWM47_RST);
+
+    /*------------------------------------------------------------------------*/
+    /* Init I/O Multi-function                                                */
+    /*------------------------------------------------------------------------*/
 
     /* Set P3 multi-function pins for UART0 RXD and TXD */
     SYS->P3_MFP &= ~(SYS_MFP_P30_Msk | SYS_MFP_P31_Msk);
     SYS->P3_MFP |= (SYS_MFP_P30_RXD0 | SYS_MFP_P31_TXD0);
-
-    /* Lock protected registers */
-    SYS_LockReg();
+//    /* Set P4 multi-function pins for PWMA Channel0 */
+//    SYS->P4_MFP = SYS_MFP_P40_PWM0; 
+    
+//   /* 锁定保护的寄存器 */
+//    SYS_LockReg();
 }
 
 /*******************************************************************************
@@ -115,14 +120,16 @@ void setup(void)
     SYS_LockReg();
     
     /* Peripheral and Sheild setup */
-    //Serial_begin();
-    //LED_init();
+    Serial_begin();
+    LED_init();
     
     /*------------------------------------------------------------------------*/
     /* pwer on action                                                         */
     /*------------------------------------------------------------------------*/
     /* LED */
-    //Blink(P13, 10);
+    Blink(13, 100);
+    P13 = 0;
+    printf("Simple Demo Code\n\n");
 }
 
 

@@ -115,7 +115,7 @@
         </option>
         <option>
           <name>GenStdoutInterface</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>GeneralMisraRules98</name>
@@ -147,7 +147,7 @@
         </option>
         <option>
           <name>OGUseCmsis</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>OGUseCmsisDspLib</name>
@@ -165,7 +165,7 @@
         <option>
           <name>CCDefines</name>
           <state>USE_ASSERT</state>
-          <state>INIT_SYSCLK_AT_BOOTING</state>
+          <state>DEBUG_ENABLE_SEMIHOST</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -327,7 +327,7 @@
         </option>
         <option>
           <name>CCOptLevel</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CCOptStrategy</name>
@@ -336,7 +336,7 @@
         </option>
         <option>
           <name>CCOptLevelSlave</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CompilerMisraRules98</name>
@@ -704,7 +704,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$PROJ_DIR$\M051Series.icf</state>
+          <state>E:\Git_repository\Star\BUZT13-01CN-E-201\IARProject\M051Series.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1856,9 +1856,6 @@
   </group>
   <group>
     <name>Arduino</name>
-    <excluded>
-      <configuration>Debug</configuration>
-    </excluded>
     <file>
       <name>$PROJ_DIR$\..\Source_code\Arduino\Arduino.h</name>
     </file>
@@ -1893,9 +1890,6 @@
       <name>M051Series</name>
       <file>
         <name>$PROJ_DIR$\..\Source_code\Library\Device\Nuvoton\M051Series\Include\M051Series.h</name>
-        <excluded>
-          <configuration>Debug</configuration>
-        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Source_code\Library\Device\Nuvoton\M051Series\Source\IAR\startup_M051Series.s</name>
@@ -1905,9 +1899,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\Source_code\Library\Device\Nuvoton\M051Series\Include\system_M051Series.h</name>
-        <excluded>
-          <configuration>Debug</configuration>
-        </excluded>
       </file>
     </group>
     <group>
@@ -2000,9 +1991,6 @@
   </group>
   <group>
     <name>Shield</name>
-    <excluded>
-      <configuration>Debug</configuration>
-    </excluded>
     <group>
       <name>Display</name>
       <file>

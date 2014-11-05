@@ -2,7 +2,7 @@
 #define   _ALL_H_
 
 /*** C standard lib ***/
-//#include <stdio.h>      /* import printf scanf   */ 
+#include <stdio.h>      /* import printf scanf   */ 
 //#include <stdlib.h>     /* import string convert */
 //#include <string.h>     /* import memcpy memset memcmp ... */
 //#include <stdarg.h>
@@ -12,6 +12,7 @@
 //#include <intrinsics.h>	/* _nop_() enalbe */
 
 #include "M051Series.h"
+#include "system_M051Series.h"
 
 
 /***  user lib ***/

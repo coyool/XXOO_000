@@ -45,7 +45,7 @@ void pinMode_ALL(GPIO_T *port, u32 Pin, u32 Mode)
 }
 
 /*******************************************************************************
-* Description : 效率低 
+* Description : DN有硬件乘除法器
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
@@ -57,11 +57,11 @@ void digitalWrite(u32 pin, digitalValue_TYPE value)
     ASSERT_PARAM(((pin%10) < 8)&& (pin < 48));
     ASSERT_PARAM((value==HIGH)||(value==LOW));
     
-    GPIO_PIN_ADDR(pin/10, pin%10) = HIGH;
+    GPIO_PIN_ADDR(pin/10, pin%10) = value;
 }
 
 /*******************************************************************************
-* Description : 效率低
+* Description : DN有硬件乘除法器
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 

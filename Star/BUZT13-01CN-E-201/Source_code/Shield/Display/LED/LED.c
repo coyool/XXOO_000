@@ -42,7 +42,8 @@ u32 interval = 1000;           // interval at which to blink (milliseconds)
 *******************************************************************************/
 void LED_init(void)
 {
-    pinMode_ALL(P1, BIT3, OUTPUT);
+//    pinMode_ALL(P1, BIT3, OUTPUT);
+    GPIO_SetMode(P1, BIT3, OUTPUT);
     digitalWrite(13, LOW);
 }
 
