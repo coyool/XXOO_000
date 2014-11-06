@@ -3,7 +3,7 @@
 
 
 /*** define and type ***/
-
+#define delayUs(us)    CLK_SysTickDelay(us)
 
 
 /*** extern variable declarations ***/

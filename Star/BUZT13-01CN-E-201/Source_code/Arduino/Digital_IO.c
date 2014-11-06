@@ -45,6 +45,19 @@ void pinMode_ALL(GPIO_T *port, u32 Pin, u32 Mode)
 }
 
 /*******************************************************************************
+* Description : Configures the specified pin to behave either as an input or an 
+*               output,other.
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+//void pinMode(u32 Pin, u32 Mode)
+//{    
+//    port->PMD = (port->PMD & ~(0x3 << (Pin << 1))) | (Mode << (Pin << 1));   
+//}
+
+/*******************************************************************************
 * Description : DN有硬件乘除法器
 * Syntax      : 
 * Parameters I: 
@@ -54,7 +67,7 @@ void pinMode_ALL(GPIO_T *port, u32 Pin, u32 Mode)
 void digitalWrite(u32 pin, digitalValue_TYPE value)
 {
     /* assert */
-    ASSERT_PARAM(((pin%10) < 8)&& (pin < 48));
+    ASSERT_PARAM(((pin%10) < 8) && (pin<48));
     ASSERT_PARAM((value==HIGH)||(value==LOW));
     
     GPIO_PIN_ADDR(pin/10, pin%10) = value;

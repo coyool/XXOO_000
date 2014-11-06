@@ -19,6 +19,6 @@
 @REM 
 
 
-"D:\software\IAR_for_ARM\common\bin\cspybat" "D:\software\IAR_for_ARM\arm\bin\armproc.dll" "D:\Program Files\Nu-Link_IAR\Nu-Link_IAR.dll"  %1 --plugin "D:\software\IAR_for_ARM\arm\bin\armbat.dll" --flash_loader "D:\software\IAR_for_ARM\arm\config\flashloader\Nuvoton\M051_APROM.board" --backend -B "--endian=little" "--cpu=Cortex-M0" "--fpu=None" "-p" "D:\software\IAR_for_ARM\arm\CONFIG\debugger\Nuvoton\iom051dn.ddf" "--drv_verify_download" "--semihosting" "--device=M051" 
+"D:\software\IAR_for_ARM\common\bin\cspybat" "D:\software\IAR_for_ARM\arm\bin\armproc.dll" "D:\software\IAR_for_ARM\arm\bin\armjlink.dll"  %1 --plugin "D:\software\IAR_for_ARM\arm\bin\armbat.dll" --flash_loader "D:\software\IAR_for_ARM\arm\config\flashloader\Nuvoton\M051_APROM.board" --backend -B "--endian=little" "--cpu=Cortex-M0" "--fpu=None" "-p" "D:\software\IAR_for_ARM\arm\CONFIG\debugger\Nuvoton\iom051dn.ddf" "--drv_verify_download" "--semihosting" "--device=M051" "--drv_communication=USB0" "--jlink_speed=auto" "--jlink_initial_speed=32" "--jlink_reset_strategy=0,0" "--jlink_interface=SWD" "--drv_catch_exceptions=0x000" "--drv_swo_clock_setup=72000000,0,2000000" 
 
 

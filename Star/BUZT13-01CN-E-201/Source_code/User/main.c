@@ -17,7 +17,8 @@
 #include    "all_header_file.h"
 
 /*** static function prototype declarations ***/
-#define PLLCON_SETTING      CLK_PLLCON_50MHz_HXT
+//#define PLLCON_SETTING      CLK_PLLCON_50MHz_HXT  //出来25M？？？
+#define PLLCON_SETTING  FREQ_50MHZ
 
 
 
@@ -60,7 +61,7 @@ void SYS_Init(void)
                        |CLK_CLKSTATUS_OSC22M_STB_Msk);
 
     /* 切换HCLK和SysTick的时钟源 */
-    CLK_SetHCLK(CLK_CLKSEL0_HCLK_S_PLL, CLK_CLKDIV_HCLK(1)); // HLCK=PLLOUT,不分频可以不需要这句
+    CLK_SetHCLK(CLK_CLKSEL0_HCLK_S_PLL, CLK_CLKDIV_HCLK(4)); // HLCK=PLLOUT,不分频可以不需要这句
     CLK_SetSysTickClockSrc(CLK_CLKSEL0_STCLK_S_HCLK_DIV2); // SysTick = HLCK/2
     /* !!! SysTick被设定为来自"CPU", 当开始该时钟时，
        请在SysTick->CTRL中使用SysTick_CTRL_CLKSOURCE_Msk位。*/
@@ -127,9 +128,15 @@ void setup(void)
     /* pwer on action                                                         */
     /*------------------------------------------------------------------------*/
     /* LED */
-    Blink(13, 100);
-    P13 = 0;
-    printf("Simple Demo Code\n\n");
+//    Blink(25, 50);
+//    Blink(26, 50);
+    Blink(36, 100);
+     
+    /* printf log */
+    printf(" programing information: \r\n");
+    printf("\r\n ("__DATE__ "  " __TIME__ ") \r\n");
+    printf("version: BUZT13-01CN V1.0 \r\n");
+    printf("\r\n");
 }
 
 

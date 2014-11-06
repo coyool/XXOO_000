@@ -61,6 +61,8 @@ void micros(void)
 /*******************************************************************************
 * Description : Pauses the program for the amount of time (in miliseconds) 
 *               specified as parameter.
+* warnings    : #define delayUs(us)    CLK_SysTickDelay(us) 
+*               occupy SysTick(core clock)!!!
 * Syntax      : delay(ms)
 * Parameters I: ms: the number of milliseconds to pause (u32)
 * Parameters O: 
@@ -68,7 +70,7 @@ void micros(void)
 *******************************************************************************/
 void delayMs(u32 ms)
 {
-    for (; ms>0; ms--);
+    for (; ms>0; ms--)
     {
         delayUs(1000);
     }
@@ -85,10 +87,14 @@ void delayMs(u32 ms)
 * Parameters O: 
 * return      : None
 *******************************************************************************/
-void delayUs(u32 us)
-{
-    for (; us>0; us--);
-}
+//void delayUs(u32 us)
+//{
+//    /* can use for CLK_SysTickDelay replace */
+//    u32 cnt = 10000;
+//    
+//    //cnt = us*CyclesPerUs;
+//    for (; cnt>0; cnt--);
+//}
 
 
 
