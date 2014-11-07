@@ -67,8 +67,8 @@ void pinMode_ALL(GPIO_T *port, u32 Pin, u32 Mode)
 void digitalWrite(u32 pin, digitalValue_TYPE value)
 {
     /* assert */
-    ASSERT_PARAM(((pin%10) < 8) && (pin<48));
-    ASSERT_PARAM((value==HIGH)||(value==LOW));
+    ASSERT(((pin%10) < 8) && (pin<48));
+    ASSERT((value==HIGH)||(value==LOW));
     
     GPIO_PIN_ADDR(pin/10, pin%10) = value;
 }
@@ -85,7 +85,7 @@ u8 digitalRead(u32 pin)
     u8 return_val = 0u;
     
     /* assert */
-    ASSERT_PARAM(((pin%10) < 8)&& (pin < 48));
+    ASSERT(((pin%10) < 8)&& (pin < 48));
     
     return_val = GPIO_PIN_ADDR(pin/10, pin%10); 
     

@@ -36,6 +36,7 @@
 
 /* shield lib */
 #include "LED.h"
+#include "PLC.h"
 
 
 /* arduino lib */

@@ -3,7 +3,7 @@
 
 
 /*** define and type ***/
-#define delayUs(us)    CLK_SysTickDelay(us)
+//#define delayUs(us)    CLK_SysTickDelay(us)   //can't use it
 
 
 /*** extern variable declarations ***/
@@ -12,7 +12,7 @@
 
 /*** extern function prototype declarations ***/
 extern u32 millis(void); 
-extern void micros(void);
+extern u32 micros(void);
 extern void delayMs(u32 ms);
 extern void delayUs(u32 us);
 //extern 

@@ -118,11 +118,6 @@ for (u8 %2=0; %2<%1; %2++)
 #TEMPLATE "&Statement>&ASSERT"
 /* Check the parameters */
 ASSERT (%c);
-ASSERT (%c);
-ASSERT (%c);
-ASSERT (%c);
-ASSERT (%c);
-
 
 #TEMPLATE &Function>&ST_duino_void_Function_void,"Description","Syntax","Input &para;meter","Out &para;meter","return &parameter"
 /*******************************************************************************

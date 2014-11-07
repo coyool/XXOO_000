@@ -27,9 +27,10 @@
 
 
 /*** extern variable declarations ***/
+__IO u32 systick_cnt = 0u;
+__IO u32 systick_ms = 0u;
 
-
-
+const u32 systick_fixedTime = 1000u;
 
 
 void SYS_Init(void)
@@ -61,7 +62,7 @@ void SYS_Init(void)
                        |CLK_CLKSTATUS_OSC22M_STB_Msk);
 
     /* 切换HCLK和SysTick的时钟源 */
-    CLK_SetHCLK(CLK_CLKSEL0_HCLK_S_PLL, CLK_CLKDIV_HCLK(4)); // HLCK=PLLOUT,不分频可以不需要这句
+    CLK_SetHCLK(CLK_CLKSEL0_HCLK_S_PLL, CLK_CLKDIV_HCLK(1)); // HLCK=PLLOUT,不分频可以不需要这句
     CLK_SetSysTickClockSrc(CLK_CLKSEL0_STCLK_S_HCLK_DIV2); // SysTick = HLCK/2
     /* !!! SysTick被设定为来自"CPU", 当开始该时钟时，
        请在SysTick->CTRL中使用SysTick_CTRL_CLKSOURCE_Msk位。*/
@@ -103,6 +104,25 @@ void SYS_Init(void)
 }
 
 /*******************************************************************************
+* Description : systick init  systick clock source is STCLK_S. fixed time = 1ms
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+void SysTick_setup(u32 us)
+{
+    u32 cnt = 0u;
+    
+    /* check Parameters */
+    ASSERT(us < SysTick_LOAD_RELOAD_Msk);
+
+    systick_cnt = 0u;
+    cnt = CyclesPerUs * us;
+    SysTick_Config(cnt); 
+}
+
+/*******************************************************************************
 * Description : peripheral setup
 * Syntax      : 
 * Parameters I: 
@@ -120,9 +140,14 @@ void setup(void)
     /* Lock protected registers */
     SYS_LockReg();
     
+    /* global variable init */
+    systick_cnt = 0u;
+    
     /* Peripheral and Sheild setup */
+    SysTick_setup(systick_fixedTime); 
     Serial_begin();
     LED_init();
+    PLC_setup();
     
     /*------------------------------------------------------------------------*/
     /* pwer on action                                                         */
@@ -130,8 +155,8 @@ void setup(void)
     /* LED */
 //    Blink(25, 50);
 //    Blink(26, 50);
-    Blink(36, 100);
-     
+    //Blink(36, 100);
+
     /* printf log */
     printf(" programing information: \r\n");
     printf("\r\n ("__DATE__ "  " __TIME__ ") \r\n");
@@ -152,7 +177,10 @@ void main(void)
     /* power on setup */
     setup();
     
+    __enable_irq();   //EA = 1
+    
     while (1)
     {
+        BlinkWithoutDelay(36);  
     }//end while
 }

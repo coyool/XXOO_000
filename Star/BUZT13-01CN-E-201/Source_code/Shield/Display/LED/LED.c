@@ -21,10 +21,8 @@
 
 
 /*** static variable declarations ***/
-//digitalValue_TYPE ledState = LOW;            // ledState used to set the LED
-u32 previousMillis = 0;        // will store last time LED was updated
-
-u32 interval = 1000;           // interval at which to blink (milliseconds)
+u32 previousMs = 0u;        // will store last time LED was updated
+static const u32 interval = 1000u;           // interval at which to blink (milliseconds)
 
 
 /*** extern variable declarations ***/
@@ -78,13 +76,13 @@ void Blink(u32 Pin, u32 cnt)
 *******************************************************************************/
 void BlinkWithoutDelay(u32 pin)
 {
-    u32 currentMillis;
+    u32 currentMs;
     
-    currentMillis = millis();
+    currentMs = millis();
 
-    if (currentMillis - previousMillis > interval) 
+    if (currentMs - previousMs > interval) 
     {
-        previousMillis = currentMillis;   
+        previousMs = currentMs;   
 
         GPIO_PIN_ADDR(pin/10, pin%10) ^= HIGH;  
     }

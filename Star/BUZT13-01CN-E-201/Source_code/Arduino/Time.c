@@ -39,8 +39,11 @@
 *******************************************************************************/
 u32 millis(void)
 {
-    u32 cnt = 0;
-    return cnt;
+    u32 ms = 0;
+    
+    ms = systick_ms;
+    
+    return ms;
 }
 
 /*******************************************************************************
@@ -52,9 +55,22 @@ u32 millis(void)
 * Parameters O: 
 * return      : Number of microseconds since the program started (u32)
 *******************************************************************************/
-void micros(void)
+u32 micros(void)
 {
-    
+    u32 ms;
+    u32 cycle_cnt;
+    u32 res;
+
+    do 
+    {
+        cycle_cnt = SysTick->VAL;
+        ms = systick_ms;
+    }while (ms != systick_ms);
+
+    res = (ms * 1000u) +
+          (((CyclesPerUs * systick_fixedTime) - cycle_cnt) / CyclesPerUs);
+
+    return res;
 }
 
 
@@ -70,9 +86,9 @@ void micros(void)
 *******************************************************************************/
 void delayMs(u32 ms)
 {
-    for (; ms>0; ms--)
+    for ( ; ms>0; ms--)
     {
-        delayUs(1000);
+        delayUs(1000u);
     }
 }
 
@@ -81,20 +97,20 @@ void delayMs(u32 ms)
 *               specified as parameter. 
 * Caveats     : This function works very accurately in the range 10 microseconds 
 *               and up. It cannot assure that delayMicroseconds will perform 
-*               precisely for smaller delay-times.            
+*               precisely for smaller delay-times.  
+*               10u(11.6us) 100us(108.7us) 500(540.9us) 1000us(1.08ms)
 * Syntax      : delayUs(us)
 * Parameters I: us -- the number of microseconds to pause (u32)
 * Parameters O: 
 * return      : None
 *******************************************************************************/
-//void delayUs(u32 us)
-//{
-//    /* can use for CLK_SysTickDelay replace */
-//    u32 cnt = 10000;
-//    
-//    //cnt = us*CyclesPerUs;
-//    for (; cnt>0; cnt--);
-//}
+void delayUs(u32 us)
+{
+    u32 cnt = 0u;
+    
+    cnt = 9u * us;
+    for ( ; cnt>0; cnt--);
+}
 
 
 
