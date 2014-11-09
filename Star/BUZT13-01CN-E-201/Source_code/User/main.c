@@ -17,8 +17,8 @@
 #include    "all_header_file.h"
 
 /*** static function prototype declarations ***/
-//#define PLLCON_SETTING      CLK_PLLCON_50MHz_HXT  //出来25M？？？
-#define PLLCON_SETTING  FREQ_50MHZ
+#define PLLCON_SETTING      CLK_PLLCON_50MHz_HXT  //出来25M？？？
+//#define PLLCON_SETTING  FREQ_50MHZ
 
 
 
@@ -155,7 +155,7 @@ void setup(void)
     /* LED */
 //    Blink(25, 50);
 //    Blink(26, 50);
-    //Blink(36, 100);
+//    Blink(36, 100);
 
     /* printf log */
     printf(" programing information: \r\n");

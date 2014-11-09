@@ -702,7 +702,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>E:\Git_repository\Star\BUZT13-01CN-E-201\IARProject\M051Series.icf</state>
+          <state>$PROJ_DIR$\M051Series.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
