@@ -61,9 +61,9 @@ void Blink(u32 Pin, u32 cnt)
     for (; cnt>0u; cnt--)
     {
         digitalWrite(Pin, HIGH);   
-        delayMs(1000);              
+        delayMs(100);              
         digitalWrite(Pin, LOW);    
-        delayMs(1000);  
+        delayMs(100);  
     }                 
 }
 

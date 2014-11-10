@@ -71,11 +71,13 @@ void SYS_Init(void)
     CLK_EnableModuleClock(UART0_MODULE);
     CLK_EnableModuleClock(PWM23_MODULE);
     CLK_EnableModuleClock(PWM45_MODULE);
+    CLK_EnableModuleClock(TMR1_MODULE);
 
     /* 切换IP模块的时钟源 */
     CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL1_UART_S_PLL , CLK_CLKDIV_UART(1));
     CLK_SetModuleClock(PWM23_MODULE, CLK_CLKSEL1_PWM23_S_HCLK  , 0);
     CLK_SetModuleClock(PWM45_MODULE, CLK_CLKSEL2_PWM45_S_HCLK  , 0);
+    CLK_SetModuleClock(TMR1_MODULE , CLK_CLKSEL1_TMR1_S_HCLK   , 0); 
     
     /* 现在可以安全的关闭没使用的时钟了！*/
     CLK_DisableXtalRC(CLK_PWRCON_OSC22M_EN_Msk | CLK_PWRCON_OSC10K_EN_Msk);  
@@ -88,6 +90,7 @@ void SYS_Init(void)
     SYS_ResetModule(UART0_RST);
     SYS_ResetModule(PWM03_RST);
     SYS_ResetModule(PWM47_RST);
+    SYS_ResetModule(TMR1_RST);
 
     /*------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                */
@@ -136,7 +139,7 @@ void setup(void)
 
     /* Init System, IP clock and multi-function I/O */
     SYS_Init();
-
+    PLC_setup();
     /* Lock protected registers */
     SYS_LockReg();
     
@@ -147,20 +150,31 @@ void setup(void)
     SysTick_setup(systick_fixedTime); 
     Serial_begin();
     LED_init();
-    PLC_setup();
+//    PLC_setup();
     
     /*------------------------------------------------------------------------*/
     /* pwer on action                                                         */
     /*------------------------------------------------------------------------*/
     /* LED */
-//    Blink(25, 50);
-//    Blink(26, 50);
-    //Blink(36, 100);
+//    Blink(25, 10);
+//    Blink(26, 10);
+    Blink(36, 10);
+//    u32 i;
+//    for (i=0; i<15; i++)
+//    {
+//        digitalWrite(25, HIGH);
+//        digitalWrite(26, HIGH);  
+//        delayMs(100);              
+//        digitalWrite(25, LOW);
+//        digitalWrite(26, LOW);
+//        delayMs(100);  
+//    }  
 
     /* printf log */
     printf(" programing information: \r\n");
     printf("\r\n ("__DATE__ "  " __TIME__ ") \r\n");
     printf("version: BUZT13-01CN V1.0 \r\n");
+    printf("\r\nCPU @ %d Hz\r\n", SystemCoreClock);
     printf("\r\n");
 }
 
@@ -174,13 +188,15 @@ void setup(void)
 *******************************************************************************/
 void main(void)
 { 
-    /* power on setup */
+    /* power on setup */ 
     setup();
     
     __enable_irq();   //EA = 1
     
+    PLC_Tx_begin(PLC_Tx_PN9);
     while (1)
     {
-        BlinkWithoutDelay(36);  
+//        BlinkWithoutDelay(36);
+
     }//end while
 }
