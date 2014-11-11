@@ -21,7 +21,11 @@ ActionState=1
 Enabled=0
 ShowSource=1
 [DebugChecksum]
+<<<<<<< HEAD
 Checksum=309850136
+=======
+Checksum=-846835798
+>>>>>>> origin/master
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
