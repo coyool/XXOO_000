@@ -25,7 +25,7 @@
 
 
 /*** static variable declarations ***/
-static u32 Freq_cnt = 0u;    
+static s32 Freq_cnt = 0u;    
 //static const u32 MAX_285K = 760u;
 //static const u32 MAX_255K = 680u;
 static const u32 MAX_285K = 10;
@@ -64,18 +64,20 @@ void TMR1_IRQHandler(void)
 {
     u8 temp_bit = 0u;
     
-    if(TIMER_GetIntFlag(TIMER1) == 1)
+//    if(TIMER_GetIntFlag(TIMER1) == 1)
+    if ((TIMER1->TISR & TIMER_TISR_TIF_Msk) == 1)
     {
         /* Clear Timer1 time-out interrupt flag */
-        TIMER_ClearIntFlag(TIMER1);
+        //TIMER_ClearIntFlag(TIMER1);
+        TIMER1->TISR = TIMER_TISR_TIF_Msk;
 
 //        TimerIntCnt[1]++;  
         Freq_cnt--;
 //        Freq_cnt ^= 1;
         
-        GPIO_PIN_ADDR(3, 6) ^= HIGH;        //P0.1 = 1 SCCOUT
+        P36 ^= HIGH;                             //P0.1 = 1 SCCOUT
         /* Tx running */
-        if (Freq_cnt <= 0u)
+        if (Freq_cnt < 0)
         {
             PLC_Tx_bitCnt++;
             if (PLC_Tx_bitCnt >= 8u)
@@ -87,13 +89,13 @@ void TMR1_IRQHandler(void)
             temp_bit = (PLC_Tx_PN9[PLC_Tx_byteCnt] << PLC_Tx_bitCnt) & 0x80;
             if (0x80 == temp_bit)
             {
-                TIMER_SET_PRESCALE_VALUE(TIMER1, 0);
-                TIMER_SET_CMP_VALUE(TIMER1, 49);       //285KHz(0,98)
+//                TIMER_SET_PRESCALE_VALUE(TIMER1, 0);
+                TIMER_SET_CMP_VALUE(TIMER1, 98);       //285KHz(0,98)
                 Freq_cnt = MAX_285K;
             }
             else
             {
-                TIMER_SET_PRESCALE_VALUE(TIMER1, 0);
+//                TIMER_SET_PRESCALE_VALUE(TIMER1, 0);
                 TIMER_SET_CMP_VALUE(TIMER1, 500);       //255KHz(0,88)
                 Freq_cnt = MAX_255K;
             }
@@ -107,7 +109,7 @@ void TMR1_IRQHandler(void)
         {
             /* Stop Timer1 counting */
             TIMER_Close(TIMER1);
-            digitalWrite(0,LOW);                    //P0.0 = 0
+            P36 = 0;               //P0.0 = 0
         }
     }
 }
@@ -159,13 +161,13 @@ void PLC_Tx_begin(u8 *data)
     if (((*data) & 0x80) == 0x80)
     {
         TIMER_SET_PRESCALE_VALUE(TIMER1, 0);
-        TIMER_SET_CMP_VALUE(TIMER1, 49);       //285KHz(0,98)
+        TIMER_SET_CMP_VALUE(TIMER1, 98);       //285KHz(0,98)
         Freq_cnt = MAX_285K;
     }
     else
     {
         TIMER_SET_PRESCALE_VALUE(TIMER1, 0);
-        TIMER_SET_CMP_VALUE(TIMER1, 84);       //255KHz(0,88)
+        TIMER_SET_CMP_VALUE(TIMER1, 500);       //255KHz(0,88)
         Freq_cnt = MAX_255K;
     }   
    
