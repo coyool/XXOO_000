@@ -25,7 +25,6 @@
 
 
 /*** static variable declarations ***/
-<<<<<<< HEAD
 static s32 Freq_cnt = 0u;    
 //static const u32 MAX_285K = 760u;
 //static const u32 MAX_255K = 680u;
@@ -51,20 +50,7 @@ u8 PLC_Tx_PN9[64] =
 };
 
 volatile u32 TimerIntCnt[4] = {0};
-=======
-const u8 PLC_Tx_buffer[64] =
-{
-    0
-};
 
-const u32 remainder = 0x00000001;
-
-/*** extern variable declarations ***/
-volatile u32 TimerIntCnt[4] = {0};
-
-
-
->>>>>>> origin/master
 
 
 
@@ -86,7 +72,6 @@ void TMR1_IRQHandler(void)
         //TIMER_ClearIntFlag(TIMER1);
         TIMER1->TISR = TIMER_TISR_TIF_Msk;
 
-<<<<<<< HEAD
 //        TimerIntCnt[1]++;  
         Freq_cnt--;
 //        Freq_cnt ^= 1;
@@ -126,47 +111,6 @@ void TMR1_IRQHandler(void)
             /* Stop Timer1 counting */
             TIMER_Close(TIMER1);
             P36 = 0;               //P0.0 = 0
-=======
-/*******************************************************************************
-* Description : PLC Tx ISR
-* Syntax      : 
-* Parameters I: 
-* Parameters O: 
-* return      : 
-*******************************************************************************/
-void TMR1_IRQHandler(void)
-{
-    u8 temp = 0u;
-    
-    if(TIMER_GetIntFlag(TIMER1) == 1)
-    {
-        /* Clear Timer1 time-out interrupt flag */
-        TIMER_ClearIntFlag(TIMER1);
-
-        TimerIntCnt[1]++;
-        if (0 == (TimerIntCnt & 1))               //%2
-        {
-            digitalWrite(1,HIGH);                 //P1.0 = 1
-            
-            temp = data[TimerIntCnt>>3] <<= 1;
-            if (1 == (temp & 0x80))
-            {
-                TIMER_SET_CMP_VALUE(TIMER1, 0);     //285KHz
-            }
-            else
-            {
-                TIMER_SET_CMP_VALUE(TIMER1, 0);     //255KHz
-            }  
-        } 
-        else
-        {
-            GPIO_PIN_ADDR(0, 1) ^= HIGH; 
-        }//end if  %2     
-        
-        if (TimerIntCnt >= (MAX-1))
-        {
-            TIMER_Close(TIMER1);
->>>>>>> origin/master
         }
     }
 }
@@ -181,7 +125,7 @@ void TMR1_IRQHandler(void)
 void PLC_setup(void)
 {
     /* PLC Tx Pin set */
-<<<<<<< HEAD
+    
 //    pinMode_ALL(P0, 0, OUTPUT);     //SCC
 //    pinMode_ALL(P0, 1, OUTPUT);     //SCCOUT
     pinMode_ALL(P3, 6, OUTPUT);     //SCCOUT
@@ -251,70 +195,4 @@ void PLC_Tx_end(void)
     TIMER_Close(TIMER1);
 }
 
-=======
-    pinMode_ALL(P0, 0, OUTPUT);     //SCC
-    pinMode_ALL(P0, 1, OUTPUT);     //SCCOUT
-    
-    /* PLC Tx Timer default setting */
-    TIMER_Open(TIMER1, TIMER_CONTINUOUS_MODE, 285000);  //中心频率 270KHz
-//    TIMER_SET_PRESCALE_VALUE(TIMER1, 0);
-//    TIMER_SET_CMP_VALUE(TIMER1, 0);
-    
-    /* PLC Tx Timer IE enable */
-    TIMER_EnableInt(TIMER1);           
-
-    /* Enable Timer1 NVIC */
-    NVIC_EnableIRQ(TMR1_IRQn);                     //中断优先级缺
-
-    /* Clear Timer1 interrupt counts to 0 */
-    TimerIntCnt[1] = 0u;
-
-    /* Start Timer1 counting */
-//    TIMER_Start(TIMER1);
-}
-
-/*******************************************************************************
-* Description : PLC_Tx_begin
-* Syntax      : 
-* Parameters I: 
-* Parameters O: 
-* return      : 
-*******************************************************************************/
-void PLC_Tx_begin(u8 *data)
-{
-    /* Clear Timer1 interrupt counts to 0 */
-    TimerIntCnt[1] = 0u;
-   
-    if ((data[0]&0x80) == 1)
-    {
-        TIMER_SET_PRESCALE_VALUE(TIMER1, 0);
-        TIMER_SET_CMP_VALUE(TIMER1, 0);       //285KHz
-    }
-    else
-    {
-        TIMER_SET_PRESCALE_VALUE(TIMER1, 0);
-        TIMER_SET_CMP_VALUE(TIMER1, 0);       //255KHz
-    }   
-   
-    digitalWrite(0,HIGH);                    //P0.0 = 1
-    digitalWrite(1,HIGH);                    //P0.1 = 1
-    
-    /* Start Timer1 counting */
-    TIMER_Start(TIMER1);
-}
-
-/*******************************************************************************
-* Description : PLC_Tx_begin
-* Syntax      : 
-* Parameters I: 
-* Parameters O: 
-* return      : 
-*******************************************************************************/
-void PLC_Tx_end(void)
-{
-    /* Stop Timer1 counting */
-    TIMER_Close(TIMER1);
-}
-
->>>>>>> origin/master
 

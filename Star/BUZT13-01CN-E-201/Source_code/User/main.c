@@ -156,7 +156,6 @@ void setup(void)
     /* pwer on action                                                         */
     /*------------------------------------------------------------------------*/
     /* LED */
-<<<<<<< HEAD
 //    Blink(25, 10);
 //    Blink(26, 10);
     Blink(36, 10);
@@ -170,11 +169,8 @@ void setup(void)
 //        digitalWrite(26, LOW);
 //        delayMs(100);  
 //    }  
-=======
-//    Blink(25, 50);
-//    Blink(26, 50);
-//    Blink(36, 100);
->>>>>>> origin/master
+
+
 
     /* printf log */
     printf(" programing information: \r\n");
