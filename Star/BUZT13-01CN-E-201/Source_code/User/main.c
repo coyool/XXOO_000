@@ -67,7 +67,7 @@ void SYS_Init(void)
     /* !!! SysTick被设定为来自"CPU", 当开始该时钟时，
        请在SysTick->CTRL中使用SysTick_CTRL_CLKSOURCE_Msk位。*/
     
-    /* 使能IP模块的时钟源 */
+    /* 使能IP模块的时钟源 APB */
     CLK_EnableModuleClock(UART0_MODULE);
     CLK_EnableModuleClock(PWM23_MODULE);
     CLK_EnableModuleClock(PWM45_MODULE);
@@ -99,8 +99,8 @@ void SYS_Init(void)
     /* Set P3 multi-function pins for UART0 RXD and TXD */
     SYS->P3_MFP &= ~(SYS_MFP_P30_Msk | SYS_MFP_P31_Msk);
     SYS->P3_MFP |= (SYS_MFP_P30_RXD0 | SYS_MFP_P31_TXD0);
-//    /* Set P4 multi-function pins for PWMA Channel0 */
-//    SYS->P4_MFP = SYS_MFP_P40_PWM0; 
+    /* Set P2 multi-function pins for PWMA Channel0 */
+    SYS->P2_MFP = SYS_MFP_P23_PWM3; 
     
 //   /* 锁定保护的寄存器 */
 //    SYS_LockReg();
@@ -150,7 +150,7 @@ void setup(void)
     SysTick_setup(systick_fixedTime); 
     Serial_begin();
     LED_init();
-//    PLC_setup();
+    PLC_setup();
     
     /*------------------------------------------------------------------------*/
     /* pwer on action                                                         */

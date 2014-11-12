@@ -1854,6 +1854,12 @@
     <file>
       <name>$PROJ_DIR$\..\Source_code\APP\PLC.h</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\..\Source_code\APP\PLC_PWM.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Source_code\APP\PLC_PWM.h</name>
+    </file>
   </group>
   <group>
     <name>Arduino</name>
