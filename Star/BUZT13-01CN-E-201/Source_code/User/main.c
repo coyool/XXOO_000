@@ -195,7 +195,7 @@ void main(void)
     
     __enable_irq();   //EA = 1
     
-    PLC_Tx_begin(PLC_Tx_PN9);
+//    PLC_Tx_begin(PLC_Tx_PN9);
     while (1)
     {
 //        BlinkWithoutDelay(36);

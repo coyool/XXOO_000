@@ -31,6 +31,38 @@
 
 
 
+
+/**
+ * @brief       PWMA IRQ Handler
+ *
+ * @param       None
+ *
+ * @return      None
+ *
+ * @details     ISR to handle PWMA interrupt 
+ */
+/*******************************************************************************
+* Description : PWMA IRQ Handler
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : ISR to handle PWMA interrupt 
+*******************************************************************************/
+void PWMA_IRQHandler(void)
+{
+    u32 PWM_IntFlag;
+
+    /* Handle PWMA Timer function */
+    PWM_IntFlag = PWMA->PIIR;
+
+    /* PWMB channel 0 PWM timer interrupt */
+    if (PWM_IntFlag & PWM_PIIR_PWMIF0_Msk)
+    {
+        PWMA->PIIR = PWM_PIIR_PWMIF0_Msk;
+
+    }
+}
+
 /*******************************************************************************
 * Description : PLC_setup
 * Syntax      : 
@@ -56,7 +88,7 @@ void PLC_setup(void)
     */
 
 
-    /* Enable PWM Generator chaining to Output pin */
+    /* Enable PWM Generator link to Output pin */
     PWM_EnableOutput(PWMA, PWM3_OUTPIN_LINK);
 
     /* PWM configuration PWM generator and get the nearest frequency in 
@@ -64,17 +96,14 @@ void PLC_setup(void)
     PWM_ConfigOutputChannel(PWMA, PWM_CH3, PWM_Freq, PWM_dutyRatio_50);
 
     /* Enable Timer period Interrupt */
-    PWM_EnablePeriodInt(PWMA, PWM_CH0, PWM_PERIOD_INT_UNDERFLOW);
+    PWM_EnablePeriodInt(PWMA, PWM_CH0, PWM_PERIOD_INT_UNDERFLOW); //边沿对齐方式
 
-    /* Enable PWMB NVIC */
+    /* Enable PWMA NVIC */
     NVIC_EnableIRQ((IRQn_Type)(PWMA_IRQn));
 
     /* Enable PWM Timer CH3EN = 1 */
-    PWM_Start(PWMA, PWM3_OUTPIN_LINK); 
-    
-    
-    //broken link
-
+    PWM_Start(PWMA, PWM3_BIT3); 
+  
 }
 
 /*******************************************************************************
@@ -92,15 +121,15 @@ void PLC_end(void)
     /* Set PWM Timer counter as 0 in Call back function                                     */
     /*--------------------------------------------------------------------------------------*/
 
-    /* Disable PWMB NVIC */
+    /* Disable PWMA NVIC */
     NVIC_DisableIRQ((IRQn_Type)(PWMA_IRQn));
 
     /* Wait until PWMB channel 0 Timer Stop */
     while(PWMA->PDR0 != 0);
 
     /* Disable the PWM Timer */
-    PWM_Stop(PWMA, 0x1);
+    PWM_Stop(PWMA, PWM3_BIT3);
 
-    /* Disable PWM Output pin */
-    PWM_DisableOutput(PWMA, 0x1);
+    /* Disable PWM Generator broken link to Output pin */
+    PWM_DisableOutput(PWMA, PWM3_OUTPIN_LINK);  
 }

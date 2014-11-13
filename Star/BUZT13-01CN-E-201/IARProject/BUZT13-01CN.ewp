@@ -1850,9 +1850,15 @@
     <name>APP</name>
     <file>
       <name>$PROJ_DIR$\..\Source_code\APP\PLC.c</name>
+      <excluded>
+        <configuration>Debug</configuration>
+      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\Source_code\APP\PLC.h</name>
+      <excluded>
+        <configuration>Debug</configuration>
+      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\Source_code\APP\PLC_PWM.c</name>
