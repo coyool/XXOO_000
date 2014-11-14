@@ -139,7 +139,6 @@ void setup(void)
 
     /* Init System, IP clock and multi-function I/O */
     SYS_Init();
-    PLC_setup();
     /* Lock protected registers */
     SYS_LockReg();
     
@@ -150,7 +149,7 @@ void setup(void)
     SysTick_setup(systick_fixedTime); 
     Serial_begin();
     LED_init();
-    PLC_setup();
+//    PLC_setup();
     
     /*------------------------------------------------------------------------*/
     /* pwer on action                                                         */
@@ -195,7 +194,7 @@ void main(void)
     
     __enable_irq();   //EA = 1
     
-//    PLC_Tx_begin(PLC_Tx_PN9);
+    PLC_Tx_begin(PLC_Tx_PN9);
     while (1)
     {
 //        BlinkWithoutDelay(36);

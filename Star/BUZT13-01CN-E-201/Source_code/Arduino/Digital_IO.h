@@ -26,7 +26,7 @@
 
 
 /*** extern function prototype declarations ***/
-extern void pinMode_ALL(GPIO_T *port, u32 Pin, u32 Mode);
+extern void pinMode_ALL(GPIO_T *port, u32 Pin, pinMode_TYPE Mode);
 extern void digitalWrite(u32 pin, digitalValue_TYPE value);
 extern u8 digitalRead(u32 pin);
 //extern 

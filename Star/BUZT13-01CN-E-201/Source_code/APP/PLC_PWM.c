@@ -21,6 +21,25 @@
 
 
 /*** static variable declarations ***/
+u8 PLC_Tx_PN9[64] =
+{
+    0xAA,0x83,0xDF,0x17,0x32,0x09,0x4E,0xD1,
+    0xE7,0xCD,0x8A,0x91,0xC6,0xD5,0xC4,0xC4,
+    0x40,0x21,0x18,0x4E,0x55,0x86,0xF4,0xDC,
+    0x8A,0x15,0xA7,0xEC,0x92,0xDF,0x93,0x53,
+    0x30,0x18,0xCA,0x34,0xBF,0xA2,0xC7,0x59,
+    0x67,0x8F,0xBA,0x0D,0x6D,0xD8,0x2D,0x7D,
+    0x54,0x0A,0x57,0x97,0x70,0x39,0xD2,0x7A,
+    0xEA,0x24,0x33,0x85,0xED,0x9A,0x1D,0xE0
+};
+
+static const u32 PLC_FreqHigh = 285000u;
+static const u32 PLC_FreqLow = 255000u;
+
+static const u32 PLC_Tx_byteMax = 64u;
+static u32 PLC_Tx_byteCnt = 0u;
+static u32 PLC_Tx_bitCnt = 0u;
+static __IO s32 PLC_baudRateCnt = 0u; 
 
 
 
@@ -31,16 +50,20 @@
 
 
 
-
-/**
- * @brief       PWMA IRQ Handler
- *
- * @param       None
- *
- * @return      None
- *
- * @details     ISR to handle PWMA interrupt 
- */
+/* Assume PWM output frequency is 270KHz and duty ratio is 50%, user can calculate PWM settings by follows.
+   duty ratio = (CMR+1)/(CNR+1)
+   cycle time = CNR+1
+   High level = CMR+1
+   PWM clock source frequency = HLCK 50MHz
+   (CNR+1) = PWM clock source frequency/prescaler/clock source divider/PWM output frequency
+           = 50M/1/1/270K = 
+   (Note: CNR is 16 bits, so if calculated value is larger than 65536, user should increase prescale value.)
+   CNR = 
+   duty ratio = 50% ==> (CMR+1)/(CNR+1) = 50% ==> CMR = (CNR+1)*0.5-1 = X*50/100 - 1
+   CMR = 
+   Prescale value is 1 : prescaler = 1
+   Clock divider is PWM_CSR_DIV1 : clock divider = 1
+*/
 /*******************************************************************************
 * Description : PWMA IRQ Handler
 * Syntax      : 
@@ -50,86 +73,70 @@
 *******************************************************************************/
 void PWMA_IRQHandler(void)
 {
-    u32 PWM_IntFlag;
+    u32 PWM_IntFlag = 0u;
+    u8 temp_bit = 0u;
 
     /* Handle PWMA Timer function */
     PWM_IntFlag = PWMA->PIIR;
-
-    /* PWMB channel 0 PWM timer interrupt */
-    if (PWM_IntFlag & PWM_PIIR_PWMIF0_Msk)
+    
+    /* PWMB channel 3 PWM timer interrupt */
+    if (PWM_IntFlag & PWM_PIIR_PWMIF3_Msk)
     {
-        PWMA->PIIR = PWM_PIIR_PWMIF0_Msk;
-
+        PWMA->PIIR = PWM_PIIR_PWMIF3_Msk;
+        
+        PLC_baudRateCnt--; 
+        
+        if (PLC_baudRateCnt < 0)
+        {
+            PLC_Tx_bitCnt++;
+            if (PLC_Tx_bitCnt >= 8u)
+            {
+                PLC_Tx_bitCnt = 0u;
+                PLC_Tx_byteCnt++;
+                if (PLC_Tx_byteCnt >= PLC_Tx_byteMax)
+                {
+                    //PLC Tx end
+                    noTone(PWMA, PWM_CH3, PWMA_IRQn); //后期改进，内部有死循环
+                }
+            }
+            
+            temp_bit = (PLC_Tx_PN9[PLC_Tx_byteCnt] << PLC_Tx_bitCnt) & 0x80;
+            if (0x80 == temp_bit)
+            {
+                PWM_SET_CMR(PWMA, PWM_CH3, 87);
+                PWM_SET_CNR(PWMA, PWM_CH3, 175);
+                PLC_baudRateCnt = 570;
+            }
+            else
+            {
+                PWM_SET_CMR(PWMA, PWM_CH3, 97);   // 98 - 1
+                PWM_SET_CNR(PWMA, PWM_CH3, 195);  // 196 - 1 
+                PLC_baudRateCnt = 510;
+            } 
+        }//end if (PLC_baudRateCnt < 0)
     }
 }
 
 /*******************************************************************************
-* Description : PLC_setup
+* Description : PLC_Tx_begin
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void PLC_setup(void)
+void PLC_Tx_begin(u8 *data)
 {
-    /* Assume PWM output frequency is 270KHz and duty ratio is 50%, user can calculate PWM settings by follows.
-       duty ratio = (CMR+1)/(CNR+1)
-       cycle time = CNR+1
-       High level = CMR+1
-       PWM clock source frequency = HLCK 50MHz
-       (CNR+1) = PWM clock source frequency/prescaler/clock source divider/PWM output frequency
-               = 50M/1/1/270K = 
-       (Note: CNR is 16 bits, so if calculated value is larger than 65536, user should increase prescale value.)
-       CNR = 
-       duty ratio = 50% ==> (CMR+1)/(CNR+1) = 50% ==> CMR = (CNR+1)*0.5-1 = X*50/100 - 1
-       CMR = 
-       Prescale value is 1 : prescaler = 1
-       Clock divider is PWM_CSR_DIV1 : clock divider = 1
-    */
-
-
-    /* Enable PWM Generator link to Output pin */
-    PWM_EnableOutput(PWMA, PWM3_OUTPIN_LINK);
-
-    /* PWM configuration PWM generator and get the nearest frequency in 
-    edge aligned auto-reload mode */
-    PWM_ConfigOutputChannel(PWMA, PWM_CH3, PWM_Freq, PWM_dutyRatio_50);
-
-    /* Enable Timer period Interrupt */
-    PWM_EnablePeriodInt(PWMA, PWM_CH0, PWM_PERIOD_INT_UNDERFLOW); //边沿对齐方式
-
-    /* Enable PWMA NVIC */
-    NVIC_EnableIRQ((IRQn_Type)(PWMA_IRQn));
-
-    /* Enable PWM Timer CH3EN = 1 */
-    PWM_Start(PWMA, PWM3_BIT3); 
-  
-}
-
-/*******************************************************************************
-* Description : PLC_end
-* Syntax      : 
-* Parameters I: 
-* Parameters O: 
-* return      : 
-*******************************************************************************/
-void PLC_end(void)
-{
-    /*--------------------------------------------------------------------------------------*/
-    /* Stop PWM Timer (Recommended procedure method 2)                                      */
-    /* Set PWM Timer counter as 0, When interrupt request happen, disable PWM Timer         */
-    /* Set PWM Timer counter as 0 in Call back function                                     */
-    /*--------------------------------------------------------------------------------------*/
-
-    /* Disable PWMA NVIC */
-    NVIC_DisableIRQ((IRQn_Type)(PWMA_IRQn));
-
-    /* Wait until PWMB channel 0 Timer Stop */
-    while(PWMA->PDR0 != 0);
-
-    /* Disable the PWM Timer */
-    PWM_Stop(PWMA, PWM3_BIT3);
-
-    /* Disable PWM Generator broken link to Output pin */
-    PWM_DisableOutput(PWMA, PWM3_OUTPIN_LINK);  
+    PLC_Tx_bitCnt = 0u;
+    PLC_Tx_byteCnt = 0u;
+    
+    if (((*data) & 0x80) == 0x80)
+    {
+        tone(PWMA, PWM_CH3, PWMA_IRQn, PLC_FreqHigh);  //285K Hz
+        PLC_baudRateCnt = 570;    //baud rate 500bps
+    }
+    else
+    {
+        tone(PWMA, PWM_CH3, PWMA_IRQn, PLC_FreqLow); //285K Hz 
+        PLC_baudRateCnt = 510;    //baud rate 500bps
+    }      
 }

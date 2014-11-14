@@ -1870,6 +1870,12 @@
   <group>
     <name>Arduino</name>
     <file>
+      <name>$PROJ_DIR$\..\Source_code\Arduino\Advanced_IO.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Source_code\Arduino\Advanced_IO.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\Source_code\Arduino\Arduino.h</name>
     </file>
     <file>

@@ -39,7 +39,7 @@
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void pinMode_ALL(GPIO_T *port, u32 Pin, u32 Mode)
+void pinMode_ALL(GPIO_T *port, u32 Pin, pinMode_TYPE Mode)
 {    
     port->PMD = (port->PMD & ~(0x3 << (Pin << 1))) | (Mode << (Pin << 1));   
 }
