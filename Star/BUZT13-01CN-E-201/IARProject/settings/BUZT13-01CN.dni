@@ -22,7 +22,7 @@ Enabled=0
 ShowSource=1
 [DebugChecksum]
 <<<<<<< HEAD
-Checksum=309850136
+Checksum=432481573
 =======
 Checksum=-846835798
 >>>>>>> origin/master
@@ -55,8 +55,11 @@ ITMlogFile=$PROJ_DIR$\ITM.log
 [Breakpoints]
 Count=0
 [watch_formats]
-Fmt0={W}0:u32Freq	4	0
-Fmt1={W}0:u32HclkDiv	4	0
+Fmt0={W}0:PWM_CHx	4	0
+Fmt1={W}0:temp	4	0
+Fmt2={W}0:temp_bit	4	0
+Fmt3={W}0:u32Freq	4	0
+Fmt4={W}0:u32HclkDiv	4	0
 [PowerLog]
 LogEnabled=0
 GraphEnabled=0
@@ -128,7 +131,8 @@ Exclusions=
 [Disassemble mode]
 mode=0
 [Breakpoints2]
-Count=0
+Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Source_code\User\main.c}.199.9" 0 0 1 "" 0 "" 0
+Count=1
 [Aliases]
 Count=0
 SuppressDialog=0

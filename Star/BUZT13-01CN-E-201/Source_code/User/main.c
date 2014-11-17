@@ -17,8 +17,7 @@
 #include    "all_header_file.h"
 
 /*** static function prototype declarations ***/
-#define PLLCON_SETTING      CLK_PLLCON_50MHz_HXT  //出来25M？？？
-//#define PLLCON_SETTING  FREQ_50MHZ
+#define PLLCON_SETTING  FREQ_50MHZ
 
 
 
@@ -88,8 +87,8 @@ void SYS_Init(void)
 
     /* Reset IP Module */
     SYS_ResetModule(UART0_RST);
-    SYS_ResetModule(PWM03_RST);
-    SYS_ResetModule(PWM47_RST);
+//    SYS_ResetModule(PWM03_RST);
+//    SYS_ResetModule(PWM47_RST);
     SYS_ResetModule(TMR1_RST);
 
     /*------------------------------------------------------------------------*/
@@ -149,7 +148,6 @@ void setup(void)
     SysTick_setup(systick_fixedTime); 
     Serial_begin();
     LED_init();
-//    PLC_setup();
     
     /*------------------------------------------------------------------------*/
     /* pwer on action                                                         */
@@ -194,10 +192,12 @@ void main(void)
     
     __enable_irq();   //EA = 1
     
-    PLC_Tx_begin(PLC_Tx_PN9);
+    //PLC_Tx_begin(PLC_Tx_AA);
     while (1)
     {
 //        BlinkWithoutDelay(36);
+        PLC_Tx_begin(PLC_Tx_AA);
+        delayMs(500);
 
     }//end while
 }

@@ -125,9 +125,14 @@ uint32_t PWM_ConfigOutputChannel(PWM_T *pwm,
     uint16_t u16CNR = 0xFFFF;
 
     if(pwm == PWMA)
-        u32Src = (CLK->CLKSEL1 & (CLK_CLKSEL1_PWM01_S_Msk << (u32ChannelNum >> 1))) >> (CLK_CLKSEL1_PWM01_S_Pos << (u32ChannelNum >> 1));
+//      u32Src = (CLK->CLKSEL1 & (CLK_CLKSEL1_PWM01_S_Msk << (u32ChannelNum >> 1))) >> (CLK_CLKSEL1_PWM01_S_Pos << (u32ChannelNum >> 1));
+        u32Src = (CLK->CLKSEL1 & (CLK_CLKSEL1_PWM01_S_Msk << (2*(u32ChannelNum >> 1)))) 
+                 >> (CLK_CLKSEL1_PWM01_S_Pos + (2*(u32ChannelNum >> 1)));
+//        u32Src = (CLK->CLKSEL1 & 0xC0000000) >> 30;
     else /*pwm == PWMB*/
-        u32Src = (CLK->CLKSEL2 & (CLK_CLKSEL2_PWM45_S_Msk << (u32ChannelNum >> 1))) >> (CLK_CLKSEL2_PWM45_S_Pos << (u32ChannelNum >> 1));
+//        u32Src = (CLK->CLKSEL2 & (CLK_CLKSEL2_PWM45_S_Msk << (u32ChannelNum >> 1))) >> (CLK_CLKSEL2_PWM45_S_Pos << (u32ChannelNum >> 1));
+        u32Src = (CLK->CLKSEL2 & (CLK_CLKSEL2_PWM45_S_Msk << (2*(u32ChannelNum >> 1)))) 
+                 >> (CLK_CLKSEL2_PWM45_S_Pos + (2*(u32ChannelNum >> 1)));
 
     if(u32Src == 2)
     {

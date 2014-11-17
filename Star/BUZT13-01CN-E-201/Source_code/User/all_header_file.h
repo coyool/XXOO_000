@@ -30,7 +30,7 @@
 
 
 /* OpenSource lib */
-#include "CRC.h"
+//#include "CRC.h"
 //#include "FEC.h"
 //#include "Hamming.h"
 

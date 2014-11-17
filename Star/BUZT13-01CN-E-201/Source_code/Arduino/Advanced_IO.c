@@ -49,8 +49,12 @@ void tone(PWM_T *PWMx, u32 PWM_CHx, IRQn_Type PWMx_IRQn, u32 frequency)
 
     /* PWM configuration PWM generator and get the nearest frequency in 
     edge aligned auto-reload mode */
-    PWM_ConfigOutputChannel(PWMx, PWM_CHx, 270000, PWM_dutyRatio_50); //default 270000Hz
-
+    PWM_ConfigOutputChannel(PWMx, PWM_CHx, frequency, PWM_dutyRatio_50); //default 270000Hz
+    
+    /* INV */ 
+    PWM_ENABLE_OUTPUT_INVERTER(PWMx, 
+                               (PWM_PCR_CH0INV_Msk << (PWM_PCR_CH0INV_Pos * (PWM_CHx * 4))));
+    
     /* Enable Timer period Interrupt */
     PWM_EnablePeriodInt(PWMx, PWM_CHx, PWM_PERIOD_INT_UNDERFLOW); //边沿对齐方式
 
@@ -76,16 +80,22 @@ void noTone(PWM_T *PWMx, u32 PWM_CHx, IRQn_Type PWMx_IRQn)
     /* Set PWM Timer counter as 0 in Call back function                                     */
     /*--------------------------------------------------------------------------------------*/
 
+    /* Disable the PWM Timer CRN = 0 */
+    PWM_Stop(PWMx, (1u << PWM_CHx));
+    
     /* Disable PWMA NVIC */
     NVIC_DisableIRQ((IRQn_Type)(PWMx_IRQn));
 
     /* Wait until PWMB channel 3 Timer Stop */
-//    while(PWMA->PDR3 != 0);
-    while ((__IO u32 *)( &(PWMx->PDR0) + (PWM_CHx * 12) ) != 0);
+//    while(PWMA->PDR3 != 0);  
+    while ( *(u32 *)(0x40040014 + (PWM_CHx * 12)) != 0);
 
-    /* Disable the PWM Timer */
-    PWM_Stop(PWMA, (1u << PWM_CHx));
+//    /* Disable the PWM Timer */
+//    PWM_Stop(PWMA, (1u << PWM_CHx));
 
     /* Disable PWM Generator broken link to Output pin */
     PWM_DisableOutput(PWMA, (1u << PWM_CHx));  
+    
+    pinMode_ALL(P0, 0, OUTPUT);     //SCC
+    digitalWrite(0, LOW);                    //P0.0 = 0 SCC
 }

@@ -1968,6 +1968,9 @@
   </group>
   <group>
     <name>OpenSource_Lib</name>
+    <excluded>
+      <configuration>Debug</configuration>
+    </excluded>
     <group>
       <name>CRC</name>
       <file>
