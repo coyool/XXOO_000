@@ -97,5 +97,5 @@ void noTone(PWM_T *PWMx, u32 PWM_CHx, IRQn_Type PWMx_IRQn)
     PWM_DisableOutput(PWMA, (1u << PWM_CHx));  
     
     pinMode_ALL(P0, 0, OUTPUT);     //SCC
-    digitalWrite(0, LOW);                    //P0.0 = 0 SCC
+    digitalWrite(0, LOW);           //P0.0 = 0 SCC
 }

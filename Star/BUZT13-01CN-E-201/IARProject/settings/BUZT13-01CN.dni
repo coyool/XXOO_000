@@ -22,7 +22,7 @@ Enabled=0
 ShowSource=1
 [DebugChecksum]
 <<<<<<< HEAD
-Checksum=432481573
+Checksum=354178361
 =======
 Checksum=-846835798
 >>>>>>> origin/master
@@ -97,10 +97,6 @@ GraphEnabled=0
 ShowTimeLog=1
 ShowTimeSum=1
 SumSortOrder=0
-[Log file]
-LoggingEnabled=_ 0
-LogFile=_ ""
-Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -128,11 +124,14 @@ Mode=3
 Graph=0
 Symbiont=0
 Exclusions=
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
 [Disassemble mode]
 mode=0
 [Breakpoints2]
-Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Source_code\User\main.c}.199.9" 0 0 1 "" 0 "" 0
-Count=1
+Count=0
 [Aliases]
 Count=0
 SuppressDialog=0

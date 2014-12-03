@@ -21,8 +21,9 @@
 
 
 /*** static variable declarations ***/
-static const u32 PLC_FreqHigh = 285000u;
-static const u32 PLC_FreqLow = 255000u;
+//static const u32 PLC_FreqHigh = 285000u;
+//static const u32 PLC_FreqLow = 255000u;
+static const u32 PLC_Freq = 270000u;
 
 static const u32 PLC_Tx_byteMax = 64u;
 static u32 PLC_Tx_byteCnt = 0u;
@@ -115,15 +116,15 @@ void PWMA_IRQHandler(void)
             temp_bit = (PLC_Tx_AA[PLC_Tx_byteCnt] << PLC_Tx_bitCnt) & 0x80;
             if (0x80 == temp_bit)
             {
-                PWM_SET_CMR(PWMA, PWM_CH3, 43);  
-                PWM_SET_CNR(PWMA, PWM_CH3, 86);  //285K HZ
+                PWM_SET_CMR(PWMA, PWM_CH3, 45);  
+                PWM_SET_CNR(PWMA, PWM_CH3, 91);  //285K HZ
 //                PLC_baudRateCnt = 570;
                 PLC_baudRateCnt = 10;
             }
             else
             {
-                PWM_SET_CMR(PWMA, PWM_CH3, 48);  
-                PWM_SET_CNR(PWMA, PWM_CH3, 97);  //255K Hz
+                PWM_SET_CMR(PWMA, PWM_CH3, 45);  
+                PWM_SET_CNR(PWMA, PWM_CH3, 91);  //255K Hz
 //                PLC_baudRateCnt = 510;
                 PLC_baudRateCnt = 10;
             } 
@@ -149,14 +150,14 @@ void PLC_Tx_begin(u8 *data)
     if (((*data) & 0x80) == 0x80)
     {
         //285K Hz CNR 86(+1) CMR 43(+1)  prescale=1+1  Drv=1
-        tone(PWMA, PWM_CH3, PWMA_IRQn, PLC_FreqHigh); 
+        tone(PWMA, PWM_CH3, PWMA_IRQn, PLC_Freq); 
 //        PLC_baudRateCnt = 570;    //baud rate 500bps
         PLC_baudRateCnt = 10;
     }
     else
     {
         //255K Hz CNR 97(+1) CMR48(+1) prescale=1+1  Drv=1
-        tone(PWMA, PWM_CH3, PWMA_IRQn, PLC_FreqLow);  
+        tone(PWMA, PWM_CH3, PWMA_IRQn, PLC_Freq);  
 //        PLC_baudRateCnt = 510;    //baud rate 500bps
         PLC_baudRateCnt = 10;
         
