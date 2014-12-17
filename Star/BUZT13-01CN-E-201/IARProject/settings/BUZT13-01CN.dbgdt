@@ -82,7 +82,7 @@
           
           
           
-        <item>PLC_Tx_byteCnt</item><item>p</item><item>temp</item><item>PWM_CHx</item><item>temp_bit</item><item>PLC_baudRateCnt</item><item>PLC_Tx_byteCnt</item><item>PLC_Tx_bitCnt</item><item></item></expressions>
+        <item>PLC_Tx_byteCnt</item><item>p</item><item>temp</item><item>PWM_CHx</item><item>temp_bit</item><item>PLC_baudRateCnt</item><item>PLC_Tx_byteCnt</item><item>PLC_Tx_bitCnt</item><item/></expressions>
         <col-names>
           
           

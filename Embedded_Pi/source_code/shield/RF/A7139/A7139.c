@@ -90,8 +90,8 @@ void A7139_sleepMode(void)
 void A7139_TxMode(void)
 {
     /* disable RF IRQ */
-    A7139_IFG_CLR;
-    A7139_IE_DIS;
+//    A7139_IFG_CLR;
+//    A7139_IE_DIS;
     
     A7139_StrobeCMD(CMD_STBY);  
     delay_us(100u);
@@ -149,7 +149,7 @@ void A7139_Send(u8 *txBuffer, const u8 size)
     A7139_flushTxFIFO();             // TX FIFO address pointer reset
     A7139_write(txBuffer, size);
     A7139_StrobeCMD(CMD_TX);         // TxMode
-    delay_us(100u);                  // buffering check, see A7139 datasheet
+    delay_us(200u);                  // buffering check, see A7139 datasheet
     A7139_waitSend();
     
     A7139_RxMode();                  // afresh enter Recv mode
@@ -213,9 +213,9 @@ void A7139_waitSend(void)
 *******************************************************************************/
 void A7139_Recv(u8 *RxBuf, const u8 size)
 {
-    A7139_flushRxFIFO();            //RX FIFO address pointer reset
     A7139_read(RxBuf, size);
     
+    A7139_flushRxFIFO();            //RX FIFO address pointer reset     
     A7139_RxMode();
     
 #ifdef  PN9_CHECK    
@@ -397,6 +397,7 @@ u8 A7139_setup(void)
         //return_val = 0u;  //don't add this sentence, make error
     }
     delay_ms(5);
+    
     A7139_standbyMode();
     
     return return_val;
