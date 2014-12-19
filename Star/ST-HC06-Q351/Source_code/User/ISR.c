@@ -2,17 +2,17 @@
 * Copyright 2014      Jr 
 * All right reserved
 *
-* æ–‡ä»¶åç§°ï¼šISR
+* ÎÄ¼şÃû³Æ£ºISR
 *
-* æ–‡ä»¶æ ‡è¯†ï¼š
-* æ‘˜    è¦ï¼š
+* ÎÄ¼ş±êÊ¶£º
+* Õª    Òª£º
 *
-* å½“å‰ç‰ˆæœ¬ï¼š
-* ä½œ    è€…ï¼šF06553
-* å®Œæˆæ—¥æœŸï¼š2014-11-7
-* ç¼–è¯‘ç¯å¢ƒï¼šD:\software\IAR_for_ARM\arm
+* µ±Ç°°æ±¾£º
+* ×÷    Õß£ºF06553
+* Íê³ÉÈÕÆÚ£º2014-11-7
+* ±àÒë»·¾³£ºD:\software\IAR_for_ARM\arm
 * 
-* æºä»£ç è¯´æ˜ï¼š
+* Ô´´úÂëËµÃ÷£º
 *******************************************************************************/
 #include    "all_header_file.h"
 
@@ -30,15 +30,47 @@
 
 
 /*******************************************************************************
+* Description : Basic Timer Interrupt Service Routine  5ms
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+#pragma vector=BASICTIMER_VECTOR 
+__interrupt void BasicTimer_ISR(void)
+{ 
+    systick_cnt++;
+//    RF_timeOverCnt++;
+    if (50 == systick_cnt)
+    {
+        systick_cnt = 0u;   
+    }  
+}
+
+/*******************************************************************************
 * Description : 
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void SysTick_Handler(void)
-{
-    systick_cnt++;
-    systick_ms++;
+#pragma vector=UART0TX_VECTOR
+__interrupt void Serial_TX_ISR(void)
+{	
+	UartSend();
+	U0IFG &=~UTXIFG0;	
 }
 
+/*******************************************************************************
+* Description : 
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+#pragma vector=UART0RX_VECTOR
+__interrupt void Serial_RX_ISR (void)
+{
+	UartReceive(U0RXBUF);	
+	U0IFG &=~URXIFG0;	
+}

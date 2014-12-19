@@ -3,8 +3,9 @@
 
 /*** C standard lib ***/
 #include <stdio.h>      /* import printf scanf   */ 
-//#include <stdlib.h>     /* import string convert */
-//#include <string.h>     /* import memcpy memset memcmp ... */
+#include <stdlib.h>     /* import string convert */
+#include <string.h>     /* import memcpy memset memcmp ... */
+#include <stdint.h>     /* import uint8_t */
 //#include <stdarg.h>
 
 
@@ -13,12 +14,12 @@
 
 
 
-
 /***  user lib ***/
 #include  "def_and_type.h"
 #include "main.h"
 
 /* APP lib */
+#include "RF.h"
 
 
 
@@ -32,11 +33,12 @@
 
 
 /* shield lib */
+//#include "LED.h"
 
 
 
 /* arduino lib */
-
+#include "Serial.h"
 
 
 

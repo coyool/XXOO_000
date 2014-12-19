@@ -1,27 +1,23 @@
 /*******************************************************************************
-* Copyright (c) 2014, 深圳思达仪表有限公司  研发中心 固件研发部
-* All rights reserved.
-* 
-* 文件名称：RF_APP.c
+* Copyright 2014      Jr 
+* All right reserved
+*
+* 文件名称：
+*
 * 文件标识：
+* 摘    要：
+*
+* 当前版本：
+* 作    者：F06553
+* 完成日期：2014-12-18
+* 编译环境：D:\software\IAR_for_ARM\arm
 * 
-* 当前版本：V1.0
-* 作    者：F06553代号  
-* 完成日期：2014年 12月 17日
-*
-* 取代版本：V 1.1 
-* 作    者：输入原作者（或修改者）名字
-* 完成日期：XXXX年XX月XX日
-*
-* 源代码说明： 
-*                      
-* NOTE:   support DL645 (Q351 Q352)  
-*
+* 源代码说明：MCU -- M430FE427 
 *******************************************************************************/
-#include "all_header_file.h"
+#include    "all_header_file.h"
 
 /*** static function prototype declarations ***/
-#define PLLCON_SETTING  FREQ_50MHZ
+
 
 
 
@@ -38,7 +34,7 @@ const u32 systick_fixedTime = 1000u;
 
 void SYS_Init(void)
 {
-    u32 i; 
+    u32 i = 0u; 
 //---------------------------------------------
     // Before we go to high speed we need to make sure the supply voltage is adequate. 
     SVSCTL |= (SVSON | 0x60);       // 0x60 检测电压为2.5V
@@ -69,30 +65,27 @@ void SYS_Init(void)
 #endif    
     FLL_CTL0 |= DCOPLUS;  
     
-    for (u32 i=0; i<10000; i++)
+    for (i=0; i<10000; i++)
     {
       _NOP();
-    }  
+    }      
 }
 
 /*******************************************************************************
-* Description : systick init  systick clock source is STCLK_S. fixed time = 1ms
+* Description : main Frequency 8MHz, base timer clock = 32768Hz fixed time = 5ms, 
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void SysTick_setup(u32 us)
+void BasicTimer_init(void)
 {
-    u32 cnt = 0u;
+    BTCTL = BT_fLCD_DIV64 | BT_fCLK2_DIV128 | BT_fCLK2_ACLK_DIV256;// ACLK/(256*128)
+    IE2 |= BTIE;          //Basic Timer1 interrupt enable
+    /* Enable the 1 second counter interrupt */
+    // 采用32768时钟，256*128分频
     
-    /* check Parameters */
-    ASSERT(us < SysTick_LOAD_RELOAD_Msk);
-
-    systick_cnt = 0u;
-    cnt = CyclesPerUs * us;
-    SysTick_Config(cnt); 
-}
+}//end basic timer1 init
 
 /*******************************************************************************
 * Description : peripheral setup
@@ -104,60 +97,70 @@ void SysTick_setup(u32 us)
 void setup(void)
 {
     /* Unlock protected registers */
-    SYS_UnlockReg();
+
 
     /* Init System, IP clock and multi-function I/O */
     SYS_Init();
+	
     /* Lock protected registers */
-    SYS_LockReg();
+
     
     /* global variable init */
     systick_cnt = 0u;
     
     /* Peripheral and Sheild setup */
-    SysTick_setup(systick_fixedTime); 
+    BasicTimer_init();
     Serial_begin();
-    LED_init();
+//    LED_init();
     
     /*------------------------------------------------------------------------*/
     /* pwer on action                                                         */
     /*------------------------------------------------------------------------*/
     /* LED */
-//    Blink(25, 10);
-//    Blink(26, 10);
-    Blink(36, 10);
-//    u32 i;
-//    for (i=0; i<15; i++)
-//    {
-//        digitalWrite(25, HIGH);
-//        digitalWrite(26, HIGH);  
-//        delayMs(100);              
-//        digitalWrite(25, LOW);
-//        digitalWrite(26, LOW);
-//        delayMs(100);  
-//    }  
-
+//    Blink(36, 10);
 
 
     /* printf log */
-    printf(" programing information: \r\n");
-    printf("\r\n ("__DATE__ "  " __TIME__ ") \r\n");
-    printf("version: BUZT13-01CN V1.0 \r\n");
-    printf("\r\nCPU @ %d Hz\r\n", SystemCoreClock);
-    printf("\r\n");
+//    printf(" programing information: \r\n");
+//    printf("\r\n ("__DATE__ "  " __TIME__ ") \r\n");
+//    printf("version: BUZT13-01CN V1.0 \r\n");
+//    printf("\r\nCPU @ %d Hz\r\n", SystemCoreClock);
+//    printf("\r\n");
 }
 
-
+/*******************************************************************************
+* Description : 
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+void sizeofTest(void)
+{
+    u8 temp= 0u;
+    temp = sizeof(char);
+    temp = sizeof(int);
+    temp = sizeof(long);
+}
 
 /*******************************************************************************
-* 鍑芥暟鍚嶇О: main
-* 杈撳叆鍙傛暟: 
-* 杈撳嚭鍙傛暟: 
-* --杩斿洖鍊? 
-* 鍑芥暟鍔熻兘: --
+* 函数名称: main
+* 输入参数: 
+* 输出参数: 
+* --返回值: 
+* 函数功能: --
 *******************************************************************************/
 void main(void)
 { 
+    /* power on setup */ 
+    setup();
+
+    __enable_irq();   //EA = 1
+
+    while (1)
+    {
 
 
+
+    }//end while
 }

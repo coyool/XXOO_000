@@ -11,7 +11,7 @@ typedef uint16_t    u16;
 typedef uint8_t     u8;
 
 
-#define  ASSERT     assert_param
+//#define  ASSERT     assert_param
 #define  _NOP()     __NOP();    //__no_operation(void)
 
 
@@ -68,8 +68,8 @@ typedef enum
 
 
 
-/* function poniter */
-#define FUNC(pFunction) void (*pFunction)(void)  ;        /* 瀹氫箟鍑芥暟鎸囬拡 */  
+/* void function poniter */
+#define FUNC(pFunction) void (*pFunction)(void)  ;        /* 定义函数指针 */  
 
 
 #endif

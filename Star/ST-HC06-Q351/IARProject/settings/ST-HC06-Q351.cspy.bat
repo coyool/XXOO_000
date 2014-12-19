@@ -10,6 +10,6 @@
 @REM 
 
 
-"D:\Program Files\IAR_430\common\bin\cspybat" "D:\Program Files\IAR_430\430\bin\430proc.dll" "D:\Program Files\IAR_430\430\bin\430sim.dll"  %1 --plugin "D:\Program Files\IAR_430\430\bin\430bat.dll" --backend -B "--hardware_multiplier" "32" "--hwmult_type" "8" "-p" "D:\Program Files\IAR_430\430\config\CC430F5133.ddf" "--core=430Xv2" "--data_model=small" "--iv_base" "0xFF80" "--no_wrap_around" "--odd_word_check" "-d" "sim" "--derivativeSim" "CC430F5133" 
+"D:\Program Files\IAR_430\common\bin\cspybat" "D:\Program Files\IAR_430\430\bin\430proc.dll" "D:\Program Files\IAR_430\430\bin\430fet.dll"  %1 --plugin "D:\Program Files\IAR_430\430\bin\430bat.dll" --backend -B "-p" "D:\Program Files\IAR_430\430\config\MSP430FE427.ddf" "--iv_base" "0xFFE0" "-d" "fet" "--erase_main_and_info" "--derivative" "MSP430FE427" "-lpt1" "--protocol" "4wire" "--eem" "EMEX_LOW" "--connection" "ti_lpt" "--msp430_dll" "msp430.dll" "--vccDefault" "3.3" 
 
 
