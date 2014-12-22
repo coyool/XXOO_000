@@ -14,16 +14,13 @@
 * 
 * 源代码说明：
 *******************************************************************************/
-
-#include "include.h"
+#include "all_header_file.h"
 
 /*** static function prototype declarations ***/
 static void CC1101_ExtInt_init(void);
 static void CC1101_ExtInt_enable(void);
 static void CC1101_ExtInt_disable(void);
 static void CC1101_pinMode(void);
-static void CC1101_displayTxCommSymbol(void);
-static void CC1101_displayRxCommSymbol(void);
 //static void CC1101_sleepMode(void);
 static void CC1101_RxMode(void);
 static void CC1101_reset(void);
@@ -35,12 +32,20 @@ static void CC1101_waitSend(void);
 
 static void CC1101_Recv(void);
 
+#ifdef CC1101_DISPLAY_TX_COMM_SYMBOL_EN && CC1101_DISPLAY_RX_COMM_SYMBOL_EN     
+static void CC1101_displayTxCommSymbol(void);
+static void CC1101_displayRxCommSymbol(void);
+#endif
 
 /*** static variable declarations ***/
 
 
 
 /*** extern variable declarations ***/
+const u32 ONEDAYTIME = 24*60;    //
+const u8 RF_payloadSize = 60u;
+const u8 RF_buffMaxSize = 62;   // 60 payload + 2 CRC  {PKTLEN, 0x3C} payload = 60 
+
 RF_TYPE  RF;      /* RF struct */
 uint32_t oneDayCnt;   
 
@@ -57,21 +62,21 @@ uint32_t oneDayCnt;
 *   SPI_byte(SRES); //reset chip   注意!!!  这个语句会造成 GDO2 有一个_|—|_ 电平变化 使程序进入 RX中断服务程序     
 * 使用的资源: 
 ********************************************/
-void TimeIntervalInitRF(void)
-{
-    if(oneDayCnt)
-    {
-        oneDayCnt--;            
-    }
-    else
-    {
-        if(!oneDayCnt)
-        {   
-            CC1101_init();            
-            oneDayCnt = ONEDAYTIME;
-        } 
-    }    
-}
+//void TimeIntervalInitRF(void)
+//{
+//    if(oneDayCnt)
+//    {
+//        oneDayCnt--;            
+//    }
+//    else
+//    {
+//        if(!oneDayCnt)
+//        {   
+//            CC1101_init();            
+//            oneDayCnt = ONEDAYTIME;
+//        } 
+//    }    
+//}
 
 /*******************************************************************************
 * Description : 
@@ -80,14 +85,14 @@ void TimeIntervalInitRF(void)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-static void RF_ExtIntCallbackFunc(void)
-{
-    RF.RX_FLG = 1u;
-    EXTI_ClrIntFlag(EXTI_CH11);
-} 
+//static void RF_ExtIntCallbackFunc(void)
+//{
+//    RF.RX_FLG = 1u;
+//    EXTI_ClrIntFlag(EXTI_CH11);
+//} 
 
 /*******************************************************************************
-* Description : 
+* Description :    failling edge
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
@@ -95,15 +100,9 @@ static void RF_ExtIntCallbackFunc(void)
 *******************************************************************************/
 static void CC1101_ExtInt_init(void)
 {
-    IO_EnableFunc(IO_PORT3, IO_PINx8);
-    IO_ConfigFuncINTxPin(IO_EXT_INT_CH11, IO_INTx_INTx_1);
-    IO_ConfigGPIOPin(IO_PORT3, IO_PINx1, IO_DIR_INPUT, IO_PULLUP_OFF);
-    
-    EXTI_DisableInt(EXTI_CH11);
-    EXTI_SetIntDetectMode(EXTI_CH11, EXTI_EDGE_FALLING);  //采用 RF IRQ 下降沿 (接收完成产生) ) 
-    EXTI_ClrIntFlag(EXTI_CH11);
-    EXTI_EnableInt(EXTI_CH11, RF_ExtIntCallbackFunc);
-    NVIC_EnableIRQ(EXINT8_31_IRQn);  //
+	GDO2_EXTI_EDGE_HL;	  
+	GDO2_HARDWARE_FlAG_CLEAR;
+	GDO2_EXTI_EN;
 }
 
 /*******************************************************************************
@@ -115,8 +114,8 @@ static void CC1101_ExtInt_init(void)
 *******************************************************************************/
 static void CC1101_ExtInt_enable(void)
 {
-    EXTI_ClrIntFlag(EXTI_CH11);//clear hardware flg
-    EXTI_EnableInt(EXTI_CH11, RF_ExtIntCallbackFunc);//ext Int en
+    GDO2_HARDWARE_FlAG_CLEAR;    //clear hardware flg
+    GDO2_EXTI_EN;                //ext Int en
 }
 
 /*******************************************************************************
@@ -128,8 +127,8 @@ static void CC1101_ExtInt_enable(void)
 *******************************************************************************/
 static void CC1101_ExtInt_disable(void)
 {
-    EXTI_DisableInt(EXTI_CH11);//ext Int dis
-    EXTI_ClrIntFlag(EXTI_CH11);//clear hardware flg
+    GDO2_EXTI_DIS;               //ext Int dis
+    GDO2_HARDWARE_FlAG_CLEAR;    //clear hardware flg
 }
 
 /*******************************************************************************
@@ -142,36 +141,23 @@ static void CC1101_ExtInt_disable(void)
 static void CC1101_pinMode(void)
 {
     //普通IO
-    IO_DisableFunc(IO_PORT0, IO_PINx2);  // CSN
-    IO_DisableFunc(IO_PORT0, IO_PINx0);  // SCLK  
-	IO_DisableFunc(IO_PORT1, IO_PINx5);  // SI
- 	IO_DisableFunc(IO_PORT1, IO_PINx4);  // SO
-    IO_DisableFunc(IO_PORT3, IO_PINx4);  // PA
-    
-    IO_ConfigGPIOPin(IO_PORT0, IO_PINx2, IO_DIR_INPUT, IO_PULLUP_OFF);
-    IO_ConfigGPIOPin(IO_PORT0, IO_PINx0, IO_DIR_INPUT, IO_PULLUP_OFF);
-    IO_ConfigGPIOPin(IO_PORT1, IO_PINx5, IO_DIR_INPUT, IO_PULLUP_OFF);// input
-    IO_ConfigGPIOPin(IO_PORT3, IO_PINx4, IO_DIR_INPUT, IO_PULLUP_OFF); //PA
-    
-    IO_WriteGPIOPin(IO_PORT0, IO_PINx2, IO_BIT_CLR);   // CSN 
-    IO_WriteGPIOPin(IO_PORT0, IO_PINx0, IO_BIT_CLR);   // SLCK 
-    IO_WriteGPIOPin(IO_PORT1, IO_PINx5, IO_BIT_CLR);   // SI 
-    IO_WriteGPIOPin(IO_PORT3, IO_PINx4, IO_BIT_CLR);   // PA 
     
     /* MCU RF 电平一致 */
-//    CSN_DIR_OUT;  
-//    CSN_OUT_H;
-//    SCLK_DIR_OUT;
-//    SCLK_OUT_L;
-//    SI_DIR_OUT;
-//    SI_OUT_L;
-//    SO_DIR_IN;
-    
-    /* MCU RF 电平不一致 */
+    CSN_DIR_OUT;  
     CSN_OUT_H;
+    SCLK_DIR_OUT;
     SCLK_OUT_L;
+    SI_DIR_OUT;
     SI_OUT_L;
     SO_DIR_IN;
+
+	GDO2_DIR_IN;
+    
+    /* MCU RF 电平不一致 */
+//    CSN_OUT_H;
+//    SCLK_OUT_L;
+//    SI_OUT_L;
+//    SO_DIR_IN;
    
     CC1101_ExtInt_init();
 }
@@ -183,19 +169,19 @@ static void CC1101_pinMode(void)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-static void CC1101_displayTxCommSymbol(void)
-{
-    SetSegment(SEG_M1, 0);  //display
-    SetSegment(SEG_M2, 0);  //display
-    SetSegment(SEG_M3, 0);  //display
-    SetSegment(SEG_M4, 0);  //display
-    SetSegment(SEG_M5, 0);  //display
-    SetSegment(SEG_M6, 0);  //display
-    SetSegment(SEG_M7, 0);  //display
-    SetSegment(SEG_M8, 0);  //display
-    
-    RefreshLCD();
-}
+//static void CC1101_displayTxCommSymbol(void)
+//{
+//    SetSegment(SEG_M1, 0);  //display
+//    SetSegment(SEG_M2, 0);  //display
+//    SetSegment(SEG_M3, 0);  //display
+//    SetSegment(SEG_M4, 0);  //display
+//    SetSegment(SEG_M5, 0);  //display
+//    SetSegment(SEG_M6, 0);  //display
+//    SetSegment(SEG_M7, 0);  //display
+//    SetSegment(SEG_M8, 0);  //display
+//    
+//    RefreshLCD();
+//}
 
 /*******************************************************************************
 * Description :  comm -- communication
@@ -204,17 +190,17 @@ static void CC1101_displayTxCommSymbol(void)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-static void CC1101_displayRxCommSymbol(void)
+//static void CC1101_displayRxCommSymbol(void)
+//{
+//    SetSegment(SEG_sign, 0);  //display
+//    SetSegment(SEG_s19, 0);   //display 
+//    SetSegment(SEG_s20, 0);   //display 
+//    SetSegment(SEG_s21, 0);   //display 
+//    SetSegment(SEG_s22, 0);   //display 
+//    
+//    RefreshLCD();
+//}
 
-{
-    SetSegment(SEG_sign, 0);  //display
-    SetSegment(SEG_s19, 0);   //display 
-    SetSegment(SEG_s20, 0);   //display 
-    SetSegment(SEG_s21, 0);   //display 
-    SetSegment(SEG_s22, 0);   //display 
-    
-    RefreshLCD();
-}
 /*******************************************************************************
 * Description : 
 * Syntax      : 
@@ -366,9 +352,13 @@ static void CC1101_initStep(void)
     CC1101_setPATable();      //8 level 0~7
     CC1101_setTxPower(PA_LEVEL_7);  // choice max PA
 
+#ifdef RF_PA_EN
     pinPA_Tx_DIS;      /* Tx don't through PA and Rx */
-    
-    CC1101_RxMode();       //default Rx mode enalbe ExtInt
+#endif	
+
+	SpiWriteStrobe(SIDLE);	 
+    delayUs(200);
+    //CC1101_RxMode();       //default Rx mode enalbe ExtInt
 }
 
 /*******************************************************************************
@@ -384,8 +374,10 @@ void CC1101_init(void)
     
     memset(&RF, 0, sizeof(RF));   /* init RF data struct */
     oneDayCnt = ONEDAYTIME;
-    
+
+#ifdef RF_PA_EN
     pinPA_Tx_DIS;      /* Tx don't through PA and Rx */
+#endif
 
     CC1101_initStep();
     
@@ -401,7 +393,6 @@ void CC1101_init(void)
             break;     /* CC1101 init fail */  
         }    
     }//end for
-    TaskAdd(CC1101_Recv, 300, 20);  //CSH
 }
 
 /*******************************************************************************
@@ -418,22 +409,22 @@ static void CC1101_waitSend(void)
     for (i=0; i<1000; i++)
     {
         delayMs(5u);     //SpiWriteStrobe(STX);  设置后出波形有延时   
-        if (GDO2_IN_HIGH)
+        if (GDO2_IN_H)
         {     
             delayMs(1u);
-            if (GDO2_IN_LOW)      // __|--|__
+            if (GDO2_IN_L)      // __|--|__
             {
-                __NOP();
+                NOP();
                 break;
             }
             else
             {
-                __NOP();
+                NOP();
             }//end if
         }
         else
         {
-            __NOP();
+            NOP();
             break;
         }    
     }//end for
@@ -460,8 +451,9 @@ static void CC1101_waitSend(void)
 *******************************************************************************/
 void CC1101_Send(uint8_t *TxBuff, const uint8_t len)
 {
+#ifdef CC1101_DISPLAY_TX_COMM_SYMBOL_EN    
     CC1101_displayTxCommSymbol();
-    
+#endif    
     CC1101_ExtInt_disable();  
     
     SpiWriteStrobe(SIDLE);      /* IDL状态下进行配置 */
@@ -472,17 +464,22 @@ void CC1101_Send(uint8_t *TxBuff, const uint8_t len)
     delayUs(200);
     SpiWriteBurstReg(TXFIFO, TxBuff, len); 
     delayUs(200);
-    
+
+#ifdef RF_PA_EN    
     pinPA_Tx_EN;   // Tx PA  (RF PA内部 三极管有延时,配置完PA需 delayUs(200);)
+#endif
         
     delayMs(10);   // ARM 频率快  延时发送
     SpiWriteStrobe(STX);            
 
     CC1101_waitSend();  //待改
     delayMs(5);        /* 预留间隔时间 */
-    
+
+#ifdef RF_PA_EN  	
     pinPA_Tx_DIS;  // Tx don't through PA and Rx 
-    
+#endif
+
+ 
 //------------------------------------------    
     SpiWriteStrobe(SIDLE);      /* IDL状态下进行配置 */
     delayUs(200);
@@ -555,10 +552,11 @@ static void CC1101_Recv(void)
 		RF.RX_FLG = 0u;
 		RF.availableFlag = 0u; // CC1101_available arg 
 		memset(RF.TxBuff, 0u, sizeof(RF.TxBuff)); 
-		memset(RF.RxBuff, 0u, sizeof(RF.RxBuff)); 
+		memset(RF.RxBuff, 0u, sizeof(RF.RxBuff));
         
+#ifdef CC1101_DISPLAY_RX_COMM_SYMBOL_EN            
         CC1101_displayRxCommSymbol();
-
+#endif
 		CC1101_ExtInt_disable();  
 
         SpiWriteStrobe(SIDLE);    
@@ -590,8 +588,10 @@ static void CC1101_Recv(void)
 //            CC1101_RxMode();      
 //            return_val = 0u;
         }//end if  length check 
-        
-        CC1101_RxMode();    //default Rx mode enalbe ExtInt
+
+		SpiWriteStrobe(SIDLE);	 
+		delayUs(200);
+        //CC1101_RxMode();    //default Rx mode enalbe ExtInt
 	}
 	else     
 	{

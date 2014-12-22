@@ -14,10 +14,10 @@
 * 
 * 源代码说明：
 *******************************************************************************/
-#include    "all_header_file.h"
+#include  "all_header_file.h"
 
 /*** static function prototype declarations ***/
-static void Serial_send(void);
+
 
 
 
@@ -36,7 +36,7 @@ static const u8 Serial_bps[10][3]=
 	{0x48,0x00,0xae},    //115200 波特率     9
 };
 
-static const u8 fixed_TxRx_len = 60u;
+const u8 Serial_fixed_TxRx_Len = 60u;
 
 
 
@@ -77,6 +77,7 @@ void Serial_begin(SERIAL_BPS_TYPE bps)
 	U0MCTL = Serial_bps[bps][2];    	
     
     memset(&Serial, 0, sizeof(Serial));  //clear Serial data 
+    Serial_RxMode();              // default Rx mode
 }
 
 /*******************************************************************************
@@ -167,7 +168,7 @@ void Serial_TxMode(void)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-static void Serial_send(void)
+void Serial_send(void)
 {
     if (Serial.TxCnt >= fixed_TxRx_len)
     {
@@ -191,12 +192,46 @@ static void Serial_send(void)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
+//void Serial_isSending(void)
+//{
+//    
+//}
+
+/*******************************************************************************
+* Description : 
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
 void Serial_RxMode(void)
 {
     Serial_RxInt_enable(); 
     
-    Serial.TxFlag = 0u;     // sending   
-    Serial.TxCnt = 0u;      
+    Serial.RxFlag = 0u;     // Receiving   
+    Serial.RxCnt = 0u;      
+}
+
+/*******************************************************************************
+* Description : 缺 超时处理， 如果不够60 byte 或则 大于 60 byte
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+void Serial_Recv(u8 RevByte)
+{
+    if (Serial.RxCnt >= fixed_TxRx_len)  // 60 byte
+    {
+        Serial.RxCnt = 0u;
+        Serial.RxFlag = 1u;
+        Serial_RxInt_disable(); 
+    }
+    else
+    {
+        Serial.RxBuff = U0RXBUF;
+        Serial.RxCnt++;     
+    }    
 }
 
 /*******************************************************************************
@@ -206,11 +241,23 @@ void Serial_RxMode(void)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-static void Serial_Recv(u8 RevByte)
+u8 Serial_available(u8 *rxBuff, u8 *len)
 {
-    Serial.RxBuff = 
-}
+    u8 return_val = 0u;
+    
+    if (1u == Serial.RxFlag)
+    {
+        Serial.RxFlag = 0u;
+        return_val = 1u;
+        memcpy(rxBuff, Serial.RxBuff, len) //60 byte
+    }
+    else
+    {
+        
+    }  
 
+	return return_val;
+}
 
 
 

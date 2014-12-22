@@ -1,0 +1,3 @@
+---- pinPA_Tx_EN Matches (2 in 2 files) ----
+RF.c (rf):    pinPA_Tx_EN;   // Tx PA  (RF PA内部 三极管有延时,配置完PA需 delayUs(200);)
+RF.h (rf):#define pinPA_Tx_EN   NOP() // L 使能

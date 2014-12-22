@@ -2,37 +2,42 @@
 
 <project>
   <fileVersion>2</fileVersion>
-  <fileChecksum>766184496</fileChecksum>
+  <fileChecksum>1557371474</fileChecksum>
   <configuration>
     <name>Debug</name>
     <outputs>
       <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\RF_SPI.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\Serial.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\Serial.r43</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\yvals.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\ISR.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\ysizet.h</file>
-      <file>$PROJ_DIR$\Debug\Exe\ST-HC06-Q351.d43</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Product.h</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\ycheck.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\ST-HC06-Q351.pbd</file>
-      <file>$PROJ_DIR$\Debug\Obj\RF.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\ISR.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.r43</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\string.h</file>
-      <file>$PROJ_DIR$\..\Source_code\RF\RF.h</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Defaults.h</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\stdint.h</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\stdlib.h</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\xencoding_limits.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\Serial.r43</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\ystdio.h</file>
+      <file>$TOOLKIT_DIR$\lib\dlib\dl430fn.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\RF_regConfig.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\stdio.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\RF_regConfig.r43</file>
       <file>$PROJ_DIR$\Debug\Obj\RF.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\RF_SPI.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\ycheck.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\xencoding_limits.h</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Threads.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\RF_regConfig.r43</file>
-      <file>$PROJ_DIR$\..\Source_code\RF\RF_regConfig.h</file>
+      <file>$PROJ_DIR$\Debug\Exe\ST-HC06-Q351.d43</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\stdint.h</file>
+      <file>$PROJ_DIR$\..\Source_code\RF\RF.c</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\ysizet.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\Serial.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\ISR.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Product.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\string.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\ISR.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\RF.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.r43</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\DLib_Defaults.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\stdlib.h</file>
+      <file>$PROJ_DIR$\..\Source_code\RF\RF.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\ST-HC06-Q351.pbd</file>
       <file>$PROJ_DIR$\..\Source_code\RF\RF_regConfig.c</file>
+      <file>$TOOLKIT_DIR$\inc\MSP430FE427.h</file>
+      <file>$PROJ_DIR$\..\Source_code\RF\RF_SPI.c</file>
+      <file>$PROJ_DIR$\..\Source_code\RF\RF_SPI.h</file>
       <file>$PROJ_DIR$\..\Source_code\User\all_header_file.h</file>
       <file>$PROJ_DIR$\..\Source_code\Serial\Serial.c</file>
       <file>$PROJ_DIR$\..\Source_code\Serial\Serial.h</file>
@@ -40,28 +45,49 @@
       <file>$PROJ_DIR$\..\Source_code\User\ISR.c</file>
       <file>$PROJ_DIR$\..\Source_code\User\main.c</file>
       <file>$PROJ_DIR$\..\Source_code\User\main.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\RF_regConfig.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\stdio.h</file>
-      <file>$PROJ_DIR$\..\Source_code\RF\RF.c</file>
-      <file>$PROJ_DIR$\..\Source_code\RF\RF_SPI.c</file>
-      <file>$PROJ_DIR$\..\Source_code\RF\RF_SPI.h</file>
-      <file>$TOOLKIT_DIR$\lib\dlib\dl430fn.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\RF_SPI.r43</file>
+      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
+      <file>$PROJ_DIR$\..\Source_code\RF\RF_regConfig.h</file>
+      <file>$TOOLKIT_DIR$\inc\in430.h</file>
     </outputs>
     <file>
       <name>[ROOT_NODE]</name>
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 7</file>
+          <file> 13</file>
         </tool>
       </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Source_code\RF\RF.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 8</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 22</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32 6 10 1 24 19 11 12 16 3 25 20 14 29 42 40 35 38 31 41 26 34</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 32 6 10 1 24 4 19 11 12 16 3 25 20 14 29 42 40 35 38 31 41 26 34</file>
+        </tool>
+      </inputs>
     </file>
     <file>
       <name>$PROJ_DIR$\Debug\Obj\ST-HC06-Q351.pbd</name>
       <inputs>
         <tool>
           <name>BILINK</name>
-          <file> 5 21 22 34 2 0</file>
+          <file> 18 8 9 5 17 0</file>
         </tool>
       </inputs>
     </file>
@@ -70,35 +96,82 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 34</file>
+          <file> 5</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 7</file>
         </tool>
       </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32 6 10 1 24 19 11 12 16 3 25 20 14 29 42 40 35 38 31 41 26 34</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 32 6 10 1 24 4 19 11 12 16 3 25 20 14 29 42 40 35 38 31 41 26 34</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Source_code\RF\RF_SPI.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 9</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32 6 10 1 24 19 11 12 16 3 25 20 14 29 42 40 35 38 31 41 26 34</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 32 6 10 1 24 4 19 11 12 16 3 25 20 14 29 42 40 35 38 31 41 26 34</file>
+        </tool>
+      </inputs>
     </file>
     <file>
       <name>$PROJ_DIR$\..\Source_code\Serial\Serial.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 2</file>
+          <file> 17</file>
         </tool>
       </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32 6 10 1 24 19 11 12 16 3 25 20 14 29 42 40 35 38 31 41 26 34</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 32 6 10 1 24 4 19 11 12 16 3 25 20 14 29 42 40 35 38 31 41 26 34</file>
+        </tool>
+      </inputs>
     </file>
     <file>
       <name>$PROJ_DIR$\..\Source_code\User\ISR.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 5</file>
+          <file> 18</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 21</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 27 35 9 4 16 8 19 23 6 20 18 14 17 30 33 15 29</file>
+          <file> 32 6 10 1 24 19 11 12 16 3 25 20 14 29 42 40 35 38 31 41 26 34</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 27 35 9 4 16 39 8 19 23 6 20 18 14 17 30 33 15 29</file>
+          <file> 32 6 10 1 24 4 19 11 12 16 3 25 20 14 29 42 40 35 38 31 41 26 34</file>
         </tool>
       </inputs>
     </file>
@@ -113,38 +186,20 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 27 35 9 4 16 8 19 23 6 20 18 14 17 30 33 15 29</file>
+          <file> 32 6 10 1 24 19 11 12 16 3 25 20 14 29 42 40 35 38 31 41 26 34</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 27 35 9 4 16 39 8 19 23 6 20 18 14 17 30 33 15 29</file>
+          <file> 32 6 10 1 24 4 19 11 12 16 3 25 20 14 29 42 40 35 38 31 41 26 34</file>
         </tool>
       </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\Source_code\RF\RF.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 21</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\Source_code\RF\RF_SPI.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 22</file>
-        </tool>
-      </outputs>
     </file>
     <forcedrebuild>
       <name>[MULTI_TOOL]</name>
       <tool>XLINK</tool>
     </forcedrebuild>
     <forcedrebuild>
-      <name>$PROJ_DIR$\..\Source_code\RF\RF_regConfig.c</name>
+      <name>$PROJ_DIR$\..\Source_code\RF\RF_SPI.c</name>
       <tool>ICC430</tool>
     </forcedrebuild>
     <forcedrebuild>
@@ -152,19 +207,7 @@
       <tool>ICC430</tool>
     </forcedrebuild>
     <forcedrebuild>
-      <name>$PROJ_DIR$\..\Source_code\User\ISR.c</name>
-      <tool>ICC430</tool>
-    </forcedrebuild>
-    <forcedrebuild>
       <name>$PROJ_DIR$\..\Source_code\User\main.c</name>
-      <tool>ICC430</tool>
-    </forcedrebuild>
-    <forcedrebuild>
-      <name>$PROJ_DIR$\..\Source_code\RF\RF.c</name>
-      <tool>ICC430</tool>
-    </forcedrebuild>
-    <forcedrebuild>
-      <name>$PROJ_DIR$\..\Source_code\RF\RF_SPI.c</name>
       <tool>ICC430</tool>
     </forcedrebuild>
     <forcedrebuild>

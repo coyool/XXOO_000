@@ -317,7 +317,7 @@
         </option>
         <option>
           <name>newCCIncludePaths</name>
-          <state>$PROJ_DIR$\..\Source_code\Ueser</state>
+          <state>$PROJ_DIR$\..\Source_code\User</state>
           <state>$PROJ_DIR$\..\Source_code\RF</state>
           <state>$PROJ_DIR$\..\Source_code\Serial</state>
         </option>

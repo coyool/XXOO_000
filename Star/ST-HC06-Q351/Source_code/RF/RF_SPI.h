@@ -10,14 +10,14 @@
 
 
 /*** extern function prototype declarations ***/
-extern uint8 TestSOMI(void);
-extern void SpiWriteReg(uint8 addr, uint8 value);
-//extern uint8 SpiReadReg(uint8 addr);
-extern void SpiWriteBurstReg(uint8 addr, uint8 *buffer, uint8 count);
-extern void SpiReadBurstReg (uint8 addr, uint8 *buffer, uint8 count);
-extern void SpiWriteStrobe(uint8 strobe);
-extern uint8 SpiReadStatus(uint8 addr);
-extern uint8 SPI_byte(uint8 dat);
+extern u8 TestSOMI(void);
+extern void SpiWriteReg(u8 addr, u8 value);
+//extern u8 SpiReadReg(u8 addr);
+extern void SpiWriteBurstReg(u8 addr, u8 *buffer, u8 count);
+extern void SpiReadBurstReg (u8 addr, u8 *buffer, u8 count);
+extern void SpiWriteStrobe(u8 strobe);
+extern u8 SpiReadStatus(u8 addr);
+extern u8 SPI_byte(u8 dat);
 
 #endif   /* end __RF_SPI_H_ */
 

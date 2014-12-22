@@ -39,12 +39,12 @@
 #pragma vector=BASICTIMER_VECTOR 
 __interrupt void BasicTimer_ISR(void)
 { 
-    systick_cnt++;
+//    systick_cnt++;
 //    RF_timeOverCnt++;
-    if (50 == systick_cnt)
-    {
-        systick_cnt = 0u;   
-    }  
+//    if (50 == systick_cnt)
+//    {
+//        systick_cnt = 0u;   
+//    }  
 }
 
 /*******************************************************************************
@@ -57,7 +57,7 @@ __interrupt void BasicTimer_ISR(void)
 #pragma vector=UART0TX_VECTOR
 __interrupt void Serial_TX_ISR(void)
 {	
-	UartSend();
+	Serial_send();
 	U0IFG &=~UTXIFG0;	
 }
 
@@ -71,6 +71,21 @@ __interrupt void Serial_TX_ISR(void)
 #pragma vector=UART0RX_VECTOR
 __interrupt void Serial_RX_ISR (void)
 {
-	UartReceive(U0RXBUF);	
+	Serial_Recv(U0RXBUF);	
 	U0IFG &=~URXIFG0;	
 }
+
+/*******************************************************************************
+* Description : rising edge(sync)  falling edge (RX_finish) 
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+#pragma vector=PORT1_VECTOR
+__interrupt void RF_IRQ(void)
+{
+	RF.RX_FLG= 1u; 
+	//清楚硬件标志
+    
+}   

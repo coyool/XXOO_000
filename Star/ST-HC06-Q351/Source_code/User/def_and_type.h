@@ -12,7 +12,7 @@ typedef uint8_t     u8;
 
 
 //#define  ASSERT     assert_param
-#define  _NOP()     __NOP();    //__no_operation(void)
+#define  NOP()    __no_operation()
 
 
 /*** typedef ***/

@@ -26,8 +26,8 @@
 
 
 /*** extern variable declarations ***/
-__IO u32 systick_cnt = 0u;
-__IO u32 systick_ms = 0u;
+//__IO u32 systick_cnt = 0u;
+//__IO u32 systick_ms = 0u;
 
 const u32 systick_fixedTime = 1000u;
 
@@ -76,7 +76,7 @@ void SYS_Init(void)
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
-* return      : 
+* return      : 待改 现在是1S
 *******************************************************************************/
 void BasicTimer_init(void)
 {
@@ -106,11 +106,13 @@ void setup(void)
 
     
     /* global variable init */
-    systick_cnt = 0u;
+//    systick_cnt = 0u;
     
     /* Peripheral and Sheild setup */
     BasicTimer_init();
-    Serial_begin();
+    Serial_begin(bps_9600);
+	CC1101_init();
+    
 //    LED_init();
     
     /*------------------------------------------------------------------------*/
@@ -152,6 +154,8 @@ void sizeofTest(void)
 *******************************************************************************/
 void main(void)
 { 
+	u8 taskFlag = 0u;
+	
     /* power on setup */ 
     setup();
 
@@ -159,8 +163,25 @@ void main(void)
 
     while (1)
     {
+        taskFlag = Serial_available(RF.RxBuff, Serial_fixed_TxRx_Len);
+    	if (1u == taskFlag)
+    	{
+			CC1101_Send();
+		}
+		else
+		{
+		}
 
-
-
+		taskFlag = CC1101_available(Serial.TxBuff, RF_payloadSize);
+    	if (1u == taskFlag)
+    	{
+    		Serial_TxMode();
+			Serial_send();
+		}
+		else
+		{
+		}	
+		
+  		
     }//end while
 }

@@ -2,50 +2,45 @@
 #define __RF_H_
 
 /*** define and type ***/ 
-#define NOP() __NOP()
+//#define CC1101_DISPLAY_TX_COMM_SYMBOL_EN    
+//#define CC1101_DISPLAY_RX_COMM_SYMBOL_EN 
 
-#define delayMs(x)   PublicDelayMs(x)  // uint32_t
-#define delayUs(x)   PublicDelayUs(x)  // uint16_t
+//#define NOP() __NOP()
 
-#define ONEDAYTIME  24*60  //分钟
+#define delayMs(x)   delay_ms(x)  // uint32_t
+#define delayUs(x)   delay_us(x)  // uint16_t
 
-#define RF_payloadSize  60u
-#define RF_buffMaxSize  60+2  //60 payload + 2 CRC  {PKTLEN, 0x3C} payload = 60 
 
-//#define CSN_DIR_OUT  IO_ConfigGPIOPin(IO_PORT0, IO_PINx2, IO_DIR_OUTPUT, IO_PULLUP_OFF);//CSN output 
-//#define CSN_OUT_H    IO_WriteGPIOPin(IO_PORT0, IO_PINx2, IO_BIT_SET);    //CSN output HIGH
-//#define CSN_OUT_L    IO_WriteGPIOPin(IO_PORT0, IO_PINx2, IO_BIT_CLR)     //CSN output LOW
-//
-//#define SCLK_DIR_OUT IO_ConfigGPIOPin(IO_PORT0, IO_PINx0, IO_DIR_OUTPUT, IO_PULLUP_OFF);//SCLK output 
-//#define SCLK_OUT_H   IO_WriteGPIOPin(IO_PORT0, IO_PINx0, IO_BIT_SET);    //SCLK output HIGH
-//#define SCLK_OUT_L   IO_WriteGPIOPin(IO_PORT0, IO_PINx0, IO_BIT_CLR);    //SCLK output LOW
+#define CSN_DIR_OUT     P2DIR |= BIT2   //P2.2
+#define CSN_OUT_H       P2OUT |= BIT2
+#define CSN_OUT_L       P2OUT &= ~BIT2
 
-//#define SI_DIR_OUT   IO_ConfigGPIOPin(IO_PORT1, IO_PINx5, IO_DIR_OUTPUT, IO_PULLUP_OFF); //SI output 
-//#define SI_OUT_H     IO_WriteGPIOPin(IO_PORT1, IO_PINx5, IO_BIT_SET);    //SI output HIGH
-//#define SI_OUT_L     IO_WriteGPIOPin(IO_PORT1, IO_PINx5, IO_BIT_CLR);    //SI output LOW
+#define SCLK_DIR_OUT    P2DIR |= BIT1   //P2.1
+#define SCLK_OUT_H      P2OUT |= BIT1
+#define SCLK_OUT_L      P2OUT &= ~BIT1
 
-//#define pinPA_DIR_OUT IO_ConfigGPIOPin(IO_PORT3, IO_PINx4, IO_DIR_OUTPUT, IO_PULLUP_OFF);
-//#define pinPA_EN      IO_WriteGPIOPin(IO_PORT0, IO_PINx2, IO_BIT_CLR);  // L 使能
-//#define pinPA_DIS     IO_WriteGPIOPin(IO_PORT0, IO_PINx2, IO_BIT_SET);
+#define SI_DIR_OUT      P1DIR |= BIT6   //P1.6
+#define SI_OUT_H        P1OUT |= BIT6    
+#define SI_OUT_L        P1OUT &= ~BIT6
 
-#define CSN_OUT_H    IO_ConfigGPIOPin(IO_PORT0,IO_PINx2,IO_DIR_INPUT,IO_PULLUP_OFF)    //CSN output HIGH
-#define CSN_OUT_L    IO_ConfigGPIOPin(IO_PORT0,IO_PINx2,IO_DIR_OUTPUT,IO_PULLUP_OFF)   //CSN output LOW
+#define SO_DIR_IN       P1DIR &= ~BIT7   //P1.7  
+#define SO_IN           (P1IN & BIT7) 
+#define SO_IN_H         (BIT7 == SO_IN)
+ 
+#define GDO2_DIR_IN               P1DIR &= ~BIT2  //P1.2
+#define GDO2_IN                   (P1IN & BIT2)   
+#define GDO2_IN_H                 (BIT2 == GDO2_IN)
+#define GDO2_IN_L                 ((~BIT2) == GDO2_IN) 
+#define GDO2_EXTI_EN              P1IE |= BIT2    
+#define GDO2_EXTI_DIS             P1IE &= ~BIT2
+#define GDO2_EXTI_EDGE_HL         P1IES |= BIT2 
+#define GDO2_EXTI_EDGE_LH         P1IES &= ~BIT2
+#define GDO2_HARDWARE_FlAG_CLEAR  P1IFG &= ~BIT2
 
-#define SCLK_OUT_H   IO_ConfigGPIOPin(IO_PORT0,IO_PINx0,IO_DIR_INPUT,IO_PULLUP_OFF)    //SCLK output HIGH
-#define SCLK_OUT_L   IO_ConfigGPIOPin(IO_PORT0,IO_PINx0,IO_DIR_OUTPUT,IO_PULLUP_OFF)   //SCLK output LOW
-
-#define SI_OUT_H     IO_ConfigGPIOPin(IO_PORT1,IO_PINx5,IO_DIR_INPUT,IO_PULLUP_OFF)    //SI output HIGH
-#define SI_OUT_L     IO_ConfigGPIOPin(IO_PORT1,IO_PINx5,IO_DIR_OUTPUT,IO_PULLUP_OFF)   //SI output LOW
-
-#define SO_DIR_IN    IO_ConfigGPIOPin(IO_PORT1, IO_PINx4, IO_DIR_INPUT, IO_PULLUP_OFF); //SO input 
-#define SO_IN_H      (1u == IO_ReadGPIOPin(IO_PORT1, IO_PINx4)) 
-#define SO_IN_L      (0u == IO_ReadGPIOPin(IO_PORT1, IO_PINx4)) 
-
-#define GDO2_IN_HIGH (1u == IO_ReadGPIOPin(IO_PORT3, IO_PINx8))  
-#define GDO2_IN_LOW  (0u == IO_ReadGPIOPin(IO_PORT3, IO_PINx8))  
-
-#define pinPA_Tx_EN  IO_ConfigGPIOPin(IO_PORT3, IO_PINx4, IO_DIR_OUTPUT, IO_PULLUP_OFF); // L 使能
-#define pinPA_Tx_DIS IO_ConfigGPIOPin(IO_PORT3, IO_PINx4, IO_DIR_INPUT, IO_PULLUP_OFF);  // Tx 不经过PA RX
+#ifdef RF_PA_EN
+#define pinPA_Tx_EN   NOP() // L 使能
+#define pinPA_Tx_DIS  NOP() // Tx 不经过PA RX
+#endif
 
 typedef struct 
 {
@@ -107,14 +102,19 @@ typedef union
 #define CC1101_standbyMode()   SpiWriteStrobe(SIDLE)
 
 /*** extern variable declarations ***/
-extern RF_TYPE  RF;
+extern const u32 ONEDAYTIME;    //
+extern const u8 RF_payloadSize;
+extern const u8 RF_buffMaxSize;   // 60 payload + 2 CRC  {PKTLEN, 0x3C} payload = 60 
 
+extern RF_TYPE  RF;
+extern uint32_t oneDayCnt;   
 
 /*** extern function prototype declarations ***/
 extern void TimeIntervalInitRF(void);
 extern void CC1101_init(void);
 //extern void isSending(void);
 extern void CC1101_Send(uint8_t *TxBuff, const uint8_t len);
+extern void Serial_Recv(u8 RevByte);
 extern uint8_t CC1101_available(uint8_t *rxBuff, uint8_t *len);
 //extern void CC1101_debug(void);
 

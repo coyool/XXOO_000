@@ -11,6 +11,7 @@
 
 /*** cortex M0 lib ***/
 //#include <intrinsics.h>	/* _nop_() enalbe */
+#include <MSP430FE427.h>
 
 
 
@@ -19,7 +20,7 @@
 #include "main.h"
 
 /* APP lib */
-#include "RF.h"
+
 
 
 
@@ -34,7 +35,9 @@
 
 /* shield lib */
 //#include "LED.h"
-
+#include "RF_SPI.h"
+#include "RF_regConfig.h"
+#include "RF.h"
 
 
 /* arduino lib */
