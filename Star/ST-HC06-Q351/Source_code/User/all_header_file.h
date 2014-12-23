@@ -10,7 +10,7 @@
 
 
 /*** cortex M0 lib ***/
-//#include <intrinsics.h>	/* _nop_() enalbe */
+#include <intrinsics.h>	/* _nop_() enalbe */
 #include <MSP430FE427.h>
 
 

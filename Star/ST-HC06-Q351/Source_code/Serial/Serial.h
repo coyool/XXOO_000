@@ -29,7 +29,7 @@ typedef struct
 }SERIAL_TYPE;
 
 /*** extern variable declarations ***/
-extern u8 Serial_fixed_TxRx_Len;
+extern const u8 Serial_fixed_TxRx_Len;
 extern SERIAL_TYPE Serial;
 
 
@@ -40,8 +40,10 @@ extern void Serial_TxInt_disable(void);
 extern void Serial_RxInt_enable(void);
 extern void Serial_RxInt_disable(void);
 extern void Serial_TxMode(void);
+extern void Serial_RxMode(void);
 extern void Serial_send(void);
-extern u8 Serial_available(u8 *rxBuff, u8 *len);
+extern void Serial_Recv(u8 RevByte);
+extern u8 Serial_available(u8 *rxBuff, const u8 len);
 
 #endif   /* end __SERIAL_H_ */
 

@@ -28,17 +28,41 @@ ActionState=1
 Enabled=0
 ShowSource=1
 [State Storage]
-Control Register=-1
+Control Register=2
 [Sequencer]
-Control Register=-1
-NextState0=-1
-NextState1=-1
+Control Register=2
+NextState0=2
+NextState1=2
 [Action Register]
-Break=-1
-State Storage=-1
+Break=3
+State Storage=3
+[DebugChecksum]
+Checksum=-2113434093
+[DisAssemblyWindow]
+NumStates=_ 1
+State 1=_ 1
+[InstructionProfiling]
+Enabled=_ 0
+[CodeCoverage]
+Enabled=_ 0
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[CallStackLog]
+Enabled=0
+[DriverProfiling]
+Enabled=0
+Mode=20298080
+Graph=0
+Symbiont=0
 [Breakpoints]
 Count=0
 [FET]
+Clock mode=38
 Extended Clock mode=-1
 Secure Password=
 Extended Clock Control Enable=1

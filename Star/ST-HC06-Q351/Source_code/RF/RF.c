@@ -30,10 +30,12 @@ static void CC1101_setTxPower(uint8_t value);
 static void CC1101_initStep(void);
 static void CC1101_waitSend(void);
 
-static void CC1101_Recv(void);
 
-#ifdef CC1101_DISPLAY_TX_COMM_SYMBOL_EN && CC1101_DISPLAY_RX_COMM_SYMBOL_EN     
+#ifdef CC1101_DISPLAY_TX_COMM_SYMBOL_EN      
 static void CC1101_displayTxCommSymbol(void);
+#endif
+
+#ifdef CC1101_DISPLAY_RX_COMM_SYMBOL_EN 
 static void CC1101_displayRxCommSymbol(void);
 #endif
 
@@ -515,7 +517,7 @@ void CC1101_Send(uint8_t *TxBuff, const uint8_t len)
 * return      : available = 1
 *               invalid = 0
 *******************************************************************************/
-uint8_t CC1101_available(uint8_t *rxBuff, uint8_t *len)
+uint8_t CC1101_available(uint8_t *rxBuff, uint8_t len)
 {
     uint8_t return_val = 0u;
     
@@ -523,7 +525,7 @@ uint8_t CC1101_available(uint8_t *rxBuff, uint8_t *len)
     {
         RF.availableFlag = 0u; 
         return_val = 1u;
-        *len = RF_payloadSize;  //60 byte
+//        len = RF_payloadSize;  //60 byte
         memcpy(rxBuff, RF.RxBuff, RF_payloadSize);
     }
     else
@@ -541,7 +543,7 @@ uint8_t CC1101_available(uint8_t *rxBuff, uint8_t *len)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-static void CC1101_Recv(void)
+void CC1101_Recv(void)
 {
     uint8_t pktlen = 0u;
     uint8_t CRC_flag = 0u;

@@ -51,7 +51,7 @@ void SYS_Init(void)
     do
     {
         IFG1 &= ~OFIFG;                 // Clear oscillator fault flag
-        for (i = 50000; i>0; i--);        // Delay
+        for (i = 50000; i; i--);        // Delay
     }
     while (IFG1 & OFIFG);               // Test osc fault flag
 	
@@ -139,10 +139,11 @@ void setup(void)
 *******************************************************************************/
 void sizeofTest(void)
 {
-    u8 temp= 0u;
+    u8 temp = 0u;
     temp = sizeof(char);
     temp = sizeof(int);
     temp = sizeof(long);
+    temp = temp;
 }
 
 /*******************************************************************************
@@ -156,17 +157,21 @@ void main(void)
 { 
 	u8 taskFlag = 0u;
 	
+    //Stop watchdog timer to prevent time out reset
+    WDTCTL = WDTPW + WDTHOLD;
+    
     /* power on setup */ 
     setup();
 
-    __enable_irq();   //EA = 1
+//    __enable_irq();   //EA = 1
+    __enable_interrupt();
 
     while (1)
     {
-        taskFlag = Serial_available(RF.RxBuff, Serial_fixed_TxRx_Len);
+        taskFlag = Serial_available(RF.TxBuff, Serial_fixed_TxRx_Len);
     	if (1u == taskFlag)
     	{
-			CC1101_Send();
+			CC1101_Send(RF.TxBuff, Serial_fixed_TxRx_Len);
 		}
 		else
 		{

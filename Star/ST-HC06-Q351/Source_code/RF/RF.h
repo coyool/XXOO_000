@@ -26,6 +26,7 @@
 #define SO_DIR_IN       P1DIR &= ~BIT7   //P1.7  
 #define SO_IN           (P1IN & BIT7) 
 #define SO_IN_H         (BIT7 == SO_IN)
+#define SO_IN_L         ((~BIT7) == SO_IN)
  
 #define GDO2_DIR_IN               P1DIR &= ~BIT2  //P1.2
 #define GDO2_IN                   (P1IN & BIT2)   
@@ -114,8 +115,8 @@ extern void TimeIntervalInitRF(void);
 extern void CC1101_init(void);
 //extern void isSending(void);
 extern void CC1101_Send(uint8_t *TxBuff, const uint8_t len);
-extern void Serial_Recv(u8 RevByte);
-extern uint8_t CC1101_available(uint8_t *rxBuff, uint8_t *len);
+extern uint8_t CC1101_available(uint8_t *rxBuff, uint8_t len);
+extern void CC1101_Recv(void);
 //extern void CC1101_debug(void);
 
 #endif   /* end __RF_H_ */

@@ -36,7 +36,7 @@ static const u8 Serial_bps[10][3]=
 	{0x48,0x00,0xae},    //115200 波特率     9
 };
 
-const u8 Serial_fixed_TxRx_Len = 60u;
+const u8 Serial_fixed_TxRx_Len = 18;
 
 
 
@@ -64,9 +64,9 @@ void Serial_begin(SERIAL_BPS_TYPE bps)
 	U0CTL = CHAR;                //data length  0:7 （8 bit)   
 	U0TCTL = TXEPT;              //
 	U0TCTL |= SSEL1;             //时钟源为SMCLK 8388608Mhz	
-	if (bps >= 9) 
+	if (bps >= bps_115200) 
     {
-        bps = 5;	
+        bps = bps_9600;	
     }
     else
     {
@@ -157,7 +157,7 @@ void Serial_TxMode(void)
     
     Serial.TxFlag = 0u;     // sending   
     Serial.TxCnt = 0u;     
-    U0TXBUF = *Serial.TxBuff[0];  //第一个 character 压入 U0TXBUF
+    U0TXBUF = Serial.TxBuff[0];  //第一个 character 压入 U0TXBUF
     Serial.TxCnt++;
 }
 
@@ -170,7 +170,7 @@ void Serial_TxMode(void)
 *******************************************************************************/
 void Serial_send(void)
 {
-    if (Serial.TxCnt >= fixed_TxRx_len)
+    if (Serial.TxCnt >= Serial_fixed_TxRx_Len)
     {
     	 //send finish
         Serial.TxCnt = 0u;  
@@ -221,15 +221,15 @@ void Serial_RxMode(void)
 *******************************************************************************/
 void Serial_Recv(u8 RevByte)
 {
-    if (Serial.RxCnt >= fixed_TxRx_len)  // 60 byte
+    if (Serial.RxCnt >= Serial_fixed_TxRx_Len)  // 60 byte
     {
         Serial.RxCnt = 0u;
         Serial.RxFlag = 1u;
-        Serial_RxInt_disable(); 
+//        Serial_RxInt_disable(); 
     }
     else
     {
-        Serial.RxBuff = U0RXBUF;
+        Serial.RxBuff[Serial.RxCnt] = U0RXBUF;
         Serial.RxCnt++;     
     }    
 }
@@ -241,7 +241,7 @@ void Serial_Recv(u8 RevByte)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-u8 Serial_available(u8 *rxBuff, u8 *len)
+u8 Serial_available(u8 *rxBuff, const u8 len)
 {
     u8 return_val = 0u;
     
@@ -249,7 +249,8 @@ u8 Serial_available(u8 *rxBuff, u8 *len)
     {
         Serial.RxFlag = 0u;
         return_val = 1u;
-        memcpy(rxBuff, Serial.RxBuff, len) //60 byte
+//        len = Serial_fixed_TxRx_Len;
+        memcpy(rxBuff, Serial.RxBuff, len); //60 byte
     }
     else
     {
