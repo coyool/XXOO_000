@@ -38,7 +38,7 @@
           
           
           
-        <Column0>124</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+        <Column0>213</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
       </Workspace>
       <Disassembly>
         
@@ -69,12 +69,12 @@
           
         <Position>3</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows><Window><Factory>Debug-Log</Factory></Window></Windows></PreferedWindows>
       </Breakpoints>
-    <Find-in-Files><ColumnWidth0>440</ColumnWidth0><ColumnWidth1>62</ColumnWidth1><ColumnWidth2>754</ColumnWidth2></Find-in-Files></Static>
+    <Find-in-Files><ColumnWidth0>440</ColumnWidth0><ColumnWidth1>62</ColumnWidth1><ColumnWidth2>754</ColumnWidth2></Find-in-Files><Register/></Static>
     <Windows>
       
       
       
-    <Wnd4>
+    <Wnd0>
         <Tabs>
           <Tab>
             <Identity>TabID-29713-27375</Identity>
@@ -82,11 +82,11 @@
             <Factory>Workspace</Factory>
             <Session>
               
-            <NodeDict><ExpandedNode>ST-HC06-Q351</ExpandedNode><ExpandedNode>ST-HC06-Q351/Serial</ExpandedNode><ExpandedNode>ST-HC06-Q351/User</ExpandedNode></NodeDict></Session>
+            <NodeDict><ExpandedNode>ST-HC06-Q351</ExpandedNode><ExpandedNode>ST-HC06-Q351/RF</ExpandedNode><ExpandedNode>ST-HC06-Q351/Serial</ExpandedNode><ExpandedNode>ST-HC06-Q351/User</ExpandedNode></NodeDict></Session>
           </Tab>
         </Tabs>
         
-      <SelectedTab>0</SelectedTab></Wnd4><Wnd5>
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd1>
         <Tabs>
           <Tab>
             <Identity>TabID-7693-27378</Identity>
@@ -99,7 +99,7 @@
             <TabName>Watch</TabName>
             <Factory>Watch</Factory>
             <Session>
-              <Expressions><Expression><Expression>Serial</Expression></Expression></Expressions>
+              <Expressions><Expression><Expression>Serial</Expression></Expression><Expression><Expression>RF</Expression></Expression><Expression><Expression>RF.SOMI_false</Expression></Expression></Expressions>
               
               
               
@@ -118,22 +118,22 @@
               
             <Column0>100</Column0><Column1>100</Column1><Column2>100</Column2><Column3>100</Column3></Session>
           </Tab>
-        </Tabs>
+        <Tab><Identity>TabID-29328-12301</Identity><TabName>Register</TabName><Factory>Register</Factory><Session><REG1>0</REG1><REG2>0</REG2><Group>3</Group><States>1</States><State0>P1IN</State0></Session></Tab></Tabs>
         
-      <SelectedTab>0</SelectedTab></Wnd5><Wnd6><Tabs><Tab><Identity>TabID-31200-7679</Identity><TabName>Find in Files</TabName><Factory>Find-in-Files</Factory><Session/></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd6></Windows>
+      <SelectedTab>0</SelectedTab></Wnd1><Wnd2><Tabs><Tab><Identity>TabID-31200-7679</Identity><TabName>Find in Files</TabName><Factory>Find-in-Files</Factory><Session/></Tab><Tab><Identity>TabID-11401-6924</Identity><TabName>Debug Log</TabName><Factory>Debug-Log</Factory><Session/></Tab><Tab><Identity>TabID-15378-29365</Identity><TabName>Breakpoints</TabName><Factory>Breakpoints</Factory></Tab></Tabs><SelectedTab>1</SelectedTab></Wnd2></Windows>
     <Editor>
       
       
       
       
-    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\User\all_header_file.h</Filename><XPos>0</XPos><YPos>1</YPos><SelStart>296</SelStart><SelEnd>296</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\User\def_and_type.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>214</SelStart><SelEnd>214</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\User\main.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>136</SelStart><SelEnd>136</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\RF\RF.h</Filename><XPos>0</XPos><YPos>93</YPos><SelStart>3167</SelStart><SelEnd>3167</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\RF\RF_regConfig.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>358</SelStart><SelEnd>358</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\RF\RF.c</Filename><XPos>0</XPos><YPos>516</YPos><SelStart>13437</SelStart><SelEnd>13437</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\RF\RF_SPI.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>172</SelStart><SelEnd>172</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\User\main.c</Filename><XPos>0</XPos><YPos>153</YPos><SelStart>4695</SelStart><SelEnd>4706</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\Program Files\IAR_430\430\inc\dlib\c\stdlib.h</Filename><XPos>0</XPos><YPos>407</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\Program Files\IAR_430\430\inc\dlib\c\stdint.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>349</SelStart><SelEnd>349</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\Program Files\IAR_430\430\inc\intrinsics.h</Filename><XPos>0</XPos><YPos>21</YPos><SelStart>555</SelStart><SelEnd>555</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\RF\RF_SPI.c</Filename><XPos>0</XPos><YPos>39</YPos><SelStart>1035</SelStart><SelEnd>1035</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\Program Files\IAR_430\430\inc\MSP430FE427.h</Filename><XPos>0</XPos><YPos>569</YPos><SelStart>29090</SelStart><SelEnd>29090</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\Program Files\IAR_430\430\inc\in430.h</Filename><XPos>0</XPos><YPos>67</YPos><SelStart>2617</SelStart><SelEnd>2617</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\Serial\Serial.c</Filename><XPos>0</XPos><YPos>224</YPos><SelStart>6339</SelStart><SelEnd>6339</SelEnd></Tab><ActiveTab>14</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\User\ISR.c</Filename><XPos>0</XPos><YPos>54</YPos><SelStart>1310</SelStart><SelEnd>1321</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\Serial\Serial.h</Filename><XPos>0</XPos><YPos>16</YPos><SelStart>783</SelStart><SelEnd>783</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\User\all_header_file.h</Filename><XPos>0</XPos><YPos>1</YPos><SelStart>296</SelStart><SelEnd>296</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\User\main.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>104</SelStart><SelEnd>104</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\RF\RF_SPI.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>172</SelStart><SelEnd>172</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\Program Files\IAR_430\430\inc\dlib\c\stdlib.h</Filename><XPos>0</XPos><YPos>407</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\Program Files\IAR_430\430\inc\dlib\c\stdint.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>349</SelStart><SelEnd>349</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\Program Files\IAR_430\430\inc\intrinsics.h</Filename><XPos>0</XPos><YPos>21</YPos><SelStart>555</SelStart><SelEnd>555</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\RF\RF_SPI.c</Filename><XPos>0</XPos><YPos>40</YPos><SelStart>1006</SelStart><SelEnd>1006</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\Program Files\IAR_430\430\inc\MSP430FE427.h</Filename><XPos>0</XPos><YPos>561</YPos><SelStart>28668</SelStart><SelEnd>28668</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\Program Files\IAR_430\430\inc\in430.h</Filename><XPos>0</XPos><YPos>67</YPos><SelStart>2617</SelStart><SelEnd>2617</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\Serial\Serial.c</Filename><XPos>0</XPos><YPos>248</YPos><SelStart>7334</SelStart><SelEnd>7334</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\User\ISR.c</Filename><XPos>0</XPos><YPos>66</YPos><SelStart>2361</SelStart><SelEnd>2361</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\Serial\Serial.h</Filename><XPos>0</XPos><YPos>18</YPos><SelStart>432</SelStart><SelEnd>432</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\RF\RF.c</Filename><XPos>0</XPos><YPos>582</YPos><SelStart>15383</SelStart><SelEnd>15383</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\User\def_and_type.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>214</SelStart><SelEnd>214</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\RF\RF.h</Filename><XPos>0</XPos><YPos>13</YPos><SelStart>648</SelStart><SelEnd>648</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\RF\RF_regConfig.h</Filename><XPos>0</XPos><YPos>83</YPos><SelStart>5118</SelStart><SelEnd>5118</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\RF\RF_regConfig.c</Filename><XPos>0</XPos><YPos>72</YPos><SelStart>1220</SelStart><SelEnd>1220</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\Source_code\User\main.c</Filename><XPos>0</XPos><YPos>166</YPos><SelStart>4806</SelStart><SelEnd>4806</SelEnd></Tab><ActiveTab>17</ActiveTab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
     <Positions>
       
       
       
       
       
-    <Top><Row0><Sizes><Toolbar-0122fdb8><key>iaridepm.enu1</key></Toolbar-0122fdb8></Sizes></Row0><Row1><Sizes><Toolbar-06dc7760><key>debuggergui.enu1</key></Toolbar-06dc7760></Sizes></Row1><Row2><Sizes><Toolbar-03c7bce8><key>430fet1</key></Toolbar-03c7bce8></Sizes></Row2><Row3><Sizes/></Row3><Row4><Sizes/></Row4><Row5><Sizes/></Row5><Row6><Sizes/></Row6><Row7><Sizes/></Row7><Row8><Sizes/></Row8><Row9><Sizes/></Row9><Row10><Sizes/></Row10><Row11><Sizes/></Row11><Row12><Sizes/></Row12><Row13><Sizes/></Row13><Row14><Sizes/></Row14><Row15><Sizes/></Row15><Row16><Sizes/></Row16><Row17><Sizes/></Row17><Row18><Sizes/></Row18><Row19><Sizes/></Row19><Row20><Sizes/></Row20><Row21><Sizes/></Row21><Row22><Sizes/></Row22><Row23><Sizes/></Row23><Row24><Sizes/></Row24><Row25><Sizes/></Row25><Row26><Sizes/></Row26><Row27><Sizes/></Row27></Top><Left><Row0><Sizes><Wnd4><Rect><Top>-2</Top><Left>-2</Left><Bottom>657</Bottom><Right>198</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>156250</sizeHorzCX><sizeHorzCY>210970</sizeHorzCY><sizeVertCX>156250</sizeVertCX><sizeVertCY>695148</sizeVertCY></Rect></Wnd4></Sizes></Row0></Left><Right><Row0><Sizes><Wnd5><Rect><Top>-2</Top><Left>-2</Left><Bottom>657</Bottom><Right>430</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>156250</sizeHorzCX><sizeHorzCY>210970</sizeHorzCY><sizeVertCX>337500</sizeVertCX><sizeVertCY>695148</sizeVertCY></Rect></Wnd5></Sizes></Row0></Right><Bottom><Row0><Sizes><Wnd6><Rect><Top>-2</Top><Left>-2</Left><Bottom>198</Bottom><Right>1282</Right><x>-2</x><y>-2</y><xscreen>1284</xscreen><yscreen>200</yscreen><sizeHorzCX>1003125</sizeHorzCX><sizeHorzCY>210970</sizeHorzCY><sizeVertCX>156250</sizeVertCX><sizeVertCY>210970</sizeVertCY></Rect></Wnd6></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+    <Top><Row0><Sizes><Toolbar-012e1200><key>iaridepm.enu1</key></Toolbar-012e1200></Sizes></Row0><Row1><Sizes><Toolbar-06018020><key>debuggergui.enu1</key></Toolbar-06018020></Sizes></Row1><Row2><Sizes><Toolbar-05f7cc30><key>430fet1</key></Toolbar-05f7cc30></Sizes></Row2><Row3><Sizes/></Row3><Row4><Sizes/></Row4><Row5><Sizes/></Row5><Row6><Sizes/></Row6><Row7><Sizes/></Row7><Row8><Sizes/></Row8><Row9><Sizes/></Row9><Row10><Sizes/></Row10><Row11><Sizes/></Row11><Row12><Sizes/></Row12><Row13><Sizes/></Row13><Row14><Sizes/></Row14><Row15><Sizes/></Row15><Row16><Sizes/></Row16><Row17><Sizes/></Row17><Row18><Sizes/></Row18><Row19><Sizes/></Row19><Row20><Sizes/></Row20><Row21><Sizes/></Row21><Row22><Sizes/></Row22><Row23><Sizes/></Row23><Row24><Sizes/></Row24><Row25><Sizes/></Row25><Row26><Sizes/></Row26><Row27><Sizes/></Row27></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>138</Bottom><Right>287</Right><x>-2</x><y>-2</y><xscreen>225</xscreen><yscreen>174</yscreen><sizeHorzCX>414365</sizeHorzCX><sizeHorzCY>383260</sizeHorzCY><sizeVertCX>532228</sizeVertCX><sizeVertCY>308370</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>138</Bottom><Right>446</Right><x>-2</x><y>-2</y><xscreen>225</xscreen><yscreen>174</yscreen><sizeHorzCX>414365</sizeHorzCX><sizeHorzCY>383260</sizeHorzCY><sizeVertCX>825046</sizeVertCX><sizeVertCY>308370</sizeVertCY></Rect></Wnd1></Sizes></Row0></Right><Bottom><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>223</Bottom><Right>545</Right><x>-2</x><y>-2</y><xscreen>547</xscreen><yscreen>225</yscreen><sizeHorzCX>1007366</sizeHorzCX><sizeHorzCY>495595</sizeHorzCY><sizeVertCX>414365</sizeVertCX><sizeVertCY>383260</sizeVertCY></Rect></Wnd2></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
   </Desktop>
 </Project>
 

@@ -31,6 +31,8 @@ typedef struct
 /*** extern variable declarations ***/
 extern const u8 Serial_fixed_TxRx_Len;
 extern SERIAL_TYPE Serial;
+extern u32 Serial_timeoutCnt;
+extern const u32 Serial_timeout_62ms;
 
 
 /*** extern function prototype declarations ***/

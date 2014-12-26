@@ -26,12 +26,12 @@
 #define SO_DIR_IN       P1DIR &= ~BIT7   //P1.7  
 #define SO_IN           (P1IN & BIT7) 
 #define SO_IN_H         (BIT7 == SO_IN)
-#define SO_IN_L         ((~BIT7) == SO_IN)
+#define SO_IN_L         (0u == SO_IN)
  
 #define GDO2_DIR_IN               P1DIR &= ~BIT2  //P1.2
 #define GDO2_IN                   (P1IN & BIT2)   
 #define GDO2_IN_H                 (BIT2 == GDO2_IN)
-#define GDO2_IN_L                 ((~BIT2) == GDO2_IN) 
+#define GDO2_IN_L                 (0u == GDO2_IN) 
 #define GDO2_EXTI_EN              P1IE |= BIT2    
 #define GDO2_EXTI_DIS             P1IE &= ~BIT2
 #define GDO2_EXTI_EDGE_HL         P1IES |= BIT2 
@@ -117,7 +117,7 @@ extern void CC1101_init(void);
 extern void CC1101_Send(uint8_t *TxBuff, const uint8_t len);
 extern uint8_t CC1101_available(uint8_t *rxBuff, uint8_t len);
 extern void CC1101_Recv(void);
-//extern void CC1101_debug(void);
+extern void CC1101_debug(void);
 
 #endif   /* end __RF_H_ */
 

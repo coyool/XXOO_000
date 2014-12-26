@@ -22,7 +22,7 @@
 
 
 /*** static variable declarations ***/
-
+u8 taskFlag = 0u;
 
 
 /*** extern variable declarations ***/
@@ -72,7 +72,7 @@ void SYS_Init(void)
 }
 
 /*******************************************************************************
-* Description : main Frequency 8MHz, base timer clock = 32768Hz fixed time = 5ms, 
+* Description : main Frequency 8MHz, base timer clock = 32768Hz fixed time = 15.625ms, 
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
@@ -80,10 +80,15 @@ void SYS_Init(void)
 *******************************************************************************/
 void BasicTimer_init(void)
 {
-    BTCTL = BT_fLCD_DIV64 | BT_fCLK2_DIV128 | BT_fCLK2_ACLK_DIV256;// ACLK/(256*128)
-    IE2 |= BTIE;          //Basic Timer1 interrupt enable
-    /* Enable the 1 second counter interrupt */
-    // 采用32768时钟，256*128分频
+//    BTCTL = BT_fLCD_DIV64 | BT_fCLK2_DIV128 | BT_fCLK2_ACLK_DIV256;// ACLK/(256*128)
+//    IE2 |= BTIE;          //Basic Timer1 interrupt enable
+//    /* Enable the 1 second counter interrupt */
+//    // 采用32768时钟，256*128分频
+    
+    /* ACLK/(256*2) = 64HZ (15.625ms) */
+    BTCTL = BT_fLCD_DIV64 | BT_fCLK2_DIV2 | BT_fCLK2_ACLK_DIV256;
+    IE2 |= BTIE;
+    
     
 }//end basic timer1 init
 
@@ -120,7 +125,8 @@ void setup(void)
     /*------------------------------------------------------------------------*/
     /* LED */
 //    Blink(36, 10);
-
+    
+    taskFlag = 0u;
 
     /* printf log */
 //    printf(" programing information: \r\n");
@@ -155,8 +161,6 @@ void sizeofTest(void)
 *******************************************************************************/
 void main(void)
 { 
-	u8 taskFlag = 0u;
-	
     //Stop watchdog timer to prevent time out reset
     WDTCTL = WDTPW + WDTHOLD;
     
@@ -171,7 +175,8 @@ void main(void)
         taskFlag = Serial_available(RF.TxBuff, Serial_fixed_TxRx_Len);
     	if (1u == taskFlag)
     	{
-			CC1101_Send(RF.TxBuff, Serial_fixed_TxRx_Len);
+            taskFlag = 0u;
+			CC1101_Send(RF.TxBuff, RF_payloadSize);
 		}
 		else
 		{
@@ -180,13 +185,14 @@ void main(void)
 		taskFlag = CC1101_available(Serial.TxBuff, RF_payloadSize);
     	if (1u == taskFlag)
     	{
+            taskFlag = 0u;
     		Serial_TxMode();
-			Serial_send();
 		}
 		else
 		{
 		}	
 		
+        //CC1101_debug();
   		
     }//end while
 }

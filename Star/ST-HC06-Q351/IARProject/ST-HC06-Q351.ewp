@@ -347,7 +347,7 @@
         </option>
         <option>
           <name>CCOptLevel</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CCOptStrategy</name>
@@ -356,7 +356,7 @@
         </option>
         <option>
           <name>CCOptLevelSlave</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>CInput</name>
@@ -1803,6 +1803,9 @@
     <file>
       <name>$PROJ_DIR$\..\Source_code\Serial\Serial.h</name>
     </file>
+  </group>
+  <group>
+    <name>Timer</name>
   </group>
   <group>
     <name>User</name>

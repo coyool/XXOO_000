@@ -52,7 +52,7 @@ RF_TYPE  RF;      /* RF struct */
 uint32_t oneDayCnt;   
 
 
-
+//#define RF_SLAVE
 
 
 /********************************************
@@ -116,6 +116,7 @@ static void CC1101_ExtInt_init(void)
 *******************************************************************************/
 static void CC1101_ExtInt_enable(void)
 {
+    GDO2_EXTI_EDGE_HL;	  
     GDO2_HARDWARE_FlAG_CLEAR;    //clear hardware flg
     GDO2_EXTI_EN;                //ext Int en
 }
@@ -360,7 +361,10 @@ static void CC1101_initStep(void)
 
 	SpiWriteStrobe(SIDLE);	 
     delayUs(200);
-    //CC1101_RxMode();       //default Rx mode enalbe ExtInt
+    
+#ifdef RF_SLAVE         
+        CC1101_RxMode();    //default Rx mode enalbe ExtInt
+#endif   
 }
 
 /*******************************************************************************
@@ -471,18 +475,19 @@ void CC1101_Send(uint8_t *TxBuff, const uint8_t len)
     pinPA_Tx_EN;   // Tx PA  (RF PA内部 三极管有延时,配置完PA需 delayUs(200);)
 #endif
         
-    delayMs(10);   // ARM 频率快  延时发送
-    SpiWriteStrobe(STX);            
+    //delayMs(10);   // ARM 频率快  延时发送 20ms <= T <= 500ms
+    SpiWriteStrobe(STX);             
 
-    CC1101_waitSend();  //待改
+    //CC1101_waitSend();  //待改
+    delayMs(55); 
     delayMs(5);        /* 预留间隔时间 */
 
 #ifdef RF_PA_EN  	
     pinPA_Tx_DIS;  // Tx don't through PA and Rx 
 #endif
 
- 
-//------------------------------------------    
+//------------------------------------------   
+#ifdef RF_SLAVE    
     SpiWriteStrobe(SIDLE);      /* IDL状态下进行配置 */
     delayUs(200);
     CC1101_setPATable();      //8 level 0~7
@@ -490,10 +495,12 @@ void CC1101_Send(uint8_t *TxBuff, const uint8_t len)
     
     delayMs(10);   // ARM 频率快  延时发送
     SpiWriteStrobe(STX);            
-
-    CC1101_waitSend();  //待改
+    
+    delayMs(55);
+    //CC1101_waitSend();  //待改
     delayMs(5);   
-        
+#endif
+    
     CC1101_RxMode();  //default Rx mode enalbe ExtInt
 }
 
@@ -520,6 +527,8 @@ void CC1101_Send(uint8_t *TxBuff, const uint8_t len)
 uint8_t CC1101_available(uint8_t *rxBuff, uint8_t len)
 {
     uint8_t return_val = 0u;
+   
+    CC1101_Recv();
     
     if (1u == RF.availableFlag)
     {
@@ -591,9 +600,13 @@ void CC1101_Recv(void)
 //            return_val = 0u;
         }//end if  length check 
 
-		SpiWriteStrobe(SIDLE);	 
-		delayUs(200);
-        //CC1101_RxMode();    //default Rx mode enalbe ExtInt
+//		SpiWriteStrobe(SIDLE);	 
+//		delayUs(200);
+        CC1101_RxMode(); 
+        
+#ifdef RF_SLAVE         
+        CC1101_RxMode();    //default Rx mode enalbe ExtInt
+#endif        
 	}
 	else     
 	{
@@ -610,7 +623,6 @@ void CC1101_Recv(void)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-/*
 void CC1101_debug(void)
 {
 #ifdef CC1101_RX_Debug
@@ -620,15 +632,40 @@ void CC1101_debug(void)
     
 #endif
     
+#define CC1101_TX_Debug    
 #ifdef CC1101_TX_Debug   
 
     //..
+    RF.TxBuff[0] = 0xFE;
+    RF.TxBuff[1] = 0xFE;
+    RF.TxBuff[2] = 0x68;
+    RF.TxBuff[4] = 0x00;
+    RF.TxBuff[5] = 0x00;
+    RF.TxBuff[6] = 0x00;
+    RF.TxBuff[7] = 0x00;
+    RF.TxBuff[8] = 0x00;
+    RF.TxBuff[9] = 0x22;
+    RF.TxBuff[10] = 0x68;
+    RF.TxBuff[11] = 0x11;
+    RF.TxBuff[12] = 0x04;
+    RF.TxBuff[13] = 0x3F;
+    RF.TxBuff[14] = 0x34;
+    RF.TxBuff[15] = 0x33;
+    RF.TxBuff[16] = 0x37;
+    RF.TxBuff[17] = 0xE4;
+    RF.TxBuff[18] = 0x16;    
+    
+    while (1)
+    {
+        CC1101_Send(RF.TxBuff, RF_payloadSize);\
+        delayMs(200);
+    }    
+//    FE FE 68 00 00 00 00 00 22 68 11 04 3F 34 33 37 E4 16 //时间
     
 #endif
     
-    //CC1101_pinMode();
-    //SPI_byte(0xAA);
+
 }
-*/
+
 
 

@@ -30,7 +30,7 @@
 
 
 /*******************************************************************************
-* Description : Basic Timer Interrupt Service Routine  5ms
+* Description : Basic Timer Interrupt Service Routine  fixed time = 15.625ms
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
@@ -45,6 +45,24 @@ __interrupt void BasicTimer_ISR(void)
 //    {
 //        systick_cnt = 0u;   
 //    }  
+    
+    if (2u == Serial.RxFlag)
+    {
+        Serial_timeoutCnt++;
+    }
+    else
+    {
+    }    
+    
+    if (Serial_timeoutCnt >= Serial_timeout_62ms)
+    {
+        Serial_timeoutCnt = 0u;
+        Serial.RxCnt = 0u;
+        Serial.RxFlag = 1u;
+    }
+    else
+    {
+    }    
 }
 
 /*******************************************************************************
@@ -85,7 +103,7 @@ __interrupt void Serial_RX_ISR (void)
 #pragma vector=PORT1_VECTOR
 __interrupt void RF_IRQ(void)
 {
-	RF.RX_FLG= 1u; 
-	//清楚硬件标志
+	RF.RX_FLG = 1u; 
+	GDO2_HARDWARE_FlAG_CLEAR;//清楚硬件标志
     
 }   

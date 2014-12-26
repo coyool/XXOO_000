@@ -36,19 +36,20 @@ static const u8 Serial_bps[10][3]=
 	{0x48,0x00,0xae},    //115200 波特率     9
 };
 
-const u8 Serial_fixed_TxRx_Len = 18;
+const u8 Serial_fixed_TxRx_Len = 60u;
 
 
 
 /*** extern variable declarations ***/
 SERIAL_TYPE Serial;
-
+u32 Serial_timeoutCnt = 0u;
+const u32 Serial_timeout_62ms = 4u;
 
 
 
 
 /*******************************************************************************
-* Description : 
+* Description : UART0
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 
@@ -61,8 +62,8 @@ void Serial_begin(SERIAL_BPS_TYPE bps)
     U0ME |= (UTXE0 + URXE0);     //Enable USART0 TXD/RXD 	
     U0CTL &= ~SWRST;             //SWRST 串口复位结束 
 	U0IE |= URXIE0;              //打开接收 中断  
-	U0CTL = CHAR;                //data length  0:7 （8 bit)   
-	U0TCTL = TXEPT;              //
+	U0CTL = CHAR | PENA | PEV;   //data length 0:7(8 bit), Parity enable, Even parity  
+	U0TCTL = TXEPT;              //Transmitter empty flag
 	U0TCTL |= SSEL1;             //时钟源为SMCLK 8388608Mhz	
 	if (bps >= bps_115200) 
     {
@@ -77,6 +78,7 @@ void Serial_begin(SERIAL_BPS_TYPE bps)
 	U0MCTL = Serial_bps[bps][2];    	
     
     memset(&Serial, 0, sizeof(Serial));  //clear Serial data 
+    Serial_timeoutCnt = 0u;       //
     Serial_RxMode();              // default Rx mode
 }
 
@@ -209,7 +211,8 @@ void Serial_RxMode(void)
     Serial_RxInt_enable(); 
     
     Serial.RxFlag = 0u;     // Receiving   
-    Serial.RxCnt = 0u;      
+    Serial.RxCnt = 0u;    
+    Serial_timeoutCnt = 0u;
 }
 
 /*******************************************************************************
@@ -221,17 +224,33 @@ void Serial_RxMode(void)
 *******************************************************************************/
 void Serial_Recv(u8 RevByte)
 {
-    if (Serial.RxCnt >= Serial_fixed_TxRx_Len)  // 60 byte
+    if (RXERR == (U0RCTL & RXERR))
     {
-        Serial.RxCnt = 0u;
-        Serial.RxFlag = 1u;
-//        Serial_RxInt_disable(); 
-    }
+        //clear flag
+        U0RCTL &= ~RXERR;  /* RX Error Error */
+        U0RCTL &= ~FE;     /* Frame Error */
+        U0RCTL &= ~PE;     /* Parity Error */
+        U0RCTL &= ~OE;     /* Overrun Error */
+        U0RCTL &= ~BRK;    /* Break detected */
+    }    
     else
     {
-        Serial.RxBuff[Serial.RxCnt] = U0RXBUF;
-        Serial.RxCnt++;     
+        if (Serial.RxCnt >= Serial_fixed_TxRx_Len)  // 大于 60 byte 不接收 
+        {
+            Serial.RxCnt = 0u;
+            Serial.RxFlag = 1u;
+//        Serial_RxInt_disable(); 
+        }
+        else
+        {
+            Serial.RxFlag = 2u;
+            Serial_timeoutCnt = 0u;
+            Serial.RxBuff[Serial.RxCnt] = U0RXBUF;
+            Serial.RxCnt++;   
+        }          
     }    
+    
+     
 }
 
 /*******************************************************************************
@@ -249,8 +268,9 @@ u8 Serial_available(u8 *rxBuff, const u8 len)
     {
         Serial.RxFlag = 0u;
         return_val = 1u;
-//        len = Serial_fixed_TxRx_Len;
+//        len = Serial_fixed_TxRx_Len;                   
         memcpy(rxBuff, Serial.RxBuff, len); //60 byte
+        memset(Serial.RxBuff, 0, Serial_fixed_TxRx_Len);
     }
     else
     {
@@ -260,6 +280,18 @@ u8 Serial_available(u8 *rxBuff, const u8 len)
 	return return_val;
 }
 
+/*******************************************************************************
+* Description : 
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+//void Serial_setTimeout(u32 time)
+//{
+//    Serial_timeoutCnt = 0u;
+//    Serial_timeoutMax = time;
+//}
 
 
 
