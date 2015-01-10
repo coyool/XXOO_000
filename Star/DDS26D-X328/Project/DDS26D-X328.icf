@@ -2,23 +2,21 @@
 /*-Editor annotation file-*/
 /* IcfEditorFile="$TOOLKIT_DIR$\config\ide\IcfEditor\cortex_v1_0.xml" */
 /*-Specials-*/
-define symbol __ICFEDIT_intvec_start__ = 0x00010000;
+define symbol __ICFEDIT_intvec_start__ = 0x0;
 /*-Memory Regions-*/
-define symbol __ICFEDIT_region_METERROM_start__ = 0x00010000;
-define symbol __ICFEDIT_region_METERROM_end__   = 0x0001FF80;
-define symbol __ICFEDIT_region_METERRAM_start__ = 0x20001800;
-define symbol __ICFEDIT_region_METERRAM_end__   = 0x20003FFF;
+define symbol __ICFEDIT_region_ROM_start__ = 0x00001100;
+define symbol __ICFEDIT_region_ROM_end__   = 0x0001FF80; //剩余0x80 给BOOT 用
+define symbol __ICFEDIT_region_RAM_start__ = 0x20000000;
+define symbol __ICFEDIT_region_RAM_end__   = 0x20003FFF;
 /*-Sizes-*/
-define symbol __ICFEDIT_size_cstack__ = 0xc00;// 堆栈的RAM区的首地址,改了堆栈大小 这个CSTACK_BASE_ADD要改。
-define symbol __ICFEDIT_size_heap__   = 0x0;
-
-define symbol CSTACK_BASE_ADD = 0x20003300; // 堆栈的RAM区的首地址,改了堆栈大小 这个要改。
+define symbol __ICFEDIT_size_cstack__ = 0xc00;
+define symbol __ICFEDIT_size_heap__   = 0;
 /**** End of ICF editor section. ###ICF###*/
 
 
 define memory mem with size = 4G;
-define region METERROM_region   = mem:[from __ICFEDIT_region_METERROM_start__   to __ICFEDIT_region_METERROM_end__];
-define region METERRAM_region   = mem:[from __ICFEDIT_region_METERRAM_start__   to __ICFEDIT_region_METERRAM_end__];
+define region ROM_region   = mem:[from __ICFEDIT_region_ROM_start__   to __ICFEDIT_region_ROM_end__];
+define region RAM_region   = mem:[from __ICFEDIT_region_RAM_start__   to __ICFEDIT_region_RAM_end__];
 
 define block CSTACK    with alignment = 8, size = __ICFEDIT_size_cstack__   { };
 define block HEAP      with alignment = 8, size = __ICFEDIT_size_heap__     { };
@@ -28,29 +26,6 @@ do not initialize  { section .noinit };
 
 place at address mem:__ICFEDIT_intvec_start__ { readonly section .intvec };
 
-place in METERROM_region   { readonly  };
-place in METERRAM_region   { readwrite };
-                        
-place at address mem:CSTACK_BASE_ADD {block CSTACK, block HEAP };                        
-/******************************RF***********************************/  
-
-/*-Editor annotation file-*/ 
- /*-Memory Regions-*/
-define symbol __ICFEDIT_region_RFROM_start__ = 0x00001100;
-define symbol __ICFEDIT_region_RFROM_end__   = 0x0000FFFF;
-define symbol __ICFEDIT_region_RFRAM_start__ = 0x20000000;
-define symbol __ICFEDIT_region_RFRAM_end__   = 0x200017FF;  
-
-/**** End of ICF editor section. ###ICF###*/                       
-define region RFROM_region   = mem:[from __ICFEDIT_region_RFROM_start__   to __ICFEDIT_region_RFROM_end__];
-define region RFRAM_region   = mem:[from __ICFEDIT_region_RFRAM_start__   to __ICFEDIT_region_RFRAM_end__];
-
-place in RFROM_region   { readonly  object RF-20140807-V1.a,};  /*.C文件中的常量定义区*/                       
-place in RFRAM_region   { readwrite object RF-20140807-V1.a,};   /*.C文件中的变量定义区*/                     
-                        
-
-place at address mem:0x0000FF00 {readonly section .RFFUNCLIST };              /*RF与电表公共区CODE*/
-place at address mem:0x0001FF00 {readonly section .METERFUNCLIST };           /*RF与电表公共区CODE*/
-
-
-
+place in ROM_region   { readonly };
+place in RAM_region   { readwrite,
+                        block CSTACK, block HEAP };

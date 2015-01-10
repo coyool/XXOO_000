@@ -27,6 +27,9 @@ All rights reserved.
 #define CHK_M_PIN		((FM3_GPIO->PDIR3&IO_PINxE)>>14)
 #define CHK_M_INPUT()   {FM3_GPIO->DDR3&= ~IO_PINxE;FM3_GPIO->PCR3&= ~IO_PINxE;} 
 
+#define Disable_ExtInt()    CC1101_ExtInt_disable()
+
+
 /*---------------------------------------------------------------------------*/
 /*外部结构体、枚举和类声明                                                   */
 /*---------------------------------------------------------------------------*/

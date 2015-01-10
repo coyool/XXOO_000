@@ -14,6 +14,7 @@
 #define  _INLCUDES_C_
 
 #include <string.h>
+#include <stdint.h> 
 
 /*--------------------宏定义---------------------------*/
 #define DLMS_LIB_USED						1
@@ -45,8 +46,8 @@
 #include "Drv_BT.h"
 #include "Drv_LCD.h"
 #include "Drv_Uart.h"
-#include "Drv_SPI.h"
-#include "Drv_RF.h"
+//#include "Drv_SPI.h"
+//#include "Drv_RF.h"
 #include "Drv_RTC.h"
 #include "Drv_ADC.h"
 #include "PowerManage.h"
@@ -62,12 +63,12 @@
 #include "key.h"
 #include "drv_Led.h"
 #include "DL645_07.h"
-//RF
-//#include "link_swich.h"       // wzg
-//#include "Drv_VirtualUart.h" // wzg
-//#include "link_meter_RF.h"     //wzg
-//#include "RFMeterPublicAddr.h"  //wzg
-//#include "MeterFucRFCall.h"    //wzg
+
+/* RF */
+#include "RF_regConfig.h"
+#include "RF_SPI.h"
+#include "RF.h"
+#include "RF_link.h"
 
 /*app*/
 #include "Clock.h"
@@ -88,9 +89,6 @@
 #include "DataStructTab.h"
 #include "NvmOperation.h"
 #include "DLMS_AES.h"           //chy
-
-
-
 
 
 

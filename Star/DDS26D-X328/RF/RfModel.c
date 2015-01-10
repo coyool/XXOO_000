@@ -51,7 +51,7 @@ void RFModeChangeInit(void)
 void RFModelCheckProcess(void)
 {
 	CHK_M_INPUT();
-	if((CHK_M_PIN == 0))
+	if((CHK_M_PIN == 0))  // mesh
 	{
         RFModel.PTPCounts =0;
 		if(++RFModel.MeshCounts >= RF_MODEL_DELAY_TIME)
@@ -63,11 +63,10 @@ void RFModelCheckProcess(void)
                 Disable_ExtInt();               //关RF中断         
 				ProtocolUartInit(UART_MASH,USART_7E1,BAUDE_300BPS,commRxBffer[UART_MASH],sizeof(commRxBffer[UART_MASH]),HalfDouble);
 				RFModel.Module = RF_MESH;
-               
 			}
 		}
 	}
-	else
+	else  //PTP
 	{
         RFModel.MeshCounts =0;
         if(++RFModel.PTPCounts >= RF_MODEL_DELAY_TIME)
@@ -75,13 +74,12 @@ void RFModelCheckProcess(void)
               RFModel.PTPCounts = RF_MODEL_DELAY_TIME;
               if(RFModel.Module == RF_MESH)
               {                                                                                    
-                RF_init();  
+           //     CC1101_init();  //ybz 
                 memset((uint8 *)commRxBffer[UART_MASH], 0, sizeof(commRxBffer[UART_MASH]));
                 LDRV_UsartClose(UART_MASH); //关mesh串口配置,防止进入白工程序接收中断----------- 
                 RFModel.Module = RF_PTP;  
-				
+                CC1101_init();  //ybz 
               }
-              
           }         			
 	}
     if(RFModel.Module == RF_PTP)  //超时处理
@@ -92,7 +90,7 @@ void RFModelCheckProcess(void)
             if(!RFModel.RFInitTimes)
             {
                 RFModel.RFInitTimes =RF_INITTIME; 
-				RF_init();  
+                CC1101_init();  //ybz 
             }
         }        
     }
@@ -251,11 +249,15 @@ uint8 ModelSelGet(void)
 出口参数：包括返回值说明
 备注说明：包括功能概要，关键算法，调用说明
 ***********************************************************/
+
 void RFMeshMain(void)
 {
+uint8  txbuff[15];
     if(RFModel.Module==RF_PTP)   //是PTP模块才执行
     {
-        RFProcess();
+       // RFProcess();
+       
+       CC1101_available(txbuff,13); 
     }
 }
 

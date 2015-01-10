@@ -1,5 +1,1 @@
----- RFIOPowerDownInit Matches (4 in 3 files) ----
-PowerManage.c (g:\spain\2014\dds26d-vn27\code\dds26d-x328-20150109\driver):    RFIOPowerDownInit();
-PowerManage.c (g:\spain\2014\dds26d-vn27\code\dds26d-x328-20150109\driver):	RFIOPowerDownInit();
-RfModel.c (g:\spain\2014\dds26d-vn27\code\dds26d-x328-20150109\rf):void RFIOPowerDownInit(void)
-RfModel.h (g:\spain\2014\dds26d-vn27\code\dds26d-x328-20150109\rf):void RFIOPowerDownInit(void);
+---- CC1101_pinMode Matches (0 in 0 files) ----

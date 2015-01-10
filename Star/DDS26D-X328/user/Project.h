@@ -2,7 +2,7 @@
 #define __PROJECT_H
 
 
-#define _debug_				0
+#define _debug_				1
 
 
 typedef signed long long int64;
@@ -23,6 +23,13 @@ typedef volatile unsigned long  vuint32;
 typedef volatile unsigned short vuint16;
 typedef volatile unsigned char  vuint8;
 
+
+typedef int32_t     s32;
+typedef int16_t     s16;
+typedef int8_t      s8;
+typedef uint32_t    u32;
+typedef uint16_t    u16;
+typedef uint8_t     u8;
 
 
 ////typedef enum {FALSE = 0, TRUE = !FALSE}BOOL_B;
