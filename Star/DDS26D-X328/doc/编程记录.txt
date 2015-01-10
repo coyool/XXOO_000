@@ -1,0 +1,31 @@
+
+/*
+V1.3.1
+1 任务调度OK
+#include "Task.h"
+2 非易失存储器管理OK
+#include "DataStructTab.h"
+#include "NvmOperation.h"
+3 看门狗OK
+#include "Drv_WD.h"
+4 定时器中断任务OK
+#include "Drv_BT.h"
+5 液晶驱动ok
+#include "Drv_LCD.h"
+#include "Screen.h"
+6 串口-485OK
+#include "Drv_Uart.h"
+7 EEPROM ok
+#include "IIC.h"
+#include "Eeprom.h"
+8 Flash ok
+#include "MX25L3206E.h"
+
+
+
+
+
+
+
+
+*/
