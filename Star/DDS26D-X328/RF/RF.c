@@ -373,6 +373,7 @@ void CC1101_init(void)
     uint8_t i = 0u;  
     
     memset(&RF, 0, sizeof(RF));   /* init RF data struct */
+    memset(ReadMeterSerialNumber, 0, sizeof(ReadMeterSerialNumber));
     //..
     oneDayCnt = ONEDAYTIME;
 
@@ -481,7 +482,7 @@ void CC1101_Send(uint8_t *TxBuff, const uint8_t len)
 
 #ifdef RF_PA_EN    
     pinPA_Tx_EN;   // Tx PA  (RF PA内部 三极管有延时,配置完PA需 delayUs(200);)
-    
+    delayMs(5);
 #endif
         
     //delayMs(10);   // ARM 频率快  延时发送 20ms <= T <= 500ms
@@ -543,6 +544,8 @@ uint8_t CC1101_available(uint8_t *rxBuff, uint8_t len)
 {
     uint8_t return_val = 0u;
    
+    len = len;
+    
     CC1101_Recv();
     
     if (1u == RF.availableFlag)
@@ -552,7 +555,7 @@ uint8_t CC1101_available(uint8_t *rxBuff, uint8_t len)
         len = RF_shortPayloadSize;  
         memcpy(rxBuff, RF.RxBuff, RF_shortPayloadSize);
 		
-#ifdef  TEST SEND
+#ifdef  TEST_SEND
 		RF.RxBuff[0]=0x66;
 		RF.RxBuff[1]=0x33;  //00123456
 		RF.RxBuff[2]=0x45;

@@ -1,6 +1,0 @@
-目标文件:C:\Documents and Settings\ffq\桌面\测试跌落\DDS26D-X328-20140903-V1(whole).bin   大小:0x0001FF04
-各部分大小如下:
-
-索引                        文件名                                            大小              偏移量            强制插入
- 1      C:\Documents and Settings\ffq\桌面\测试跌落\boot-20140826.bin        0x00000F38        0x00000000             否
- 2      C:\Documents and Settings\ffq\桌面\测试跌落\DDS26D-X328-20140903-V1.bin        0x0001EE04        0x00001100             否

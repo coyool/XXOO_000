@@ -13,21 +13,20 @@
 #define AddFlag                  0
 #define SubFlag                  1  
 
-
 #define BackOrder                0
 #define Order                    1
 
+#define NORMAL      0
+#define ABNORMAL    1
 
 /*** extern variable declarations ***/
-
-
+extern u8 RF_availableSendFlag;
+extern u8 ReadMeterSerialNumber[8];
+extern u8 RF_macRecvBuff[15];
 
 /*** extern function prototype declarations ***/
-extern 
-extern 
-extern 
-extern 
-extern 
+extern void RF_linkLayerProtocolStack(void);
+
 
 
 #endif   /* end ___H_ */

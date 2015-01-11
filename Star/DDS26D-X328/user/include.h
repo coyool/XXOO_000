@@ -68,6 +68,7 @@
 #include "RF_regConfig.h"
 #include "RF_SPI.h"
 #include "RF.h"
+#include "RFData.h"  
 #include "RF_link.h"
 
 /*app*/
@@ -89,6 +90,7 @@
 #include "DataStructTab.h"
 #include "NvmOperation.h"
 #include "DLMS_AES.h"           //chy
+//#include "RFData.h"  
 
 
 

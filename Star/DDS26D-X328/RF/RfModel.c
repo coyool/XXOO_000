@@ -252,12 +252,16 @@ uint8 ModelSelGet(void)
 
 void RFMeshMain(void)
 {
-uint8  txbuff[15];
+    u8 temp = 0u;
+    
     if(RFModel.Module==RF_PTP)   //是PTP模块才执行
     {
-       // RFProcess();
-       
-       CC1101_available(txbuff,13); 
+       temp = CC1101_available(RF_macRecvBuff, RF_shortPayloadSize); 
+       if (1u == temp)
+       {
+            temp = 0u;
+            RF_linkLayerProtocolStack();
+       }
     }
 }
 

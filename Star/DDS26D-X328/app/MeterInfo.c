@@ -68,16 +68,7 @@ static const uint8 AutoPasswordCode[]=
 };
 
 flag MeterState[2];                       //电表状态
-#define		POWERDOWNFLAG				MeterState[0].bits.bit7
-#define		VOLTAGELOWCLOSERFFLAG		MeterState[0].bits.bit6
-#define		MODELSELECTFLAG				MeterState[0].bits.bit5
-#define		CURRENTIMBALANCEFLAG		MeterState[0].bits.bit4
-#define		BATTERYLOWFLAG				MeterState[0].bits.bit3
-#define		REVERSEFLAG					MeterState[0].bits.bit2
-#define		CURRENTMETERCHANNEL			MeterState[0].bits.bit1
-#define		CLOCKFAULTFLAG				MeterState[0].bits.bit0
 
-#define     RFINITFLAG                  MeterState[1].bits.bit7
 /*
 BIT7： 1：电表掉电标志------------------判断此标志,关掉RF功能,进低功耗。
 BIT6： 1：电压低于70%或者高于140%UN关闭RF功能,减少表的功耗。

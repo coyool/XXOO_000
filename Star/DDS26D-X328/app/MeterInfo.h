@@ -21,6 +21,22 @@
 /* 这里配置逻辑设备名, 只允许少于16个字符 */
 #define LOGIC_DEVICE_NAME1           "STADDS26D-VN27"
 
+
+extern flag MeterState[2];                       //电表状态
+
+#define		POWERDOWNFLAG				MeterState[0].bits.bit7
+#define		VOLTAGELOWCLOSERFFLAG		MeterState[0].bits.bit6
+#define		MODELSELECTFLAG				MeterState[0].bits.bit5
+#define		CURRENTIMBALANCEFLAG		MeterState[0].bits.bit4
+#define		BATTERYLOWFLAG				MeterState[0].bits.bit3
+#define		REVERSEFLAG					MeterState[0].bits.bit2
+#define		CURRENTMETERCHANNEL			MeterState[0].bits.bit1
+#define		CLOCKFAULTFLAG				MeterState[0].bits.bit0
+
+#define     RFINITFLAG                  MeterState[1].bits.bit7
+
+
+
 /*Export typedef-------------------------------------------------*/
 typedef enum
 {
