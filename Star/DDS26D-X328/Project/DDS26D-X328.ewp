@@ -2217,15 +2217,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\RF\RF_link.c</name>
-      <excluded>
-        <configuration>Debug</configuration>
-      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\RF\RF_link.h</name>
-      <excluded>
-        <configuration>Debug</configuration>
-      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\RF\RF_regConfig.c</name>
@@ -2801,6 +2795,9 @@
       <name>$PROJ_DIR$\..\user\task.c</name>
     </file>
   </group>
+  <file>
+    <name>$PROJ_DIR$\..\doc\CodeTemplates_V1.0.ENU.txt</name>
+  </file>
 </project>
 
 

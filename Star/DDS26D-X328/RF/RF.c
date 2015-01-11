@@ -47,8 +47,8 @@ static void CC1101_displayRxCommSymbol(void);
 const u32 ONEDAYTIME = 24*60;    //
 const u8 RF_shortPayloadSize = 13u; 
 const u8 RF_shortBuffMaxSize = 15u; 
-const u8 RF_payloadSize = 60u; 
-const u8 RF_buffMaxSize = 62u;   // 60 payload + 2 CRC  {PKTLEN, 0x3C} payload = 60 
+const u8 RF_payloadSize = 62u; 
+const u8 RF_buffMaxSize = 64u;   // 62 payload + 2 CRC  {PKTLEN, 0x3C} payload = 60 
 
 RF_TYPE  RF;      /* RF struct */
 uint32_t oneDayCnt;   
@@ -552,8 +552,7 @@ uint8_t CC1101_available(uint8_t *rxBuff, uint8_t len)
         len = RF_shortPayloadSize;  
         memcpy(rxBuff, RF.RxBuff, RF_shortPayloadSize);
 		
-
-		//WZG  TEST 
+#ifdef  TEST SEND
 		RF.RxBuff[0]=0x66;
 		RF.RxBuff[1]=0x33;  //00123456
 		RF.RxBuff[2]=0x45;
@@ -568,6 +567,8 @@ uint8_t CC1101_available(uint8_t *rxBuff, uint8_t len)
 		RF.RxBuff[11]=0x66;
 		RF.RxBuff[12]=0x85;
 		CC1101_Send(RF.RxBuff,13);
+#endif 
+        
     }
     else
     {

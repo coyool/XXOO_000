@@ -38,8 +38,8 @@
 
 typedef struct 
 {
-    uint8_t    TxBuff[64];
-    uint8_t    RxBuff[64];
+    uint8_t    TxBuff[66];  //RF buff max size 62 byte + 2 CRC (2 byte 预留) 
+    uint8_t    RxBuff[66];
     uint8_t    SOMI_false;
     uint8_t    RX_FLG;
     uint8_t    availableFlag;
