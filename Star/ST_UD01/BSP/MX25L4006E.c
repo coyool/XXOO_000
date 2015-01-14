@@ -159,9 +159,9 @@ static void Send_Byte(u8 data)
     for (i=0;i<8;i++)
     {
         Atsck_Low;                   /*低电平改变数据*/
-	Atsin(Trans.Bit.B7);       /*传送最高位*/
-	Atsck_High;                    /*上升沿输出数据*/
-	Trans.Byte=(Trans.Byte<<1);    /*左移一位，移位7次*/
+        Atsin(Trans.Bit.B7);       /*传送最高位*/
+        Atsck_High;                    /*上升沿输出数据*/
+        Trans.Byte=(Trans.Byte<<1);    /*左移一位，移位7次*/
     }
     Atsck_Low;     								
 }
@@ -206,7 +206,7 @@ u8 Get_Byte(void)
 ** 出口参数:操作成功则返回OK,失败则返回FAIL		
 
 ************************************************************************/
-U08 MX25L3206_Read(u8* RcvBufPt,u32 Dst, U16 NByte)    
+U08 MX25L3206_Read(u8* RcvBufPt, u32 Dst, U16 NByte)    
 {
     u32 i = 0;
     u8 StatRgVal = 0 ;
@@ -218,14 +218,14 @@ U08 MX25L3206_Read(u8* RcvBufPt,u32 Dst, U16 NByte)
     do
     {
         CE_Low();			 
-	Send_Byte(0x05);						    // 发送读状态寄存器命令
-	StatRgVal = Get_Byte();					// 保存读得的状态寄存器值
-	CE_High();	
-	k++;
-	if(k > 1772)                              //如果芯片繁忙时间超过1772*254uS = 450MS，则出错退出。扇区擦除时间。
+        Send_Byte(0x05);						    // 发送读状态寄存器命令
+        StatRgVal = Get_Byte();					// 保存读得的状态寄存器值
+        CE_High();	
+        k++;
+        if(k > 15000)                              //如果芯片繁忙时间超过15000*40uS = 600MS，则出错退出。扇区擦除时间。
         {  
             return (FAIL);
-	}
+        }
     }	
     while ((StatRgVal & 0x01) );					//检查芯片是否空闲  
     
@@ -276,8 +276,8 @@ u8 MX25L3206_SecErase(u32 sec1)
             Send_Byte(0x05);				// 发送读状态寄存器命令
             StatRgVal = Get_Byte();			// 保存读得的状态寄存器值
             CE_High();	
-	    k++;
-            if (k > 1772 )                             //如果芯片繁忙时间超过1772*254uS = 450MS，则出错退出。扇区擦除时间。
+            k++;
+            if (k > 15000 )                             //如果芯片繁忙时间超过15000*40uS = 600MS，则出错退出。扇区擦除时间。
             {  
                 return (FAIL);
             }
@@ -307,7 +307,7 @@ u8 MX25L3206_SecErase(u32 sec1)
 	StatRgVal = Get_Byte();				// 保存读得的状态寄存器值
 	CE_High();	
 	k++;
-	if (k > 157 )                                 //如果芯片繁忙时间超过157*254us = 40MS，则出错退出。寄存器设置等待时间。
+	if (k > 1000 )                                 //如果芯片繁忙时间超过1000*40us = 40MS，则出错退出。寄存器设置等待时间。
 	{  
             return (FAIL);
 	}
@@ -335,7 +335,7 @@ u8 MX25L3206_SecErase(u32 sec1)
 	StatRgVal = Get_Byte();			        // 保存读得的状态寄存器值
 	CE_High();	
         k++;
-	if (k > 1772 )                                //如果芯片繁忙时间超过1772*254uS = 450MS，则出错退出。扇区擦除时间。
+	if (k > 15000 )                                //如果芯片繁忙时间超过15000*40uS = 600MS，则出错退出。扇区擦除时间。
 	{  
             return (FAIL);
         }
@@ -351,7 +351,7 @@ u8 MX25L3206_SecErase(u32 sec1)
 		
         CE_Low();			
         Send_Byte(0x01);			     // 发送写状态寄存器指令
-	Send_Byte(temp1);			     // 恢复状态寄存器设置信息 
+        Send_Byte(temp1);			     // 恢复状态寄存器设置信息 
         CE_High(); 
     }
     
@@ -364,7 +364,7 @@ u8 MX25L3206_SecErase(u32 sec1)
 ** 入口参数:
 **			INT32U Dst：目标地址,范围 0x0 - MAX_ADDR（MAX_ADDR = 0x3FFFFF）				
 **			INT8U* SndbufPt:发送缓存区指针
-**           	INT32U NByte:要写的数据字节数
+**          INT32U NByte:要写的数据字节数
 
 ** 出口参数:操作成功则返回OK,失败则返回FAIL		
 
@@ -386,29 +386,28 @@ U08 MX25L3206_Write(u32 Dst,  u8* SndbufPt,U16 NByte)
     do                                               //检查芯片是否空闲
     {
         CE_Low();
-	Send_Byte(0x05);			     // 发送读状态寄存器命令
-	StatRgVal = Get_Byte();		             // 保存读得的状态寄存器值
-	CE_High();	
-	k++;
-	if (k > 1772 )                              //如果芯片繁忙时间超过1772*254uS = 450MS，则出错退出。扇区擦除时间。
+        Send_Byte(0x05);			     // 发送读状态寄存器命令
+        StatRgVal = Get_Byte();		             // 保存读得的状态寄存器值
+        CE_High();	
+        k++;
+        if (k > 15000 )                              //如果芯片繁忙时间超过15000*40uS = 600MS，则出错退出。扇区擦除时间。
         {  
             return (FAIL);
-	}
+        }
     }
     while ((StatRgVal & 0x01) );					
 	 
     if ((StatRgVal & 0xBC) != 0x84 )                 //判断状态寄存器是否为正常保护，0X84值，
     {
         FLASH_ERROR = 0X05;
-	CE_Low();			
-	Send_Byte(0x06);			     // 写使能，使状态寄存器可写
-	CE_High();			
+        CE_Low();			
+        Send_Byte(0x06);			     // 写使能，使状态寄存器可写
+        CE_High();			
 
-	CE_Low();		
-	Send_Byte(0x01);			     // 发送写状态寄存器指令
-	Send_Byte(0x84);                             // 恢复状态寄存器保护位。
-        CE_High();
-        return (FAIL);
+        CE_Low();		
+        Send_Byte(0x01);			     // 发送写状态寄存器指令
+        Send_Byte(0x84);                             // 恢复状态寄存器保护位
+        CE_High();	  
     }
     else 
     {
@@ -418,28 +417,28 @@ U08 MX25L3206_Write(u32 Dst,  u8* SndbufPt,U16 NByte)
     if (Dst > 0x3EFFFF )                               //如果写入区域为第64块
     {          
         k = 0;
-	do
+        do
         {
             CE_Low();			 
-	    Send_Byte(0x05);						    // 发送读状态寄存器命令
-	    StatRgVal = Get_Byte();					// 保存读得的状态寄存器值
-	    CE_High();	            
+            Send_Byte(0x05);						    // 发送读状态寄存器命令
+            StatRgVal = Get_Byte();					// 保存读得的状态寄存器值
+            CE_High();	            
             k++;
-	    if (k > 157 )                           //如果芯片繁忙时间超过157*254us = 40MS，则出错退出。寄存器设置等待时间。
+            if (k > 1000 )                           //如果芯片繁忙时间超过1000*40us = 40MS，则出错退出。寄存器设置等待时间。
             {  
                 return (FAIL);
-	    }
-  	 }
-	 while ((StatRgVal & 0x01) );					//检查寄存器是否设置完毕
-            	   
-	 CE_Low();			
-	 Send_Byte(0x06);							     // 写使能，使状态寄存器可写
-	 CE_High();			
+            }
+        }
+        while ((StatRgVal & 0x01) );					//检查寄存器是否设置完毕
+                   
+        CE_Low();			
+        Send_Byte(0x06);							     // 写使能，使状态寄存器可写
+        CE_High();			
 
-	 CE_Low();		
-	 Send_Byte(0x01);							    // 发送写状态寄存器指令
-	 Send_Byte(0);							        // 清0BPx位，使Flash芯片全区可写 
-         CE_High();		
+        CE_Low();		
+        Send_Byte(0x01);							    // 发送写状态寄存器指令
+        Send_Byte(0);							        // 清0BPx位，使Flash芯片全区可写 
+        CE_High();		
     }
 		
     page = Dst/256;
@@ -451,46 +450,46 @@ U08 MX25L3206_Write(u32 Dst,  u8* SndbufPt,U16 NByte)
         do                                                  //检查芯片是否空闲
         {
             CE_Low();			 
-	    Send_Byte(0x05);						           // 发送读状态寄存器命令
-	    StatRgVal = Get_Byte();					       // 保存读得的状态寄存器值
-	    CE_High();	            
+            Send_Byte(0x05);						           // 发送读状态寄存器命令
+            StatRgVal = Get_Byte();					       // 保存读得的状态寄存器值
+            CE_High();	            
             k++;
-	    if (k > 157 )                                  //如果芯片繁忙时间超过157*254us = 40MS，则出错退出。寄存器设置等待时间。
+            if (k > 1000 )                                  //如果芯片繁忙时间超过1000*40us = 40MS，则出错退出。寄存器设置等待时间。
             {  
                 return (FAIL);
-	    }
-         }
-	 while ((StatRgVal & 0x01) );					  //检查页写是否完毕。完毕后写下一页
+            }
+        }
+        while ((StatRgVal & 0x01) );					  //检查页写是否完毕。完毕后写下一页
 	
          addr3 = (u8)(page >> 8) ;
        	 addr2 = (u8)(page & 0xFF);
        	 addr1 = (page_addr & 0xFF);
 
          if ((page % 16) == 0)                       //判断待写页是否为新扇区起始页。
-	 {
+        {
              if (page_addr == 0)                       //地址为页起始地址
              {
                  MX25L3206_SecErase(page/16);            //待写扇区删除 
              }
 	    
-	 }
+        }
            	 
          CE_Low();			
          Send_Byte(0x06);						       // 发送写使能命令
          CE_High();			
 
-         CE_Low();			
-         Send_Byte(0x02); 						       // 发送字节数据烧写命令
-         Send_Byte(addr3);                             // 发送3个字节的地址信息 
-	 Send_Byte(addr2);
-         Send_Byte(addr1);
+        CE_Low();			
+        Send_Byte(0x02); 						       // 发送字节数据烧写命令
+        Send_Byte(addr3);                             // 发送3个字节的地址信息 
+        Send_Byte(addr2);
+        Send_Byte(addr1);
 
          for ( ;i < NByte;i ++)
          {
-             data = *SndbufPt;
-	     Send_Byte(data);	                          // 发送被烧写的数据
-	     SndbufPt ++;
-	     page_addr ++;
+            data = *SndbufPt;
+            Send_Byte(data);	                          // 发送被烧写的数据
+            SndbufPt ++;
+            page_addr ++;
              if (page_addr >= 256)
              {
                  page_addr = 0;
@@ -512,8 +511,8 @@ U08 MX25L3206_Write(u32 Dst,  u8* SndbufPt,U16 NByte)
              Send_Byte(0x05);						    // 发送读状态寄存器命令
              StatRgVal = Get_Byte();					// 保存读得的状态寄存器值
              CE_High();	
-	     k++;
-             if (k > 157 )                                  //如果芯片繁忙时间超过157*254us = 40MS，则出错退出。寄存器设置等待时间。
+	         k++;
+             if (k > 1000 )                                  //如果芯片繁忙时间超过1000*40us = 40MS，则出错退出。寄存器设置等待时间。
              {  
                  return (FAIL);
              }
@@ -562,8 +561,8 @@ u8 MX25L3206_Erase(u16 sec1, u16 sec2)
         Send_Byte(0x05);						    // 发送读状态寄存器命令
         StatRgVal = Get_Byte();					    // 保存读得的状态寄存器值
         CE_High();	
-	k++;
-        if (k > 1772 )                          //如果芯片繁忙时间超过1772*254uS = 450MS，则出错退出。扇区擦除时间。
+        k++;
+        if (k > 15000 )                          //如果芯片繁忙时间超过15000*40uS = 600MS，则出错退出。扇区擦除时间。
         {  
             return (FAIL);
 	}
@@ -586,18 +585,18 @@ u8 MX25L3206_Erase(u16 sec1, u16 sec2)
 	Send_Byte(0);								// 清0BPx位，使Flash芯片全区可写 
 	CE_High(); 
 
-	do
+        do
         {
             CE_Low();			 
             Send_Byte(0x05);						    // 发送读状态寄存器命令
             StatRgVal = Get_Byte();					// 保存读得的状态寄存器值
             CE_High();	
             k++;
-            if (k > 157 )                           //如果芯片繁忙时间超过157*254us = 40MS，则出错退出。寄存器设置等待时间。
+            if (k > 1000 )                           //如果芯片繁忙时间超过1000*40us = 40MS，则出错退出。寄存器设置等待时间。
             {  
                 return (FAIL);
             }
-	}
+        }
         while ((StatRgVal & 0x01) );					//检查状态寄存器设置是否完成
     }
 
@@ -610,26 +609,26 @@ u8 MX25L3206_Erase(u16 sec1, u16 sec2)
     {
         temp2 = sec1;
         sec1  = sec2;
-	sec2  = temp2;
+        sec2  = temp2;
     } 
 	                                                /* 若起止扇区号相等则擦除单个扇区 */
     if (sec1 == sec2)	
     {
         SecnHdAddr = SEC_SIZE * sec1;				// 计算扇区的起始地址
-	CE_Low();	
-	Send_Byte(0x20);							// 发送扇区擦除指令
-	Send_Byte(((SecnHdAddr & 0xFFFFFF) >> 16)); // 发送3个字节的地址信息
-	Send_Byte(((SecnHdAddr & 0xFFFF) >> 8));
-	Send_Byte(SecnHdAddr & 0xFF);
-	CE_High();			
-	do
-	{
+        CE_Low();	
+        Send_Byte(0x20);							// 发送扇区擦除指令
+        Send_Byte(((SecnHdAddr & 0xFFFFFF) >> 16)); // 发送3个字节的地址信息
+        Send_Byte(((SecnHdAddr & 0xFFFF) >> 8));
+        Send_Byte(SecnHdAddr & 0xFF);
+        CE_High();			
+        do
+        {
             CE_Low();			 
             Send_Byte(0x05);						    // 发送读状态寄存器命令
             StatRgVal = Get_Byte();					// 保存读得的状态寄存器值
             CE_High();	
             k++;
-            if (k > 1772 )                          //如果芯片繁忙时间超过1772*254uS = 450MS，则出错退出。
+            if (k > 15000 )                          //如果芯片繁忙时间超过15000*40uS = 600MS，则出错退出。
             {  
                 return (FAIL);
             }
@@ -640,7 +639,7 @@ u8 MX25L3206_Erase(u16 sec1, u16 sec2)
     else 
     {
         no_SecsToEr = sec2 - sec1 +1;					// 获取要擦除的扇区数目
-	CurSecToEr  = sec1;								// 从起始扇区开始擦除	
+        CurSecToEr  = sec1;								// 从起始扇区开始擦除	
         while (no_SecsToEr >= 16)
         { 
 	     SecnHdAddr = SEC_SIZE * CurSecToEr;			// 计算扇区的起始地址	     
@@ -662,7 +661,7 @@ u8 MX25L3206_Erase(u16 sec1, u16 sec2)
 		  StatRgVal = Get_Byte();					// 保存读得的状态寄存器值
 		  CE_High();	
 	          k++;
-		  if (k > 9450 )                          //如果芯片繁忙时间超过9450*254uS = 2.4S，则出错退出。
+		  if (k > 60000 )                          //如果芯片繁忙时间超过60000*40uS = 2.4S，则出错退出。
 		  {  
                       return (FAIL);
                   } 
@@ -694,7 +693,7 @@ u8 MX25L3206_Erase(u16 sec1, u16 sec2)
 		  StatRgVal = Get_Byte();					// 保存读得的状态寄存器值
 		  CE_High();	
 	          k++;
-		  if (k > 1772 )                          //如果芯片繁忙时间超过1772*254uS = 450MS，则出错退出。
+		  if (k > 15000 )                          //如果芯片繁忙时间超过15000*40uS = 600MS，则出错退出。
 		  {  
                       return (FAIL);
                   }

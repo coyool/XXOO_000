@@ -2,27 +2,7 @@
 #define  DEF_AND_TYPE
 
 
-/*** General define  ***/
-//#define     s8  	     signed  char
-//#define     u8  	     unsigned char 
-//#define 	u16 		 unsigned short int   
-//#define     s16          signed short int
-//#define 	u32 		 unsigned int   /* ARM int is 32 bit */
-//#define 	s32 		 signed int
-//#define     uL32         unsigned long 
-//#define     L32          signed long
 
-/*** 51 or 16 bit MCU  int is 16bit ***/
-/*      
-#define     s8  	     signed  char
-#define     u8  	     unsigned char 
-#define 	u16 		 unsigned int   
-#define     s16          signed  int
-#define 	u32 		 unsigned long    
-#define 	s32 		 signed long
-#define     uL32         unsigned long 
-#define     L32          signed long
-*/
 
 
 #define     _NOP()  __NOP();    //__no_operation(void)

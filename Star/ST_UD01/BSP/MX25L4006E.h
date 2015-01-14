@@ -7,41 +7,41 @@
 /* constants and macros                                                      */
 /*---------------------------------------------------------------------------*/
 
-#define MAX_ADDR		0x3FFFFF	// å®šä¹‰èŠ¯ç‰‡å†…éƒ¨æœ€å¤§åœ°å€ 
-#define	SEC_MAX     	        1023	        // å®šä¹‰æœ€å¤§æ‰‡åŒºå·
-#define SEC_SIZE		0x1000      // æ‰‡åŒºå¤§å°
+#define MAX_ADDR		0x3FFFFF	// ¶¨ÒåĞ¾Æ¬ÄÚ²¿×î´óµØÖ· 
+#define	SEC_MAX     	        1023	        // ¶¨Òå×î´óÉÈÇøºÅ
+#define SEC_SIZE		0x1000      // ÉÈÇø´óĞ¡
 #define OK                      1
 #define FAIL                    0
 
 /****************************************************************************/
-typedef	unsigned long	                U32;
-typedef	unsigned int	                U16;
-typedef	unsigned char	                U08;
+typedef	unsigned long	            U32;
+typedef	unsigned int	            U16;
+typedef	unsigned char	            U08;
 
-typedef        signed long				s32;
-typedef        signed short			    s16;
-typedef        signed char				s8;
+typedef    signed long				s32;
+typedef    signed short			    s16;
+typedef    signed char				s8;
 
-typedef        unsigned long		    u32;
-typedef        unsigned short		    u16;
-typedef        unsigned char		    u8;
+typedef    unsigned long				u32;
+typedef    unsigned short		    u16;
+typedef    unsigned char				u8;
 
 
-#define  Atsout         IO_ReadGPIOPin(IO_PORT4,IO_PINx3)                                          //SOå£è¾“å…¥çŠ¶æ€
-#define  Atsin_data     IO_ReadGPIOPin(IO_PORT4,IO_PINx4)                                          //SIå£è¾“å…¥çŠ¶æ€
+#define  Atsout         IO_ReadGPIOPin(IO_PORT4,IO_PINx3)                                          //SO¿ÚÊäÈë×´Ì¬
+#define  Atsin_data     IO_ReadGPIOPin(IO_PORT4,IO_PINx4)                                          //SI¿ÚÊäÈë×´Ì¬
 
-#define  Atsin_in	    IO_ConfigGPIOPin(IO_PORT4,IO_PINx4,IO_DIR_INPUT,IO_PULLUP_ON)              //éœ€è¦æ‰“å¼€ä¸Šæ‹‰å—ï¼Ÿ
+#define  Atsin_in	    IO_ConfigGPIOPin(IO_PORT4,IO_PINx4,IO_DIR_INPUT,IO_PULLUP_ON)              //ĞèÒª´ò¿ªÉÏÀ­Âğ£¿
 #define  Atsin_Out      IO_ConfigGPIOPin(IO_PORT4,IO_PINx4,IO_DIR_OUTPUT,IO_PULLUP_ON)
 
 
-#define	Atsck_Low	IO_WriteGPIOPin(IO_PORT4,IO_PINx2,IO_BIT_CLR) //IO_ConfigGPIOPin(IO_PORT4,IO_PINx2,IO_DIR_OUTPUT,IO_PULLUP_ON)          // sckæ—¶é’Ÿ
-#define	Atsck_High	IO_WriteGPIOPin(IO_PORT4,IO_PINx2,IO_BIT_SET) // IO_ConfigGPIOPin(IO_PORT4,IO_PINx2,IO_DIR_INPUT, IO_PULLUP_ON)         // sckæ—¶é’Ÿ
+#define	Atsck_Low	IO_WriteGPIOPin(IO_PORT4,IO_PINx2,IO_BIT_CLR) //IO_ConfigGPIOPin(IO_PORT4,IO_PINx2,IO_DIR_OUTPUT,IO_PULLUP_ON)          // sckÊ±ÖÓ
+#define	Atsck_High	IO_WriteGPIOPin(IO_PORT4,IO_PINx2,IO_BIT_SET) // IO_ConfigGPIOPin(IO_PORT4,IO_PINx2,IO_DIR_INPUT, IO_PULLUP_ON)         // sckÊ±ÖÓ
 
 
-#define	Atsin(x)	( (x) ? (IO_WriteGPIOPin(IO_PORT4,IO_PINx4,IO_BIT_SET)) : (IO_WriteGPIOPin(IO_PORT4,IO_PINx4,IO_BIT_CLR)))     //( (x) ? (IO_ConfigGPIOPin(IO_PORT4,IO_PINx4,IO_DIR_INPUT, IO_PULLUP_ON)) : (IO_ConfigGPIOPin(IO_PORT4,IO_PINx4,IO_DIR_OUTPUT, IO_PULLUP_ON)) )                      // SPIè¾“å‡º
+#define	Atsin(x)	( (x) ? (IO_WriteGPIOPin(IO_PORT4,IO_PINx4,IO_BIT_SET)) : (IO_WriteGPIOPin(IO_PORT4,IO_PINx4,IO_BIT_CLR)))     //( (x) ? (IO_ConfigGPIOPin(IO_PORT4,IO_PINx4,IO_DIR_INPUT, IO_PULLUP_ON)) : (IO_ConfigGPIOPin(IO_PORT4,IO_PINx4,IO_DIR_OUTPUT, IO_PULLUP_ON)) )                      // SPIÊä³ö
 
-#define	CE_Low()	 IO_WriteGPIOPin(IO_PORT4,IO_PINx5,IO_BIT_CLR)  //cs( IO_ConfigGPIOPin(IO_PORT4,IO_PINx5,IO_DIR_OUTPUT,IO_PULLUP_ON) )                                //ç‰‡é€‰ä½¿èƒ½
-#define CE_High()	 IO_WriteGPIOPin(IO_PORT4,IO_PINx5,IO_BIT_SET)  //cs( IO_ConfigGPIOPin(IO_PORT4,IO_PINx5,IO_DIR_INPUT, IO_PULLUP_ON) )	                               //ç‰‡é€‰å–æ¶ˆ
+#define	CE_Low()	 IO_WriteGPIOPin(IO_PORT4,IO_PINx5,IO_BIT_CLR)  //cs( IO_ConfigGPIOPin(IO_PORT4,IO_PINx5,IO_DIR_OUTPUT,IO_PULLUP_ON) )                                //Æ¬Ñ¡Ê¹ÄÜ
+#define CE_High()	 IO_WriteGPIOPin(IO_PORT4,IO_PINx5,IO_BIT_SET)  //cs( IO_ConfigGPIOPin(IO_PORT4,IO_PINx5,IO_DIR_INPUT, IO_PULLUP_ON) )	                               //Æ¬Ñ¡È¡Ïû
 
 
 /*---------------------------------------------------------------------------*/

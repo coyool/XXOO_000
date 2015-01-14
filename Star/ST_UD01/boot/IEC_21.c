@@ -49,12 +49,17 @@ const uint8_t CommadReadProgamVersion[]=
     soh,'R','1',stx,'0','.','2','.','0','(',')',etx,0x51, 
 };
 
+//const uint8_t sSoftWare_Versions_ASCLL[23]=
+//{
+//	'D','D','S','2','6','D','-','X','3','2',
+//	'8','-','2','0','3','0','1','0','2','3',
+//	'-','V','1'
+//};		
+
 const uint8_t sSoftWare_Versions_ASCLL[23]=
 {
-	'D','D','S','2','6','D','-','X','3','2',
-	'8','-','2','0','3','0','1','0','2','3',
-	'-','V','1'
-};			//  DTS27	
+    "DDS26D-X360-22000214-V1"
+};
 
 MFS_UARTModeConfigT tUART4800ModeConfigT =
 {
@@ -164,7 +169,7 @@ uint8_t  ReadVersion(void)
     {   
         //MFS_UARTEnableRX(UART52_Ch);
         ackReceived = 0;
-        SendPacket((uint8_t *)&CommadReadProgamVersion,sizeof(CommadReadProgamVersion));
+        SendPacket((uint8_t *)&CommadReadProgamVersion, sizeof(CommadReadProgamVersion));
         memset(version_meter,0,sizeof(version_meter));
         
         Get_One_char(UART52_Ch, version_meter);  //read a char CLR  RDR 
@@ -184,33 +189,8 @@ uint8_t  ReadVersion(void)
         }
         ackReceived = 1;
         MFS_UARTDisableRX(UART52_Ch);
-//        if(memcmp(version_meter+7, &sSoftWare_Versions_ASCLL, sizeof(sSoftWare_Versions_ASCLL)) != 0) // 比对版本号
-//        {  
-//             if(memcmp(version_meter+7, &sSoftWare_Versions_ASCLL, 12) != 0) // 型号
-//             {
-//                  return_val = VERSION_TYPE_ERR;  
-//             }
-//             else
-//             {
-//                 if(Max3(version_meter+19,(uint8_t *)&sSoftWare_Versions_ASCLL+12,11)) //下载的版本小于读出的版本 ==1
-//                 {
-//                    return_val = VERSION_HIGH;  
-//                 }
-//                 else
-//                 {
-//                    return_val = VERSION_LOW;   
-//                 }                           
-//             }                        
-//        } 
-//        else
-//        {          
-//            return_val = VERSION_EQU;           //名称版本 完成相同
-//        } 
-        
-//        int32_t temp = 0;
-//        temp = memcmp(version_meter+8, &sSoftWare_Versions_ASCLL, 11);
 
-#define   VERSION_EN
+//#define   VERSION_EN
 #ifdef    VERSION_EN    
         
         MX25L3206_Read((uint8_t*)version_buff,
@@ -237,7 +217,11 @@ uint8_t  ReadVersion(void)
         /* version disable */
         if (memcmp(version_meter+7, &sSoftWare_Versions_ASCLL, 11) != 0) // 比对版本号
         {
-            return_val = METER_TYPE_ERR;  
+#ifdef METER_TYPE_EN             
+            return_val = METER_TYPE_ERR;
+#else   
+            return_val = VERSION_OK;
+#endif
         }         
         else
         {
