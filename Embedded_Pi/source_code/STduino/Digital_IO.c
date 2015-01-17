@@ -37,6 +37,50 @@ static const PORT_PIN_TYPE PORT_pin_tab[PD2+1] =  //结构体数组
     {GPIOD,GPIO_Pin_2}
 };
 
+/* JP6 JP7 JP8 JP9 map */
+static const PORT_PIN_TYPE pinMap[46] =  //结构体数组
+{
+    {GPIOC, GPIO_Pin_11},  //0 PC11/USART3_RX
+    {GPIOC, GPIO_Pin_10},  //1 PC10/USART3_TX
+    {GPIOC, GPIO_Pin_12},  //2 PC12/USART3_CK
+    {GPIOC, GPIO_Pin_6},   //3 PC6/TIM3_CH1
+    {GPIOC, GPIO_Pin_7},   //4 PC7/TIM3_CH2
+    {GPIOC, GPIO_Pin_8},   //5 PC8/TIM3_CH3
+    {GPIOC, GPIO_Pin_9},   //6 PC9/TIM3_CH4
+    {GPIOD, GPIO_Pin_2},   //7 PD2/TIM3_ETR
+    {GPIOA, GPIO_Pin_15},  //8 
+    {GPIOA, GPIO_Pin_8},   //9
+    {GPIOB, GPIO_Pin_12},  //10
+    {GPIOB, GPIO_Pin_15},  //11
+    {GPIOB, GPIO_Pin_14},  //12
+    {GPIOB, GPIO_Pin_13},  //13
+    {GPIOB, GPIO_Pin_7},   //14
+    {GPIOB, GPIO_Pin_6},   //15
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+};
 
 /*** extern variable declarations ***/
 
@@ -115,6 +159,67 @@ u8 digitalRead_ALL(GPIO_TypeDef* PORT, u16 pin)
 * Parameters O: None
 * return      : None
 *******************************************************************************/
+void pinMode_Px(STM32F103x_PIN_TYPE pin, GPIOMode_TypeDef mode)
+{
+    GPIO_InitTypeDef  GPIO_InitStructure;
+
+//    /* Enable the GPIO_LED Clock */
+//    RCC_APB2PeriphClockCmd(PORT, ENABLE);    
+    
+    /* Configure the GPIO_LED pin */
+    GPIO_InitStructure.GPIO_Pin = PORT_pin_tab[pin].pinx;
+    GPIO_InitStructure.GPIO_Mode = mode;  
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
+    
+    GPIO_Init(PORT_pin_tab[pin].PORTx, &GPIO_InitStructure);
+}
+
+/*******************************************************************************
+* Description : Write a HIGH or a LOW value to a digital pin.
+* Syntax      : digitalWrite(pin, value) 
+* Parameters I: pin: the pin number
+*               value: HIGH or LOW
+* Parameters O: none
+* return      : none
+*******************************************************************************/
+void digitalWrite_Px(STM32F103x_PIN_TYPE pin, BitAction BitVal)
+{
+    /* Set the GPIOA port pin 15 */ 
+    GPIO_WriteBit(PORT_pin_tab[pin].PORTx,
+                  PORT_pin_tab[pin].pinx, 
+                  BitVal); 
+}
+
+/*******************************************************************************
+* Description : Reads the value from a specified digital pin, either HIGH or LOW
+* Syntax      : digitalRead(pin)
+* Parameters I: pin: the number of the digital pin you want to read (int)
+* Parameters O: none
+* return      : HIGH or LOW
+*******************************************************************************/
+u8 digitalRead_Px(STM32F103x_PIN_TYPE pin)
+{
+    /* Reads the seventh pin of the GPIOB and store it in ReadValue 
+    variable */ 
+    u8 ReadValue; 
+    ReadValue = GPIO_ReadInputDataBit(PORT_pin_tab[pin].PORTx,
+                                      PORT_pin_tab[pin].pinx); 
+    return ReadValue;
+}
+
+/*******************************************************************************
+* Description : Configures the specified pin to behave either as an input 
+*               or an output.  
+*               default: speed 10MHz     NOTE --  
+*                       
+* Syntax      : pinMode(pin, mode)
+* Parameters I: port: 
+*               pin: the number of the pin whose mode you wish to set
+*               mode: INPUT, OUTPUT, or INPUT_PULLUP.
+*               speed:
+* Parameters O: None
+* return      : None
+*******************************************************************************/
 void pinMode(STM32F103x_PIN_TYPE pin, GPIOMode_TypeDef mode)
 {
     GPIO_InitTypeDef  GPIO_InitStructure;
@@ -162,7 +267,5 @@ u8 digitalRead(STM32F103x_PIN_TYPE pin)
                                       PORT_pin_tab[pin].pinx); 
     return ReadValue;
 }
-
-
 
 

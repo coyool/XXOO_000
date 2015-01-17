@@ -38,7 +38,16 @@
 *               functions will not work while interrupts are disabled, and 
 *               incoming communication may be ignored. Interrupts can slightly 
 *               disrupt the timing of code, however, and may be disabled for 
-*               particularly critical sections of code.           
+*               particularly critical sections of code.  
+*               iar private : 
+*               __enable_irq()
+*                   
+*               core fuction: 
+*               __set_PRIMASK(1) -- only allow NMI and hard fault, All other 
+*               interrupt/exception are blocked. (The current CPU priority = 0).
+*
+*               __set_FAULTMASK(1) -- only allow NMI, All other 
+*               interrupt/exception are blocked. (The current CPU priority = -1).  
 * Syntax      : 
 * Parameters I: 
 * Parameters O: 

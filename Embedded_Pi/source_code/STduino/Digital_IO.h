@@ -61,6 +61,7 @@ typedef enum
     PD2
 }STM32F103x_PIN_TYPE;
 
+
 typedef struct
 {
      GPIO_TypeDef*  PORTx;
@@ -73,13 +74,13 @@ typedef struct
 
 /*** extern function prototype declarations ***/
 extern void pinMode_ALL(GPIO_TypeDef* PORT, u16 pin, 
-                    GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed);
+                        GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed);
 extern void digitalWrite_ALL(GPIO_TypeDef* PORT, u16 pin, BitAction BitVal);
 extern u8 digitalRead_ALL(GPIO_TypeDef* PORT, u16 pin);
 
-extern void pinMode(STM32F103x_PIN_TYPE pin, GPIOMode_TypeDef mode);
-extern void digitalWrite(STM32F103x_PIN_TYPE pin, BitAction BitVal);
-extern u8 digitalRead(STM32F103x_PIN_TYPE pin);
+extern void pinMode_Px(STM32F103x_PIN_TYPE pin, GPIOMode_TypeDef mode);
+extern void digitalWrite_Px(STM32F103x_PIN_TYPE pin, BitAction BitVal);
+extern u8 digitalRead_Px(STM32F103x_PIN_TYPE pin);
 
 
 #endif   /* end __Digital_IO_H_ */

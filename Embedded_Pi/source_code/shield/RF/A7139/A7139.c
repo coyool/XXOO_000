@@ -361,7 +361,7 @@ u8 A7139_setup(void)
     u8 return_val = 0u;    //must be init 0
     
     /* RF parameter clear */
-    A7139_RF_FLG.bit_field = 0u;
+    A7139_RF_FLG.bit_fields = 0u;
     
     /* init io pin */
     A7139_SCS_MO;

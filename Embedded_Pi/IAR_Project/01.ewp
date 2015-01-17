@@ -304,6 +304,7 @@
           <state>$PROJ_DIR$\..\source_code\user</state>
           <state>$PROJ_DIR$\..\source_code\STduino</state>
           <state>$PROJ_DIR$\..\source_code\shield\RF\A7139</state>
+          <state>$PROJ_DIR$\..\source_code\shield\RF\CC1101</state>
           <state>$PROJ_DIR$\..\source_code\OpenSource_Lib\FEC</state>
           <state>$PROJ_DIR$\..\source_code\OpenSource_Lib\CRC</state>
         </option>
@@ -1985,6 +1986,30 @@
           <name>$PROJ_DIR$\..\source_code\shield\RF\A7139\A7139_RFregsetting.h</name>
         </file>
       </group>
+      <group>
+        <name>CC1101</name>
+        <excluded>
+          <configuration>Debug</configuration>
+        </excluded>
+        <file>
+          <name>$PROJ_DIR$\..\source_code\shield\RF\CC1101\CC1101.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\source_code\shield\RF\CC1101\CC1101.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\source_code\shield\RF\CC1101\CC1101_regConfig.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\source_code\shield\RF\CC1101\CC1101_regConfig.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\source_code\shield\RF\CC1101\CC1101_SPI.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\source_code\shield\RF\CC1101\CC1101_SPI.h</name>
+        </file>
+      </group>
     </group>
   </group>
   <group>
@@ -2000,6 +2025,12 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\source_code\STduino\Interrupts.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\source_code\STduino\Random.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\source_code\STduino\Random.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\source_code\STduino\Serial.c</name>

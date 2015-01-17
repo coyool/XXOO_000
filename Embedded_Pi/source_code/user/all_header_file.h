@@ -4,7 +4,7 @@
 
 /*** C standard lib ***/
 #include <stdio.h>      /* import printf scanf   */ 
-#include <stdlib.h>     /* import string convert */
+#include <stdlib.h>     /* import string convert  rand  */
 #include <string.h>     /* import memcpy memset memcmp ... */
 #include <stdarg.h>
 
