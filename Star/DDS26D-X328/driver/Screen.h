@@ -15,8 +15,8 @@
 #define SEG_T			        (uint16)12*8+3
 #define SEG_battery1		        (uint16)10*8+0
 #define SEG_battery2			(uint16)10*8+1
-#define SEG_cover			(uint16)10*8+2
-#define SEG_term			(uint16)10*8+3
+#define SEG_cover			(uint16)10*8+2   //S8
+#define SEG_term			(uint16)10*8+3   //S9
 #define SEG_k			        (uint16)9*8+3
 #define SEG_V			        (uint16)9*8+2
 #define SEG_X3		                (uint16)9*8+1

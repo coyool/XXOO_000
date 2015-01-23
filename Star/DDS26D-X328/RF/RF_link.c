@@ -24,7 +24,9 @@ static u8 CalcAddSum(u8 *StartAddr, u8 Length);
 static void DataBatProcess(u8 *StartAddr, u8 SubData, u8 Length, u8 Flag);
 static u8 RF_checkSWH(void);
 static void RF_updataSWH(void);
-
+static void RF_getMeterData(u8 DI);
+static void RF_setMeterData(u8 DI);
+static void RF_broadcastFrameHandle(void);
 
 
 /*** static variable declarations ***/
@@ -198,6 +200,7 @@ void RF_updataSWH(void)
             return;
         }
     }
+    
     memcpy(Temp+1, ReadMeterSerialNumber, 8);
     Temp[0] = RF_DATA_COLLECT;
     memcpy(ReadMeterSerialNumber, Temp, 8); 
@@ -214,24 +217,18 @@ void RF_updataSWH(void)
 *******************************************************************************/
 static void RF_getMeterData(u8 DI)    //Command
 {
-	uint16 Result = 0u;
+	u8 temp = 0u;
     
-//    if ( MeterInfoIsStateBitSet(STATE_READ_ENERGY_ERR)
-//		 || MeterInfoIsStateBitSet(STATE_SAVE_ENERGY_ERR))  //save and read  Error
-//    {
-//        return;
-//    }
-	
     RF_availableSendFlag = 1u;   //RF 发送有效标志默认为发送
     
-    Result = RFGetData(DI, RF_linkBuff); //有功 
-    if (0u == Result)   
+    temp = RFGetData(DI, RF_linkBuff); 
+    if (0u == temp)   
     {
         RF_availableSendFlag = 0u;
     }  
     else
     {
-        memcpy(RF_macSendBuff+6, RF_linkBuff, Result);
+        memcpy(RF_macSendBuff+6, RF_linkBuff, temp);
         switch (DI)
         {
             case 0xa3:  //电量
@@ -247,12 +244,6 @@ static void RF_getMeterData(u8 DI)    //Command
                 * 此次更新事务号的时候,接收到掌机号,需要重新回传给掌机模块,掌机模块可以判断接收
                 */
                 RF_macSendBuff[11] = RF_macRecvBuff[10]&0x3f; 
-                break;
-            case 0x87:
-                RF_macSendBuff[5] = 0x77;
-                break;
-            case 0x86:
-                RF_macSendBuff[5] = 076;
                 break;
             case 0xa9:  //电流电压L1
                 RF_macSendBuff[5] = 0x59;       
@@ -271,7 +262,19 @@ static void RF_getMeterData(u8 DI)    //Command
                 break;
             case 0x8b:  //功因
                 RF_macSendBuff[5] = 0x7b;
-                break;       
+                break; 
+            case 0x60:  //冻结
+                RF_macSendBuff[5] = 0x40;
+                break;
+            case 0x20:  //抄读历史电量
+                RF_macSendBuff[5] = 0x10;
+                break;
+            case 0xF1:  //抄读时间
+                RF_macSendBuff[5] = 0xD1;
+                break;
+            case 0xF3:  //抄读地理信息
+                RF_macSendBuff[5] = 0xD3;
+                break;
             //....      
             default:
                 RF_availableSendFlag = 0u;
@@ -279,6 +282,67 @@ static void RF_getMeterData(u8 DI)    //Command
         }//end switch(DI)  
     }//end if (0u == Result)       
     
+//#define 	ReadFreezeRFID	 			0x60
+//#define     ReadBillingRFID  			0x20
+//#define     ReadTimeRFID	 			0xF1
+//#define     ReadGeographyRFID			0xF3
+//#define     ReadCurrentEnergyRFID		0xA3
+//#define		ReadBroadcastEnergyRFID 	0xA4
+//#define     ReadCurrentEnergy1RFID  	0xA5
+//#define     ReadVoltageCurrentRFID  	0xA9
+//#define     ReadPowerRFID           	0x83
+//#define 	ReadPowerFactorRFID			0x8B
+//#define     ReadStealCountRFID      	0x8A
+//#define     ReadDisplayMeterIDRFID  	0xAF
+//
+//#define     WriteMeterIDRFID			0xA6
+//#define     WriteBroadcastAdjustTime	0xF0
+//#define     WriteGeographyRFID          0xF2    
+       
+}
+
+/*******************************************************************************
+* Description : 
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 两函数可合并，待定
+*******************************************************************************/
+static void RF_setMeterData(u8 DI)
+{
+    u8 temp = 0u;
+    
+    RF_availableSendFlag = 1u;   //RF 发送有效标志默认为发送
+    
+    temp = RFSetData(DI, RF_linkBuff); 
+    if (0u == temp)   
+    {
+        RF_availableSendFlag = 0u;
+    } 
+    else
+    {
+        memcpy(RF_macSendBuff+6, RF_linkBuff, temp);
+        switch (DI)
+        {
+            case 0xA6:  //写表地址
+                RF_macSendBuff[5] = 0x56;
+                break;
+            case 0xF0:  //校时
+                RF_macSendBuff[5] = 0xD0;
+                break;
+            case 0xF2:  //设置地理信息 
+                RF_macSendBuff[5] = 0xD2;
+                break;
+            case 0xAF:  //广播显示表地址,无返回
+                RF_availableSendFlag = 0u;
+                break;
+            //....      
+            default:
+                RF_availableSendFlag = 0u;
+                break;
+                
+        }//end switch(  )
+    }    
 }
 
 /*******************************************************************************
@@ -288,61 +352,29 @@ static void RF_getMeterData(u8 DI)    //Command
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-//void RF_setMeterData(void)
-//{
-//    
-//}
-
-
-/*******************************************************************************
-* Description : 
-* Syntax      : 
-* Parameters I: 
-* Parameters O: 
-* return      : 
-*******************************************************************************/
-void RF_linkLayerProtocolStack(void)
-{
-    u8 checkSumFlag = 0u;
-    u8 checkMeterAddFlag = 0u; 
-    u8 RandomAddress;
-
-    checkSumFlag = CalcAddSum(RF_macRecvBuff, 12); //计算 CS 校验和
-    if (checkSumFlag != RF_macRecvBuff[12])
-    {
-        return;
-    }
-
-    // init 
-    RF_availableSendFlag = 0u;
-    memset(RF_macSendBuff, 0, sizeof(RF_macSendBuff));
-    memset(RF_linkBuff, 0, sizeof(RF_macRecvBuff));
+static void RF_broadcastFrameHandle(void)
+{ 
+//	/* Check the parameters */
+//	ASSERT ();
+   
+    u8 RandomAddress = 0u;
     
-    DataBatProcess(RF_macRecvBuff+1, 0x33, 4, SubFlag); //地址域  - 33
-    DataBatProcess(RF_macRecvBuff+6, 0x33, 6, SubFlag); //数据域  - 33
-
-    /**********************  广播命令处理  ********************/
-    if ((RF_macRecvBuff[1]==0x99) && (RF_macRecvBuff[2]==0x99) 
-        && (RF_macRecvBuff[3]==0x99) && (RF_macRecvBuff[4]==0x99))
+    if (RF_DI == 0xaf) //显示表地址
     {
-        if (RF_DI == 0xaf) //显示表地址
+        /* 显示表地址 */
+        RF_setMeterData(0xaf);
+    }
+    else if (RF_DI == 0xa4)  //广播抄表
+    {
+        if (!RF_checkSWH())  
         {
-            //DisplayAlarm(DIS_METER_NO, TRUE); 显示表地址
-            return;
-        }
-        else if (RF_DI == 0xa4)  //广播抄表
+            //当前广播事务处理完结，等待下一次更新事务号的广播
+        }    
+        else
         {
-            if (!RF_checkSWH())  
-            {
-                return;
-            }    
-            else
-            {
-            }
-            
             if (RF_R_SEND_NUMBER < SET_R_ADDR)  //  RF_macRecvBuff[11] = RF_R_SEND_NUMBER
             {
-               RandomAddress = BT_RTGet16bitCount(BT_CH_6) & 0xff;  // 调用库随机函数   种子 = BT_CH_6；                
+                RandomAddress = BT_RTGet16bitCount(BT_CH_6) & 0xff;  // 调用库随机函数  种子 = BT_CH_6；                
             }
             RandomAddress &= RF_MASK;    // RF_macRecvBuff[8]   
             if (RF_R_SEND_NUMBER >= RandomAddress)   // RF_macRecvBuff[11]  >=
@@ -363,27 +395,70 @@ void RF_linkLayerProtocolStack(void)
                 
                 CC1101_Send(RF_macSendBuff, RF_shortPayloadSize); // 13 byte
             }
-            
-            return;
+        }//end if (!RF_checkSWH())  
+    }
+    else
+    {
+    }   
+}
+
+/*******************************************************************************
+* Description : 
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+void RF_linkLayerProtocolStack(void)
+{
+    u8 checkSumFlag = 0u;
+    u8 checkMeterAddFlag = 0u; 
+
+    checkSumFlag = CalcAddSum(RF_macRecvBuff, 12); //计算 CS 校验和
+    if (checkSumFlag != RF_macRecvBuff[12])
+    {
+        return;
+    }
+
+    //parameters init 
+    RF_availableSendFlag = 0u;
+    memset(RF_macSendBuff, 0, sizeof(RF_macSendBuff));
+    memset(RF_linkBuff, 0, sizeof(RF_macRecvBuff));
+    
+    DataBatProcess(RF_macRecvBuff+1, 0x33, 4, SubFlag); //地址域  - 33
+    DataBatProcess(RF_macRecvBuff+6, 0x33, 6, SubFlag); //数据域  - 33
+
+    /**********************  广播命令处理  ********************/
+    if ((RF_macRecvBuff[1]==0x99) && (RF_macRecvBuff[2]==0x99) 
+        && (RF_macRecvBuff[3]==0x99) && (RF_macRecvBuff[4]==0x99))
+    {
+        /*** 广播帧处理 ***/
+        RF_broadcastFrameHandle();
+    }
+    else
+    {
+        /*** 验证RX_buff中的表地址 与 本机表地址是否一致 ***/
+        checkMeterAddFlag = RF_checkMeterAddress();
+        if (0u != checkMeterAddFlag)
+        {
+            checkMeterAddFlag = 0u;
         }
         else
         {
+            /*** 除广播之外的 DI码处理, 数据帧，命令帧 ***/
+//            RF_availableSendFlag = 1u;
+            RF_getMeterData(RF_DI);
+            if (0u == RF_availableSendFlag)
+            {
+                RF_setMeterData(RF_DI);
+            }    
+            else
+            {
+            }    
         }    
-    }//end if 广播处理
+    }//end if (99 99 99 99)
      
-    /******************** 验证RX_buff中的表地址 与 本机表地址是否一致 ********************/
-    checkMeterAddFlag = RF_checkMeterAddress();
-    if (0u != checkMeterAddFlag)
-    {
-        checkMeterAddFlag = 0u;
-        return;
-    }    
-
-    /************************** 除广播之外的 DI码 处理 **********************************/
-	RF_getMeterData(RF_DI);
-    //..  set data 
-    
-    
+    //isSend()
     if (1u == RF_availableSendFlag)  
     {
         //处理协议通用 bytes     

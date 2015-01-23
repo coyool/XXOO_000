@@ -2015,6 +2015,15 @@
   <group>
     <name>STduino</name>
     <file>
+      <name>$PROJ_DIR$\..\source_code\STduino\Analog_IO.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\source_code\STduino\Analog_IO.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\source_code\STduino\Arduino.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\source_code\STduino\Digital_IO.c</name>
     </file>
     <file>

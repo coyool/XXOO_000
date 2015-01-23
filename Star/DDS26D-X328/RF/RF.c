@@ -54,7 +54,7 @@ RF_TYPE  RF;      /* RF struct */
 uint32_t oneDayCnt;   
 
 
-//#define RF_SLAVE
+
 
 /*******************************************************************************
 * Description : 
@@ -166,8 +166,8 @@ static void CC1101_pinMode(void)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-//static void CC1101_displayTxCommSymbol(void)
-//{
+static void CC1101_displayTxCommSymbol(void)
+{
 //    SetSegment(SEG_M1, 0);  //display
 //    SetSegment(SEG_M2, 0);  //display
 //    SetSegment(SEG_M3, 0);  //display
@@ -176,9 +176,9 @@ static void CC1101_pinMode(void)
 //    SetSegment(SEG_M6, 0);  //display
 //    SetSegment(SEG_M7, 0);  //display
 //    SetSegment(SEG_M8, 0);  //display
-//    
-//    RefreshLCD();
-//}
+    SetSegment(SEG_cover, 0);  //display
+    RefreshLCD();
+}
 
 /*******************************************************************************
 * Description :  comm -- communication
@@ -187,16 +187,17 @@ static void CC1101_pinMode(void)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-//static void CC1101_displayRxCommSymbol(void)
-//{
+static void CC1101_displayRxCommSymbol(void)
+{
 //    SetSegment(SEG_sign, 0);  //display
 //    SetSegment(SEG_s19, 0);   //display 
 //    SetSegment(SEG_s20, 0);   //display 
 //    SetSegment(SEG_s21, 0);   //display 
 //    SetSegment(SEG_s22, 0);   //display 
-//    
-//    RefreshLCD();
-//}
+    
+    SetSegment(SEG_term, 0);   //display 
+    RefreshLCD();
+}
 
 /*******************************************************************************
 * Description : 
@@ -439,11 +440,10 @@ void CC1101_init(void)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void isSend(void)
-{
-    
-}
-
+//void isSend(void)
+//{
+//    
+//}
 
 /*******************************************************************************
 * Description : 
@@ -482,7 +482,7 @@ void CC1101_Send(uint8_t *TxBuff, const uint8_t len)
 
 #ifdef RF_PA_EN    
     pinPA_Tx_EN;   // Tx PA  (RF PA内部 三极管有延时,配置完PA需 delayUs(200);)
-    delayMs(5);
+    delayMs(5);    // X328,IO口有上拉，且电阻值较大。
 #endif
         
     //delayMs(10);   // ARM 频率快  延时发送 20ms <= T <= 500ms
@@ -513,11 +513,6 @@ void CC1101_Send(uint8_t *TxBuff, const uint8_t len)
 #endif
     
     CC1101_RxMode();  //default Rx mode enalbe ExtInt
-    
-    //wzg test
-    IO_WriteGPIOPin(IO_PORT4,IO_PINxC,IO_BIT_SET);   //M-RXD-LED
-    IO_WriteGPIOPin(IO_PORT3,IO_PINxF,IO_BIT_CLR);   //M-TXD-LED 
-    //---------------------
 }
 
 /*******************************************************************************
@@ -605,8 +600,9 @@ void CC1101_Recv(void)
         
 #ifdef CC1101_DISPLAY_RX_COMM_SYMBOL_EN            
         CC1101_displayRxCommSymbol();
-        IO_WriteGPIOPin(IO_PORT4,IO_PINxC,IO_BIT_CLR);   //M-RXD-LED
-        IO_WriteGPIOPin(IO_PORT3,IO_PINxF,IO_BIT_SET);   //M-TXD-LED  
+        //wzg
+//        IO_WriteGPIOPin(IO_PORT4,IO_PINxC,IO_BIT_CLR);   //M-RXD-LED
+//        IO_WriteGPIOPin(IO_PORT3,IO_PINxF,IO_BIT_SET);   //M-TXD-LED  
 #endif
 		CC1101_ExtInt_disable();  
 
@@ -645,7 +641,7 @@ void CC1101_Recv(void)
         CC1101_RxMode();  // 恢复默认 Rx
         
 #ifdef RF_SLAVE         
-        CC1101_RxMode();    //default Rx mode enalbe ExtInt
+        CC1101_RxMode();    //default Rx mode, enalbe ExtInt
 #endif        
 	}
 	else     

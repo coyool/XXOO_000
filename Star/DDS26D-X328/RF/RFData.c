@@ -296,13 +296,12 @@ static uint8 SetBroadcastAdjustTime(uint8 *Buf)
 	}
 	if(result !=DA_SUCCESS)
 	{
-		return 0; 
+		return 0;   //不成功
 	}
 	else
 	{
-		return 1; 
-	}
-	
+		return 1;   //成功
+	}	
 }
 
 static uint8 SetGeographyData(uint8 *Buf)
@@ -316,7 +315,7 @@ static uint8 SetGeographyData(uint8 *Buf)
 	switch(type)
 	{
 		case 0:
-			memcpy(temp, Buf+2, 4); 	//经度
+			memcpy(temp, Buf+2, 4); //经度
 			result +=4;
 			break;
 		case 1:
@@ -343,16 +342,16 @@ uint8 RFGetData(uint8 RFDI,uint8 *pBuf)
 	
 	switch(RFDI)
 	{
-		case ReadFreezeRFID:
+		case ReadFreezeRFID:   //冻结
 			result = GetFreezeData(pBuf);
 			break;
-		case ReadBillingRFID:
+		case ReadBillingRFID:  //历史记录电量
 			result = GetMonthBillingData(pBuf);
 			break;
-		case ReadTimeRFID:
+		case ReadTimeRFID:     //抄读时间    
 			result = GetTimeData(pBuf);
 			break;
-		case ReadGeographyRFID:
+		case ReadGeographyRFID://地理信息
 			result = GetGeographyData(pBuf);
 			break;
 		case ReadBroadcastEnergyRFID:

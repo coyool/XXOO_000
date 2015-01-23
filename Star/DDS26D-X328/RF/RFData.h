@@ -4,7 +4,7 @@
 #define _RFDATA_H
 
  
-#define 	ReadFreezeRFID	 			0x50
+#define 	ReadFreezeRFID	 			0x60
 #define     ReadBillingRFID  			0x20
 #define     ReadTimeRFID	 			0xF1
 #define     ReadGeographyRFID			0xF3

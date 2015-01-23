@@ -3,8 +3,9 @@
 
 
 /*** define and type ***/
-#define     LOW     Bit_RESET 
-#define     HIGH    Bit_SET
+#define     EMBEDDED_PI    1
+
+
 
 typedef enum
 {
@@ -65,7 +66,7 @@ typedef enum
 typedef struct
 {
      GPIO_TypeDef*  PORTx;
-     u16            pinx;
+     u32            pinx;
 }PORT_PIN_TYPE;
 
 /*** extern variable declarations ***/

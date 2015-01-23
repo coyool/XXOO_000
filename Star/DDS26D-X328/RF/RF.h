@@ -2,8 +2,10 @@
 #define __RF_H_
 
 /*** define and type ***/ 
-//#define CC1101_DISPLAY_TX_COMM_SYMBOL_EN    
-//#define CC1101_DISPLAY_RX_COMM_SYMBOL_EN
+#define CC1101_DISPLAY_TX_COMM_SYMBOL_EN    
+#define CC1101_DISPLAY_RX_COMM_SYMBOL_EN
+//#define RF_SLAVE
+
 #define RF_PA_EN
 //..
 
