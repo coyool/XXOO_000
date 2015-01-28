@@ -42,9 +42,9 @@ void loop(void)
 {
     u8 i;
     __NOP();
-    for (i=0; i<1; i++)
+    for (i=0; i<100; i++)
     {
-        FEC_test();
+        //FEC_test();
         LED_Blink(LED1, 10, 100);
         //RF_test();
         

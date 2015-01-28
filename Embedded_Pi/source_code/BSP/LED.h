@@ -4,10 +4,9 @@
 
 /*** define and type ***/
 /* Embedded_Pi hardware config */
-#define LEDn                             1
-#define LED1_PIN                         GPIO_Pin_13
-#define LED1_GPIO_PORT                   GPIOB
-#define LED1_GPIO_CLK                    RCC_APB2Periph_GPIOB
+#define LEDn        1
+
+
 
 
 #define LED1(a) if (a)  \
@@ -17,12 +16,12 @@
 
 typedef enum 
 {
-  LED1 = 0,
-  LED2 = 1,
-  LED3 = 2,
-  LED4 = 3,
-  LED5 = 4     
-}Led_TypeDef;
+    LED1 = 1,
+    LED2 = 2,
+    LED3 = 3,
+    LED4 = 4,
+    LED5 = 5     
+}LED_TYPEDEF;
 
 
 
@@ -35,10 +34,10 @@ typedef enum
 
 
 /*** extern function prototype declarations ***/
-extern void LED_setup(Led_TypeDef LED);
-extern void LED_Blink(Led_TypeDef LED, __IO u32 cnt, const u32 interval);
-extern void LED_on(Led_TypeDef LED);
-extern void LED_off(Led_TypeDef LED);
+extern void LED_setup(LED_TYPEDEF LED);
+extern void LED_Blink(LED_TYPEDEF LED, __IO u32 cnt, const u32 interval);
+extern void LED_on(LED_TYPEDEF LED);
+extern void LED_off(LED_TYPEDEF LED);
 
 
 #endif   /* end __LED_H_ */

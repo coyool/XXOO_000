@@ -234,7 +234,7 @@ u8 digitalRead_Px(STM32F103x_PIN_TYPE pin)
 * Parameters O: None
 * return      : None
 *******************************************************************************/
-void pinMode(STM32F103x_PIN_TYPE pin, GPIOMode_TypeDef mode)
+void pinMode(EMBEDDED_PI_PIN_TYPE pin, GPIOMode_TypeDef mode)
 {
     GPIO_InitTypeDef  GPIO_InitStructure;
 
@@ -242,11 +242,11 @@ void pinMode(STM32F103x_PIN_TYPE pin, GPIOMode_TypeDef mode)
 //    RCC_APB2PeriphClockCmd(PORT, ENABLE);    
     
     /* Configure the GPIO_LED pin */
-    GPIO_InitStructure.GPIO_Pin = PORT_pin_tab[pin].pinx;
+    GPIO_InitStructure.GPIO_Pin = pinMap[pin].pinx;
     GPIO_InitStructure.GPIO_Mode = mode;  
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
     
-    GPIO_Init(PORT_pin_tab[pin].PORTx, &GPIO_InitStructure);
+    GPIO_Init(pinMap[pin].PORTx, &GPIO_InitStructure);
 }
 
 /*******************************************************************************
@@ -257,11 +257,11 @@ void pinMode(STM32F103x_PIN_TYPE pin, GPIOMode_TypeDef mode)
 * Parameters O: none
 * return      : none
 *******************************************************************************/
-void digitalWrite(STM32F103x_PIN_TYPE pin, BitAction BitVal)
+void digitalWrite(EMBEDDED_PI_PIN_TYPE pin, BitAction BitVal)
 {
     /* Set the GPIOA port pin 15 */ 
-    GPIO_WriteBit(PORT_pin_tab[pin].PORTx,
-                  PORT_pin_tab[pin].pinx, 
+    GPIO_WriteBit(pinMap[pin].PORTx,
+                  pinMap[pin].pinx, 
                   BitVal); 
 }
 
@@ -272,12 +272,12 @@ void digitalWrite(STM32F103x_PIN_TYPE pin, BitAction BitVal)
 * Parameters O: none
 * return      : HIGH or LOW
 *******************************************************************************/
-u8 digitalRead(STM32F103x_PIN_TYPE pin)
+u8 digitalRead(EMBEDDED_PI_PIN_TYPE pin)
 {
     /* Reads the seventh pin of the GPIOB and store it in ReadValue variable */ 
     u8 ReadValue; 
-    ReadValue = GPIO_ReadInputDataBit(PORT_pin_tab[pin].PORTx,
-                                      PORT_pin_tab[pin].pinx); 
+    ReadValue = GPIO_ReadInputDataBit(pinMap[pin].PORTx,
+                                      pinMap[pin].pinx); 
     return ReadValue;
 }
 

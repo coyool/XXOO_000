@@ -17,19 +17,11 @@
 #include    "all_header_file.h"
 
 /*** static function prototype declarations ***/
-GPIO_TypeDef* LED_GPIO_PORT[LEDn] = 
+const EMBEDDED_PI_PIN_TYPE LED_pinMap[LEDn] = 
 {
-    LED1_GPIO_PORT
+    D13
 };
 
-const uint16_t LED_GPIO_PIN[LEDn] = 
-{
-    LED1_PIN
-};
-//const uint32_t LED_GPIO_CLK[LEDn] = 
-//{
-//    LED1_GPIO_CLK
-//};
 
 
 /*** static variable declarations ***/
@@ -51,10 +43,9 @@ const uint16_t LED_GPIO_PIN[LEDn] =
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void LED_setup(Led_TypeDef LED)
+void LED_setup(LED_TYPEDEF LED)
 {
-    pinMode_ALL(LED_GPIO_PORT[LED], LED_GPIO_PIN[LED], 
-            GPIO_Mode_Out_PP, GPIO_Speed_50MHz);
+    pinMode(LED_pinMap[LED], OUTPUT);
 }
 
 /*******************************************************************************
@@ -64,7 +55,7 @@ void LED_setup(Led_TypeDef LED)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void LED_Blink(Led_TypeDef LED, __IO u32 cnt, const u32 interval)
+void LED_Blink(LED_TYPEDEF LED, __IO u32 cnt, const u32 interval)
 {   
     while (cnt--)
     {
@@ -82,9 +73,9 @@ void LED_Blink(Led_TypeDef LED, __IO u32 cnt, const u32 interval)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void LED_on(Led_TypeDef LED)
+void LED_on(LED_TYPEDEF LED)
 {
-    digitalWrite_ALL(LED_GPIO_PORT[LED], LED_GPIO_PIN[LED], HIGH);
+    digitalWrite(LED_pinMap[LED], HIGH);
 }
 
 /*******************************************************************************
@@ -94,9 +85,9 @@ void LED_on(Led_TypeDef LED)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void LED_off(Led_TypeDef LED)
+void LED_off(LED_TYPEDEF LED)
 {
-    digitalWrite_ALL(LED_GPIO_PORT[LED], LED_GPIO_PIN[LED], LOW);
+    digitalWrite(LED_pinMap[LED], LOW);
 }
 
 

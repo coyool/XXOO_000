@@ -179,7 +179,7 @@ void BSP(void)
     
     /* Enable */
     SysTick_ENABLLE(DISABLE);         /* systick disable */
-    A7139_RxMode();
+    //A7139_RxMode();
     __enable_irq();                  /* EA = 1 */
     
     /* power on action */
@@ -188,7 +188,7 @@ void BSP(void)
     LED_Blink(LED1, 10, 100);
     printf(" programing information: \r\n");
     printf("\r\n ("__DATE__ "  " __TIME__ ") \r\n");
-    printf("version: \r\n");
+    printf(" version: \r\n");
     printf("\n");
 
 //    putchar('%');

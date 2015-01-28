@@ -38,7 +38,7 @@
 #include "CRC.h"
 #include "FEC.h"
 #include "Hamming.h"
-//#include "FECDec.h"
+
 
 /* shield lib */
 #include "A7139_RF.h"
@@ -50,6 +50,7 @@
 
 
 /* STduino lib */
+#include "Arduino.h"
 #include "Digital_IO.h"
 #include "Serial.h"
 

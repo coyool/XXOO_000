@@ -183,7 +183,7 @@ void EXTI9_5_IRQHandler(void)
     {     
         EXTI_ClearITPendingBit(EXTI_Line7); //CLR pending bit 
         //do something
-        A7139_Recv_flag = 1;
+//        A7139_Recv_flag = 1;
     }
     else
     {

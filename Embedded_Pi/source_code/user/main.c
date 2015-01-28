@@ -68,9 +68,10 @@ int main(void)
   */
 PUTCHAR_PROTOTYPE
 {
+#ifdef DEBUG_USART1
     /* Place your implementation of fputc here */
     /* e.g. write a character to the USART */
-    USART_SendData(USART1, (u8) ch);
+    USART_SendData(USART1, (uint8_t) ch);
 
     /* Loop until the end of transmission */
     while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET)
@@ -79,6 +80,15 @@ PUTCHAR_PROTOTYPE
     }
 
     return ch;
+#endif
+    
+#ifdef DEBUG_ITM
+    /* Place your implementation of fputc here */
+    /* e.g. write a character to the ITM */
+    ITM_SendChar((uint32_t)ch);
+    
+    return ch;
+#endif
 }
 
 #ifdef  USE_FULL_ASSERT

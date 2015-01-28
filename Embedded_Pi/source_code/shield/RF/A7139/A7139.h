@@ -24,25 +24,25 @@ typedef enum
 #define A7139_onTheAir_LIMIT_SIZE   ((((A7139_payload_len+2)/2)+1)*4) /* MAX 1024 byte */
 
 /* SDIO */
-#define A7139_SDIO_OUT_HIGH   digitalWrite_ALL(GPIOA, GPIO_Pin_6, HIGH)
-#define A7139_SDIO_OUT_LOW    digitalWrite_ALL(GPIOA, GPIO_Pin_6, LOW)
+#define A7139_SDIO_OUT_HIGH   digitalWrite(GPIOA, GPIO_Pin_6, HIGH)
+#define A7139_SDIO_OUT_LOW    digitalWrite(GPIOA, GPIO_Pin_6, LOW)
 #define A7139_SDIO_IN_HIGH    digitalRead_ALL(GPIOA, GPIO_Pin_6)     
-#define A7139_SDIO_MI         pinMode_ALL(GPIOA, GPIO_Pin_6, GPIO_Mode_IN_FLOATING, GPIO_Speed_50MHz) 
-#define A7139_SDIO_MO         pinMode_ALL(GPIOA, GPIO_Pin_6, GPIO_Mode_Out_PP, GPIO_Speed_50MHz) 
+#define A7139_SDIO_MI         pinMode(GPIOA, GPIO_Pin_6, GPIO_Mode_IN_FLOATING, GPIO_Speed_50MHz) 
+#define A7139_SDIO_MO         pinMode(GPIOA, GPIO_Pin_6, GPIO_Mode_Out_PP, GPIO_Speed_50MHz) 
 
 /* SCK */
-#define A7139_SCK_MO          pinMode_ALL(GPIOA, GPIO_Pin_5, GPIO_Mode_Out_PP, GPIO_Speed_50MHz)	
-#define A7139_SCK_OUT_HIGH    digitalWrite_ALL(GPIOA, GPIO_Pin_5, HIGH)
-#define A7139_SCK_OUT_LOW     digitalWrite_ALL(GPIOA, GPIO_Pin_5, LOW)
+#define A7139_SCK_MO          pinMode(GPIOA, GPIO_Pin_5, GPIO_Mode_Out_PP, GPIO_Speed_50MHz)	
+#define A7139_SCK_OUT_HIGH    digitalWrite(GPIOA, GPIO_Pin_5, HIGH)
+#define A7139_SCK_OUT_LOW     digitalWrite(GPIOA, GPIO_Pin_5, LOW)
 
 /* SCS */
-#define A7139_SCS_MO          pinMode_ALL(GPIOA, GPIO_Pin_4, GPIO_Mode_Out_PP, GPIO_Speed_50MHz)	
-#define A7139_SCS_OUT_HIGH    digitalWrite_ALL(GPIOA, GPIO_Pin_4, HIGH)
-#define A7139_SCS_OUT_LOW     digitalWrite_ALL(GPIOA, GPIO_Pin_4, LOW)
+#define A7139_SCS_MO          pinMode(GPIOA, GPIO_Pin_4, GPIO_Mode_Out_PP, GPIO_Speed_50MHz)	
+#define A7139_SCS_OUT_HIGH    digitalWrite(GPIOA, GPIO_Pin_4, HIGH)
+#define A7139_SCS_OUT_LOW     digitalWrite(GPIOA, GPIO_Pin_4, LOW)
 
 /* GIO1 */	
-#define A7139_GIO1_MI         pinMode_ALL(GPIOA, GPIO_Pin_7, GPIO_Mode_IN_FLOATING, GPIO_Speed_50MHz)
-#define A7139_GIO1_IN_HIGH    digitalRead_ALL(GPIOB, GPIO_Pin_7) 
+#define A7139_GIO1_MI         pinMode(GPIOA, GPIO_Pin_7, GPIO_Mode_IN_FLOATING, GPIO_Speed_50MHz)
+#define A7139_GIO1_IN_HIGH    digitalRead(GPIOB, GPIO_Pin_7) 
 
 /* GIO2 */
 /* CKO */

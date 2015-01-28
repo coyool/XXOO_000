@@ -18,6 +18,7 @@
 //typedef    uint64_t       uL64
 
 
+
 typedef struct    /* ARM int 32 bit field */
 {
     unsigned int bit0:  1;

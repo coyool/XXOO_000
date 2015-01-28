@@ -63,6 +63,57 @@ typedef enum
 }STM32F103x_PIN_TYPE;
 
 
+typedef enum
+{
+    D0 = 0,
+    D1,
+    D2,
+    D3,
+    D4,
+    D5,
+    D6,
+    D7,
+    D8,
+    D9,
+    D10,
+    D11,
+    D12,
+    D13,
+    D14,
+    D15,
+    A16,
+    A17,
+    A18,
+    A19,
+    A20,
+    A21,
+    D22,
+    D23,
+    D24,
+    D25,
+    D26,
+    D27,
+    D28,
+    D29,
+    D30,
+    D31,
+    D32,
+    D33,
+    D34,
+    D35,
+    D36,
+    D37,
+    D38,
+    D39,
+    A40,
+    A41,
+    A42,
+    A43,
+    A44,
+    A45
+    //..    
+}EMBEDDED_PI_PIN_TYPE;
+
 typedef struct
 {
      GPIO_TypeDef*  PORTx;
@@ -83,6 +134,9 @@ extern void pinMode_Px(STM32F103x_PIN_TYPE pin, GPIOMode_TypeDef mode);
 extern void digitalWrite_Px(STM32F103x_PIN_TYPE pin, BitAction BitVal);
 extern u8 digitalRead_Px(STM32F103x_PIN_TYPE pin);
 
+extern void pinMode(EMBEDDED_PI_PIN_TYPE pin, GPIOMode_TypeDef mode);
+extern void digitalWrite(EMBEDDED_PI_PIN_TYPE pin, BitAction BitVal);
+extern u8 digitalRead(EMBEDDED_PI_PIN_TYPE pin);
 
 #endif   /* end __Digital_IO_H_ */
 

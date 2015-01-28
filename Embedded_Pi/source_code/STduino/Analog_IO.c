@@ -46,11 +46,28 @@
 *               Otherwise, you will short together the active reference voltage (internally generated) and the AREF pin, 
 *               possibly damaging the microcontroller on your Arduino board
 *******************************************************************************/
-void analogReference(void)
-{
-	/* Check the parameters */
-	ASSERT ();
-	
-	
-	
-}
+//void analogReference(void)
+//{
+//	/* Check the parameters */
+//	ASSERT ();
+//	
+//	
+//	
+//}
+
+/*******************************************************************************
+* Description : 
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+//void (void)
+//{
+//	/* Check the parameters */
+//	ASSERT ();
+//	
+//	
+//	
+//}
+

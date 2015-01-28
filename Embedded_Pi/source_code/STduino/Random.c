@@ -123,7 +123,7 @@ int randomRange(u32 howsmall, u32 howbig)
     
     diff = howbig - howsmall;
     
-    return (rand(diff) + howsmall);
+    return (rand() + howsmall);
 }
 
 

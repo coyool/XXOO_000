@@ -3,7 +3,7 @@
 
 
 /*** define and type ***/
-
+#define     DEBUG_ITM   1 
 
 
 /*** extern variable declarations ***/
