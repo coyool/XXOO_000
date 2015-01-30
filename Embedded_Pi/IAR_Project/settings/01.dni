@@ -9,7 +9,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=1247180842
+Checksum=977688748
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -32,22 +32,49 @@ ShowSource=1
 [JLinkDriver]
 CStepIntDis=_ 0
 [SWOTraceHWSettings]
-OverrideDefaultClocks=0
+OverrideDefaultClocks=1
 CpuClock=72000000
-ClockAutoDetect=0
-ClockWanted=2000000
-JtagSpeed=2000000
-Prescaler=36
+ClockAutoDetect=1
+ClockWanted=6000000
+JtagSpeed=6000000
+Prescaler=12
 TimeStampPrescIndex=0
 TimeStampPrescData=0
-PcSampCYCTAP=1
-PcSampPOSTCNT=15
-PcSampIndex=0
+PcSampCYCTAP=0
+PcSampPOSTCNT=10
+PcSampIndex=21
 DataLogMode=0
-ITMportsEnable=1
-ITMportsTermIO=1
+ITMportsEnable=62
+ITMportsTermIO=62
 ITMportsLogFile=1
 ITMlogFile=$PROJ_DIR$\ITM.log
+[DataStripe]
+Title0=ms
+Setup0=0 2 0 0 1 1 0 0 4294967295
+Title1=LED_pinMap
+Setup1=0 2 0 0 1 1 0 0 4294967295
+Title2=cnt
+Setup2=0 2 0 0 1 1 0 0 4294967295
+Title3=LED1
+Setup3=0 2 0 0 1 1 0 0 4294967295
+Title4=LED_setup
+Setup4=0 2 0 0 1 1 0 0 4294967295
+Title5=GPIO_DeInit
+Setup5=0 2 0 0 1 1 0 0 4294967295
+Title6=BSP
+Setup6=0 2 0 0 1 0 0 0 4294967295
+[PowerStripe]
+Title0=I0
+Setup0=2 2 0 0 1 1 0 0 500
+[EventStripe]
+Title0=ITM4
+Setup0=1 1 3 1 1 0 0 0 4294967295
+Title1=ITM3
+Setup1=1 1 3 1 1 0 0 0 4294967295
+Title2=ITM2
+Setup2=1 1 3 1 1 0 0 0 4294967295
+Title3=ITM1
+Setup3=1 1 3 1 1 0 0 0 4294967295
 [struct_types]
 Fmt0=EXTI_InitTypeDef-EXTI_Line	4	0
 Fmt1=TIMER_TYPE-systick_cnt	4	0
@@ -74,13 +101,27 @@ LiveFile=PowerLogLive.log
 [DataLog]
 LogEnabled=1
 SumEnabled=0
-GraphEnabled=0
+GraphEnabled=1
 ShowTimeLog=1
 ShowTimeSum=1
+Title0=ms
+Symbol0=0 4 1
+Title1=LED_pinMap
+Symbol1=0 4 1
+Title2=cnt
+Symbol2=0 4 1
+Title3=LED1
+Symbol3=0 4 1
+Title4=LED_setup
+Symbol4=0 4 1
+Title5=GPIO_DeInit
+Symbol5=0 4 1
+Title6=BSP
+Symbol6=0 4 1
 [EventLog]
 LogEnabled=0
 SumEnabled=0
-GraphEnabled=0
+GraphEnabled=1
 ShowTimeLog=1
 ShowTimeSum=1
 Title0=Ch0
@@ -133,8 +174,9 @@ Exclusions=
 [Disassemble mode]
 mode=0
 [Breakpoints2]
-Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\source_code\BSP\BSP.c}.205.5" 0 0 1 "" 0 "" 0
-Count=1
+Bp0=_ 1 "EMUL_DATA_LOG" "LED_pinMap" 0 0
+Bp1=_ 1 "EMUL_DATA_LOG" "ms" 0 0
+Count=2
 [Aliases]
 Count=0
 SuppressDialog=0

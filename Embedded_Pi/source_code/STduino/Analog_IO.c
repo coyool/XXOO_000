@@ -21,7 +21,7 @@
 
 
 /*** static variable declarations ***/
-
+static VREF_MODE_TypeDef analog_reference = DEFAULT;
 
 
 /*** extern variable declarations ***/
@@ -46,14 +46,14 @@
 *               Otherwise, you will short together the active reference voltage (internally generated) and the AREF pin, 
 *               possibly damaging the microcontroller on your Arduino board
 *******************************************************************************/
-//void analogReference(void)
-//{
-//	/* Check the parameters */
+void analogReference(VREF_MODE_TypeDef mode)
+{
+	/* Check the parameters */
 //	ASSERT ();
-//	
-//	
-//	
-//}
+	
+	/* can't actually set the register here because the default setting */
+	analog_reference = mode;
+}
 
 /*******************************************************************************
 * Description : 
@@ -62,12 +62,29 @@
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-//void (void)
-//{
-//	/* Check the parameters */
-//	ASSERT ();
-//	
-//	
-//	
-//}
+void analogRead(void)
+{
+	/* Check the parameters */
+	ASSERT ();
+	
+	
+	
+}
+
+/*******************************************************************************
+* Description : 
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+void analogWrite(void)
+{
+	/* Check the parameters */
+	ASSERT ();
+	
+	
+	
+}
+
 

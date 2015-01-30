@@ -16,11 +16,11 @@
 
 typedef enum 
 {
-    LED1 = 1,
-    LED2 = 2,
-    LED3 = 3,
-    LED4 = 4,
-    LED5 = 5     
+    LED1 = 0,
+    LED2,
+    LED3,
+    LED4,
+    LED5     
 }LED_TYPEDEF;
 
 

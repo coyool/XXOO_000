@@ -69,7 +69,7 @@ void Serial_begin(void)
     GPIO_Init(GPIOA, &GPIO_InitStructure);
    
     /* USART1 configured as follow:
-        - BaudRate = 230400 baud  
+        - BaudRate = 115200 baud  
         - Word Length = 8 Bits
         - One Stop Bit
         - Even parity
