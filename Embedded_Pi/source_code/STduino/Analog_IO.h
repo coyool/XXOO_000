@@ -11,11 +11,11 @@
 
 
 /*** extern function prototype declarations ***/
-extern 
-extern 
-extern 
-extern 
-extern 
+extern void analogReference(VREF_MODE_TypeDef mode);
+//extern 
+//extern 
+//extern 
+//extern 
 
 
 #endif   /* end __ANALOG_H_ */

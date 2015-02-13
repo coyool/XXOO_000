@@ -1871,6 +1871,12 @@
   <group>
     <name>BSP</name>
     <file>
+      <name>$PROJ_DIR$\..\source_code\BSP\ADC.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\source_code\BSP\ADC.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\source_code\BSP\BSP.c</name>
     </file>
     <file>

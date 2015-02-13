@@ -33,6 +33,8 @@
 #include "delay.h"
 #include "EXTI.h"
 #include "LED.h"
+#include "ADC.h"
+#include "DMA.h"
 
 /* OpenSource lib */
 #include "CRC.h"
@@ -53,7 +55,7 @@
 #include "Arduino.h"
 #include "Digital_IO.h"
 #include "Serial.h"
-
+#include "Random.h"
 
 
 

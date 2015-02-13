@@ -40,7 +40,7 @@
 * Parameters O: 
 * return      : cnt = us * (SystemCoreClock/72000000UL);	
 *******************************************************************************/
-void delay_us(__IO u32 us)
+void delayUs(__IO u32 us)
 {
     __IO u32 cnt;
     
@@ -58,7 +58,7 @@ void delay_us(__IO u32 us)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void delay_ms(__IO u32 ms)
+void delayMs(__IO u32 ms)
 {
     __IO u32 cnt;
 
@@ -79,11 +79,11 @@ void delay_ms(__IO u32 ms)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void delay_s(__IO u32 cnt)
+void delay_S(__IO u32 cnt)
 {
     for ( ; cnt>0; cnt--)
     {
-        delay_ms(1000u);
+        delayMs(1000u);
     }    
 }
 

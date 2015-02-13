@@ -60,9 +60,9 @@ void LED_Blink(LED_TYPEDEF LED, __IO u32 cnt, const u32 interval)
     while (cnt--)
     {
         LED_on(LED1);
-        delay_ms(interval);
+        delayMs(interval);
         LED_off(LED1);
-        delay_ms(interval);
+        delayMs(interval);
     }    
 }
 

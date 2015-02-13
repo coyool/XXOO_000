@@ -42,9 +42,10 @@
 
 
 /*** extern variable declarations ***/
+__IO u32 randomSeedValue = 0u;
+__IO u32 randomValue = 0u;
 
-
-
+u32 randomSeedValue4bit = 0u;
 
 
 
@@ -64,7 +65,7 @@
 void randomSeed(unsigned int seed)
 {
 	/* Check the parameters */
-//	ASSERT ();
+	ASSERT (seed != 0);
     
     if (seed != 0) 
     {
@@ -88,7 +89,7 @@ void randomSeed(unsigned int seed)
 * Parameters O: 
 * return      : a random number between 0 and max-1 (long)
 *******************************************************************************/
-int random(u32 howbig)
+u32 random(u32 howbig)
 {
 	/* Check the parameters */
 	ASSERT (howbig < RAND_MAX);
@@ -108,7 +109,7 @@ int random(u32 howbig)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-int randomRange(u32 howsmall, u32 howbig)
+u32 randomRange(u32 howsmall, u32 howbig)
 {
     u32 diff = 0u;
     
@@ -123,9 +124,50 @@ int randomRange(u32 howsmall, u32 howbig)
     
     diff = howbig - howsmall;
     
-    return (rand() + howsmall);
+    return (random(diff) + howsmall);
 }
 
+/*******************************************************************************
+* Description : 
+* Syntax      : 
+* Parameters I: 
+* Parameters O: 
+* return      : 
+*******************************************************************************/
+void randomTest(void)
+{
+	/* Check the parameters */
+	//ASSERT ();
+	
+//    float AD_value = 0;
+    randomSeedValue4bit = 0u;
+    randomSeedValue4bit = 0u;
+    
+    randomSeedValue4bit = randomSeedValue%0x0F;
+    delayMs(10);
+    randomSeedValue4bit = ((randomSeedValue%0x0F)<<4) | randomSeedValue4bit;
+    delayMs(10);
+    randomSeedValue4bit = ((randomSeedValue%0x0F)<<8) | randomSeedValue4bit;
+    delayMs(10);
+    randomSeedValue4bit = ((randomSeedValue%0x0F)<<12) | randomSeedValue4bit;
+    delayMs(10);
+    randomSeedValue4bit = ((randomSeedValue%0x0F)<<16) | randomSeedValue4bit;
+    delayMs(10);
+    randomSeedValue4bit = ((randomSeedValue%0x0F)<<20) | randomSeedValue4bit;
+    delayMs(10);
+    randomSeedValue4bit = ((randomSeedValue%0x0F)<<24) | randomSeedValue4bit;
+    delayMs(10);
+    randomSeedValue4bit = ((randomSeedValue%0x0F)<<28) | randomSeedValue4bit;
+    delayMs(10);
+    
+    //AD_value = (float)randomSeedValue/4096*3.3;
+    //printf("AD:  %f \r\n", AD_value);
+    //printf("randomValue LSB 4bit: %d \r\n", randomSeedValue4bit);
+    randomSeed(randomSeedValue4bit);
+    randomValue = random(0x3ffffffe);
+    printf("randomValue: %d \r\n", randomValue);
+    delayMs(100);
+}
 
 
 

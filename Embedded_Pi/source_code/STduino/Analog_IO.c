@@ -62,14 +62,14 @@ void analogReference(VREF_MODE_TypeDef mode)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void analogRead(void)
-{
-	/* Check the parameters */
-	ASSERT ();
-	
-	
-	
-}
+//void analogRead(void)
+//{
+//	/* Check the parameters */
+//	ASSERT ();
+//	
+//	
+//	
+//}
 
 /*******************************************************************************
 * Description : 
@@ -78,13 +78,13 @@ void analogRead(void)
 * Parameters O: 
 * return      : 
 *******************************************************************************/
-void analogWrite(void)
-{
-	/* Check the parameters */
-	ASSERT ();
-	
-	
-	
-}
+//void analogWrite(void)
+//{
+//	/* Check the parameters */
+//	ASSERT ();
+//	
+//	
+//	
+//}
 
 

@@ -40,13 +40,14 @@ u32 temp = 0u;
 *******************************************************************************/
 void loop(void)
 {
-    u8 i;
+    u32 i;
     __NOP();
-    for (i=0; i<100; i++)
+    for (i=0; i<100000; i++)
     {
         //FEC_test();
-        LED_Blink(LED1, 10, 100);
+        //LED_Blink(LED1, 10, 100);
         //RF_test();
+        randomTest();
         
     }//end for(;;)    
 }

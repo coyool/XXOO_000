@@ -160,7 +160,9 @@ void BSP(void)
     
     NVIC_setup();    /* NVIC configuration */
     EXTI_setup();    /* EXTI configuration */
-    SysTick_setup(); /* SysTick configuration 10ms one time */  
+    SysTick_setup(); /* SysTick configuration 10ms one time */ 
+    DMA1_setup();    /* Periph buff to memory */
+    ADC1_setup();
     
     /* Embedded Pi setup */
     LED_setup(LED1);  /* SPI SCK pin */
@@ -183,7 +185,7 @@ void BSP(void)
     __enable_irq();                  /* EA = 1 */
     
     /* power on action */
-    memset(&timer, 0, sizeof(&timer));
+    memset(&timer, 0, sizeof(timer));
     
     LED_Blink(LED1, 10, 100);
     printf(" programing information: \r\n");

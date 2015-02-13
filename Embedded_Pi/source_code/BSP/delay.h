@@ -11,9 +11,9 @@
 
 
 /*** extern function prototype declarations ***/
-extern void delay_us(__IO u32 us);
-extern void delay_ms(__IO u32 ms);
-extern void delay_s(__IO u32 cnt);
+extern void delayUs(__IO u32 us);
+extern void delayMs(__IO u32 ms);
+extern void delay_S(__IO u32 cnt);
 
 
 
