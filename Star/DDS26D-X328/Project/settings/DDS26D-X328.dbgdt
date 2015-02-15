@@ -43,7 +43,7 @@
       <WATCH_1>
         <expressions>
           
-        <item>RF_macSendBuff</item><item>RF_linkBuff</item><item>RF_macRecvBuff</item><item>DI</item><item>RF_availableSendFlag</item><item></item></expressions>
+        <item>RF_macSendBuff</item><item>RF_linkBuff</item><item>RF_macRecvBuff</item><item>DI</item><item>RF_availableSendFlag</item><item/></expressions>
         <col-names>
           
           
